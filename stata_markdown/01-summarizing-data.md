@@ -2,6 +2,6 @@
 
 ^#^^#^ `describe`, `summarize`, `codebook`
 
-^#^ `mean`
+^#^^#^ `mean`
 
-^#^ `correlate`
+^#^^#^ `correlate`
