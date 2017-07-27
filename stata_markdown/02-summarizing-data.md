@@ -61,6 +61,44 @@ Things to look for here include
 
 ^#^^#^ `mean`
 
+The `mean` command gives summary statistics on the mean of a variable.
+
+~~~~
+<<dd_do>>
+mean price
+<</dd_do>>
+~~~~
+
+These are characteristics of the estimated mean of the "price" variable. The standard deviation reported from the `summarize` command above represenst
+the variability amongst individual cars; the standard error reported by `mean` the variability of *means*: if we were to repeatedly draw samples of
+size 74, the standard error is a measure of the variability of the means from all those samples.
+
+The confidence interval is interpreted as if we were to continue drawing those samples of size 74, we would expect 95\% of those samples to have an
+estimated mean within those bounds. It is *not* that we're 95% confidenct that the true population mean falls in that range - either it does or it
+doesn't!
+
+^#^^#^ Estimation Commands
+
+The introduction of `mean` allows us to discuss postestimation commands.
+
+In Stata, after running an estimation command (typically any command which estimates something in the data - e.g., `summarize` is not because it just
+provides statistics about the data, whereas `mean` is because it estimate a confidence interval), that command is saved and is the active command,
+until you run another. One benefit of this is it allows you to replay commands without re-running them or specifying them in full:
+
+~~~~
+<<dd_do>>
+mean
+<</dd_do>>
+~~~~
+
+This may seem trivial, but can be very handy if your command is slow and you want to review the results.
+
+The larger benefit is it enables access to postestimation commands and stored results.
+
+^#^^#^^#^ Postestimation commands
+
+^#^^#^^#^ Stored results
+
 ^#^^#^ `tab`
 
 ^#^^#^ `correlate`
