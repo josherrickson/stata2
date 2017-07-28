@@ -79,23 +79,51 @@ doesn't!
 
 ^#^^#^ Estimation Commands
 
-The introduction of `mean` allows us to discuss postestimation commands.
+The introduction of `mean` allows us to discuss estimation commands. An estimation command is any command that fits a statistical model - some of
+these are obvious such as `regress` for linear regression, but others such as `mean` which we just ran are also estimation commands because it is
+estimating a confidence interval. `summarize` is not because it only provides statistics about the current sample instead of making inference into the
+population.
 
-In Stata, after running an estimation command (typically any command which estimates something in the data - e.g., `summarize` is not because it just
-provides statistics about the data, whereas `mean` is because it estimate a confidence interval), that command is saved and is the active command,
-until you run another. One benefit of this is it allows you to replay commands without re-running them or specifying them in full:
+Almost all estimation commands have the same general syntax:
+
+```
+command varlist [if] [in] [weight] [,options]
+```
+
+The sections inside `[` and `]` are optional. The `command` can sometimes consist of a main command and one or more subcommands. The `varlist` can be
+empty, have a single entry, or have multiple entries (the order of which is sometimes of importance - generally the first is some outcome or dependent
+variable and the rest are predictors or independent variables).^[We won't cover in this class, but there are multiple-equation esimating commands
+which have syntax `command (varlist) (varlist) ... (varlist) [if] [in] [weight] [,options]`. ]
+
+Estimation commands are stored after they are run, and exist regardless of how many other non-estimation commands are run in between them. These
+non-estimation commands include data manipulation and [postestimation commands](#postestimation-commands). As soon as another estimation command is
+run, the first is dropped and the new one is saved.
+
+This allows interesting things such as replaying a command (calling the estimation command again without any `varlist` to re-display it's results)
+even if the data is gone!
 
 ~~~~
 <<dd_do>>
+clear
+list
 mean
 <</dd_do>>
 ~~~~
 
-This may seem trivial, but can be very handy if your command is slow and you want to review the results.
+A larger benefit of this is that if you are fitting a model on one data set and want to get predicted values on another, you could do something like
+this (this is psuedo-code, not real Stata!):
 
-The larger benefit is it enables access to postestimation commands and stored results.
+```
+use fitting_data
+model y x1 x2
+use newdata, clear
+predict fitted
+```
 
 ^#^^#^^#^ Postestimation commands
+
+
+
 
 ^#^^#^^#^ Stored results
 
