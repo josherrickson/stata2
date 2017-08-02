@@ -111,7 +111,7 @@ mean
 ~~~~
 
 A larger benefit of this is that if you are fitting a model on one data set and want to get predicted values on another, you could do something like
-this (this is psuedo-code, not real Stata!):
+this (this is pseudo-code, not real Stata!):
 
 ```
 use fitting_data
@@ -122,10 +122,127 @@ predict fitted
 
 ^#^^#^^#^ Postestimation commands
 
+Since the last estimation command is saved, any commands which need to reference it (called postestimation commands) do so inherently, no need to
+specify. For example, let's reload the data and run `mean` on a few variables.
 
+~~~~
+<<dd_do>>
+sysuse auto, clear
+mean mpg headroom length
+<</dd_do>>
+~~~~
 
+Let's say we want to obtain the correlation matrix^[We could just run `correlate`, but the postestimation commands following `mean` are fairly
+limited, so bare with me here. Postestimation commands following models are much more interesting!]
 
-^#^^#^^#^ Stored results
+~~~~
+<<dd_do>>
+estat vce, corr
+<</dd_do>>
+~~~~
+
+Here we see that both `length` and `headroom` are negatively correlated with `mpg`; as the car gets larger, its mileage decreases. Headroom and length
+are positively correlated, so cars aren't just growing in one direction!
+
+The `estat` command is somewhat generic, we will see other uses of it later.
+
+Similar to how you can get help with any command with help, e.g. `help mean`, you can get a list of all postestimation commands that a given
+estimation command supports:
+
+```
+help mean postestimation
+```
+
+There is also a link to the postestimation page in the help for the estimation command.
+
+^#^^#^^#^ Storing and restoring estimation commands
+
+The obvious downside to Stata's approach to saving the most recent estimation command is that you lose all earlier commands. If you have only a
+limited number of commands and each is fast, this isn't a big deal. However, with some
+more [advanced](mixed-models.html) [approaches](multiple-imputation.html), modeling can become very slow, so you may not want to lose the
+results. Stata has a solution for this, allowing us to store and recall estimation commands without having to re-run them. This has an obvious
+parallel to the `preserve`/`restore` commands that affect the data.
+
+You have the choice of saving the results temporarily (in memory) or permanently (to a file). There are the obvious pro's and con's to each
+approach. For these notes I will focus primarily on storing the results in memory, but I will point out where the commands differ if saving to a
+file. Let's run a fresh `mean` call to work with. The `estimates` command will be used.
+
+~~~~
+<<dd_do>>
+mean price mpg
+estimates query
+<</dd_do>>
+~~~~
+
+The `query` subcommand tells us what estimation command was last run, and whether it has already been saved. Here it has not. Let's save these
+results.
+
+~~~~
+<<dd_do>>
+estimates store mean1
+<</dd_do>>
+~~~~
+
+To save to a file, use `estimates save` instead. Now let's run a second `mean` commands.
+
+~~~~
+<<dd_do>>
+mean mpg headroom length
+est store mean2
+est query
+<</dd_do>>
+~~~~
+
+Now `query` is telling us that the current estimation commands are (obviously) stored as "mean2". Let's use `estimates restore` to jump between the
+two. (If saving to a file, use `estimates use` instead.)
+
+~~~~
+<<dd_do>>
+est restore mean1
+estat vce, corr
+est query
+<</dd_do>>
+~~~~
+
+To "replay" an estimation command (re-display the results without re-running the model), you can either restore it and call the blank command again:
+
+~~~~
+<<dd_do>>
+est restore mean2
+mean
+<</dd_do>>
+~~~~
+
+or use `estimates replay` directly:
+
+~~~~
+<<dd_do>>
+est query
+est replay mean1
+<</dd_do>>
+~~~~
+
+One use of stored estimates that will become a lot more useful later is creating a table to include all the results.
+
+~~~~
+<<dd_do>>
+est table mean1 mean2
+<</dd_do>>
+~~~~
+
+If you are familiar with regression, you should be able to see how useful this might be!
+
+Finally, we can see all saved commands with `dir`, drop a specific estimation command with `drop`, or remove all with `clear`:
+
+~~~~
+<<dd_do>>
+est dir
+est drop mean1
+est dir
+est clear
+est dir
+<</dd_do>>
+~~~~
 
 ^#^^#^ `tab`
 
