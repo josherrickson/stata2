@@ -1,4 +1,4 @@
-^#^ Univariates Analysis
+^#^ Univariate Analysis
 
 ^#^^#^ One-sample t-tests
 
