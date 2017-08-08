@@ -246,4 +246,92 @@ est dir
 
 ^#^^#^ `tab`
 
+Continuning on with exploring the data, categorical variables are not summarized well by the mean. Instead, we'll look at a tabulation.
+
+~~~~
+<<dd_do>>
+tabulate rep78
+<</dd_do>>
+~~~~
+
+This gives us the count at each level, the percent at each level, as well as the cumulative percent (e.g. 57.97% of observations have a value of 3 or
+below). The cumulative percentage is only informative for an ordinal variable (a categorical variable that has an ordering too it), and not an
+unordered categorical variable such as race.
+
+Note that it is counting a total of 69 observations to total 100\% of the data. However, you may have noticed earlier that we have 74 rows of data. By
+default, `tabulate` does *not* include any information about missing values. The `missing` option corrects that.
+
+~~~~
+<<dd_do>>
+tab rep78, missing
+<</dd_do>>
+~~~~
+
+It's important to keep in mind the difference between the percentages of the two outputs. For example, 11.59% of *non-missing* values of `rep78` are
+2, whereas only 10.81% of *all* values are 2.
+
+There are a few other options related to how the results are visualized which we will not cover.
+
+^#^^#^^#^ Two-way tables
+
+We will cover two-way tables (also known as "crosstabs") later in [univariate analysis](univariate-analysis.html#chi-sq-tests), but there is a
+pecularity to `tab` related to it. If you pass two variables to `tab`, it creates the crosstab:
+
+~~~~
+<<dd_do>>
+tab rep78 foreign, missing
+<</dd_do>>
+~~~~
+
+What if instead you wanted each individual table? You could run multiple `tab` statements, or use the `tab1` command instead.
+
+~~~~
+<<dd_do>>
+tab1 rep78 foreign, missing
+<</dd_do>>
+~~~~
+
+If you give more than two arguments to `tab`, it will not run. If you wanted all pairwise tables, you can use `tab2`:
+
+~~~~
+<<dd_do>>
+tab2 rep78 foreign headroom, missing
+<</dd_do>>
+~~~~
+
+^#^^#^^#^ Generating dummy variables
+
+Although Stata has excellent categorical variable handling capabilities, you may occasionally have the situation where you want the dummy variables
+instead of a category. For an example of the difference, consider a "campus" variable with three options, "central", "north" and "medical". Imagine
+our data looks like:
+
+| `id` | `campus` | `campuscentral` | `campusnorth` | `campusmedical` |
+|:----:|:---------|:---------------:|:-------------:|:---------------:|
+| 1    | north    | 0               | 1             | 0               |
+| 2    | central  | 1               | 0             | 0               |
+| 3    | north    | 0               | 1             | 0               |
+| 4    | north    | 0               | 1             | 0               |
+| 5    |medical   | 0               | 0             | 1               |
+
+Notice that the information in `campus` and the information encoded in `campuscentral`, `campusnorth`, and `campusmedical` are identical. A 1 in the
+`campus____` variables represents "True" and 0 represents "False", and only a single 1 is allowed per row.
+
+As mentioned, we will most of the time use categorical variables such as `campus` over dummy variables like `campus_____` (these are used in the
+actual model, but Stata creates them for you behind the scenes so you don't need to worry about them), but if necessary, you can create the dummy
+variables using `tab`:
+
+~~~~
+<<dd_do>>
+list rep* in 1/5
+tab rep78, gen(reps)
+list rep* in 1/5
+<</dd_do>>
+~~~~
+
+If you are not familiar with the `list` command, it prints out data. Giving it a variable (or multiple) restricts it to those (here we restricted it
+to `rep*`, which is any variable that starts with "rep" - the * is a wildcard), and the `in` statement restricts to the first 5 observations (we just
+want a quick visualization, not to print everything).
+
+Take note of how the missing value is treated.
+
 ^#^^#^ `correlate`
