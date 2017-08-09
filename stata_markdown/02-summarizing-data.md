@@ -51,7 +51,7 @@ Things to look for here include
   thresholds, respectively) and `codebook` gives the range. If, for example, we saw a minimum value of -203 or a maximum value of 145200 (keep in mind
   these are 1978 dollars!), that's an indication that there is an issue with the data, likely a mistake.
 - The mean is as expected. If this is higher or lower than expected, it might be an indication of skew or the existence of outliers. If it is very
-  close to the minimum or maximum value, perhaps you have a point mass (e.g. if you polled 18-21 year olds on their number of children, there would be
+  close to the minimum or maximum value, perhaps you have a point mass (e.g. if you polled 18-21 year old's on their number of children, there would be
   a lot of 0's but a few non-zeros).
 - If the standard deviation is very small (relative to the mean), then the variable has very consistent values. A standard deviation of 0 indicates a
   constant.
@@ -69,12 +69,12 @@ mean price
 <</dd_do>>
 ~~~~
 
-These are characteristics of the estimated mean of the "price" variable. The standard deviation reported from the `summarize` command above represenst
-the variability amongst individual cars; the standard error reported by `mean` the variability of *means*: if we were to repeatedly draw samples of
+These are characteristics of the estimated mean of the "price" variable. The standard deviation reported from the `summarize` command above represents
+the variability among individual cars; the standard error reported by `mean` the variability of *means*: if we were to repeatedly draw samples of
 size 74, the standard error is a measure of the variability of the means from all those samples.
 
 The confidence interval is interpreted as if we were to continue drawing those samples of size 74, we would expect 95\% of those samples to have an
-estimated mean within those bounds. It is *not* that we're 95% confidenct that the true population mean falls in that range - either it does or it
+estimated mean within those bounds. It is *not* that we're 95% confident that the true population mean falls in that range - either it does or it
 doesn't!
 
 ^#^^#^ Estimation Commands
@@ -92,7 +92,7 @@ command varlist [if] [in] [weight] [,options]
 
 The sections inside `[` and `]` are optional. The `command` can sometimes consist of a main command and one or more subcommands. The `varlist` can be
 empty, have a single entry, or have multiple entries (the order of which is sometimes of importance - generally the first is some outcome or dependent
-variable and the rest are predictors or independent variables).^[We won't cover in this class, but there are multiple-equation esimating commands
+variable and the rest are predictors or independent variables).^[We won't cover in this class, but there are multiple-equation estimating commands
 which have syntax `command (varlist) (varlist) ... (varlist) [if] [in] [weight] [,options]`. ]
 
 Estimation commands are stored after they are run, and exist regardless of how many other non-estimation commands are run in between them. These
@@ -246,7 +246,7 @@ est dir
 
 ^#^^#^ `tab`
 
-Continuning on with exploring the data, categorical variables are not summarized well by the mean. Instead, we'll look at a tabulation.
+Continuing on with exploring the data, categorical variables are not summarized well by the mean. Instead, we'll look at a tabulation.
 
 ~~~~
 <<dd_do>>
@@ -275,7 +275,7 @@ There are a few other options related to how the results are visualized which we
 ^#^^#^^#^ Two-way tables
 
 We will cover two-way tables (also known as "crosstabs") later in [univariate analysis](univariate-analysis.html#chi-sq-tests), but there is a
-pecularity to `tab` related to it. If you pass two variables to `tab`, it creates the crosstab:
+peculiarity to `tab` related to it. If you pass two variables to `tab`, it creates the crosstab:
 
 ~~~~
 <<dd_do>>
@@ -380,7 +380,7 @@ and low mileage cars tend to be large. A few notes:
 ^#^^#^^#^ varlists in Stata
 
 Consider if we wanted to look at all the continuous variables in the data. We could write `corr price mpg ...` and make a very long command. The
-collection of all variables would be a "varlist". Stata has several ways of shortcutting this.
+collection of all variables would be a "varlist". Stata has several ways of short cutting this.
 
 The first we've already seen when we used the wildcard "\\*" [above](#Generating-dummy-variables). We can use \* anywhere in the variable name to
 denote any number of additional characters. E.g. "this\*var" matches "thisvar", "thisnewvar", "this-var", "thisHFJHDJSHFKDHFKSHvar", etc. A second
@@ -423,7 +423,7 @@ You may have noticed that the `cor` command reports the number of observations i
 observations, but the `\_all` version used on 69. `correlate` uses what's known as complete cases analysis - any observation missing *any* value used
 in the command is excluded. `rep78` is missing 5 observations (run the `misstable summarize` command to see this).
 
-On the other hand, pairwise completion only excluded missing values from the relavant comparisons. If a given correlation doesn't involve `rep78`, it
+On the other hand, pairwise completion only excluded missing values from the relevant comparisons. If a given correlation doesn't involve `rep78`, it
 will use all the data. We can obtain this with `pwcorr`.
 
 ~~~~
