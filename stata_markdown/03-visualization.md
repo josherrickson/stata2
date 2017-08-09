@@ -188,7 +188,7 @@ twoway (scatter mpg weight if foreign ==  0, mcolor(orange)) ///
 
 (Since its not entirely clear from the code, the `order(1 2)` argument inside `legend` serves two purposes - first, it "orders" the entries in the
 legend box, but secondly and more importantly, it does *not* contain 3 or 4. If you look at the previous plot, it had four entries in the legend for
-the two scatters plus two lfits. By exlcuding 3 and 4 from `order` [3 and 4 corresponding to the two `lfits`], their legend entries are ignored.)
+the two `scatter`s plus two `lfit`s. By excluding 3 and 4 from `order` [3 and 4 corresponding to the two `lfits`], their legend entries are ignored.)
 
 
 ^#^^#^ Getting help on Graphs
@@ -222,44 +222,47 @@ or you can access them directly:
 | Adding labels to markers                      | `help marker_label_options` |
 | Options for any lines (e.g. `lfit`)           | `help cline_options`        |
 
-<!--
 
-\subsection{Displaying multiple graphs simultaneously}
+^#^^#^ Displaying multiple graphs simultaneously
 
 You may have noticed that opening a new plot closes the old one. What if you wanted to compare the plots? The behind-the-scenes reason that the old
-plots are closed is that Stata names each plot and each plot can only be open once. The default name is ``Graph'', so with each new plot, the
-``Graph'' plot is overridden. If you closed a plot and wanted to re-open it, you can run the following at any point \emph{until you run another
-  graph}.
-\begin{verbatim}
-. graph display Graph
-\end{verbatim}
+plots are closed is that Stata names each plot and each plot can only be open once. The default name is "Graph", so with each new plot, the "Graph"
+plot is overridden. If you closed a plot and wanted to re-open it, you can run the following at any point *until you run another graph*.
 
-When we create a new plot with the default name, we lose the last one.\\
+```
+graph display Graph
+```
+
+When we create a new plot with the default name, we lose the last one.
 
 If we give a plot a non-default name, it will be saved (so that it can be re-displayed later) and more importantly, will open a new window without
-closing the last. Running two plots with custom names opens two separate windows.
-\begin{verbatim}
-. hist salary, name(g1)
-. hist market, name(g2)
-\end{verbatim}
+closing the last. Running two plots with custom names opens two separate windows. (These are not run in the notes because obviously this won't
+demonstrate well, but try them on your own.
+
+```
+hist price, name(g1)
+hist mpg, name(g2)
+```
 
 Names can be re-used (and plots re-generated) easily:
-\begin{verbatim}
-hist salary, title("Histogram of Salary") name(g1, replace)
-\end{verbatim}
 
-We can also list (using \texttt{dir}), re-display, or drop graphs:
-\begin{verbatim}
+```
+hist price, title("Histogram of Price") name(g1, replace)
+```
+
+We can also list (using `dir`), re-display (using `display`), or drop graphs (using `drop`):
+
+```
 graph dir
 graph display g1
 graph drop g1
 graph drop _all
-\end{verbatim}
+```
 
 Finally, if you'd rather have all the graphs in one window with tabs instead of separate windows, use
-\begin{verbatim}
+
+```
 set autotabgraphs on
-\end{verbatim}
+```
 
 You still need to name graphs separately.
--->
