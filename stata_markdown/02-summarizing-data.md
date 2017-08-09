@@ -332,6 +332,150 @@ If you are not familiar with the `list` command, it prints out data. Giving it a
 to `rep\*`, which is any variable that starts with "rep" - the \* is a wildcard), and the `in` statement restricts to the first 5 observations (we
 just want a quick visualization, not to print everything).
 
-Take note of how the missing value is treated.
+Take note of how the missing value is treated when creating the dummies.
 
 ^#^^#^ `correlate`
+
+With the use of `tab` and `tab2` for crosstabs, we've left univariate summaries and moved to joint summaries. For continuous variables, we can use the
+correlation to examine how similar two continuous variables are. The most common version of correlation is Pearson's correlation, which ranges from -1
+to 1. A value of 0 represents no correlation, a value of 1 represents perfect correlation, a value of -1 represents perfect negative correlation. We
+can calculate the Pearson's correlation with `correlate`.
+
+~~~~
+<<dd_do>>
+correlate weight length
+<</dd_do>>
+~~~~
+
+This produces whats known as the correlation matrix. The diagonal entries are both 1, because clearly each variable is perfectly correlated with
+itself! The off-diagonal entries are identical since correlation is a symmetric operation. The value of .95 is extremely close to one, as we would
+expect - longer cars are heavier and perhaps vice-versa. Another way to think of it is that once we know `weight`, learning `length` does not add much
+information. On the other hand,
+
+~~~~
+<<dd_do>>
+corr price turn
+<</dd_do>>
+~~~~
+
+with a correlation of .33, learning `turn` when you already know `price` does add a lot of information.
+
+We can look at multiple correlations at once as well.
+
+~~~~
+<<dd_do>>
+corr mpg weight length
+<</dd_do>>
+~~~~
+
+We see the .9460 we saw earlier, but notice also that `mpg` is negatively correlated with both `weight` and `length` - a larger car gets worse mileage
+and low mileage cars tend to be large. A few notes:
+
+- The amount of information contained is irrespective of the sign; knowing the `mpg` of a car, adding information about its `weight` doesn't add much
+  information.
+- The two correlations with `mpg` are extremely similar. We might generally expect that, given that `weight` and `length` are so strongly
+  correlated. Note that despite that we expect that, it is not a rule - it is entirely possible (though unlikely) that the correlations with `mpg`
+  could be very dissimilar.
+
+^#^^#^^#^ varlists in Stata
+
+Consider if we wanted to look at all the continuous variables in the data. We could write `corr price mpg ...` and make a very long command. The
+collection of all variables would be a "varlist". Stata has several ways of shortcutting this.
+
+The first we've already seen when we used the wildcard "\\*" [above](#Generating-dummy-variables). We can use \* anywhere in the variable name to
+denote any number of additional characters. E.g. "this\*var" matches "thisvar", "thisnewvar", "this-var", "thisHFJHDJSHFKDHFKSHvar", etc. A second
+wildcard, "?", represents just a single variable, so "this\*var" would match only "this-var" from that list, as well as "thisAvar", "thisJvar", etc.
+
+Secondly, we can match a subset of variables that are next to each other using "-". All variable, starting with the one to the left of the - and
+ending with the one to the right of the - are included. For example,
+
+~~~~
+<<dd_do>>
+desc, simple
+desc trunk-turn
+<</dd_do>>
+~~~~
+
+We can combine those two, as well as specifying individual variables.
+
+~~~~
+<<dd_do>>
+corr price-rep78 t* displacement
+<</dd_do>>
+~~~~
+
+`price`, `mpg` and `rep78` are included as part of `price-rep78`, `t\*` matches `trunk` and `turn`, and `displacement` is included by itself.
+
+Finally, there is the special variable list `\_all`, which is shorthand for all variables (e.g. `firstvar-lastvar`). It is accepted in most but not
+all places that take in variables.
+
+~~~~
+<<dd_do>>
+corr _all
+<</dd_do>>
+~~~~
+
+Notice that it automatically ignored the string variable `make`. Not all commands will work this well, so `\_all` may occasionally fail.
+
+^#^^#^^#^ Pairwise completion vs complete case
+
+You may have noticed that the `cor` command reports the number of observations it used, for example, the first few correlations all used 74
+observations, but the `\_all` version used on 69. `correlate` uses what's known as complete cases analysis - any observation missing *any* value used
+in the command is excluded. `rep78` is missing 5 observations (run the `misstable summarize` command to see this).
+
+On the other hand, pairwise completion only excluded missing values from the relavant comparisons. If a given correlation doesn't involve `rep78`, it
+will use all the data. We can obtain this with `pwcorr`.
+
+~~~~
+<<dd_do>>
+corr rep78 price trunk
+pwcorr rep78 price trunk
+<</dd_do>>
+~~~~
+
+Notice the two correlations involving `rep78` are identical - the same set of observations are dropped in both. However, the correlation between
+`price` and `trunk differs - in `correlate`, it is only using 69 observations, whereas in `pwcorr` it uses all 74.
+
+It may seem that `pwcorr` is always superior (and, in isolation it is). However, most models such as [regression](regression.html) only support
+complete cases analysis, so in those cases, if you are exploring your data, it does not make sense to do pairwise comparison. Ultimately, the choice
+remains up to you. If the results from `correlate` and `pwcorr` do differ drastically, that is a sign of something else going on!
+
+^#^^#^^#^ Spearman correlation
+
+One limitation of Pearson's correlation is that it is detecting linear relationships only. A famous example of this is Anscombe's quartet:
+
+![](https://upload.wikimedia.org/wikipedia/commons/e/ec/Anscombe%27s_quartet_3.svg)
+
+In each pair, the Pearson correlation is an identical .8162! In the first, that's what we want. In the second, the relationship is strong but
+non-linear. In the third, only one value is not perfectly correlated, so the Pearsons correlation is diminished. In the fourth, only the existence of
+the single outlier is driving the relationship.
+
+Spearman correlation is an alternative to Pearson correlation. It works by ranking each variable and then performing Pearson's correlation. The
+command in Stata is `spearman`.
+
+~~~~
+<<dd_do>>
+corr price trunk
+spearman price trunk, matrix
+<</dd_do>>
+~~~~
+
+The `matrix` option forces output to mirror `correlate`, otherwise it produces a slightly different output when given only two variables. `spearman`
+uses [complete cases](#Pairwise-completion-vs-complete-case); to use pairwise complete instead, pass the option `pw`:
+
+~~~~
+<<dd_do>>
+spearman mpg-headroom, pw
+<</dd_do>>
+~~~~
+
+How does Spearman's correlation compare to Pearson's for Anscombe's quartet?
+
+| Comparison     | Pearson | Spearman |
+|:--------------:|:-------:|:--------:|
+| ^$^y_1, x_1^$^ | .8162   | .8182    |
+| ^$^y_2, x_2^$^ | .8162   | .6909    |
+| ^$^y_3, x_3^$^ | .8162   | .9909    |
+| ^$^y_4, x_4^$^ | .8162   | .5000    |
+
+The second correlation diminishes, the third drastically increases, and the fourth decreases as well.
