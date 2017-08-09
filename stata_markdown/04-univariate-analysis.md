@@ -1,11 +1,34 @@
-^#^ Univariate Analysis
+^#^ Univariate (and some Bivariate) Analysis
 
-^#^^#^ One-sample t-tests
+We start with analyzing single variables at a time, and then quickly discuss a chi-squared test which is a bivariate analysis. While these tests form
+the basis of many other methods, by themselves they are of limited us. All the tests we discuss here come with two very strong assumptions:
 
-^#^^#^ Two-sample t-tests
+1. No other measured or unmeasured variables play a role in any relationship.
+2. The relationship is the same for any subpopulation of your data.
 
-^#^^#^^#^ Independent
+To see why these assumptions are so strong, lets consider the [two-sample t-test](#two-sample-t-test). We'll discuss them in depth below, but the
+short version is that a two-sample t-test compares whether two groups have the same average value. If you were comparing average height between two
+groups, perhaps you'd find that one group was much taller than the other. But what if the shorter group was almost entirely made of children? We have
+no way of knowing whether the difference between groups is due to this or due to real differences.
+
+For the second assumption, imagine some scenario where you have two groups. Among men, there is a large difference between groups, whereas among
+women, there is no difference between groups. On average (assuming a roughly 50/50 gender split), you'd see a moderate difference. But no one actually
+has a moderate difference! The two subgroups have different effects, so the two-sample t-test captures neither!
+
+That said, there are a few situations where these tests are useful as stand-alone tests.
+
+1. Exploratory/descriptive/pilot studies: Situations when are you not making strong claims, merely describing something you see in the data.
+2. Very small sample sizes: While not ideal, small sample sizes can't handle more complicated analysis, so these simple ones are all you have.
+3. In randomized controlled experiments (such as in a lab): In these situations, you truly can ensure that both those assumptions are met. Just
+   randomization is not sufficient, as the benefit of randomization is only guaranteed *theoretically* for *infinitely large samples*. Randomization
+   helps a lot, but it's not perfect!
+
+^#^^#^ One-sample t-test
+
+^#^^#^ Two-sample t-test
 
 ^#^^#^^#^ Paired
 
-^#^^#^ Chi-sq tests
+^#^^#^^#^ Independent
+
+^#^^#^ Chi-square test
