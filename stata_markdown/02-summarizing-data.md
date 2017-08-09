@@ -329,8 +329,8 @@ list rep* in 1/5
 ~~~~
 
 If you are not familiar with the `list` command, it prints out data. Giving it a variable (or multiple) restricts it to those (here we restricted it
-to `rep*`, which is any variable that starts with "rep" - the * is a wildcard), and the `in` statement restricts to the first 5 observations (we just
-want a quick visualization, not to print everything).
+to `rep\*`, which is any variable that starts with "rep" - the \* is a wildcard), and the `in` statement restricts to the first 5 observations (we
+just want a quick visualization, not to print everything).
 
 Take note of how the missing value is treated.
 
