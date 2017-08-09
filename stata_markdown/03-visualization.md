@@ -49,36 +49,41 @@ There is a plot subcommand, `twoway`, which takes additional sub-subcommands, an
 graph twoway <type> <variable(s)>, <options>
 ```
 
-`twoway` creates most of the scatterplot-esque plots. The "types" in `twoway` are subcommands in the twoway} different from the ``types'' in regular
-\texttt{graph}, it takes options such as ``scatter'' to create a scatterplot:
+`twoway` creates most of the scatterplot-esque plots. The "types" in `twoway` are subcommands different from the subcommands in non-`twoway` `graph`,
+it takes options such as `scatter` to create a scatterplot:
 
-\begin{verbatim}
-. graph twoway scatter salary market
-\end{verbatim}
+~~~~
+<<dd_do>>
+graph twoway scatter salary market
+<</dd_do>>
+~~~~
 
-\begin{center}
-  \includegraphics[width=300px]{images/graph03.pdf}
-\end{center}
+<<dd_graph: saving("images/graph3.svg")>>
 
-\textbf{Note:} For \texttt{graph twoway} commands, the \texttt{graph} is optional. E.g., these commands are equivalent:
-\begin{verbatim}
-. graph twoway scatter salary market
-. twoway scatter salary market
-\end{verbatim}
-This is \emph{not} true of commands like \texttt{graph box}, only the subcommands of \texttt{twoway}.
+**Note:** For `graph twoway` commands, the `graph` is optional. E.g., these commands are equivalent:
+```
+graph twoway scatter salary market
+twoway scatter salary market
+```
+This is *not* true of commands like `graph box`.
 
-\newpage
+
 The options in the graphing commands are quite extensive and enable tweaking of many different settings. Rather than a full catalog of the options,
 here's an example:
-\begin{verbatim}
-. twoway scatter salary market, msymbol(s) mcolor(blue) mfcolor(green) ///
-  title("Salary vs Marketability") xtitle("Marketability") ///
-  ytitle("Salary") ylabel(20000 "$20k" ///
-                          40000 "$40k" ///
-                          60000 "$60k" ///
-                          80000 "$80k" ///
-                          100000 "$100k")
-\end{verbatim}
+~~~~
+<<dd_do>>
+twoway scatter salary market, msymbol(s) mcolor(blue) mfcolor(green) ///
+            title("Salary vs Marketability") xtitle("Marketability") ///
+                  ytitle("Salary") ylabel(20000 "$20k" ///
+                                          40000 "$40k" ///
+                                          60000 "$60k" ///
+                                          80000 "$80k" ///
+                                          100000 "$100k")
+
+<</dd_do>>
+~~~~
+
+<<dd_graph: saving("images/graph4.svg")>>
 
 <!--
 \begin{center}
