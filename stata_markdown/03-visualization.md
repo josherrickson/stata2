@@ -54,7 +54,7 @@ it takes options such as `scatter` to create a scatterplot:
 
 ~~~~
 <<dd_do>>
-graph twoway scatter price mpg
+graph twoway scatter mpg weight
 <</dd_do>>
 ~~~~
 
@@ -62,8 +62,8 @@ graph twoway scatter price mpg
 
 **Note:** For `graph twoway` commands, the `graph` is optional. E.g., these commands are equivalent:
 ```
-graph twoway scatter price mpg
-twoway scatter price mpg
+graph twoway scatter mpg weight
+twoway scatter mpg weight
 ```
 This is *not* true of commands like `graph box`.
 
@@ -72,169 +72,157 @@ The options in the graphing commands are quite extensive and enable tweaking of 
 here's an example:
 ~~~~
 <<dd_do>>
-twoway scatter price mpg, msymbol(s) ///
+twoway scatter mpg weight, msymbol(s) ///
                           mcolor(blue) ///
                           mfcolor(yellow) ///
                           msize(3) ///
-                          title("Price versus Mileage") ///
-                          xtitle("MPG") ///
-                          ytitle("Price of Car") ///
-                          ylabel(2500 "$2k" ///
-                                 5000 "$5k" ///
-                                 7500 "$7.5k" ///
-                                 10000 "$10k" ///
-                                 12500 "$12.5k" ///
-                                 15000 "$15k")
+                          title("Mileage vs Weight") ///
+                          xtitle("Weight (in lbs)") ///
+                          ytitle("Mileage") ///
+                          ylabel(15 "15" 25 "25" 35 "35")
 
 <</dd_do>>
 ~~~~
 
 <<dd_graph: saving("images/graph4.svg") replace>>
 
-<!--
-\begin{center}
-  \includegraphics[width=300px]{images/graph04.pdf}
-\end{center}
+Graphs made using `twoway` have an additional benefit - it is easy to stack them. For example, `twoway lfit` creates a best-fit line between the points:
+~~~~
+<<dd_do>>
+twoway lfit mpg weight
+<</dd_do>>
+~~~~
 
-\newpage
-Graphs made using \texttt{twoway} have an additional benefit - it is easy to stack them. For example, \texttt{twoway lfit} creates a best-fit line
-between the points:
-\begin{verbatim}
-. twoway lfit salary market
-\end{verbatim}
+<<dd_graph: saving("images/graph5.svg") replace>>
 
-\begin{center}
-  \includegraphics[width=300px]{images/graph05.pdf}
-\end{center}
+This isn't really that useful. It would be much better to overlap those two - generate the scatter plot, then add the best fit line. We can easily do
+that by passing multiple plots to `twoway`:
 
-It would be much better to overlap those two - generate the scatter plot, then add the best fit line. We can easily do that by passing multiple plots
-to \texttt{twoway}:
-\newpage
-\begin{verbatim}
-. twoway (scatter salary market) (lfit salary market)
-\end{verbatim}
+~~~~
+<<dd_do>>
+twoway (scatter mpg weight) (lfit mpg weight)
+<</dd_do>>
+~~~~
 
-\begin{center}
-  \includegraphics[width=300px]{images/graph06.pdf}
-\end{center}
+<<dd_graph: saving("images/graph6.svg") replace>>
 
 Note that the order of the plots matters - if you can tell, the best-fit line was drawn on top of the scatter plot points. If you reversed the order
-in the command (\texttt{twoway (lfit salary market) (scatter salary market)}), the line would be drawn first and the points on top of it.
+in the command (`twoway (lfit mpg weight) (scatter mpg weight)`), the line would be drawn first and the points on top of it.
 
-\newpage
-Finally, note that options can be passed to each individual plot or the entire plot:
-\begin{verbatim}
-. graph twoway (scatter salary market, msymbol(t)) \\\
-               (lfit salary market, lcolor(green)), \\\
-                  title("Salary vs Marketability")
-\end{verbatim}
+Finally, note that options can be passed to each individual plot:
 
-\begin{center}
-  \includegraphics[width=300px]{images/graph07.pdf}
-\end{center}
+~~~~
+<<dd_do>>
+twoway (scatter mpg weight, msymbol(t)) ///
+       (lfit mpg weight, lcolor(green))
+<</dd_do>>
+~~~~
 
-\subsection{Other graphs}
-\label{othergraphs}
+<<dd_graph: saving("images/graph7.svg") replace>>
 
-There are a very large number of graphs which do not exist under the \texttt{graph} command. Most are very niche, but the most important general
-example is histogram, which has its own command.
-\newpage
-\begin{verbatim}
-. histogram salary
-\end{verbatim}
+Putting these options "globally", as `twoway (...) (...), msymbol(to)` would NOT work, as `msymbol` is an option specifically for `twoway scatter`
+(and a few others), not for the more general `twoway`.
 
-\begin{center}
-  \includegraphics[width=300px]{images/graph08.pdf}
-\end{center}
+^#^^#^ Other graphs
 
-You can see a full list of the non-\texttt{graph} plots by looking at
+There are a very large number of graphs which do not exist under the `graph` command. Most are very niche, but the most important general example is
+histogram, which has its own command.
 
-\begin{verbatim}
-. help graph other
-\end{verbatim}
+~~~~
+<<dd_do>>
+histogram mpg
+<</dd_do>>
+~~~~
 
-\subsection{Plotting by group}
+<<dd_graph: saving("images/graph8.svg") replace>>
 
-All graph commands accept a \texttt{by(<grouping var>)} option which will repeat the graphing command for each level of the grouping variable, and
+You can see a full list of the non-graph plots by looking at
+
+```
+help graph other
+```
+
+^#^^#^ Plotting by group
+
+All graph commands accept a `by(<grouping var>)` option which will repeat the graphing command for each level of the grouping variable, and
 display all graphs on the same output. For example,
-\newpage
-\begin{verbatim}
-. hist salary, by(rank)
-\end{verbatim}
 
-\begin{center}
-  \includegraphics[width=300px]{images/graph09.pdf}
-\end{center}
+~~~~
+<<dd_do>>
+hist mpg, by(foreign)
+<</dd_do>>
+~~~~
 
-Note that due to the compressed size of each individual graph, you may need to tweak the options (e.g. notice the Y axis).
+<<dd_graph: saving("images/graph9.svg") replace>>
 
 Alternatively, you may way to represent another variable on a single plot. For example, let's say we want to create the scatter plot and best-fit from
-above, but differentiate the genders on one graph (rather than two separate windows via \texttt{by}). To do this, we'd overlap two
-\texttt{scatter} and \texttt{lfit} plots in a single \texttt{twoway}, each with a conditional \texttt{if}.
+above, but differentiate the genders on one graph (rather than two separate windows via `by`). To do this, we'd overlap two `scatter` and `lfit` plots
+in a single `twoway`, each with a conditional `if`.
 
-\newpage
-\begin{verbatim}
-. twoway (scatter salary market if male ==  0) ///
-         (scatter salary market if male == 1) ///
-         (lfit salary market if male ==  0) //
-         (lfit salary market if male == 1)
-\end{verbatim}
+~~~~
+<<dd_do>>
+twoway (scatter mpg weight if foreign ==  0) ///
+         (scatter mpg weight if foreign == 1) ///
+         (lfit mpg weight if foreign ==  0) ///
+         (lfit mpg weight if foreign == 1)
+<</dd_do>>
+~~~~
 
-\begin{center}
-  \includegraphics[width=300px]{images/graph10.pdf}
-\end{center}
+<<dd_graph: saving("images/graph10.svg") replace>>
 
 Notice that Stata automatically made each plot a separate color, but not in a logical fashion. Here's a cleaned up version:
-\newpage
-\begin{verbatim}
-. twoway (scatter salary market if male ==  0, mcolor(orange)) ///
-         (scatter salary market if male == 1, mcolor(green)) ///
-         (lfit salary market if male ==  0, lcolor(orange) lwidth(1.4)) ///
-         (lfit salary market if male == 1, lcolor(green) lwidth(1.4)), ///
-      legend(label(1 "Female") label(2 "Male") order(1 2)) ///
-      title("Salary vs Marketability") xtitle("Marketability") ///
-      ytitle("Salary") ylabel(20000 "$20k" ///
-                  40000 "$40k" ///
-                  60000 "$60k" ///
-                  80000 "$80k" ///
-                  100000 "$100k")
-\end{verbatim}
 
-\begin{center}
-  \includegraphics[width=300px]{images/graph11.pdf}
-\end{center}
+~~~~
+<<dd_do>>
+twoway (scatter mpg weight if foreign ==  0, mcolor(orange)) ///
+         (scatter mpg weight if foreign == 1, mcolor(green)) ///
+         (lfit mpg weight if foreign ==  0, lcolor(orange) lwidth(1.4)) ///
+         (lfit mpg weight if foreign == 1, lcolor(green) lwidth(1.4)), ///
+      legend(label(1 "Domestic") label(2 "Foreign") order(1 2)) ///
+      title("Mileage vs Weight") xtitle("Weight (lbs)") ///
+      ytitle("Mileage")
+<</dd_do>>
+~~~~
+
+<<dd_graph: saving("images/graph11.svg") replace>>
+
+(Since its not entirely clear from the code, the `order(1 2)` argument inside `legend` serves two purposes - first, it "orders" the entries in the
+legend box, but secondly and more importantly, it does *not* contain 3 or 4. If you look at the previous plot, it had four entries in the legend for
+the two scatters plus two lfits. By exlcuding 3 and 4 from `order` [3 and 4 corresponding to the two `lfits`], their legend entries are ignored.)
 
 
-\subsection{Getting help on Graphs}
+^#^^#^ Getting help on Graphs
 
 There are a ton of options in all these graphs. Rather than list them all, we instead direct you to some various help pages.
 
 For general assistance, start with
 
-\begin{verbatim}
-. help graph
-\end{verbatim}
+```
+help graph
+```
 
 Each individual type of graph has its own help page:
 
-\begin{verbatim}
-. help graph box
-. help graph twoway
-. help twoway scatter
-. help histogram
-\end{verbatim}
+```
+help graph box
+help graph twoway
+help twoway scatter
+help histogram
+```
 
 There are various generalized options which are the same over the variety of plots. These can be found in the documentation of each individual graph,
 or you can access them directly:
 
-\begin{verbatim}
-. help title_options * Help with titles, subtitles, notes, captions.
-. help axis_options * Axis labels, tick marks, scaling, etc.
-. help legend_options * Manipulating the legend
-. help marker_options * Modifying points (e.g. a scatterplot)
-. help marker_label_options * Adding labels to markers
-. help cline_options * Options for any lines (e.g. lfit)
-\end{verbatim}
+| Topics                                        | Help command               |
+|:----------------------------------------------|:---------------------------|
+| Help with titles, subtitles, notes, captions. | `help title_options`        |
+| Axis labels, tick marks, scaling, etc.        | `help axis_options`         |
+| Manipulating the legend                       | `help legend_options`       |
+| Modifying points (e.g. `scatter`)             | `help marker_options`       |
+| Adding labels to markers                      | `help marker_label_options` |
+| Options for any lines (e.g. `lfit`)           | `help cline_options`        |
+
+<!--
 
 \subsection{Displaying multiple graphs simultaneously}
 
