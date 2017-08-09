@@ -30,7 +30,7 @@ graph bar price, over(rep78)
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph1.svg")>>
+<<dd_graph: saving("images/graph1.svg") replace>>
 
 For further information, we could instead construct a boxplot.
 ~~~~
@@ -39,7 +39,7 @@ graph box price, over(rep78)
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph2.svg")>>
+<<dd_graph: saving("images/graph2.svg") replace>>
 
 There are a few other infrequently used graphs, see `help graph` for details.
 
@@ -54,16 +54,16 @@ it takes options such as `scatter` to create a scatterplot:
 
 ~~~~
 <<dd_do>>
-graph twoway scatter salary market
+graph twoway scatter price mpg
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph3.svg")>>
+<<dd_graph: saving("images/graph3.svg") replace>>
 
 **Note:** For `graph twoway` commands, the `graph` is optional. E.g., these commands are equivalent:
 ```
-graph twoway scatter salary market
-twoway scatter salary market
+graph twoway scatter price mpg
+twoway scatter price mpg
 ```
 This is *not* true of commands like `graph box`.
 
@@ -72,18 +72,24 @@ The options in the graphing commands are quite extensive and enable tweaking of 
 here's an example:
 ~~~~
 <<dd_do>>
-twoway scatter salary market, msymbol(s) mcolor(blue) mfcolor(green) ///
-            title("Salary vs Marketability") xtitle("Marketability") ///
-                  ytitle("Salary") ylabel(20000 "$20k" ///
-                                          40000 "$40k" ///
-                                          60000 "$60k" ///
-                                          80000 "$80k" ///
-                                          100000 "$100k")
+twoway scatter price mpg, msymbol(s) ///
+                          mcolor(blue) ///
+                          mfcolor(yellow) ///
+                          msize(3) ///
+                          title("Price versus Mileage") ///
+                          xtitle("MPG") ///
+                          ytitle("Price of Car") ///
+                          ylabel(2500 "$2k" ///
+                                 5000 "$5k" ///
+                                 7500 "$7.5k" ///
+                                 10000 "$10k" ///
+                                 12500 "$12.5k" ///
+                                 15000 "$15k")
 
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph4.svg")>>
+<<dd_graph: saving("images/graph4.svg") replace>>
 
 <!--
 \begin{center}
