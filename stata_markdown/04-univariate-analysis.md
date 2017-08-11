@@ -25,6 +25,21 @@ That said, there are a few situations where these tests are useful as stand-alon
 
 ^#^^#^ One-sample t-test
 
+A one-sample t-test tests whether the mean of a variable is equal to some constant. It is not needed a lot of the time (if we hypothesize that the
+average test score is 70, and every students getabove an 80, why would we need to test this?), but we introduce it here just as a basis of further
+methods.
+
+There are several assumptions necessary for a one-sample t-test, most of which are trivial/not that important. The two relatively important ones are
+
+1. Independence. Each value must come from an independent source. If you have repeated measures (e.g. two different measures for the same person),
+   this is violated. See the section of [mixed models](mixed-models.html) for dealing with this sort of data.
+2. The distribution of the *mean* is normal. Note that this assumption is *not* about the data itself. This assumption is valid if *either* the sample
+   suggests that the data is normal (a bell-curve) *or* the sample size is large (above ~30)^[This is by
+   the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)]. If this assumption does not hold, we generally still use the
+   t-test, although there are tests called "non-parametric" tests which do not require this assumption. Not everyone is convinced they are necessary.
+
+
+
 ^#^^#^ Two-sample t-test
 
 ^#^^#^^#^ Paired
