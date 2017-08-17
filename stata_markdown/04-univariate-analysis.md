@@ -23,10 +23,18 @@ That said, there are a few situations where these tests are useful as stand-alon
    randomization is not sufficient, as the benefit of randomization is only guaranteed *theoretically* for *infinitely large samples*. Randomization
    helps a lot, but it's not perfect!
 
+Reload the auto data set
+
+~~~~
+<<dd_do>>
+sysuse auto, clear
+<</dd_do>>
+~~~~
+
 ^#^^#^ One-sample t-test
 
 A one-sample t-test tests whether the mean of a variable is equal to some constant. It is not needed a lot of the time (if we hypothesize that the
-average test score is 70, and every students getabove an 80, why would we need to test this?), but we introduce it here just as a basis of further
+average test score is 70, and every students get above an 80, why would we need to test this?), but we introduce it here just as a basis of further
 methods.
 
 There are several assumptions necessary for a one-sample t-test, most of which are trivial/not that important. The two relatively important ones are
@@ -38,12 +46,161 @@ There are several assumptions necessary for a one-sample t-test, most of which a
    the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)]. If this assumption does not hold, we generally still use the
    t-test, although there are tests called "non-parametric" tests which do not require this assumption. Not everyone is convinced they are necessary.
 
+There is no way to test the independence assumption, you must determine this based upon your knowledge of the data.
 
+We can try and determine whether the normal distribution is valid for the data, but note that failing to find this does not imply the normality of the
+mean assumption is violated. This can be checked with a histogram or a qq-plot.
+
+Let's test whether the average mileage in the data is different from 20.
+
+~~~~
+<<dd_do>>
+hist mpg, normal
+<</dd_do>>
+~~~~
+
+<<dd_graph: saving("images/04-hist.svg") replace>>
+
+In a histogram, we are looking for violations from the bell-shape of a normal curve. We added the normal curve to the plot by the `normal` option. We
+can see that while the data is not perfectly normal, it also is not too far off. We can look at a qq-plot for further details.
+
+~~~~
+<<dd_do>>
+qnorm mpg
+<</dd_do>>
+~~~~
+
+<<dd_graph: saving("images/04-qq.svg") replace>>
+
+With a qq-plot, we are looking for the points to roughly fall in a straight line, alone the 45-degree line. Here we see some mild violations of those,
+especially at either end.
+
+Put together, this indicates that normality is not perfect, but its also not a terrible violation.
+
+However, we don't really care! The sample size is large enough that that assumption is valid. We can therefore perform our test using the `ttest` command.
+
+~~~~
+<<dd_do>>
+ttest mpg == 20
+<</dd_do>>
+~~~~
+
+Our null hypothesis, the claim we are trying to see whether we have the evidence to reject, is that the average `mpg` in the population represented by
+this data is 20. We sometimes also just call 20, the value the null hypothesis is testing, the null hypothesis (e.g. "We are testing against the null
+hypothesis of 20.").
+
+Looking at the analysis, we see that we get some summary statistics. The 95% confidence interval represents the range which, if we were to draw
+repeated samples of the same size (74) from the population of all cars, we would expect 95% of them to contain the true population mean.
+
+Below that, we see some details of the test being run. The important detail is that the null Hypothesis (`Ho`) is what you meant for it to be.
+
+Finally, we get our p-values. There are three separate ones given for three different alternative hypotheses - testing whether the mean is less than
+20, greater than 20, or simply not equal to 20. Each p-value represents the probability of observing a mean as extreme as the one we saw if 20 was the
+true population mean. In other words, we get the following three interpretations:
+
+* There is <<dd_display: %9.2f 100*`r(p_l)'>>% chance that if the true mean were 20, we would observe a sample mean of 21.2973 or lower.
+* There is <<dd_display: %9.2f 100*`r(p_u)'>>% chance that if the true mean were 20, we would observe a sample mean of 21.2973 or higher.
+* There is <<dd_display: %9.2f 100*`r(p)'>>% chance that if the true mean were 20, we would observe a sample mean of 21.2973 or higher *or* a sample
+  mean of <<dd_display: %9.4f 40-21.2973>>.
+
+The last interpretation (corresponding to `Ha: mean != 20` from the output) is known as the two-sided p-value, and should be your default. The other
+two, known as one-sided p-values, can be used if a priori you decide that you're only interested in one direction.
+
+The typical threshold used is p = .05, so we would fail to reject the null hypothesis (since .0576 > .05), although this is extremely close to
+significant!
+
+(Of course that first p-value \& interpretation is unnecessary - the observed test statistic is greater than 20, so there's no chance we'd be able to
+make the argument that the true mean is less than 20!)
 
 ^#^^#^ Two-sample t-test
 
-^#^^#^^#^ Paired
+While the one-sided t-test isn't used very often, the two-sample version is. There are two different variations of it.
 
 ^#^^#^^#^ Independent
 
+The independent two-sample t-test arises when you have two independent groups which have the same measurement, and you wish to test whether the mean
+of the two groups is equivalent. The same basic assumptions, independence (although here it's both within group [each observation is independent from
+each other] and between groups [the two groups are independent, e.g. these are not repeated measures on the same person]) and normality of the mean.
+
+For example in our data, we can test whether foreign and American cars have the same average mileage. We will again use the `ttest` command, though
+slightly differently.
+
+~~~~
+<<dd_do>>
+ttest mpg, by(foreign)
+<</dd_do>>
+~~~~
+
+The output is very similar to [above](#one-sample-t-test). We get some descriptives by group, and combined, as well as a confidence interval for the
+difference. Notice that the null hypothesis (`Ho`) is simply 0 because we are testing whether the difference between the groups is statistically
+significant, regardless of the actual values of the means.
+
+The p-values have the same interpretation, though in terms of the difference of means rather than just the means. More-so than even in the one-sided
+test, you should use the two-sided p-value, so our p-value is <<dd_display: %9.4f `r(p)'>>. Just as a note, do not report this p-value as 0 if you
+round! Instead, report that the p-value is less than .01 or less than .001.
+
+However, there is an additional assumption here that we neglected; namely that the variance of the two groups is equivalent. If you make this
+assumption, then the above analysis is sufficient. However, if you don't make this assumption, you can instead run the two-sample t-test with unequal
+variances by adding the `unequal` option.
+
+~~~~
+<<dd_do>>
+ttest mpg, by(foreign) unequal
+<</dd_do>>
+~~~~
+
+The unequal test is slightly more conservative, but there has been some work (e.g. Delacre et al 2017, Ruxton 2006) showing that you should always use
+the unequal version.
+
+Also, the equal variance version (the first one we ran) is known as Student's^[Named not for students in a class, but the pseudonym for statistician
+William Sealy Gosset. Gosset worked at the Guinness brewery when he was performing some of his seminal work, so Gosset was not allowed to publish
+under his own name!] t-test, and the unequal variance version (with the `unequal` option) is known as Welch's t-test.
+
+If you want to test whether the variance between the two groups is equal, you can use `sdtest` in a similar fashion to `ttest` (`sdtest mpg,
+by(foreign)`).
+
+^#^^#^^#^ Paired
+
+We noted in the assumptions above that we need the two groups to be independent. What if they aren't? Examples of paired data would include
+before-and-after measures or measures from two family members. In both cases, it is reasonable to assume the two measures from the same person or
+family are more similar than a measure from one person against a measure from another person.
+
+The auto data set does not have a good example of paired data, so lets use the "bpwide" data instead.
+
+~~~~
+<<dd_do>>
+sysuse bpwide, clear
+list in 1/5
+<</dd_do>>
+~~~~
+
+We have measures from different patients, including a before and after measure of the blood pressure. We again use `ttest` to perform the test:
+
+~~~~
+<<dd_do>>
+ttest bp_after == bp_before
+<</dd_do>>
+~~~~
+
+We see that the blood pressure after is slightly lower (151 vs 156), and the two-sided p-value is statistically significant!
+
+While we technically used the paired t-test for this, behind the scenes, this is identical to generating a difference variable (e.g. post score - pre
+score) and performing the [one-sample t-test](#one-sample-t-test):
+
+~~~~
+<<dd_do>>
+gen bp_change = bp_after - bp_before
+ttest bp_change == 0
+<</dd_do>>
+~~~~
+
+
+
 ^#^^#^ Chi-square test
+
+^#^^#^ Citations
+
+- Delacre, Marie, Daniël Lakens, and Christophe Leys. "Why Psychologists Should by Default Use Welch’s t-test Instead of Student’s t-test."
+  International Review of Social Psychology 30.1 (2017).
+- Ruxton, Graeme D. "The unequal variance t-test is an underused alternative to Student's t-test and the Mann–Whitney U test." Behavioral Ecology 17.4
+  (2006): 688-690.
