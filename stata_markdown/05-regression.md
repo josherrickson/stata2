@@ -42,6 +42,30 @@ outcomes. Linear regression fits this model:
   interpretation in detail later.
 - ^$^\epsilon^$^ represents the error. Regression is a game of averages, but for any individual observation, the model will contain some error.
 
+Linear regression models can be used to predict expected values on the response variable given values on the predictors, and ^$^\epsilon^$^
+represents the difference between a prediction based on the model and what the actual value of the response variable is. Stata can be used to estimate
+the regression coefficients in a model like the one above, and perform statistical tests of the null hypothesis that the coefficients are equal to
+zero (and thus that predictor variables are not important in explaining the response). Note that the response ^$^Y^$^ is modeled as a linear
+combination of the predictors and their coefficients.
+
+Some introductory statistical classes distinguish between simple regression (with only a single predictor) and multiple regression (with more than one
+predictor). While this is useful for developing the theory of regression, simple regression is not commonly used for real analysis, as it ignores one
+of the main benefits of regression, controlling for other predictors (to be discussed later).
+
+We will now fit a model, discussing assumptions afterwards, because almost all assumption checks can only occur once the model is fit!
+
+^#^^#^^#^ Fitting the model
+
+Stata's `regress` command fit the linear regression model. It is followed by the outcome variable followed by all predictors. For this example, let's
+reload the auto data and fit a relatively simple model, predicting `mpg` based on `weight` and `displacement`.
+
+~~~~
+<<dd_do>>
+regress mpg weight displacement
+<</dd_do>>
+~~~~
+
+
 ^#^^#^ Logistic
 
 ^#^^#^ Poisson Maybe
