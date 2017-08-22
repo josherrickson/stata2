@@ -198,6 +198,44 @@ ttest bp_change == 0
 
 ^#^^#^ Chi-square test
 
+While t-tests can technically be used with binary data or ordinal variables^[Categorical variables that are ordered in some sense - e.g. clothing
+sizes of small, medium and large.], they cannot with non-ordinal. If we want to compare two categorical or binary variables, we can instead use a
+^$^\chi^2^$^ test (^$^\chi^$^ is a Greek letter which is spelled "chi" in English, and rhymes with "why"). There are a few variations on the
+^$^\chi^2^$^ test, the version we talk of here is a test of association, where we are testing the null hypothesis that the distribution of one
+variable is the same at every level of another variable. Let's return to the auto data set, and compare `rep78` (Repair Record 1978) and
+`foreign`. We'll start by looking at a crosstab.
+
+~~~~
+<<dd_do>>
+sysuse auto, clear
+tab foreign rep78
+<</dd_do>>
+~~~~
+
+If you're not familiar with crosstabs, each cell represents the number of observations which fall into the category - for example, there are 8 cars
+which are both Domestic and have a Repair record of 2.
+
+We can think of testing whether the association between these two variables exists from either direction - we can either ask "Is the distribution of
+the repair record among domestic cars the same as among foreign cars", or "Is the distribution (percentage) of foreign cars the same across all levels
+of repair record". We test it by adding the `chi2` option to `tab`:
+
+~~~~
+<<dd_do>>
+tab foreign rep78, chi2
+<</dd_do>>
+~~~~
+
+Here we can see that The p-value (`pr`) associated with the ^$^\chi^2\^$^ test is very low (less than .001, p-values are never 0^[Unless you're in a
+pathological setting, i.e. you're testing whether the average height of a population is less than 6 feet, and somehow you get an average height of -20
+feet....]!), so we can reject the null hypothesis and claim there is evidence of a statistically significant association between `foreign` and
+`rep78`.
+
+Note that the ^$^\chi^2\^$^ test ignores scale - if we had 4,800 Domestic cars instead of 48, and the percentage at each Repair Record were the same
+(e.g. instead of 8 Domestic cars with Repair Record of 2, we had 800), we would get the same test result.
+
+Finally, the critiques [above](univariate-and-some-bivariate-analysis.html) about the lack of usefulness of t-tests extends to ^$^\chi^2^$^ tests as
+well.
+
 ^#^^#^ Citations
 
 - Delacre, Marie, Daniël Lakens, and Christophe Leys. "Why Psychologists Should by Default Use Welch’s t-test Instead of Student’s t-test."
