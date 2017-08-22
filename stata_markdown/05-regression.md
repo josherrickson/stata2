@@ -65,6 +65,25 @@ regress mpg weight displacement
 <</dd_do>>
 ~~~~
 
+- F-test
+- R2, Adj R2
+- RMSE
+- Coefficient table
+
+- Include rep78 to show i. c.
+- Include interaction to show ##
+
+Then
+
+Assumptions:
+- Independence
+- Residuals have constant variance and are normal.
+- Relationship is linear & additive.
+
+- Confounding
+- Overfitting 1:10 or 1:20
+- Why model selection is bad
+
 
 ^#^^#^ Logistic
 
