@@ -34,7 +34,13 @@ outcomes. Linear regression fits this model:
   Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \cdots + \beta_pX_p + \epsilon
 ^$$^
 
-
+- ^$^Y^$^ represents the outcome variable.
+- ^$^X_1, X_2, \cdots, X_p^$^ represent the predictors, of which there are ^$^p^$^ total.
+- ^$^\beta_0^$^ represents the intercept. If you have a subject for which every predictor is equal to zero, ^$^\beta_0^$^ represents their predicted
+  outcome.
+- The other ^$^\beta^$^'s are called the coefficients, and represent the relationship between each predictor and the response. We will cover their
+  interpretation in detail later.
+- ^$^\epsilon^$^ represents the error. Regression is a game of averages, but for any individual observation, the model will contain some error.
 
 ^#^^#^ Logistic
 
