@@ -84,21 +84,37 @@ Next, the top right part has a series of measures.
 - The ^$^R^2^$^ ("R-squared") is a measure of model fit. It ranges from 0 to 1 and is a percentage, explaining what percent in the variation in the
   response is explained by the linear relationship with the predictors. What's considered a "large" ^$^R^2^$^ depends greatly on your field and the
   situation, in very general terms, .6 is good and above .8 is great. However, if you know that there are a lot of unmeasured variables, a much
-  smaller ^$^R^2$^$ can be considered good as well.
-- Mathematically, adding a new predictor to the model will increase the $^$R^2$^$, regardless of how useless the variable is.^[The only exception is
+  smaller ^$^R^2^$^ can be considered good as well.
+- Mathematically, adding a new predictor to the model will increase the ^$^R^2^$^, regardless of how useless the variable is.^[The only exception is
   if the predictor being added is either constant or identical to another variable.] This makes ^$^R^2^$^$ poor for model comparison, as it would
-  always select the model with the most predictors. Instead, the adjusted $^$R^2$^$ ("Adj R-Squared") accounts for this; it penalizes the $^$R^2$^$ by
-  the number of predictors in the model. Use the $^$R^2$^$ to measure model fit, use the adjusted $^$R^2$^$ for model comparison.
+  always select the model with the most predictors. Instead, the adjusted ^$^R^2^$^ ("Adj R-Squared") accounts for this; it penalizes the ^$^R^2^$^ by
+  the number of predictors in the model. Use the ^$^R^2^$^ to measure model fit, use the adjusted ^$^R^2^$^ for model comparison.
 - The root mean squared error ("Root MSE", as known as RMSE) is a measure of the average difference between the observed outcome and the predicted
-  outcome. It can be used as another measure of model fit, as it is on the scale of the outcome variable. So for this example, the RMSE is abour 3.5,
-  so the average error in the model is about 3.5 mpg.
+  outcome. It can be used as another measure of model fit, as it is on the scale of the outcome variable. So for this example, the RMSE is
+  <<dd_display: %9.4f e(rmse)>> so the average error in the model is about 3.5 mpg.
 
-Finally, we get to the coefficient table.
+Finally, we get to the coefficient table. Each row represents a single predictor. The "\_cons" row is the intercept; it's first entry
+<<dd_display: %9.4f _b[_cons]>> represents the average response *when all other predictors are 0*. This is usually not interesting; how many cars
+weighing 0 lbs do you know of? So we'll ignore this and instead go over the other rows.
 
-- F-test
-- R2, Adj R2
-- RMSE
-- Coefficient table
+- "Coef.": These are the ^$^\beta^$^ from the above model. We interpret each as "For a 1 increase in the value of the covariate with all other
+  predictors held constant, we would predict this change in the response, on average." For example, for every additional lb^[This is why it's
+  important to familiarize yourself with the units in your data!] a car weighs (while its displacement is constant), it is predicted to have an
+  average of <<dd_display: %9.4f _b[weight]>> lower mpg.
+- "Std. Err.": This represents the error attached to the coefficient. This is rarely interpreted; but if it gets extremely large or extremely small
+  (and the Coef. doesn't likewise go to extremes), its an indication there may be something wrong.
+- "t": This is the standardized coefficient, calculated as Coef./Std. Err. We can't directly compare the Coef.'s because of the different scales, but
+  we can examine the standardized coefficients to get a sense of which predictor has a larger impact. In this model, we see that the impact of weight
+  is much more than the impact of displacement.
+- "P>|t|": The p-value testing whether the coefficient is significantly different than 0. In this model, we see that `weight` has a significant
+  p-value, while `displacement` does not.
+- "[95% Conf. interval]": A range of possible values.
+
+Whenever we look at any model, a distinction needs to be drawn between statistical significance and practical significance. While these two
+interpretations of significance often align, they are not guaranteed to. We often have statistical significance (a p-value less than .05) when there
+is no practical significance (aka clinical significance, a difference that isn't scientifically interesting). This is mostly a function of sample
+size; with a large sample even very small effects can have small p-values. Alternatively, a large practical significance with a low statistical
+significance can occur with very noisy data or a small sample size, which might indicate further study with a larger sample is needed.
 
 - Include rep78 to show i. c.
 - Include interaction to show ##
