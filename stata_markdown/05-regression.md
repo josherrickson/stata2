@@ -65,6 +65,36 @@ regress mpg weight displacement
 <</dd_do>>
 ~~~~
 
+There is a lot of important output here, so we will step through each piece.
+
+First, the top left table is the ANOVA table. If you were to fit a regression model with a
+single [categorical predictor](#continuous-vs-categorical-predictors), this would be identical to running ANOVA via `oneway`. In general we don't need
+to interpret anything here, as there are further measures of model fit in the regression frameworks.
+
+Next, the top right part has a series of measures.
+
+- Regression performs complete case analysis - any observations missing any variable involved in this model is ignored in the
+  model. (See [multiple imputation](multiple-imputation.html) for details on getting around this.) Check "Number of obs" to ensure the number of
+  observations is what you expect. Here, the data has 74 rows, so the regression model is using all the data (there is no missinginess in `mpg`,
+  `weight` or `displacement`).
+- The F-test which follows ("F(2, 71)"^[The 2 and 71 are degrees of freedom. They don't typically add any interpretation.] and "Prob > F") is testing
+  the null hypothesis that all coefficients are 0. In other words, if this test fails to reject, the conclusion is the model captures no
+  relationships. In this case, do not continue interpreting the results; either your conclusion is that there is no relationship, or you need to
+  return to the model design phase. If this test does reject, you can continue interpretating.
+- The ^$^R^2^$^ ("R-squared") is a measure of model fit. It ranges from 0 to 1 and is a percentage, explaining what percent in the variation in the
+  response is explained by the linear relationship with the predictors. What's considered a "large" ^$^R^2^$^ depends greatly on your field and the
+  situation, in very general terms, .6 is good and above .8 is great. However, if you know that there are a lot of unmeasured variables, a much
+  smaller ^$^R^2$^$ can be considered good as well.
+- Mathematically, adding a new predictor to the model will increase the $^$R^2$^$, regardless of how useless the variable is.^[The only exception is
+  if the predictor being added is either constant or identical to another variable.] This makes ^$^R^2^$^$ poor for model comparison, as it would
+  always select the model with the most predictors. Instead, the adjusted $^$R^2$^$ ("Adj R-Squared") accounts for this; it penalizes the $^$R^2$^$ by
+  the number of predictors in the model. Use the $^$R^2$^$ to measure model fit, use the adjusted $^$R^2$^$ for model comparison.
+- The root mean squared error ("Root MSE", as known as RMSE) is a measure of the average difference between the observed outcome and the predicted
+  outcome. It can be used as another measure of model fit, as it is on the scale of the outcome variable. So for this example, the RMSE is abour 3.5,
+  so the average error in the model is about 3.5 mpg.
+
+Finally, we get to the coefficient table.
+
 - F-test
 - R2, Adj R2
 - RMSE
