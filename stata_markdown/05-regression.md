@@ -116,12 +116,106 @@ is no practical significance (aka clinical significance, a difference that isn't
 size; with a large sample even very small effects can have small p-values. Alternatively, a large practical significance with a low statistical
 significance can occur with very noisy data or a small sample size, which might indicate further study with a larger sample is needed.
 
-- Include rep78 to show i. c.
-- Include interaction to show ##
+^#^^#^^#^ Including categorical predictors
+
+Let's say we want to add `rep78`, a categorical variable with 5 levels, to the model. Naively, we simply add it:
+
+~~~~
+<<dd_do>>
+regress mpg weight displacement rep78
+<</dd_do>>
+~~~~
+
+We only get a single coefficient. Stata is treating `rep78` as continuous. When including a categorical predictor, Stata will create dummy variables
+(variables which take on value 1 if the observation is in that category and 0 otherwise) and include all but one, which is the refernce (or
+baseline). Since we only see a single coefficient here, we know Stata did it incorrectly.
+
+The issue is that Stata doesn't know we want to treat `rep78` as categorical. If we prefix the variable name with `i.`, Stata will know it is
+categorical.
+
+~~~~
+<<dd_do>>
+regress mpg weight displacement i.rep78
+<</dd_do>>
+~~~~
+
+Now we see 4 rows for `rep78`, each corresponding to a comparison between response 1 and the row. For example, the first row, 2, is saying that when
+`rep78` is 2 compare to when it is 1, the average predicted response drops by <<dd_display: %9.3f abs(_b[2.rep78])>> (though it is not statistical
+signifcant). The last row, 5, is saying that when `rep78` is 5 compare to when it is 1, the average predicted response increases by <<dd_display:
+%9.3f _b[5.rep78]>> (again, not statistically significant).
+
+To see the other comparisons (does 2 differ from 4?), we can use the `margins` command.
+
+~~~~
+<<dd_do>>
+margins rep78
+margins rep78, pwcompare(pv)
+<</dd_do>>
+~~~~
+
+The first `margins` call, without any options, displays the marginal means for each category - with all other variable (`weight` and `displacement`)
+at their mean, it's the average predicted mileage of all cars whose `rep78` value is at each level. The t-test here is useless - it's only testing
+that the average mileage of the cars in each group is not 0!
+
+The second `margins` call adds the `pwcompare(pv)` option, which performs pairwise test between each pair of `rep78` levels. This is similar to a
+post-hoc test from ANOVA if you are familiar with it. The only statistical significance we find is 5 vs 3 and 5 vs 4 (both marginally significant),
+suggesting very weak evidence that 5 is different from 3 and 4, and further study may be required.
+
+By default, using `i.` makes the first level (lowest numerical value) as the reference category. You can adjust this by using `ib#.` instead, such as:
+
+~~~~
+<<dd_do>>
+regress mpg weight displacement ib3.rep78
+<</dd_do>>
+~~~~
+
+^#^^#^^#^ Interactions
+
+Each coefficient we've look at so far is only testing whether there is a relationship between the predictor and response when the other predictors are
+held constant. What if we think the relationship changes based on the value of other predictors? For example, we might be interested in whether the
+relationship between a car's weight and its mileage depends on it's repair record. Perhaps we think that poorly made cars may not see as much a
+benefit from lowering the weight. We can test this by including an interaction.
+
+Mathematically an interaction is nothing more than a literal multiplication. For example, if our model has only two predictors,
+
+^$$^
+  Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \epsilon
+^$$^
+
+then to add an interaction between ^$^X_1^$^ and ^$^X_2^$^, we simply add a new multiplicative term.
+
+^$$^
+  Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3(X_1\times X_2) + \epsilon
+^$$^
+
+- ^$^\beta_1\^$^ represents the relationship between ^$^X_1^$^ and ^$^Y^$^ when ^$^X_2^$^ is identically equal to 0.
+- ^$^\beta_2\^$^ represents the relationship between ^$^X_2^$^ and ^$^Y^$^ when ^$^X_1^$^ is identically equal to 0.
+- ^$^\beta_3\^$^ represents **both**:
+    - the change in the relationship between ^$^X_1^$^ and ^$^Y^$^ as ^$^X_2^$^ changes.
+    - the change in the relationship between ^$^X_2^$^ and ^$^Y^$^ as ^$^X_1^$^ changes.
+
+Adding these to the `reg` call is almost as easy. We'll use `#` or `##` instead. `#` includes only the interaction, whereas `##` includes both the
+interaction and the main effects.
+
+- `a#b`: Only the interaction
+- `a##b`: Main effect for `a`, main effect for `b`, and the interaction.
+- `a b a#b`: Same as `a##b`
+- `a b a##b`: Same as `a##b`, except it'll be uglier because you're including main effects twice and one will be ignored.
+
+~~~~
+<<dd_do>>
+regress mpg c.weight##c.displacement i.rep78
+<</dd_do>>
+~~~~
+
+Note that we used `c.`, similar to `i.`. `c.` forces Stata to treat it as continuous. Stata assumes anything in an interaction is categorical, so we
+need `c.` here! This can get pretty confusing, but it's never wrong to include `i.` or `c.` when specifying a regression.
+
 
 Then
 
 Assumptions:
+
 - Independence
 - Residuals have constant variance and are normal.
 - Relationship is linear & additive.
