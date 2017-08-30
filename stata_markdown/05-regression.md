@@ -57,11 +57,11 @@ We will now fit a model, discussing assumptions afterwards, because almost all a
 ^#^^#^^#^ Fitting the model
 
 Stata's `regress` command fit the linear regression model. It is followed by the outcome variable followed by all predictors. For this example, let's
-reload the auto data and fit a relatively simple model, predicting `mpg` based on `weight` and `displacement`.
+reload the auto data and fit a relatively simple model, predicting `mpg` based on `gear_ratio` and `headroom`.
 
 ~~~~
 <<dd_do>>
-regress mpg weight displacement
+regress mpg gear_ratio headroom
 <</dd_do>>
 ~~~~
 
@@ -86,28 +86,28 @@ Next, the top right part has a series of measures.
   situation, in very general terms, .6 is good and above .8 is great. However, if you know that there are a lot of unmeasured variables, a much
   smaller ^$^R^2^$^ can be considered good as well.
 - Mathematically, adding a new predictor to the model will increase the ^$^R^2^$^, regardless of how useless the variable is.^[The only exception is
-  if the predictor being added is either constant or identical to another variable.] This makes ^$^R^2^$^$ poor for model comparison, as it would
+  if the predictor being added is either constant or identical to another variable.] This makes ^$^R^2^$^ poor for model comparison, as it would
   always select the model with the most predictors. Instead, the adjusted ^$^R^2^$^ ("Adj R-Squared") accounts for this; it penalizes the ^$^R^2^$^ by
   the number of predictors in the model. Use the ^$^R^2^$^ to measure model fit, use the adjusted ^$^R^2^$^ for model comparison.
 - The root mean squared error ("Root MSE", as known as RMSE) is a measure of the average difference between the observed outcome and the predicted
   outcome. It can be used as another measure of model fit, as it is on the scale of the outcome variable. So for this example, the RMSE is
-  <<dd_display: %9.4f e(rmse)>> so the average error in the model is about 3.5 mpg.
+  <<dd_display: %9.4f e(rmse)>> so the average error in the model is about <<dd_display: %9.1f e(rmse)>> mpg.
 
-Finally, we get to the coefficient table. Each row represents a single predictor. The "\_cons" row is the intercept; it's first entry
+Finally, we get to the coefficient table. Each row represents a single predictor. The "\_cons" row is the intercept; it's Coef. of
 <<dd_display: %9.4f _b[_cons]>> represents the average response *when all other predictors are 0*. This is usually not interesting; how many cars
 weighing 0 lbs do you know of? So we'll ignore this and instead go over the other rows.
 
 - "Coef.": These are the ^$^\beta^$^ from the above model. We interpret each as "For a 1 increase in the value of the covariate with all other
-  predictors held constant, we would predict this change in the response, on average." For example, for every additional lb^[This is why it's
-  important to familiarize yourself with the units in your data!] a car weighs (while its displacement is constant), it is predicted to have an
-  average of <<dd_display: %9.4f _b[weight]>> lower mpg.
+  predictors held constant, we would predict this change in the response, on average." For example, for every additional inch^[This is why it's
+  important to familiarize yourself with the units in your data!] of headroom in a car (while its gear ratio is constant), it is predicted to have an
+  average of <<dd_display: %9.4f abs(_b[headroom])>> lower mpg.
 - "Std. Err.": This represents the error attached to the coefficient. This is rarely interpreted; but if it gets extremely large or extremely small
   (and the Coef. doesn't likewise go to extremes), its an indication there may be something wrong.
 - "t": This is the standardized coefficient, calculated as Coef./Std. Err. We can't directly compare the Coef.'s because of the different scales, but
   we can examine the standardized coefficients to get a sense of which predictor has a larger impact. In this model, we see that the impact of weight
   is much more than the impact of displacement.
-- "P>|t|": The p-value testing whether the coefficient is significantly different than 0. In this model, we see that `weight` has a significant
-  p-value, while `displacement` does not.
+- "P>|t|": The p-value testing whether the coefficient is significantly different than 0. In this model, we see that both `gear_ratio` and `headroom`
+  have significant p-values.
 - "[95% Conf. interval]": A range of possible values.
 
 Whenever we look at any model, a distinction needs to be drawn between statistical significance and practical significance. While these two
@@ -122,7 +122,7 @@ Let's say we want to add `rep78`, a categorical variable with 5 levels, to the m
 
 ~~~~
 <<dd_do>>
-regress mpg weight displacement rep78
+regress mpg gear_ratio headroom rep78
 <</dd_do>>
 ~~~~
 
@@ -135,9 +135,14 @@ categorical.
 
 ~~~~
 <<dd_do>>
-regress mpg weight displacement i.rep78
+regress mpg gear_ratio headroom i.rep78
 <</dd_do>>
 ~~~~
+
+First, note that `headroom` no longer has a significant coefficient! This implies that `rep78` and `headroom` are correlated, and in the first model
+where we did not include `rep78`, all of `rep78`'s effect was coming through `headroom`. Once we control for `rep78`, headroom is no longer
+significant. We will discuss [multicollinearity later](#miscellaneous-concerns), as well as why this is
+why [model selection is bad](#miscellaneous-concerns).
 
 Now we see 4 rows for `rep78`, each corresponding to a comparison between response 1 and the row. For example, the first row, 2, is saying that when
 `rep78` is 2 compare to when it is 1, the average predicted response drops by <<dd_display: %9.3f abs(_b[2.rep78])>> (though it is not statistical
@@ -157,14 +162,15 @@ The first `margins` call, without any options, displays the marginal means for e
 average predicted mileage of all cars. The t-test here is useless - it's only testing that the average mileage of the cars in each group is not 0!
 
 The second `margins` call adds the `pwcompare(pv)` option, which performs pairwise test between each pair of `rep78` levels. This is similar to a
-post-hoc test from ANOVA if you are familiar with it. The only statistical significance we find is 5 vs 3 and 5 vs 4 (both marginally significant),
-suggesting very weak evidence that 5 is different from 3 and 4, and further study may be required.
+post-hoc test from ANOVA if you are familiar with it. The only statistical significance we find is 5 vs 3 and 5 vs 4, suggesting that 5 is dissimilar
+from 3 and 4. (Confusingly, 3 and 4 are not dissimilar from 1 or 2, but 5 is similar to 1 and 2! These sort of things can happen; its best to focus
+only on the comparisons that are of theoretical interest.)
 
 By default, using `i.` makes the first level (lowest numerical value) as the reference category. You can adjust this by using `ib#.` instead, such as:
 
 ~~~~
 <<dd_do>>
-regress mpg weight displacement ib3.rep78
+regress mpg headroom gear_ratio ib3.rep78
 <</dd_do>>
 ~~~~
 
@@ -172,8 +178,8 @@ regress mpg weight displacement ib3.rep78
 
 Each coefficient we've look at so far is only testing whether there is a relationship between the predictor and response when the other predictors are
 held constant. What if we think the relationship changes based on the value of other predictors? For example, we might be interested in whether the
-relationship between a car's weight and its mileage depends on it's repair record. Perhaps we think that poorly made cars may not see as much a
-benefit from lowering the weight. We can test this by including an interaction.
+relationship between a car's headroom and its mileage depends on it's gear ratio. Perhaps we think that cars with higher gear ratio (a high gear ratio
+is indicative of a sportier car) won't be as affected by headroom as a standin for size, because sportier cars generally are better made.
 
 Mathematically an interaction is nothing more than a literal multiplication. For example, if our model has only two predictors,
 
@@ -203,7 +209,7 @@ interaction and the main effects.
 
 ~~~~
 <<dd_do>>
-regress mpg c.weight##c.displacement i.rep78
+regress mpg c.headroom##c.gear_ratio i.rep78
 <</dd_do>>
 ~~~~
 
