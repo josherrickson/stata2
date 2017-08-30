@@ -293,7 +293,26 @@ middle plot. As the fitted values increase, the error spreads out.
 If this assumption is violated, you may consider restructuring your model as above, or transforming either your response or predictors using log
 transforms.
 
-- Independence
+^#^^#^^#^^#^ Independence
+
+This last assumption is that each row of your data is independent. If you have repeated measures, this is violated. If you have subjects drawn from
+groups (i.e. students in classrooms), this is violated. There is no way to test for this, it requires knowing the data set.
+
+If this assumption is violated, consider fitting a [mixed model](mixed-models.html) instead.
+
+^#^^#^^#^ Miscellaneous concerns
+
+Multicollinearity is an issue when 2 or more predictors are correlated. If only two are correlated, looking at their correlation (with `pwcorr` or
+`correlate`) may provide some indication, but you can have many-way multicollinearity where each pairwise correlation is low. You can use the variance
+inflation factor to try and indentify if this is an issue.
+
+~~~~
+<<dd_do>>
+estat vif
+<</dd_do>>
+~~~~
+
+
 
 - Confounding
 - Overfitting 1:10 or 1:20
