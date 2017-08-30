@@ -236,11 +236,64 @@ marginsplot
 
 <<dd_graph: replace>>
 
-Assumptions:
+With low displacement, there is a negative relationship between weight and mileage - adding weight to a low displacment car is predicted to decrease
+mileage, on average. However, the effect decreases as displacment increases, and at high levels of displacement, there is no longer any relationship
+(you can detect this both because the t-test from the `margins` call for `displacement = 400` is not significant, and becaues the confidence interval
+in the `marginsplot` crosses zero).
+
+^#^^#^^#^ Assumptions:
+
+There are three main assumptions when running a linear regression. Some we can test, some we cannot (and need to rely on our knowledge of the data).
+
+^#^^#^^#^^#^ Relationship is linear and additive
+
+Recall the linear regression model:
+
+^$$^
+  Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \cdots + \beta_pX_p + \epsilon
+^$$^
+
+This very explicitly assumes that the relationship is linear (as opposed to something non-linear, such as quadratic or exponential) and additive (as
+opposed to multiplicative). We can examine this assumption by looking at plots of the residuals (estimated errors):
+
+~~~~
+<<dd_do>>
+rvfplot
+<</dd_do>>
+~~~~
+
+<<dd_graph: replace>>
+
+What we're seeing here is a scatterplot between the fitted values (the predicted values for each individual) and their errors (the difference between
+the predicted values and observed values). If you can see a pattern in the scatterplot, that is evidence that this assumption is
+violated. **Importantly**, not seeing any pattern is **not** evidence that the assumption is valid! You'll still need to cover this assumption with
+theory and knowledge of the data.
+
+This image, from Julian Faraway's [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/) book, demonstrates a lack of pattern (the first) and
+a pattern (the third). (We will discuss the second plot [below](#errors-are-homogeneous)).
+
+![](https://i.stack.imgur.com/rtn7e.png)
+
+If this assumption is violated, you will need to reconsider the structure in your model, perhaps by adding a squared term (e.g. `reg y c.x c.x#c.x`).
+
+^#^^#^^#^^#^ Errors are homogeneous
+
+"Homogeneity" is a fancy term for "uniform in distribution", whereas "heterogeneity" represents "not uniform in distribution". If we were to take a
+truly random sample of all individuals in Michigan, the distribution of their heights would be homogeneous - it is reasonable to assume there is only
+a single distribution at work there. If on the other hand, we took a random sample of basketball players and school children, this would definitely be
+heterogeneous, the basketball players have a markedly difference distribution of heights that school children!
+
+In linear regression, the homoegenity assumption is that the distribution of the errors are uniform. Violations would include errors changing as the
+predictor increased, or several groups having very different noise in their measurements.
+
+This is an assumption we can test, again with the residuals vs fitted plot. We're looking for either a blatant deviation from a mean of 0, or an
+increasing/decreasing variatbility on the y-axis over time. Refer back to the [image above](#relationship-is-linear-and-additive), looking at the
+middle plot. As the fitted values increase, the error spreads out.
+
+If this assumption is violated, you may consider restructuring your model as above, or transforming either your response or predictors using log
+transforms.
 
 - Independence
-- Residuals have constant variance and are normal.
-- Relationship is linear & additive.
 
 - Confounding
 - Overfitting 1:10 or 1:20
