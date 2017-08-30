@@ -10,7 +10,7 @@ book:
 	Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
 
 clean:
-	@rm -rf 0*.Rmd _book build-stata.log
+	@rm -rf 0*.Rmd _book build-stata.log *.svg
 
 fresh: clean default
 
