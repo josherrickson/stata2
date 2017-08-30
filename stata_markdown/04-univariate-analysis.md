@@ -59,7 +59,7 @@ hist mpg, normal
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/04-hist.svg") replace>>
+<<dd_graph: replace>>
 
 In a histogram, we are looking for violations from the bell-shape of a normal curve. We added the normal curve to the plot by the `normal` option. We
 can see that while the data is not perfectly normal, it also is not too far off. We can look at a qq-plot for further details.
@@ -70,7 +70,7 @@ qnorm mpg
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/04-qq.svg") replace>>
+<<dd_graph: replace>>
 
 With a qq-plot, we are looking for the points to roughly fall in a straight line, alone the 45-degree line. Here we see some mild violations of those,
 especially at either end.

@@ -153,9 +153,8 @@ margins rep78, pwcompare(pv)
 <</dd_do>>
 ~~~~
 
-The first `margins` call, without any options, displays the marginal means for each category - with all other variable (`weight` and `displacement`)
-at their mean, it's the average predicted mileage of all cars whose `rep78` value is at each level. The t-test here is useless - it's only testing
-that the average mileage of the cars in each group is not 0!
+The first `margins` call, without any options, displays the marginal means for each category - if every car had `rep78` at those levels, it's the
+average predicted mileage of all cars. The t-test here is useless - it's only testing that the average mileage of the cars in each group is not 0!
 
 The second `margins` call adds the `pwcompare(pv)` option, which performs pairwise test between each pair of `rep78` levels. This is similar to a
 post-hoc test from ANOVA if you are familiar with it. The only statistical significance we find is 5 vs 3 and 5 vs 4 (both marginally significant),
@@ -213,26 +212,10 @@ need `c.` here! This can get pretty confusing, but it's never wrong to include `
 
 Once we include an interaction, the relationship between the variables included in the interaction and the response are not constant - the
 relationship depends on the value of the other interacted variables. This can be hard to visualize with the basic regression output, so we'll look at
-`margins` again instead.
-
-First, we can look at the relationship between vehicle weight and mileage when displacement is at its average. (We're ignoring `rep78` here because it
-does not take place in the interaction, so all interpretations should add "... with `rep78` held constant.")
-
-~~~~
-<<dd_do>>
-margins, dydx(weight)
-<</dd_do>>
-~~~~
-
-Since `weight` is continuous (unlike `rep78` which was entered into the model as `i.rep78` [previously](#including-categorical-predictors)), it must
-be added through the `dydx` option. This option shows the relationship when everything else is at it's average, so if there were no interaction, it
-would simply return the coefficient on `weight`. Since we do have an interaction, it instead returns the relationship between `weight` and `mpg` when
-`displacement` is at its average (recall that the coefficient on `weight` when we added the interaction becomes the relationship between `weight` and
-`mpg` for 0 `displacment` cars.)
-
-We can look at the marginal relationship for different values of `displacement` easily enough. `displacement` ranges from 79 to 425 (this can be
-obtained with `summarize` or `codebook`, just don't forget to re-run the `regress` command to gain access to
-the [postestimation commands](summarizing-data.html#postestimation-commands) again), so let's look at the relationship at 100, 200, 300 and 400:
+`margins` again instead. We'll want to look at the relationship between `mpg` and `weight` at a few different values of `displacement` to get a sense
+of the pattern. `displacement` ranges from 79 to 425 (this can be obtained with `summarize` or `codebook`, just don't forget to re-run the `regress`
+command to gain access to the [postestimation commands](summarizing-data.html#postestimation-commands) again), so let's look at the relationship at
+100, 200, 300 and 400:
 
 ~~~~
 <<dd_do>>
@@ -243,7 +226,15 @@ margins, dydx(weight) at(displacement = (100 200 300 400))
 Notice that when `displacement` is low, the p-value is very significant - amongst cars with low `displacement`, a higher weight is predicted to yield
 a lower average mileage. However,
 
-Then
+Follow this with a call to `marginsplot` for a great visualization:
+
+~~~~
+<<dd_do>>
+marginsplot
+<</dd_do>>
+~~~~
+
+<<dd_graph: replace>>
 
 Assumptions:
 

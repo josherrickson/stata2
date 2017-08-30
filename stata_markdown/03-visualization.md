@@ -30,7 +30,7 @@ graph bar price, over(rep78)
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph1.svg") replace>>
+<<dd_graph: replace>>
 
 For further information, we could instead construct a boxplot.
 ~~~~
@@ -39,7 +39,7 @@ graph box price, over(rep78)
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph2.svg") replace>>
+<<dd_graph: replace>>
 
 There are a few other infrequently used graphs, see `help graph` for details.
 
@@ -58,7 +58,7 @@ graph twoway scatter mpg weight
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph3.svg") replace>>
+<<dd_graph: replace>>
 
 **Note:** For `graph twoway` commands, the `graph` is optional. E.g., these commands are equivalent:
 ```
@@ -84,7 +84,7 @@ twoway scatter mpg weight, msymbol(s) ///
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph4.svg") replace>>
+<<dd_graph: replace>>
 
 Graphs made using `twoway` have an additional benefit - it is easy to stack them. For example, `twoway lfit` creates a best-fit line between the points:
 ~~~~
@@ -93,7 +93,7 @@ twoway lfit mpg weight
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph5.svg") replace>>
+<<dd_graph: replace>>
 
 This isn't really that useful. It would be much better to overlap those two - generate the scatter plot, then add the best fit line. We can easily do
 that by passing multiple plots to `twoway`:
@@ -104,7 +104,7 @@ twoway (scatter mpg weight) (lfit mpg weight)
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph6.svg") replace>>
+<<dd_graph: replace>>
 
 Note that the order of the plots matters - if you can tell, the best-fit line was drawn on top of the scatter plot points. If you reversed the order
 in the command (`twoway (lfit mpg weight) (scatter mpg weight)`), the line would be drawn first and the points on top of it.
@@ -118,7 +118,7 @@ twoway (scatter mpg weight, msymbol(t)) ///
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph7.svg") replace>>
+<<dd_graph: replace>>
 
 Putting these options "globally", as `twoway (...) (...), msymbol(to)` would NOT work, as `msymbol` is an option specifically for `twoway scatter`
 (and a few others), not for the more general `twoway`.
@@ -134,7 +134,7 @@ histogram mpg
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph8.svg") replace>>
+<<dd_graph: replace>>
 
 You can see a full list of the non-graph plots by looking at
 
@@ -153,7 +153,7 @@ hist mpg, by(foreign)
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph9.svg") replace>>
+<<dd_graph: replace>>
 
 Alternatively, you may way to represent another variable on a single plot. For example, let's say we want to create the scatter plot and best-fit from
 above, but differentiate the genders on one graph (rather than two separate windows via `by`). To do this, we'd overlap two `scatter` and `lfit` plots
@@ -168,7 +168,7 @@ twoway (scatter mpg weight if foreign ==  0) ///
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph10.svg") replace>>
+<<dd_graph: replace>>
 
 Notice that Stata automatically made each plot a separate color, but not in a logical fashion. Here's a cleaned up version:
 
@@ -184,7 +184,7 @@ twoway (scatter mpg weight if foreign ==  0, mcolor(orange)) ///
 <</dd_do>>
 ~~~~
 
-<<dd_graph: saving("images/graph11.svg") replace>>
+<<dd_graph: replace>>
 
 (Since its not entirely clear from the code, the `order(1 2)` argument inside `legend` serves two purposes - first, it "orders" the entries in the
 legend box, but secondly and more importantly, it does *not* contain 3 or 4. If you look at the previous plot, it had four entries in the legend for
