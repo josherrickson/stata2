@@ -1,4 +1,4 @@
-default: stata fixRmd book
+default: rmsvg stata fixRmd book
 
 stata:
 	/Applications/Stata/StataSE.app/Contents/MacOS/stata-se -b do build-stata.do
@@ -16,3 +16,6 @@ fresh: clean default
 
 open:
 	@open _book/index.html
+
+rmsvg:
+	@rm -rf *.svg
