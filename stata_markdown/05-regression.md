@@ -392,6 +392,8 @@ crucial to understanding the model, but there are two quirks that need to be exa
    predictors. Unlike linear regression where we are explicitly predicting the outcome, a logistic model is instead trying to predict everyone's
    probability of a positive outcome.
 
+^#^^#^^#^ Fitting the logistic model
+
 We can fit this using the `logit` command in State. It works very similarly to `regress`. Let's predict whether a car is foreign based on headroom and
 gear ratio again.
 
@@ -407,12 +409,12 @@ it iteratively - Stata guesses at the best coefficients that minimize error^[Tec
 important for understanding.], and keeps guessing (using the knowledge of the previous guesses) until it stops getting significantly different results.
 
 From this output, we get the "Number of obs" again. Instead of an ANOVA table with a F-statistic to test model significance, there is instead a "chi2"
-(^$^\chi^2^$^, pronouced "ky-squared" as in "Kyle"). In this model, we reject the null that all coefficients are identically 0.
+(^$^\chi^2^$^, pronounced "ky-squared" as in "Kyle"). In this model, we reject the null that all coefficients are identically 0.
 
 When we move away from linear regression, we no longer get an ^$^R^2^$^ measure. There have been various pseudo-^$^R^2^$^'s suggested, and Stata
 reports one here, but be careful assigning too much meaning to it. It is not uncommon to get pseudo-^$^R^2^$^ values that are negative or above 1.
 
-The coefficients tabel is interpreted in almost the same way as with regression. We see that `gear_ratio` has a significant positive coefficient, and
+The coefficients table is interpreted in almost the same way as with regression. We see that `gear_ratio` has a significant positive coefficient, and
 `headroom` is indistinguishable from 0. We *cannot* nicely interpret the coefficients. All we can say is that "As gear ratio increases, the
 probability of a car being foreign increases."
 
@@ -425,5 +427,44 @@ logit, or
 <</dd_do>>
 ~~~~
 
-Notice that the "chi2", "PseudoR2", "z" and "P>|z|" do not change - we're fitting the same model! We're just changing how the cofficients are
+Notice that the "chi2", "PseudoR2", "z" and "P>|z|" do not change - we're fitting the same model! We're just changing how the coefficients are
 represented.
+
+Odds ratios null hypothesis is at 1, not at 0. Odds ratios are always positive. So a significant odds ratio will be away from 1, rather than away from
+0 as in linear regression or the log odds. We can interpret odds ratios as percentages. The odds ratio for `gear_ratio` is
+<<dd_display: %9.4f _b[gear_ratio]>>, suggesting that a 1 increase in the odds ratio leads to a 30,833% increase in the probability that the car is
+foreign! This is massive! But keep in mind, `gear_ratio` had a very narrow range - an increase of 1 is very large. Let's rescale gear_ratio and try again.
+
+~~~~
+<<dd_do>>
+gen gear_ratio2 = gear_ratio*10
+logit foreign gear_ratio2 headroom, or
+<</dd_do>>
+~~~~
+
+Note once again that the model fit characteristics haven't changed; we've fit the same model, just with different units. Now the interpretation is
+more reasonable, for every .1 increase in `gear_ratio` (which corresponds to a 1 increase in `gear_ratio2`), we predict an average mileage increase of
+77%.
+
+The odds ratio on headroom is not distinguishable from 1, however, if it were, the interpretation is that increasing the headroom by 1 inch is
+predicted to decrease the mileage by about <<dd_display: %9.1f 100*(1-exp(_b[headroom]))>>% on average (1 - <<dd_display: %9.3f exp(_b[headroom])>>).
+
+^#^^#^^#^ Categorical Variables and Interactions
+
+Both [categorical variables](#including-categorical predictors) and [interactions](#interactions) can be included as they were in linear regression,
+with the appropriate interpretation of coefficients/odds ratios.
+
+^#^^#^^#^ Logistic regression assumptions
+
+The assumptions for logistic regression are simpler than linear. The outcome measure must be binary with a 0 for a negative response and 1 for a
+positive. (Technically they don't have to be positive/negative. We could think of predicting male/female and code male = 0 and female = 1. However, the
+convention is to consider the outcome as "Female?" and predict the probability that the person is a female.) The errors in a logistic regression model
+are fairly contained (you can't be wrong than more than 1!) so there are no real assumptions about them. The [independence](#independence) assumption
+is still here and still important, again, a mixed logistic model may be appropriate if the data is not independent.
+
+^#^^#^^#^ `logit` Miscellaneous.
+
+The `logit` model supports the margins command just like `regress` does. It does not support `estat vif` because variance inflation factors are not
+defined for logistic models.
+
+Collinearity, overfitting, and model selection remain concerns in the logistic model.
