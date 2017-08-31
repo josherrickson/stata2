@@ -373,4 +373,57 @@ to use.
 
 ^#^^#^ Logistic
 
-^#^^#^ Poisson Maybe
+Let's violate one of the [assumptions](#relationship-is-linear-and-additive). Instead of the relationship being linear, we can generalize to allow the
+relationship to be any functional form. These types of models are called "Generalized Linear Models" or "GLMs", mainly because we can transform the
+model to be linear in some sense. Logistic regression is one specific form of a GLM, others in Poisson and Negative Binomial regression.
+
+Logistic regression is used when the outcome is dichotomous - either a positive outcome (1) or a negative outcome (0). For example, presence or
+absence of some disease. The equation for this model is
+
+^$$^
+    P(Y = 1 | X) = \frac{1}{1 + e^{-(\beta_0 + \beta_1X_1 + \cdots + \beta_pX_p)}} + \epsilon.
+^$$^
+
+The right hand side is what's known as the "logit" function, that is, logit(^$^z^$^) = ^$^\frac{1}{1 + e^{-z}}^$^. Understanding this form isn't
+crucial to understanding the model, but there are two quirks that need to be examined.
+
+1. The relationship between the ^$^X^$^'s and the outcome is nonlinear.
+2. Note that the left-hand side of this model is not just ^$^Y^$^, but rather, the probability of ^$^Y^$^ being 1 (a positive result) given the
+   predictors. Unlike linear regression where we are explicitly predicting the outcome, a logistic model is instead trying to predict everyone's
+   probability of a positive outcome.
+
+We can fit this using the `logit` command in State. It works very similarly to `regress`. Let's predict whether a car is foreign based on headroom and
+gear ratio again.
+
+~~~~
+<<dd_do>>
+logit foreign gear_ratio headroom
+<</dd_do>>
+~~~~
+
+When you try this yourself, you may notice that its not quite as fast as `regress`. That is because for linear regression we have a "closed form
+solution" - we just do some quick math and reach an answer. However, almost every time of regression lacks a closed form solution, so instead we solve
+it iteratively - Stata guesses at the best coefficients that minimize error^[Technically that maximizes likelihood, but that distinction is not
+important for understanding.], and keeps guessing (using the knowledge of the previous guesses) until it stops getting significantly different results.
+
+From this output, we get the "Number of obs" again. Instead of an ANOVA table with a F-statistic to test model significance, there is instead a "chi2"
+(^$^\chi^2^$^, pronouced "ky-squared" as in "Kyle"). In this model, we reject the null that all coefficients are identically 0.
+
+When we move away from linear regression, we no longer get an ^$^R^2^$^ measure. There have been various pseudo-^$^R^2^$^'s suggested, and Stata
+reports one here, but be careful assigning too much meaning to it. It is not uncommon to get pseudo-^$^R^2^$^ values that are negative or above 1.
+
+The coefficients tabel is interpreted in almost the same way as with regression. We see that `gear_ratio` has a significant positive coefficient, and
+`headroom` is indistinguishable from 0. We *cannot* nicely interpret the coefficients. All we can say is that "As gear ratio increases, the
+probability of a car being foreign increases."
+
+To add any interpretability to these coefficients, we should instead look at the odds ratios (these coefficients are known as the log-odds). We can
+obtain this with the `or` options.
+
+~~~~
+<<dd_do>>
+logit, or
+<</dd_do>>
+~~~~
+
+Notice that the "chi2", "PseudoR2", "z" and "P>|z|" do not change - we're fitting the same model! We're just changing how the cofficients are
+represented.
