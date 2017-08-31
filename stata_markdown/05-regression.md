@@ -26,7 +26,7 @@ The variables upon which we are predicting can be called "predictors", "covariat
 
 ^#^^#^ Linear Regression
 
-Linear regresison (also known as Ordinary Least Squares (OLS) regression) is the most basic form of regression, where the response variable is
+Linear regression (also known as Ordinary Least Squares (OLS) regression) is the most basic form of regression, where the response variable is
 continuous. Technically the response variable can also be binary or categorical but there are better regression models for those types of
 outcomes. Linear regression fits this model:
 
@@ -75,12 +75,12 @@ Next, the top right part has a series of measures.
 
 - Regression performs complete case analysis - any observations missing any variable involved in this model is ignored in the
   model. (See [multiple imputation](multiple-imputation.html) for details on getting around this.) Check "Number of obs" to ensure the number of
-  observations is what you expect. Here, the data has 74 rows, so the regression model is using all the data (there is no missinginess in `mpg`,
+  observations is what you expect. Here, the data has 74 rows, so the regression model is using all the data (there is no missingness in `mpg`,
   `weight` or `displacement`).
 - The F-test which follows ("F(2, 71)"^[The 2 and 71 are degrees of freedom. They don't typically add any interpretation.] and "Prob > F") is testing
   the null hypothesis that all coefficients are 0. In other words, if this test fails to reject, the conclusion is the model captures no
   relationships. In this case, do not continue interpreting the results; either your conclusion is that there is no relationship, or you need to
-  return to the model design phase. If this test does reject, you can continue interpretating.
+  return to the model design phase. If this test does reject, you can continue interpreting.
 - The ^$^R^2^$^ ("R-squared") is a measure of model fit. It ranges from 0 to 1 and is a percentage, explaining what percent in the variation in the
   response is explained by the linear relationship with the predictors. What's considered a "large" ^$^R^2^$^ depends greatly on your field and the
   situation, in very general terms, .6 is good and above .8 is great. However, if you know that there are a lot of unmeasured variables, a much
@@ -127,7 +127,7 @@ regress mpg gear_ratio headroom rep78
 ~~~~
 
 We only get a single coefficient. Stata is treating `rep78` as continuous. When including a categorical predictor, Stata will create dummy variables
-(variables which take on value 1 if the observation is in that category and 0 otherwise) and include all but one, which is the refernce (or
+(variables which take on value 1 if the observation is in that category and 0 otherwise) and include all but one, which is the reference (or
 baseline). Since we only see a single coefficient here, we know Stata did it incorrectly.
 
 The issue is that Stata doesn't know we want to treat `rep78` as categorical. If we prefix the variable name with `i.`, Stata will know it is
@@ -146,7 +146,7 @@ why [model selection is bad](#model-selection-is-bad).
 
 Now we see 4 rows for `rep78`, each corresponding to a comparison between response 1 and the row. For example, the first row, 2, is saying that when
 `rep78` is 2 compare to when it is 1, the average predicted response drops by <<dd_display: %9.3f abs(_b[2.rep78])>> (though it is not statistical
-signifcant). The last row, 5, is saying that when `rep78` is 5 compare to when it is 1, the average predicted response increases by <<dd_display:
+significant). The last row, 5, is saying that when `rep78` is 5 compare to when it is 1, the average predicted response increases by <<dd_display:
 %9.3f _b[5.rep78]>> (again, not statistically significant).
 
 To see the other comparisons (does 2 differ from 4?), we can use the `margins` command.
@@ -179,7 +179,7 @@ regress mpg headroom gear_ratio ib3.rep78
 Each coefficient we've look at so far is only testing whether there is a relationship between the predictor and response when the other predictors are
 held constant. What if we think the relationship changes based on the value of other predictors? For example, we might be interested in whether the
 relationship between a car's headroom and its mileage depends on it's gear ratio. Perhaps we think that cars with higher gear ratio (a high gear ratio
-is indicative of a sportier car) won't be as affected by headroom as a standin for size, because sportier cars generally are better made.
+is indicative of a sportier car) won't be as affected by headroom as a stand-in for size, because sportier cars generally are better made.
 
 Mathematically an interaction is nothing more than a literal multiplication. For example, if our model has only two predictors,
 
@@ -219,7 +219,7 @@ need `c.` here! This can get pretty confusing, but it's never wrong to include `
 Once we include an interaction, the relationship between the variables included in the interaction and the response are not constant - the
 relationship depends on the value of the other interacted variables. This can be hard to visualize with the basic regression output, so we'll look at
 `margins` again instead. We'll want to look at the relationship between `mpg` and `headroom` at a few different values of `gear_ratio` to get a sense
-of the pattern. `gear_ratio` ranges from 2.19 to 3.89 (this can be obtained with `summarize` or `codebook`, just don't forget to re-ruan the `regress`
+of the pattern. `gear_ratio` ranges from 2.19 to 3.89 (this can be obtained with `summarize` or `codebook`, just don't forget to re-run the `regress`
 command to gain access to the [postestimation commands](summarizing-data.html#postestimation-commands) again), so let's look at the relationship at
 those extremes and at 3:
 
@@ -246,7 +246,7 @@ marginsplot
 With low gear_ratio, there is a negative relationship between headroom and mileage - adding headroom to a low gear ratio car is predicted to decrease
 mileage, on average. However, the effect decreases as gear ratio increases, and at high levels of gear ratio, there is no longer any relationship. You
 can detect this by looking at the means (the points) and the confidence bands; here there is no relationship at all, but there is some suggestion that
-the relationship we describe may be occuring.
+the relationship we describe may be occurring.
 
 ^#^^#^^#^ Assumptions:
 
@@ -290,11 +290,11 @@ truly random sample of all individuals in Michigan, the distribution of their he
 a single distribution at work there. If on the other hand, we took a random sample of basketball players and school children, this would definitely be
 heterogeneous, the basketball players have a markedly difference distribution of heights that school children!
 
-In linear regression, the homoegenity assumption is that the distribution of the errors are uniform. Violations would include errors changing as the
+In linear regression, the homogeneity assumption is that the distribution of the errors are uniform. Violations would include errors changing as the
 predictor increased, or several groups having very different noise in their measurements.
 
 This is an assumption we can test, again with the residuals vs fitted plot. We're looking for either a blatant deviation from a mean of 0, or an
-increasing/decreasing variatbility on the y-axis over time. Refer back to the [image above](#relationship-is-linear-and-additive), looking at the
+increasing/decreasing variability on the y-axis over time. Refer back to the [image above](#relationship-is-linear-and-additive), looking at the
 middle plot. As the fitted values increase, the error spreads out.
 
 If this assumption is violated, you may consider restructuring your model as above, or transforming either your response or predictors using log
@@ -313,7 +313,7 @@ If this assumption is violated, consider fitting a [mixed model](mixed-models.ht
 
 Multicollinearity is an issue when 2 or more predictors are correlated. If only two are correlated, looking at their correlation (with `pwcorr` or
 `correlate`) may provide some indication, but you can have many-way multicollinearity where each pairwise correlation is low. You can use the variance
-inflation factor to try and indentify if this is an issue.
+inflation factor to try and identify if this is an issue.
 
 ~~~~
 <<dd_do>>
@@ -324,8 +324,8 @@ estat vif
 The rule of thumb is VIF > 10 or 1/VIF (called the tolerance) < .1 suggests that the variable is involved in multicolliearity and more exploration may
 be needed. We've got a ton of multicollinearity here, so we'd need to explore more and perhaps exclude one of them.
 
-Multicollinearity can be an issue because the more collerated predictors are, the more likely that their combined effect will be inappropriately
-spread amongst them. For a very simple example, imagine that we have the model
+Multicollinearity can be an issue because the more correlated predictors are, the more likely that their combined effect will be inappropriately
+spread among them. For a very simple example, imagine that we have the model
 
 ^$$^
   Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \epsilon
