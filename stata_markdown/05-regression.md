@@ -141,8 +141,8 @@ regress mpg gear_ratio headroom i.rep78
 
 First, note that `headroom` no longer has a significant coefficient! This implies that `rep78` and `headroom` are correlated, and in the first model
 where we did not include `rep78`, all of `rep78`'s effect was coming through `headroom`. Once we control for `rep78`, headroom is no longer
-significant. We will discuss [multicollinearity later](#miscellaneous-concerns), as well as why this is
-why [model selection is bad](#miscellaneous-concerns).
+significant. We will discuss [multicollinearity later](#multicollinearity), as well as why this is
+why [model selection is bad](#model-selection-is-bad).
 
 Now we see 4 rows for `rep78`, each corresponding to a comparison between response 1 and the row. For example, the first row, 2, is saying that when
 `rep78` is 2 compare to when it is 1, the average predicted response drops by <<dd_display: %9.3f abs(_b[2.rep78])>> (though it is not statistical
@@ -218,19 +218,20 @@ need `c.` here! This can get pretty confusing, but it's never wrong to include `
 
 Once we include an interaction, the relationship between the variables included in the interaction and the response are not constant - the
 relationship depends on the value of the other interacted variables. This can be hard to visualize with the basic regression output, so we'll look at
-`margins` again instead. We'll want to look at the relationship between `mpg` and `weight` at a few different values of `displacement` to get a sense
-of the pattern. `displacement` ranges from 79 to 425 (this can be obtained with `summarize` or `codebook`, just don't forget to re-run the `regress`
+`margins` again instead. We'll want to look at the relationship between `mpg` and `headroom` at a few different values of `gear_ratio` to get a sense
+of the pattern. `gear_ratio` ranges from 2.19 to 3.89 (this can be obtained with `summarize` or `codebook`, just don't forget to re-ruan the `regress`
 command to gain access to the [postestimation commands](summarizing-data.html#postestimation-commands) again), so let's look at the relationship at
-100, 200, 300 and 400:
+those extremes and at 3:
 
 ~~~~
 <<dd_do>>
-margins, dydx(weight) at(displacement = (100 200 300 400))
+margins, dydx(headroom) at(gear_ratio = (2.19 3 3.89))
 <</dd_do>>
 ~~~~
 
-Notice that when `displacement` is low, the p-value is very significant - amongst cars with low `displacement`, a higher weight is predicted to yield
-a lower average mileage. However,
+While none of the p-values are significant, let's pretend they were for the sake of discussion. Notice the pattern in the "dy/dx" column. With a low
+gear ratio, the relationship between headroom and mpg is negative - a larger headroom car is predicted to have lower mileage. At the other end, with a
+high gear ratio, the relationship is much closer to 0, and perhaps even slightly positive.
 
 Follow this with a call to `marginsplot` for a great visualization:
 
@@ -242,10 +243,10 @@ marginsplot
 
 <<dd_graph: replace>>
 
-With low displacement, there is a negative relationship between weight and mileage - adding weight to a low displacment car is predicted to decrease
-mileage, on average. However, the effect decreases as displacment increases, and at high levels of displacement, there is no longer any relationship
-(you can detect this both because the t-test from the `margins` call for `displacement = 400` is not significant, and becaues the confidence interval
-in the `marginsplot` crosses zero).
+With low gear_ratio, there is a negative relationship between headroom and mileage - adding headroom to a low gear ratio car is predicted to decrease
+mileage, on average. However, the effect decreases as gear ratio increases, and at high levels of gear ratio, there is no longer any relationship. You
+can detect this by looking at the means (the points) and the confidence bands; here there is no relationship at all, but there is some suggestion that
+the relationship we describe may be occuring.
 
 ^#^^#^^#^ Assumptions:
 
@@ -308,6 +309,8 @@ If this assumption is violated, consider fitting a [mixed model](mixed-models.ht
 
 ^#^^#^^#^ Miscellaneous concerns
 
+^#^^#^^#^^#^ Multicollinearity
+
 Multicollinearity is an issue when 2 or more predictors are correlated. If only two are correlated, looking at their correlation (with `pwcorr` or
 `correlate`) may provide some indication, but you can have many-way multicollinearity where each pairwise correlation is low. You can use the variance
 inflation factor to try and indentify if this is an issue.
@@ -318,12 +321,55 @@ estat vif
 <</dd_do>>
 ~~~~
 
+The rule of thumb is VIF > 10 or 1/VIF (called the tolerance) < .1 suggests that the variable is involved in multicolliearity and more exploration may
+be needed. We've got a ton of multicollinearity here, so we'd need to explore more and perhaps exclude one of them.
 
+Multicollinearity can be an issue because the more collerated predictors are, the more likely that their combined effect will be inappropriately
+spread amongst them. For a very simple example, imagine that we have the model
 
-- Confounding
-- Overfitting 1:10 or 1:20
-- Why model selection is bad
+^$$^
+  Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \epsilon
+^$$^
 
+If ^$^X_1^$^ and ^$^X_2^$^ are uncorrelated, then we can estimate ^$^\beta_1^$^ and ^$^\beta_2^$^ without a problem. Consider the extreme situations
+where ^$^X_1^$^ and ^$^X_2^$^ are perfectly correlated.^[Note that if you provide data with perfect correlation, Stata will drop one of them for
+you. This in only a thought exercise. If it helps, imagine their correlation is 99% instead of perfect, and add "almost" as a qualifier to most
+claims.] We can therefore rewrite the equation as
+
+^$$^
+  Y = \beta_0 + (\beta_1 + \beta_2)X_1 + \epsilon
+^$$^
+
+since with perfect correlation, ^$^X_1^$^ and ^$^X_2^$^ are identical.^[Technically there could be a scaling factor such that ^$^X_1 = cX_2^$$^, but
+let's assume without loss of generality that ^$^c=1^$^.] Now, when we fit the model, we would have estimates of ^$^\beta_1^$^ and ^$^\beta_2^$^ which
+sum to the "truth", but the individual level of each of ^$^\beta_1^$^ and ^$^\beta_2^$^ could be anything. For example, if the "true" ^$^\beta_1^$^
+and ^$^\beta_2^$^ are 1 and 3, they sum to 4. We could get estimated coefficients of 1 and 3, or 3 and 1, or -20 and 24!
+
+This is an extreme example, but in practice we can be close to this situation.
+
+^#^^#^^#^^#^ Overfitting
+
+Overfitting occurs when a model includes so many predictors that you can no longer generalize to the population. The rule of thumb is that you should
+have no more than one predictor for every 10-20 observations. The smaller your sample size, the more conservative you should be. For example, a sample
+size of 100 should use no more than 10-20 predictors. Recall that a categorical predictor with ^$^k^$^ different levels adds ^$^k-1^$^ predictors!
+
+^#^^#^^#^^#^ Model Selection is bad
+
+There is a literature on the idea of model selection, that is, an automated (or sometimes manual) way of testing many versions of a model with a
+different subset of the predictors in an attempt to find the model that fits best. These are sometimes called "stepwise" procedures.
+
+This method has a number of flaws, including
+
+- Doing this is basically "p-value mining", that is, running a lot of tests till you find a p-value you like.
+- Your likelihood of making a false positive is very high.
+- As we [saw earlier](#including-categorical-predictors), adding a new variable can have an effect on existing predictors.
+
+Instead of doing model selection, you should use your knowledge of the data to select a subset of the variables which are either a) of importance to
+you, b) theoretically influential on the outcome (e.g. demographic variables) or c) what others (reviewers) would think are influential on the
+outcome. Then you can fit a single model including all of this.
+
+Note that adjustments to fix assumptions (e.g. transformations) or multicollinearity would not fall into the category of model selection and are fine
+to use.
 
 ^#^^#^ Logistic
 
