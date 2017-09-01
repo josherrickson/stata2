@@ -24,6 +24,9 @@ webuse nlswork, clear
 <</dd_do>>
 ~~~~
 
+This data is a survey taken from 1968-1988, and this specific sample of the data is salary information for women. We have repeated measures in the
+sense that we have yearly data for women, so each woman can have up to 20 data points.
+
 ^#^^#^ Terminology
 
 There are several different names for mixed models which you might encounter, that all fit essentially the same model:
@@ -47,8 +50,64 @@ This is taking it a bit far; it's rare to see more than 3 levels, but in theory,
 For this workshop, we will only briefly discuss this from hierarchical point of view, prefering the mixed models view (with the reminder again that
 they are the same!).
 
+^#^^#^ Wide vs Long data, Time-varying vs Time-invariant
+
+Before you begin your analysis, you need to ensure that the data is in the proper format. Let's consider the NLS data, where we have measures of
+women's salary over 20 years.
+
+Wide format of the data would have row represent a woman, and she would have 20 columns worth of salary information (plus additional demographics).
+
+Long format of the data would have each row represent a woman and a year, so that each woman can have up to 20 rows (if a woman wasn't measured in a
+given year, that row & year is blank).
+
+To fit a mixed model, we need the data in long format. We can use the `reshape` command to transform wide data to long. This is covered in the Stata I
+set of notes.
+
+Additionally, there is the concept of time-varying vs time-invariant variables. Time-varying variables are those which can be different for each entry
+within the same individual. Examples include weight or salary. Time-invariant are those which are the same across all entries. Examples include race
+or baseline characteristics.
+
+When data is long, time-invariant variables need to be constant per person.
+
 ^#^^#^ Linear Mixed Model
 
-The most basic mixed model is the linear mixed model, which extends the [linear regression](#linear-regression) model.
+The most basic mixed model is the linear mixed model, which extends the [linear regression](#linear-regression) model. A model is called "mixed"
+because it contains a mixture of *fixed effects* and *random effects*.
+
+- Fixed effects: These are the predictors that are present in regular linear regression. We will obtain coefficients for these predictors and be able
+  to test and interepret them. Technically, an OLS linear model is a mixed model with only fixed effects.^[Though why called it mixed at that point?]
+- Random effects: These are the "grouping" variables, and must be categorical (Stata will force every variable to be prefaced by `i.`). These are
+  essentially just predictors as well, however, we do not obtain coefficients to test or interpret. We do get a measure of the variability across
+  groups, and a test of whether the random effect is benefitting the model.
+
+Let's fit a model using the `mixed` command. It works similar to `regress` with a slight tweak. We'll try and predict log of wages^[Typically, salary
+information is very right-skewed, and a log transformation produces normality.] using work experience and race. This data
+
+~~~~
+<<dd_do>>
+mixed ln_w ttl_exp i.race age || idcode:
+<</dd_do>>
+~~~~
+
+The fixed part of the equation, `ln_w ttl_exp i.race age` is the same as with linear regression, `ln_w` is the outcome and the rest are predictors,
+with `race` being categorical. The new part is `|| idcode:`. The `||` separates the fixed on the left from the random effects on the right. `idcode`
+identifies individuals. The `:` is to enable the more complicated feature of random slopes which we won't cover here; for our purposes the `:` is just
+required.
+
+Let's walk through the output. Note that what we are calling the random effects (e.g. individuals in a repeated measures situation, classrooms in a
+students nested in classroom situation), Stata refers to as "groups" in much of the output.
+
+- At the very top, you'll see that the solution is arrived at iteratively, similar to [logistic regression](#fitting-the-logistic-model) (you probably
+  also noticed how slow it is)!
+- Since we are dealing with repeated measures of some sort, instead of a single sample size, we record the total number of obs, the number of groups
+  (unique entries in the random effects) and min/mean/max of the groups. As before, just ensure these numbers seem right.
+- As with logistic regression, the chi2 test tests the hypothesis that all coefficients are simultaneously 0.
+- The coefficients table is interpreted just as in linear regression, with the addendum that each coefficient is also controlling for the structure
+  introduced by the random effects.
+-
+
+
+- Missing rows
+
 
 ^#^^#^ Logistic Mixed Model
