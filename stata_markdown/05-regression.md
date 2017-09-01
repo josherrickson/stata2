@@ -371,7 +371,7 @@ outcome. Then you can fit a single model including all of this.
 Note that adjustments to fix assumptions (e.g. transformations) or multicollinearity would not fall into the category of model selection and are fine
 to use.
 
-^#^^#^ Logistic
+^#^^#^ Logistic Regression
 
 Let's violate one of the [assumptions](#relationship-is-linear-and-additive). Instead of the relationship being linear, we can generalize to allow the
 relationship to be any functional form. These types of models are called "Generalized Linear Models" or "GLMs", mainly because we can transform the
@@ -468,3 +468,20 @@ The `logit` model supports the margins command just like `regress` does. It does
 defined for logistic models.
 
 Collinearity, overfitting, and model selection remain concerns in the logistic model.
+
+^#^^#^ Other regression models
+
+There are several other models which we will not cover, but function similarly to the above.
+
+- Poisson regression is useful when you have count data; i.e. number of visitors or number of thunderstorms in a month. It can be fit with the
+  `poisson` command, and results are interpreted similar to logistic regression (coefficients vs odds ratios); but instead of predicting a positive
+  outcome, its predicting a larger count. If you have very large counts (such that a histogram appears to show a bell curve), linear regression can be
+  used instead.
+- Poisson has the strong assumption that the mean of the outcome is equal to its variance (small average counts have little noise; large average
+  counts have a lot of noise). If this assumption is violated (or you want to check it), negative binomial regression also handles count data, without
+  that assumptions, using `nbreg`. The output will include a test of "alpha=0", if this fails to reject, then Poisson regression is sufficient.
+- There are two extensions to logistic regression, ordinal logistic and multinomial. Ordinal logistic is used when there are more than 2 outcome
+  categories, and they are ordered (e.g. not sick (0), mildly sick (1), very sick (2)). Using `ologit`, Stata estimates an underlying continuous
+  distribution and returns the "cut points", allowing categorization. If there are multiple groups but not ordered, e.g. race, use `mlogit` for
+  multinomial logistic regression. It essentially fits a model predicting membership in each group versus all other, with some restrictions across the
+  models.
