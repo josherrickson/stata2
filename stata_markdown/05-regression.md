@@ -469,6 +469,11 @@ defined for logistic models.
 
 Collinearity, overfitting, and model selection remain concerns in the logistic model.
 
+^#^^#^^#^ `logit` vs `logistic`
+
+Instead of `logit`, we could run the `logistic` command. The only difference is that `logistic` reports the odds ratio by default whereas `logit`
+reports the log odds. My personal preference is `logit`, but there's no need to use one over the other.
+
 ^#^^#^ Other regression models
 
 There are several other models which we will not cover, but function similarly to the above.
