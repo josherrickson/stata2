@@ -145,9 +145,10 @@ significant. We will discuss [multicollinearity later](#multicollinearity), as w
 why [model selection is bad](#model-selection-is-bad).
 
 Now we see 4 rows for `rep78`, each corresponding to a comparison between response 1 and the row. For example, the first row, 2, is saying that when
-`rep78` is 2 compare to when it is 1, the average predicted response drops by <<dd_display: %9.3f abs(_b[2.rep78])>> (though it is not statistical
-significant). The last row, 5, is saying that when `rep78` is 5 compare to when it is 1, the average predicted response increases by <<dd_display:
-%9.3f _b[5.rep78]>> (again, not statistically significant).
+`rep78` is 2 compared to when it is 1 (with `gear_ratio` and `headroom` held at some fixed level), the average predicted response drops by
+<<dd_display: %9.3f abs(_b[2.rep78])>> (though it is not statistical significant). The last row, 5, is saying that when `rep78` is 5 compare to when
+it is 1 (with `gear_ratio` and `headroom` held at some fixed level, the average predicted response increases by <<dd_display: %9.3f _b[5.rep78]>>
+(again, not statistically significant).
 
 To see the other comparisons (does 2 differ from 4?), we can use the `margins` command.
 
@@ -283,17 +284,47 @@ a pattern (the third). (We will discuss the second plot [below](#errors-are-homo
 
 If this assumption is violated, you will need to reconsider the structure in your model, perhaps by adding a squared term (e.g. `reg y c.x c.x#c.x`).
 
+^#^^#^^#^^#^^#^ Obtaining predicted values and residuals
+
+In the [`rvfplot`](#relationship-is-linear-and-additive), we plotted residuals versus predicted values - neither of which we have in the data. If
+there is some analysis beyond what `rvfplot` produces that you're interested in, the `predict` command can obtain these. The general syntax for
+`predict` is:
+
+```
+predict <new var name>, <statistic>
+```
+
+There are quite a few options for the "statistic", but the two most commonly used ones are:
+
+- `xb`: The linear prediction (also the default). This is the predicted value for each individual based on the model.
+- `residuals`: The residuals. The difference between the predicted value and observed value.
+
+In other words, we can replicate the above `rvfplot` via:
+
+~~~~
+<<dd_do>>
+predict linearpredictor, xb
+predict resids, residuals
+twoway scatter resids linearpredictor
+<</dd_do>>
+~~~~
+
+<<dd_graph: replace>>
+
+(The two warnings about missing values are due to 4 cars not having a value of `rep78`. See [multiple imputation](multiple-imputation.html) for a
+strategy for dealing with missing data.
+
 ^#^^#^^#^^#^ Errors are homogeneous
 
 "Homogeneity" is a fancy term for "uniform in distribution", whereas "heterogeneity" represents "not uniform in distribution". If we were to take a
 truly random sample of all individuals in Michigan, the distribution of their heights would be homogeneous - it is reasonable to assume there is only
 a single distribution at work there. If on the other hand, we took a random sample of basketball players and school children, this would definitely be
-heterogeneous, the basketball players have a markedly difference distribution of heights that school children!
+heterogeneous. The basketball players have a markedly difference distribution of heights that school children!
 
 In linear regression, the homogeneity assumption is that the distribution of the errors are uniform. Violations would include errors changing as the
 predictor increased, or several groups having very different noise in their measurements.
 
-This is an assumption we can test, again with the residuals vs fitted plot. We're looking for either a blatant deviation from a mean of 0, or an
+This is an assumption we can examine, again with the residuals vs fitted plot. We're looking for either a blatant deviation from a mean of 0, or an
 increasing/decreasing variability on the y-axis over time. Refer back to the [image above](#relationship-is-linear-and-additive), looking at the
 middle plot. As the fitted values increase, the error spreads out.
 
@@ -340,10 +371,10 @@ claims.] We can therefore rewrite the equation as
   Y = \beta_0 + (\beta_1 + \beta_2)X_1 + \epsilon
 ^$$^
 
-since with perfect correlation, ^$^X_1^$^ and ^$^X_2^$^ are identical.^[Technically there could be a scaling factor such that ^$^X_1 = cX_2^$$^, but
-let's assume without loss of generality that ^$^c=1^$^.] Now, when we fit the model, we would have estimates of ^$^\beta_1^$^ and ^$^\beta_2^$^ which
-sum to the "truth", but the individual level of each of ^$^\beta_1^$^ and ^$^\beta_2^$^ could be anything. For example, if the "true" ^$^\beta_1^$^
-and ^$^\beta_2^$^ are 1 and 3, they sum to 4. We could get estimated coefficients of 1 and 3, or 3 and 1, or -20 and 24!
+since with perfect correlation, ^$^X_1^$^ and ^$^X_2^$^ are identical.^[Technically there could be a scaling factors such that ^$^X_1 = aX_2 + b^$^,
+but let's assume without loss of generality that ^$^a=1^$^ and ^$^b=0^$^.] Now, when we fit the model, we would have estimates of ^$^\beta_1^$^ and
+^$^\beta_2^$^ which sum to the "truth", but the individual level of each of ^$^\beta_1^$^ and ^$^\beta_2^$^ could be anything. For example, if the
+"true" ^$^\beta_1^$^ and ^$^\beta_2^$^ are 1 and 3, they sum to 4. We could get estimated coefficients of 1 and 3, or 3 and 1, or -20 and 24!
 
 This is an extreme example, but in practice we can be close to this situation.
 
@@ -366,7 +397,7 @@ This method has a number of flaws, including
 
 Instead of doing model selection, you should use your knowledge of the data to select a subset of the variables which are either a) of importance to
 you, b) theoretically influential on the outcome (e.g. demographic variables) or c) what others (reviewers) would think are influential on the
-outcome. Then you can fit a single model including all of this.
+outcome. Then you can fit a single model including all of this. The "subset" can be all predictors if the [sample size](#overfitting) is sufficient.
 
 Note that adjustments to fix assumptions (e.g. transformations) or multicollinearity would not fall into the category of model selection and are fine
 to use.
@@ -412,7 +443,8 @@ From this output, we get the "Number of obs" again. Instead of an ANOVA table wi
 (^$^\chi^2^$^, pronounced "ky-squared" as in "Kyle"). In this model, we reject the null that all coefficients are identically 0.
 
 When we move away from linear regression, we no longer get an ^$^R^2^$^ measure. There have been various pseudo-^$^R^2^$^'s suggested, and Stata
-reports one here, but be careful assigning too much meaning to it. It is not uncommon to get pseudo-^$^R^2^$^ values that are negative or above 1.
+reports one here, but be careful assigning too much meaning to it. It is not uncommon to get pseudo-^$^R^2^$^ values that are negative or
+above 1. We'll discuss measuring [goodness of fit](#logistic-goodness-of-fit) below.
 
 The coefficients table is interpreted in almost the same way as with regression. We see that `gear_ratio` has a significant positive coefficient, and
 `headroom` is indistinguishable from 0. We *cannot* nicely interpret the coefficients. All we can say is that "As gear ratio increases, the
@@ -452,15 +484,75 @@ predicted to decrease the mileage by about <<dd_display: %9.1f 100*(1-exp(_b[hea
 ^#^^#^^#^ Categorical Variables and Interactions
 
 Both [categorical variables](#including-categorical predictors) and [interactions](#interactions) can be included as they were in linear regression,
-with the appropriate interpretation of coefficients/odds ratios.
+with the appropriate interpretation of coefficients/odds ratios. The `margins` command also works the same.
+
+The `predict` command adds a new [statistic](#obtaining-predicted-values-and-residuals). `xb` now is the linear predictor, which is often not
+useful. Instead, the `pr` statistic returns the estimated probability of a positive outcome.
 
 ^#^^#^^#^ Logistic regression assumptions
 
 The assumptions for logistic regression are simpler than linear. The outcome measure must be binary with a 0 for a negative response and 1 for a
-positive. (Technically they don't have to be positive/negative. We could think of predicting male/female and code male = 0 and female = 1. However, the
-convention is to consider the outcome as "Female?" and predict the probability that the person is a female.) The errors in a logistic regression model
-are fairly contained (you can't be wrong than more than 1!) so there are no real assumptions about them. The [independence](#independence) assumption
-is still here and still important, again, a mixed logistic model may be appropriate if the data is not independent.
+positive. (Technically they don't have to be positive/negative. We could think of predicting male/female and code male = 0 and female = 1. However,
+the convention would be to consider the outcome as "The person is female" so a 1 represents a "success" and a 0 a "failure" of that statement.) The
+errors in a logistic regression model are fairly contained (you can't be wrong than more than 1!) so there are no real assumptions about them. The
+[independence](#independence) assumption is still here and still important, again, a mixed logistic model may be appropriate if the data is not
+independent.
+
+^#^^#^^#^ Logistic goodness of fit
+
+As we mentioned earlier, there are various issues with the Pseudo ^$^R^2^$^ reported by `logit`, so use it carefully. There are two alternate
+approaches.
+
+The first is to look at a classification table:
+
+~~~~
+<<dd_do>>
+estat classification
+<</dd_do>>
+~~~~
+
+Classification is based upon the predicted probability, a predicted probability above .5 is classified as "1", below as "0". The output here is rather
+long, but the general idea is to capture how well we're predicting without having too many false results. (If your outcome variable was 80% 1's and
+20% 0's, if I predicted all 1's, I'd be right 80% of the time! So it's important to also see that I'm wrong in 100% of the true 0's).
+
+- Sensitivity is how likely you are to correctly predicted a positive outcome.
+- Specificity is how likely you are to correctly predicted a negative outcome.
+- The positive/negative predictive values are how likely a positive/negatative predicition is to be correct.
+
+We want those results to be high.
+
+The various false rates are for misclassification, and we want those low. In this model, we've done pretty good!
+
+The second is a more formal test. There are two variants, a Pearson ^$^\chi^2^$^ test and the Hosmer-Lemeshow test. Both are fit with the `estat gof`
+command. Both are testing the hypothesis that the observed positive responses match predicted positive responses in subgroups of the
+population. Therefore we do *not* want to reject these tests, and a large p-value is desired.
+
+~~~~
+<<dd_do>>
+estat gof
+<</dd_do>>
+~~~~
+
+We see here a p-value of <<dd_display: %9.3f `=1 - chi2(`r(df)', `r(chi2)')'>>, failing to reject the null, so there is no evidence that the model
+fits well.
+
+There is some concern that when the "number of covariate patterns" is close to the number of observations , the Pearson test is invalid. In this data,
+we see that <<dd_display: %9.0f `r(m)'>> is indeed "close" to <<dd_display: %9.0f `r(N)'>>. Instead, we can use the Hosmer-Lemeshow by passing the
+`group(#)` option:
+
+~~~~
+<<dd_do>>
+estat gof, group(10)
+<</dd_do>>
+~~~~
+
+The p-value remains insignificant at <<dd_display: %9.3f `=1 - chi2(`r(df)', `r(chi2)')'>>, still no evidence of poor model fit.
+
+Why did we choose 10 groups? It's just the standard. The only thing to keep in mind is that the Hosmer-Lemeshow test is only appropropriate if the
+number of groups is greater than the number of predictors (including the intercept). In this model, we had two predictors, so that's 3 total
+(including the intercept), so 10 is OK.
+
+There are some limitations to Hosmer-Lemeshow, and there are more modern alternatives. However, Stata has not implemented any yet that I'm aware of.
 
 ^#^^#^^#^ `logit` Miscellaneous.
 
