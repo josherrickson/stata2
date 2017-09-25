@@ -554,6 +554,55 @@ number of groups is greater than the number of predictors (including the interce
 
 There are some limitations to Hosmer-Lemeshow, and there are more modern alternatives. However, Stata has not implemented any yet that I'm aware of.
 
+^#^^#^^#^ Separation
+
+Since the logistic regression model is solved [iteratively](regression.html#fitting-the-logistic-model), this can fail for a number of reasons. Before
+you begin interpreting the model, you'll want to glance at the iteration steps and make sure that no errors were printed. The most common failure is
+due to separation.
+
+With a binary outcome instead of a continuous outcome, it is much easier to have a predictor (or set of predictors) that perfectly predict the
+outcome. Consider trying to predict gender based on height. With a smaller sample, it's not hard to imagine a scenario where every male is taller than
+every female. This is called "perfect separation"; using this sample, knowing height gives perfect information about gender
+
+"Partial separation" can also occur; this is when prediction is perfect only for one limit. Take the height scenario again; say everyone above 5'8" is
+male, and there are two men but the rest women below 5'8". Here, we will always predict Male for heights above 5'8".
+
+Separation (of either type) often produces coefficients to be extreme with large standard errors. Stata will sometimes warn about this, but not
+always. If you notice these exceptional coefficients or if Stata does warn about separation, you'll need to investigate and consider excluding certain
+predictors. It may seem counterintuitive to exclude extremely highly predictive variables, but if a variable produces perfect separation, you don't
+need a model to inform you of that.
+
+You can examine separation by looking at a table. Imagine we wanted to restructure `rep78` as a binary variable, with low repairs (repair record below
+3) and high repairs (repair records 3 and above).
+
+~~~~
+<<dd_do>>
+gen repair_binary = rep78 >= 3
+replace repair_binary = . if rep78 >= .
+label define repbinlabel 0 "Low repairs" 1 "High repairs"
+label value repair_binary repbinlabel
+tab repair_binary
+<</dd_do>>
+~~~~
+
+Let's try fitting the model:
+
+~~~~
+<<dd_do>>
+logit foreign repair_binary
+<</dd_do>>
+~~~~
+
+Notice the note at the top of the model, and notice that nothing is estimated for `repair_binary`. We have partial separation:
+
+~~~~
+<<dd_do>>
+tab foreign repair_binary
+<</dd_do>>
+~~~~
+
+Since we have a zero in one of the cells, that's partial separation. Complete separation would be zero in both off-diagonal cells.
+
 ^#^^#^^#^ `logit` Miscellaneous.
 
 The `logit` model supports the margins command just like `regress` does. It does not support `estat vif` because variance inflation factors are not
