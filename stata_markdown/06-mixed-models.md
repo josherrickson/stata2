@@ -99,15 +99,31 @@ students nested in classroom situation), Stata refers to as "groups" in much of 
 
 - At the very top, you'll see that the solution is arrived at iteratively, similar to [logistic regression](#fitting-the-logistic-model) (you probably
   also noticed how slow it is)!
+- The log likelihood is how the iteration works; essentially the model "guesses" choices for the coefficients, and finds the set of coefficeints that
+  minimize the log likelihood. Of course, the "guess" is much smarter than random. The actual value of the log likelihood is meaningless.
 - Since we are dealing with repeated measures of some sort, instead of a single sample size, we record the total number of obs, the number of groups
   (unique entries in the random effects) and min/mean/max of the groups. As before, just ensure these numbers seem right.
-- As with logistic regression, the chi2 test tests the hypothesis that all coefficients are simultaneously 0.
+- As with logistic regression, the ^$^\chi^2^$^ test tests the hypothesis that all coefficients are simultaneously 0.
+    - We gave a significant p-value, so we continue with the interpretation.
 - The coefficients table is interpreted just as in linear regression, with the addendum that each coefficient is also controlling for the structure
   introduced by the random effects.
--
+    - Increased values of `ttl_exp` is associated with higher log incomes.
+    - The `race` baseline is "white"; compared to white, blacks have lower average income and others have higher average income.
+    - Higher age is associated with lower income.
+- The second table ("Random-effects parameters") gives us information about the error structure. The "idcode:" section is examining whether there is
+  variation across individuals above and beyond the differences in characteristics such as age and race. Since the estimate of `var(_cons)` (the
+  estimated variance of the constant per person - the individual level random effect) is non-zero (and not close to zero), that is evidence that the
+  random effect is beneficial. If the estimate was 0 or close to 0, that would be evidence that the random effect is unnecessary and that any
+  difference between individuals is already accounted for by the covariates.
+- The estimated variance of the residuals is any additional variation between observations. This is akin to the residuals from linear regression.
+- The ^$^\chi^2^$^ test at the bottom is a formal test of the inclusion of the random effects versus a [linear
+  regression](regression.html#linear-regression) model without the random effects. We reject the null that the models are equivalent, so it is
+  appropriate to include the random effects.
+
+^#^^#^ Assumptions
 
 
-- Missing rows
 
+What to do if you don't converge
 
 ^#^^#^ Logistic Mixed Model
