@@ -144,6 +144,9 @@ group.
 The `margins` and `predict` command work similarly to `regress`, however note that both (by default) *ignore the random effects*; that is, the results
 the produce are averaged across all individuals.
 
+As with [linear regression](regression.html#robust-standard-errors) and [logistic regression](regression#logit-miscellaneous), `mixed` supports
+`vce(robust)` to enable robust standard errors.
+
 ^#^^#^ Convergence issues
 
 ^#^^#^ Logistic Mixed Model
