@@ -142,7 +142,7 @@ regression remain; 10-20 observations per predictor. Adding a new person will im
 group.
 
 The `margins` and `predict` command work similarly to `regress`, however note that both (by default) *ignore the random effects*; that is, the results
-the produce are averaged across all individuals. **Is this true of predict?**
+the produce are averaged across all individuals.
 
 ^#^^#^ Convergence issues
 
