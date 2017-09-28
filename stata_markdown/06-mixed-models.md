@@ -149,4 +149,37 @@ As with [linear regression](regression.html#robust-standard-errors) and [logisti
 
 ^#^^#^ Convergence issues
 
+As with [logistic regression](regression.html#separation), the solution is arrived at iteratively, which means it can fail to converge for a number of
+reasons. Separation isn't an issue here (though it will be in [logistic mixed models](#convergence-issues)), but there can be other causes of a
+failure to converge.
+
+Generally, failure to converge will be due to an issue with the data. Things to look for include:
+
+- Different scales of predictors. For example, salary (in dollars) and number of children. The scales are drastically different which can cause
+  issues. Try rescaling any variables on extreme scales (you can do this with `egen scaledvar = std(origvar)`). This will affect interpretation (the
+  estimated coefficient will be the average predicted change with a on standard deviation increase in the predictor) but not the overall model fit.
+- High correlation can cause this. Check correlations (`cor`) between your predictors (including any categorical variables) and if you find a highly
+  correlated pair, try removing one.
+- If the iteration keeps running (as opposed to ending and complaining about lack of convergence), try passing the option `emiterate(#)` with a few
+  "large" ("large" is relative to sample size) to tell the algorithm to stop after # iterations, regardless of convergence. You're looking for two
+  things:
+    - First, if there are any estimated standard errors that are extremely close to zero, that predictor may be causing the issue. Try removing it.
+    - Second, if you try a few different max iterations (say 50, 100 and 200), and the estimated coefficients and standard errors are relatively
+      constant, you could consider that model as "good enough". You wouldn't have much confidence in the point estimates of the coefficients, but you
+      could at least gain insight into the direction and approximate magnitude of the effect.
+- You can try use the "reml" optimzer, by passing the `reml` option. This optimizer can be a bit easier to converge.
+
 ^#^^#^ Logistic Mixed Model
+
+Similar to [logistic regression](regression.html#logistic-regression) being an extension to [linear regression](regression#linear-regression),
+logistic mixed models are an extension to [linear mixed models](#linear-mixed-model) when the outcome variable is binary.
+
+The command for logistic mixed models is `melogit`. The rest of the command works very similarly to `mixed`, and interpretation is the best of
+logistic regression (for fixed effets) and linear mixed models (for random effects).
+
+By default the log-odds are reported, give the `or` option to report the odds ratios.
+
+^#^^#^^#^ `meqrlogit`
+
+There is a different solver that can be used based upon QR-decomposition. This is run with the command `meqrlogit`. It functions identically to
+`melogit`. If `melogit` has convergence issues, try using `meqrlogit` instead.
