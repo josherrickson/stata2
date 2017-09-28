@@ -122,19 +122,27 @@ students nested in classroom situation), Stata refers to as "groups" in much of 
 
 ^#^^#^ Assumptions
 
-The [linear additivity](regression.html#relationship-is-linear-and-additive) remains necessary. `rvfplot` will not work following a `mixed` command, but you can [generate the residuals vs fitted plot manually](regression.html#obtaining-predicted-values-and-residuals).
+The [linear additivity](regression.html#relationship-is-linear-and-additive) remains necessary. `rvfplot` will not work following a `mixed` command,
+but you can [generate the residuals vs fitted plot manually](regression.html#obtaining-predicted-values-and-residuals).
 
-The [homogeneity of residuals](regression.html#errors-are-homogeneous) assumption is violated by design in a mixed model. However, some forms of heterogeneity, such as increasing variance as fitted values increase, are not supported. Therefore we can still use the residuals vs fitted plot to examine this.
+The [homogeneity of residuals](regression.html#errors-are-homogeneous) assumption is violated by design in a mixed model. However, some forms of
+heterogeneity, such as increasing variance as fitted values increase, are not supported. Therefore we can still use the residuals vs fitted plot to
+examine this.
 
-Again, the [independence](regression.html#independence) assumption is violated by design, but observations between groups (e.g. between individuals) should be independent.
+Again, the [independence](regression.html#independence) assumption is violated by design, but observations between groups (e.g. between individuals)
+should be independent.
 
 ^#^^#^ Miscellaneous
 
-As we've discussed before, [collinearity](regression.html#multicollinearity), [overfitting](regression.html#overfitting), and [model selection](regression.html#model-selection-is-bad) remain concerns.
+As we've discussed before, [collinearity](regression.html#multicollinearity), [overfitting](regression.html#overfitting), and [model
+selection](regression.html#model-selection-is-bad) remain concerns.
 
-Sample size considerations are tricky with mixed models. Typically these are done with simulations. At a rough pass, the rules of thumb from linear regression remain; 10-20 observations per predictor. Adding a new person will improve the power more than adding another observation for an existing group.
+Sample size considerations are tricky with mixed models. Typically these are done with simulations. At a rough pass, the rules of thumb from linear
+regression remain; 10-20 observations per predictor. Adding a new person will improve the power more than adding another observation for an existing
+group.
 
-The `margins` and `predict` command work similarly to `regress`, however note that both (by default) *ignore the random effects*; that is, the results the produce are averaged across all individuals. **Is this true of predict?**
+The `margins` and `predict` command work similarly to `regress`, however note that both (by default) *ignore the random effects*; that is, the results
+the produce are averaged across all individuals. **Is this true of predict?**
 
 ^#^^#^ Convergence issues
 
