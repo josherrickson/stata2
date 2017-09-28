@@ -249,7 +249,30 @@ mileage, on average. However, the effect decreases as gear ratio increases, and 
 can detect this by looking at the means (the points) and the confidence bands; here there is no relationship at all, but there is some suggestion that
 the relationship we describe may be occurring.
 
-^#^^#^^#^ Assumptions:
+^#^^#^^#^ Robust standard errors
+
+The standard error associated with each coefficient are determined with the assumption that the model is "true" and that, were we given an infinite
+sample size, the estimates ^$^\hat{\beta}^$^ would converge to the true ^$^\beta^$^. In many situations, this is clearly untrue.
+
+If you believe this is untrue, the estimates will be unaffected, but their standard errors will be incorrect
+
+~~~~
+<<dd_do>>
+regress mpg c.headroom##c.gear_ratio i.rep78, vce(robust)
+<</dd_do>>
+~~~~
+
+Notice that compared to the [previous model](#interactions), the Coef estimates but the standard errors (and corresponding t-statistic, p-value and
+confidence interval) are slightly different.
+
+Typically, the robust standard errors should be slightly larger than the non-robust standard errors, but not always (as in this case). Generally, the
+only situation where the robust standard errors will decrease is when the error variance is highest for obsevations near the average value of the
+predictors. This does not often happen (generally the higher residuals occur in observations that could be considered outliers).
+
+There has been some argument that robust standard errors should always be used, because if the model is correctly specified, the robust standard
+errors and regular standard errors should be almost identical, so there is no harm in using them.
+
+^#^^#^^#^ Assumptions
 
 There are three main assumptions when running a linear regression. Some we can test, some we cannot (and need to rely on our knowledge of the data).
 
@@ -609,6 +632,8 @@ The `logit` model supports the margins command just like `regress` does. It does
 defined for logistic models.
 
 Collinearity, overfitting, and model selection remain concerns in the logistic model.
+
+Robust standard errors via `vce(robust)` are supported.
 
 ^#^^#^^#^ `logit` vs `logistic`
 
