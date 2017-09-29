@@ -72,10 +72,113 @@ mi set flong
 Next, we need to tell Stata what each variable will be used for. The options are
 
 - imputed: A variable with missing data that needs to be imputed.
--
+- regular: Any variable that is complete or does not need imputation.
+
+Technically we only need specify the imputed variables, as anything unspecified is assumed to be regular. We saw [above](#mi) that `age` and `bmi`
+have missing values:
+
+~~~~
+<<dd_do>>
+mi register imputed age bmi
+<</dd_do>>
+~~~~
+
+We can examine our setup with `mi describe`:
+
+~~~~
+<<dd_do>>
+mi describe
+<</dd_do>>
+~~~~
+
+We see 126 complete observations with 28 incomplete, the two variables to be imputed, and the 4 unregisted variables which will automatically be
+registered as regular.
+
+^#^^#^^#^ Imputing transformations
+
+What happens if you had a transform of a variable? Say you had a variable for salary, and wanted to use a log transformation?
+
+You can find literature suggesting either transforming first and then imputing, or imputing first and then transforming. Our suggestion, following
+current statistical literature is to **transform first, impute second**.([Hippel 2009](#citations))
+
+Stata technically supports the other option via `mi register passive`, but we don't recommend it's usage. Instead, transform your original data, then
+flag both the variable and its transformations as "imputed"
 
 ^#^^#^ Performing the imputation
+
+Now that we've got the MI set up, we can perform the actual procedure. There are a very wide number of variations on how this imputation can be done
+(including defining your own!). You can see these as the options to `mi impute`. We'll just be focusing on the "chained" approach, which is a good
+approach to start with.
+
+The syntax for this is a bit complicated, but straightforward once you understand it.
+
+```
+mi impute chained (<method 1>) <variables to impute with method 1> ///
+                  (<method 2>) <variables to impute with method 2> ///
+                  = <all non-imputed variables>, add(<number of imputations>)
+```
+
+The "<methods>" are essentially what type of model you would use to predict the outcome. For example, for continuous data, use `regress`. For binary
+data use `logit`. It also supports `ologit` (ordinal logistic regression, multiple categories with ordering), `mlogit` (multinomial logistic
+regression, multiple categories without ordering), `poisson` or `nbreg` (poisson regression or negative binomial regression, for count data), as well
+as some others. See `help mi impute chained` under "uvmethod" for the full list.
+
+The `add( )` option specifies how many imputed data sets to generate, we'll discuss [below](#choosing-the-number-of-iterations) how to choose this.
+
+Continuning with our example might make this more clear. To perform our imputation, we would use
+
+~~~~
+<<dd_do>>
+mi impute chained (regress) bmi age = attack smokes female hsgrad, add(5)
+<</dd_do>>
+~~~~
+
+Since both `bmi` and `age` are continuous variables, we use method `regress`. Imagine if we were also imputing `smokes`, a binary variable. Then the
+imputation (after running `mi register imputed smokes`) would be:
+
+```
+mi impute chained (regress) bmi age (logit) smokes = attack female hsgrad, add(5)
+```
+
+Here, `regress` was used for `bmi` and `age`, and `logit` was used for `smokes`.
+
+^#^^#^^#^ Choosing the number of iterations
+
+Classic literature has suggested you need only 5 imputations to obtain valid results, though some modern literature ([Graham 2007](#citations))
+suggest needing many more, 20 or even 100. If your data is not too large, 100 is a great choice. You can always try running the entire procedure with
+5 imputations twice. If your results differ, you should try running many more imputations to stablize the estimates.
+
+^#^^#^^#^ `_mi_` variables
+
+After you've performed your imputation^[Techincally this happens as soon as you run `mi set`, but they're not interesting until after `mi impute`.],
+three new variables are added to your data, and your data gets ^$^M^$^ additional copies of itself. In the example
+[above](#performing-the-imputation), we added 5 imputations, so there are a total of 6 copies of the data - the raw data (with the missing values),
+and 5 copies with imputed values. The new variables added are:
+
+- `_mi_id` is the ID number of each row corresponding to its position in the original data
+- `_mi_miss` flags whether the row had missing data originally.
+- `_mi_m` is which data-set we're looking at. 0 represents the unimputed data, 1 represents the first imputation, 2 the second, etc.
 
 ^#^^#^ Analyzing `mi` data
 
 ^#^^#^ Manual MI
+
+^#^^#^ Removing the MI data
+
+Ideally, you should save the data (or `preserve`) it prior to imputing, so you can easily recover the unimputed data if you wish. If you wanted to
+return to the original data, the following should work:
+
+```
+mi unset
+drop if mi_m != 0
+drop mi_*
+```
+
+The first tells Stata not to treat it as imputed anymore; the second drops all imputed data sets; the third removes the MI variables that were
+generated.
+
+This only works for `mi set flong`; if you use another method, you can tweak the above or use `mi convert flong` to switch to "flong" first.
+
+^#^^#^ Citations
+
+Von Hippel, Paul T. "How to impute interactions, squares, and other transformed variables." Sociological Methodology 39.1 (2009): 265-291.
