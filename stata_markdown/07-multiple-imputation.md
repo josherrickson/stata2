@@ -123,7 +123,7 @@ data use `logit`. It also supports `ologit` (ordinal logistic regression, multip
 regression, multiple categories without ordering), `poisson` or `nbreg` (poisson regression or negative binomial regression, for count data), as well
 as some others. See `help mi impute chained` under "uvmethod" for the full list.
 
-The `add( )` option specifies how many imputed data sets to generate, we'll discuss [below](#choosing-the-number-of-iterations) how to choose this.
+The `add( )` option specifies how many imputed data sets to generate, we'll discuss [below](#choosing-the-number-of-imputations) how to choose this.
 
 Continuning with our example might make this more clear. To perform our imputation, we would use
 
@@ -142,7 +142,7 @@ mi impute chained (regress) bmi age (logit) smokes = attack female hsgrad, add(5
 
 Here, `regress` was used for `bmi` and `age`, and `logit` was used for `smokes`.
 
-^#^^#^^#^ Choosing the number of iterations
+^#^^#^^#^ Choosing the number of imputations
 
 Classic literature has suggested you need only 5 imputations to obtain valid results, though some modern literature ([Graham 2007](#citations))
 suggest needing many more, 20 or even 100. If your data is not too large, 100 is a great choice. You can always try running the entire procedure with
@@ -165,7 +165,7 @@ and 5 copies with imputed values. The new variables added are:
 
 ^#^^#^ Removing the MI data
 
-Ideally, you should save the data (or `preserve`) it prior to imputing, so you can easily recover the unimputed data if you wish. If you wanted to
+Ideally, you should save the data (or `preserve` it) prior to imputing, so you can easily recover the unimputed data if you wish. If you wanted to
 return to the original data, the following should work:
 
 ```
