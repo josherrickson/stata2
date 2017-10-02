@@ -43,3 +43,13 @@ Blood pressure is highly correlated, more-so than height and weight. Weight is a
 independent of boood pressure.
 
 ^#^^#^ Exercise 2
+
+~~~~
+<<dd_do>>
+twoway (scatter bpdiast systol if sex == 1, mcolor(blue)) ///
+       (scatter bpdiast systol if sex == 2, mcolor(pink)) ///
+       (lfit bpdiast systol if sex == 1, lcolor(blue)) ///
+       (lfit bpdiast systol if sex == 2, lcolor(pink)), ///
+        legend(label(1 "Men") label(2 "Women"))
+<</dd_do>>
+~~~~

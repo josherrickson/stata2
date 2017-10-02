@@ -266,3 +266,16 @@ set autotabgraphs on
 ```
 
 You still need to name graphs separately.
+
+^#^^#^ Exercise 2
+
+Reload the NHANES data if you haven't:
+
+~~~~
+<<dd_do>>
+sysuse nhanes2, clear
+<</dd_do>>
+~~~~
+
+Using `twoway scatter` and `twoway lfit`, create a scatter plot of diastolic and systolic blood pressure, by gender. Be sure to color the lines and
+points consistenly and to clean up the legend.

@@ -492,15 +492,11 @@ webuse nhanes2, clear
 ~~~~
 
 1. Use `describe` to get a sense of the data. How many observations? How many variables?
-2. Use `tab`, `summarize`, `mean`, and/or `codebook` to get an understanding of the following variables that we'll be using a lot going forward:
+2. Use `tab`, `summarize`, `mean`, and/or `codebook` to get an understanding of the some of variables that we'll be using a lot going forward:
     - `region`
     - `houssiz`
     - `sex`
-    - `race`
-    - `age`
-    - `height`
-    - `weight`
     - `diabetes`
-    - `lead`
+    - `iron`
 3. Does `race` have any missing data? Does `diabetes`? Does `lead`?
 4. What is more highly correlated? A person's height and weight, or their diastolic and systolic blood pressure?
