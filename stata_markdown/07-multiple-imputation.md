@@ -56,7 +56,7 @@ summarize
 
 We see from the summary that both `age` and `bmi` have some missing data.
 
-^#^^#^ Step 1: Setting up data
+^#^^#^ Setting up data
 
 We need to tell Stata how we're going to be doing the imputations. First, use the `mi set` command to determine how the multiple data sets will be
 stored. Really which option you choose is up to you, I prefer to "`flong`" option, where each imputed data set is stacked on top of each other. If you
@@ -161,7 +161,65 @@ and 5 copies with imputed values. The new variables added are:
 
 ^#^^#^ Analyzing `mi` data
 
+Now that we've got the data set up for multiple imputations, and done the imputation, most of the hard part is over. Analyzing MI data is
+straightforward, usually. (When it isn't, you can do this [manually](#manual-mi).)
+
+Basically, take any analysis command you would normally run, e.g. `regress y x`, and preface it by `mi estimate:`. Let's try to predict the odds of a
+heart attack based upon other characteristics in the data. We would run a [logistic regression model](regression.html#logistic-regression),
+
+```
+logit attack smokes age bmi female hsgrad
+```
+
+So to run it with multiple imputations:
+
+~~~~
+<<dd_do>>
+mi estimate: logit attack smokes age bmi female hsgrad
+<</dd_do>>
+~~~~
+
+We see a single model, even though 5 models (one for each imputation) were run in the background. The results from these models were pooled using
+something called "Rubin's rules" to produce a single model output.
+
+We see a few additional fit summaries about the multiple imputation that aren't super relevant; but otherwise all the [existing
+interpretations](regression.html#fitting-the-logistic-model) hold. Note that an F-test instead of ^$^\chi^2^$^ test is run, but still tests the same
+hypothesis that all coefficients are identically zero. Among the coefficients, we see that smokers have significantly higher odds of having a heart
+attack, and there's some weak evidence that age plays a role.
+
+^#^^#^^#^ MI Postestimation
+
+In general, most postestimation commands will not work after MI. The general approach is to do the MI [manually](#manual-mi) and run the
+postestimation for each imputation. One exception is that `mi predict` works how `predict` does.
+
 ^#^^#^ Manual MI
+
+Since we set the data as [`flong`](#setting-up-data), each imputed data set lives in the data with a separate
+[`_mi_m`](multiple-imputation.html#mi-variables) value. You can conditionally run analyses on each, e.g.
+
+
+```
+logit attack smokes age bmi female hsgrad if _mi_m == 0
+```
+
+to run the model on only the original data.
+
+It is tedious to do this over all imputed data, so instead we can run `mi xeq:` as a prefix to run a command on each separate data set. This is
+similar to `mi estimate:` except without the pooling.
+
+~~~~
+<<dd_do>>
+mi xeq: summ age
+<</dd_do>>
+~~~~
+
+This can also be useful if the analysis you want to execute is not supported by `mi estimate` yet.
+
+^#^^#^^#^ Rubin's rules
+
+If you wanted to pool the results yourself, you can obtain an estimate for the pooled parameter by simple average across imputations. The forumla for
+variance is slightly more complicated so we don't produce it here, however it can be found in the "Methods and formulas" section of the MI manual (run
+`help mi estimate`, click on "[MI] mi estimate" at the top of the file to open the manual.
 
 ^#^^#^ Removing the MI data
 
