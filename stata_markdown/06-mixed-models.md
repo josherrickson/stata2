@@ -34,7 +34,7 @@ There are several different names for mixed models which you might encounter, th
 - Mixed model
 - Mixed Effects regression
 - Multilevel regression
-- Hierarchical regression (specifically HLM, heirarchical linear model)
+- Hierarchical regression (specifically HLM, hierarchical linear model)
 
 The hierarchical/multilevel variations require thinking about the levels of the data and involves "nesting", where one variable only occurs within
 another, e.g. family members nested in a household. The most canonical example of this is students in classrooms, we could have
@@ -47,7 +47,7 @@ another, e.g. family members nested in a household. The most canonical example o
 
 This is taking it a bit far; it's rare to see more than 3 levels, but in theory, any number can exist.
 
-For this workshop, we will only briefly discuss this from hierarchical point of view, prefering the mixed models view (with the reminder again that
+For this workshop, we will only briefly discuss this from hierarchical point of view, preferring the mixed models view (with the reminder again that
 they are the same!).
 
 ^#^^#^ Wide vs Long data, Time-varying vs Time-invariant
@@ -75,10 +75,10 @@ The most basic mixed model is the linear mixed model, which extends the [linear 
 because it contains a mixture of *fixed effects* and *random effects*.
 
 - Fixed effects: These are the predictors that are present in regular linear regression. We will obtain coefficients for these predictors and be able
-  to test and interepret them. Technically, an OLS linear model is a mixed model with only fixed effects.^[Though why called it mixed at that point?]
+  to test and interpret them. Technically, an OLS linear model is a mixed model with only fixed effects.^[Though why called it mixed at that point?]
 - Random effects: These are the "grouping" variables, and must be categorical (Stata will force every variable to be prefaced by `i.`). These are
   essentially just predictors as well, however, we do not obtain coefficients to test or interpret. We do get a measure of the variability across
-  groups, and a test of whether the random effect is benefitting the model.
+  groups, and a test of whether the random effect is benefiting the model.
 
 Let's fit a model using the `mixed` command. It works similar to `regress` with a slight tweak. We'll try and predict log of wages^[Typically, salary
 information is very right-skewed, and a log transformation produces normality.] using work experience and race. This data
@@ -99,7 +99,7 @@ students nested in classroom situation), Stata refers to as "groups" in much of 
 
 - At the very top, you'll see that the solution is arrived at iteratively, similar to [logistic regression](#fitting-the-logistic-model) (you probably
   also noticed how slow it is)!
-- The log likelihood is how the iteration works; essentially the model "guesses" choices for the coefficients, and finds the set of coefficeints that
+- The log likelihood is how the iteration works; essentially the model "guesses" choices for the coefficients, and finds the set of coefficients that
   minimize the log likelihood. Of course, the "guess" is much smarter than random. The actual value of the log likelihood is meaningless.
 - Since we are dealing with repeated measures of some sort, instead of a single sample size, we record the total number of obs, the number of groups
   (unique entries in the random effects) and min/mean/max of the groups. As before, just ensure these numbers seem right.
@@ -156,7 +156,7 @@ failure to converge.
 Generally, failure to converge will be due to an issue with the data. Things to look for include:
 
 - Different scales of predictors. For example, salary (in dollars) and number of children. The scales are drastically different which can cause
-  issues. Try rescaling any variables on extreme scales (you can do this with `egen scaledvar = std(origvar)`). This will affect interpretation (the
+  issues. Try re-scaling any variables on extreme scales (you can do this with `egen scaledvar = std(origvar)`). This will affect interpretation (the
   estimated coefficient will be the average predicted change with a on standard deviation increase in the predictor) but not the overall model fit.
 - High correlation can cause this. Check correlations (`cor`) between your predictors (including any categorical variables) and if you find a highly
   correlated pair, try removing one.
@@ -167,7 +167,7 @@ Generally, failure to converge will be due to an issue with the data. Things to 
     - Second, if you try a few different max iterations (say 50, 100 and 200), and the estimated coefficients and standard errors are relatively
       constant, you could consider that model as "good enough". You wouldn't have much confidence in the point estimates of the coefficients, but you
       could at least gain insight into the direction and approximate magnitude of the effect.
-- You can try use the "reml" optimzer, by passing the `reml` option. This optimizer can be a bit easier to converge.
+- You can try use the "reml" optimizer, by passing the `reml` option. This optimizer can be a bit easier to converge.
 
 ^#^^#^ Logistic Mixed Model
 
@@ -175,7 +175,7 @@ Similar to [logistic regression](regression.html#logistic-regression) being an e
 logistic mixed models are an extension to [linear mixed models](#linear-mixed-model) when the outcome variable is binary.
 
 The command for logistic mixed models is `melogit`. The rest of the command works very similarly to `mixed`, and interpretation is the best of
-logistic regression (for fixed effets) and linear mixed models (for random effects).
+logistic regression (for fixed effects) and linear mixed models (for random effects).
 
 By default the log-odds are reported, give the `or` option to report the odds ratios.
 

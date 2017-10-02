@@ -149,8 +149,8 @@ ttest mpg, by(foreign) unequal
 <</dd_do>>
 ~~~~
 
-The unequal test is slightly more conservative, but there has been some work (e.g. Delacre et al 2017, Ruxton 2006) showing that you should always use
-the unequal version.
+The unequal test is slightly more conservative, but there has been some work (e.g. [Delacre et al 2017](#citations), [Ruxton 2006](#citations))
+showing that you should always use the unequal version.
 
 Also, the equal variance version (the first one we ran) is known as Student's^[Named not for students in a class, but the pseudonym for statistician
 William Sealy Gosset. Gosset worked at the Guinness brewery when he was performing some of his seminal work, so Gosset was not allowed to publish

@@ -26,7 +26,7 @@ how to [perform MI if Stata doesn't support it](#manual-mi).
 
 There can be many causes of missing data. We can classify the reason data is missing into one of three categories:
 
-1. **Missing completely at random (MCAR)**: This is missingingess that is truely random - there is no cause of the missingness, it's just due to
+1. **Missing completely at random (MCAR)**: This is missingness that is truly random - there is no cause of the missingness, it's just due to
    chance. For example, you're entering paper surveys into a spreadsheet and spill coffee on them, obscuring a few answers.
 2. **Missing at random (MAR)**: The missingness here is due to observed data but not unobserved data. For example, women may be less likely to report
    their age, regardless of what their actual age is.
@@ -91,7 +91,7 @@ mi describe
 <</dd_do>>
 ~~~~
 
-We see 126 complete observations with 28 incomplete, the two variables to be imputed, and the 4 unregisted variables which will automatically be
+We see 126 complete observations with 28 incomplete, the two variables to be imputed, and the 4 unregistered variables which will automatically be
 registered as regular.
 
 ^#^^#^^#^ Imputing transformations
@@ -125,7 +125,7 @@ as some others. See `help mi impute chained` under "uvmethod" for the full list.
 
 The `add( )` option specifies how many imputed data sets to generate, we'll discuss [below](#choosing-the-number-of-imputations) how to choose this.
 
-Continuning with our example might make this more clear. To perform our imputation, we would use
+Continuing with our example might make this more clear. To perform our imputation, we would use
 
 ~~~~
 <<dd_do>>
@@ -146,11 +146,11 @@ Here, `regress` was used for `bmi` and `age`, and `logit` was used for `smokes`.
 
 Classic literature has suggested you need only 5 imputations to obtain valid results, though some modern literature ([Graham 2007](#citations))
 suggest needing many more, 20 or even 100. If your data is not too large, 100 is a great choice. You can always try running the entire procedure with
-5 imputations twice. If your results differ, you should try running many more imputations to stablize the estimates.
+5 imputations twice. If your results differ, you should try running many more imputations to stabilize the estimates.
 
 ^#^^#^^#^ `_mi_` variables
 
-After you've performed your imputation^[Techincally this happens as soon as you run `mi set`, but they're not interesting until after `mi impute`.],
+After you've performed your imputation^[Technically this happens as soon as you run `mi set`, but they're not interesting until after `mi impute`.],
 three new variables are added to your data, and your data gets ^$^M^$^ additional copies of itself. In the example
 [above](#performing-the-imputation), we added 5 imputations, so there are a total of 6 copies of the data - the raw data (with the missing values),
 and 5 copies with imputed values. The new variables added are:
@@ -217,7 +217,7 @@ This can also be useful if the analysis you want to execute is not supported by 
 
 ^#^^#^^#^ Rubin's rules
 
-If you wanted to pool the results yourself, you can obtain an estimate for the pooled parameter by simple average across imputations. The forumla for
+If you wanted to pool the results yourself, you can obtain an estimate for the pooled parameter by simple average across imputations. The formula for
 variance is slightly more complicated so we don't produce it here, however it can be found in the "Methods and formulas" section of the MI manual (run
 `help mi estimate`, click on "[MI] mi estimate" at the top of the file to open the manual.
 

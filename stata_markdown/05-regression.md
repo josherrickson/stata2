@@ -266,7 +266,7 @@ Notice that compared to the [previous model](#interactions), the Coef estimates 
 confidence interval) are slightly different.
 
 Typically, the robust standard errors should be slightly larger than the non-robust standard errors, but not always (as in this case). Generally, the
-only situation where the robust standard errors will decrease is when the error variance is highest for obsevations near the average value of the
+only situation where the robust standard errors will decrease is when the error variance is highest for observations near the average value of the
 predictors. This does not often happen (generally the higher residuals occur in observations that could be considered outliers).
 
 There has been some argument that robust standard errors should always be used, because if the model is correctly specified, the robust standard
@@ -375,8 +375,8 @@ estat vif
 <</dd_do>>
 ~~~~
 
-The rule of thumb is VIF > 10 or 1/VIF (called the tolerance) < .1 suggests that the variable is involved in multicolliearity and more exploration may
-be needed. We've got a ton of multicollinearity here, so we'd need to explore more and perhaps exclude one of them.
+The rule of thumb is VIF > 10 or 1/VIF (called the tolerance) < .1 suggests that the variable is involved in multicollinearity and more exploration
+may be needed. We've got a ton of multicollinearity here, so we'd need to explore more and perhaps exclude one of them.
 
 Multicollinearity can be an issue because the more correlated predictors are, the more likely that their combined effect will be inappropriately
 spread among them. For a very simple example, imagine that we have the model
@@ -540,7 +540,7 @@ long, but the general idea is to capture how well we're predicting without havin
 
 - Sensitivity is how likely you are to correctly predicted a positive outcome.
 - Specificity is how likely you are to correctly predicted a negative outcome.
-- The positive/negative predictive values are how likely a positive/negatative predicition is to be correct.
+- The positive/negative predictive values are how likely a positive/negative prediction is to be correct.
 
 We want those results to be high.
 
@@ -571,7 +571,7 @@ estat gof, group(10)
 
 The p-value remains insignificant at <<dd_display: %9.3f `=1 - chi2(`r(df)', `r(chi2)')'>>, still no evidence of poor model fit.
 
-Why did we choose 10 groups? It's just the standard. The only thing to keep in mind is that the Hosmer-Lemeshow test is only appropropriate if the
+Why did we choose 10 groups? It's just the standard. The only thing to keep in mind is that the Hosmer-Lemeshow test is only appropriate if the
 number of groups is greater than the number of predictors (including the intercept). In this model, we had two predictors, so that's 3 total
 (including the intercept), so 10 is OK.
 
@@ -592,7 +592,7 @@ male, and there are two men but the rest women below 5'8". Here, we will always 
 
 Separation (of either type) often produces coefficients to be extreme with large standard errors. Stata will sometimes warn about this, but not
 always. If you notice these exceptional coefficients or if Stata does warn about separation, you'll need to investigate and consider excluding certain
-predictors. It may seem counterintuitive to exclude extremely highly predictive variables, but if a variable produces perfect separation, you don't
+predictors. It may seem counter-intuitive to exclude extremely highly predictive variables, but if a variable produces perfect separation, you don't
 need a model to inform you of that.
 
 You can examine separation by looking at a table. Imagine we wanted to restructure `rep78` as a binary variable, with low repairs (repair record below
