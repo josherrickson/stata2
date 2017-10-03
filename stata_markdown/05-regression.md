@@ -661,11 +661,9 @@ There are several other models which we will not cover, but function similarly t
 
 Reload the NHANES data.
 
-~~~~
-<<dd_do>>
+```
 webuse nhanes2, clear
-<</dd_do>>
-~~~~
+```
 
 [Fit a linear regression model](#fitting-the-model) predicting `lead` based upon `sex`, `race`, `age`, `weight`, `height`, and `region`. Make sure to
 handle [categorical variables](#including-categorical-predictors) appropriately! Answer the following questions which may or may not require running

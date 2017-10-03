@@ -240,12 +240,9 @@ well.
 
 Load up the NHANES data.
 
-~~~~
-<<dd_do>>
+```
 sysuse nhanes2, clear
-<</dd_do>>
-~~~~
-
+```
 1. We don't care about normality assumptions here. Why?
 2. The average height of all *men* in America is 5'9" (176 cm). Does this sample appear representative of this fact? (E.g. is there evidence that the
    average in the sample differs from this?)
