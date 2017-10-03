@@ -222,7 +222,7 @@ est replay mean1
 <</dd_do>>
 ~~~~
 
-One use of stored estimates that will become a lot more useful later is creating a table to include all the results.
+One use of stored estimates that can be useful is creating a table to include all the results.
 
 ~~~~
 <<dd_do>>
@@ -274,8 +274,8 @@ There are a few other options related to how the results are visualized which we
 
 ^#^^#^^#^ Two-way tables
 
-We will cover two-way tables (also known as "crosstabs") later in [univariate analysis](univariate-analysis.html#chi-sq-tests), but there is a
-peculiarity to `tab` related to it. If you pass two variables to `tab`, it creates the crosstab:
+We will cover two-way tables (also known as "crosstabs") later in [univariate analysis](univariate-and-some-bivariate-analysis.html#chi-square-test),
+but there is a peculiarity to `tab` related to it. If you pass two variables to `tab`, it creates the crosstab:
 
 ~~~~
 <<dd_do>>
@@ -358,7 +358,7 @@ corr price turn
 <</dd_do>>
 ~~~~
 
-with a correlation of .33, learning `turn` when you already know `price` does add a lot of information.
+with a correlation of .31, learning `turn` when you already know `price` does add a lot of information.
 
 We can look at multiple correlations at once as well.
 
