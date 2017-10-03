@@ -249,6 +249,30 @@ mileage, on average. However, the effect decreases as gear ratio increases, and 
 can detect this by looking at the means (the points) and the confidence bands; here there is no relationship at all, but there is some suggestion that
 the relationship we describe may be occurring.
 
+Note that the choice of looking at the effect of headroom for different levels of gear ratio was arbitrary; we could have easily looked at the effect
+of gear ratio for different levels of headroom (just swap what's the in the `dydx( )` and `at( )` options). The choice in a real modeling situation
+should depend on which is more interesting.
+
+^#^^#^^#^^#^ Centering
+
+Some sources suggest centering continuous predictors before including them in an interaction. This can help slightly with interpretation (the main
+effects are the relationship when the other variable involved in the interaction are at their mean, rather than at zero) but doesn't actually affect
+model fit.
+
+To center, use the following:
+
+~~~~
+<<dd_do>>
+summ gear_ratio
+gen gear_ratioc = gear_ratio - `r(mean)'
+gen headroomc = headroom - `r(mean)'
+regress mpg c.headroomc##c.gear_ratioc i.rep78
+<</dd_do>>
+~~~~
+
+If you compare fit characteristics and the interaction coefficient (and other coefficients), you'll notice nothing has changed save the coefficient
+for `headroomc` and `gear_ratioc`. If we were to re-run the `margins` commands from before, we'd see the same results
+
 ^#^^#^^#^ Robust standard errors
 
 The standard error associated with each coefficient are determined with the assumption that the model is "true" and that, were we given an infinite
