@@ -656,3 +656,25 @@ There are several other models which we will not cover, but function similarly t
   distribution and returns the "cut points", allowing categorization. If there are multiple groups but not ordered, e.g. race, use `mlogit` for
   multinomial logistic regression. It essentially fits a model predicting membership in each group versus all other, with some restrictions across the
   models.
+
+^#^^#^ Exercise 4
+
+Reload the NHANES data.
+
+~~~~
+<<dd_do>>
+webuse nhanes2, clear
+<</dd_do>>
+~~~~
+
+[Fit a linear regression model](#fitting-the-model) predicting `lead` based upon `sex`, `race`, `age`, `weight`, `height`, and `region`. Make sure to
+handle [categorical variables](#including-categorical-predictors) appropriately! Answer the following questions which may or may not require running
+additional command.
+
+1. How well does the model fit?
+2. Does one gender tend to have higher levels of lead?
+3. Is the coefficient on age statistically significant? Do you think it is clinically interesting?
+4. Looking at all the differences between regions, what conclusion can you draw?
+5. Add an [interaction](#interactions) between gender and age. What is the interpretation here?
+6. Do any [assumptions](#assumptions) appear violated?
+7. Does [multicollinearity](#multicollinearity) appear to be a concern?

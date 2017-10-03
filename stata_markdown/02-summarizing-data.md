@@ -479,3 +479,24 @@ How does Spearman's correlation compare to Pearson's for Anscombe's quartet?
 | ^$^y_4, x_4^$^ | .8162   | .5000    |
 
 The second correlation diminishes, the third drastically increases, and the fourth decreases as well.
+
+^#^^#^ Exercise 1
+
+For these exercises, we'll be using data from NHANES, the National Health And Nutrition Examination Survey. The data is on Stata's website, and you
+can load it via
+
+~~~~
+<<dd_do>>
+webuse nhanes2, clear
+<</dd_do>>
+~~~~
+
+1. Use `describe` to get a sense of the data. How many observations? How many variables?
+2. Use `tab`, `summarize`, `mean`, and/or `codebook` to get an understanding of the some of variables that we'll be using a lot going forward:
+    - `region`
+    - `houssiz`
+    - `sex`
+    - `diabetes`
+    - `iron`
+3. Does `race` have any missing data? Does `diabetes`? Does `lead`?
+4. What is more highly correlated? A person's height and weight, or their diastolic and systolic blood pressure?

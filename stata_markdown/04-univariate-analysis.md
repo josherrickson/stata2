@@ -236,6 +236,23 @@ Note that the ^$^\chi^2\^$^ test ignores scale - if we had 4,800 Domestic cars i
 Finally, the critiques [above](univariate-and-some-bivariate-analysis.html) about the lack of usefulness of t-tests extends to ^$^\chi^2^$^ tests as
 well.
 
+^#^^#^ Exercise 3
+
+Load up the NHANES data.
+
+~~~~
+<<dd_do>>
+sysuse nhanes2, clear
+<</dd_do>>
+~~~~
+
+1. We don't care about normality assumptions here. Why?
+2. The average height of all *men* in America is 5'9" (176 cm). Does this sample appear representative of this fact? (E.g. is there evidence that the
+   average in the sample differs from this?)
+3. We would expect height and weight to differ by gender. Is there any evidence that age does?
+4. Take a look at a crosstab of `race` and `diabetes`. Does it look like the percentage of diabetics is the same across race? The `col` or `row`
+   option might help here. Test this with a ^$^\chi^2^$^ test.
+
 ^#^^#^ Citations
 
 - Delacre, Marie, Daniël Lakens, and Christophe Leys. "Why Psychologists Should by Default Use Welch’s t-test Instead of Student’s t-test."
