@@ -245,3 +245,35 @@ margins region, pwcompare(pv)
 
 Blacks are more likely to have diabetes than whites or others. Age and weight are positive predictors whereas height is a negative predictor for some
 reason. There is no effect of gender or region.
+
+^#^^#^ Exercise 6
+
+~~~~
+<<dd_do>>
+webuse chicken, clear
+melogit complain grade i.race i.gender tenure age income nworkers i.genderm || restaurant:
+<</dd_do>>
+~~~~
+
+1)
+
+We can't look at fit statistics, but the ^$^\chi^2^$^ is significant, so we're doing better than chance.
+
+2)
+
+~~~~
+<<dd_do>>
+margins race, pwcompare(pv)
+<</dd_do>>
+~~~~
+
+Unfortunately, this data is poorly labeled so we can't talk in specifics about things, but generally
+
+- Race 1, 2 and 3 have increasing odds of a complaint.
+- Gender 1 has significantly higher odds than gender 2.
+- Age and income are negatively related to the odds of a complaint (older, more well paid employees are less likely to have complaints).
+- Neither restaurant level characteristic is significant once server characteristics are accounted for.
+
+3)
+
+The estimated random variance is non-zero, so yes, the random effects for restaurants are warranted.

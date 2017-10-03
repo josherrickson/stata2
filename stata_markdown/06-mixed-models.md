@@ -175,7 +175,8 @@ Similar to [logistic regression](regression.html#logistic-regression) being an e
 logistic mixed models are an extension to [linear mixed models](#linear-mixed-model) when the outcome variable is binary.
 
 The command for logistic mixed models is `melogit`. The rest of the command works very similarly to `mixed`, and interpretation is the best of
-logistic regression (for fixed effects) and linear mixed models (for random effects).
+logistic regression (for fixed effects) and linear mixed models (for random effects). Unfortunately, neither `estat classification` nor `estat gof` is
+supported, so goodness of fit must be measured solely on the ^$^\chi^2^$^ test and perhaps a manual model fit comparison.
 
 By default the log-odds are reported, give the `or` option to report the odds ratios.
 
@@ -183,3 +184,23 @@ By default the log-odds are reported, give the `or` option to report the odds ra
 
 There is a different solver that can be used based upon QR-decomposition. This is run with the command `meqrlogit`. It functions identically to
 `melogit`. If `melogit` has convergence issues, try using `meqrlogit` instead.
+
+^#^^#^ Exercise 6
+
+Load up the "chicken" data set from Stata's website:
+
+```
+webuse chicken, clear
+```
+
+The data contains order information from a number of restaurants and records whether the order resulted in a complaint. We'd like to see what
+attributes (if any) of the servers may increase the odds of a complaint. Since we have multiple orders per restaurant, it's reasonable to assume that
+certain restaurants just recieve more complaints than others, regardless of the server, so we'll need to include random effects for those.
+
+Fit a mixed effects logistic regression model predicting `complain`, based upon server characteristics (`grade`, `race`, `gender`, `tenure`, `age`,
+`income`) and a few restaurant characteristics (`genderm` for gender of manager and `nworkers` for number of workers). Include a random effect for
+`restaurant`.
+
+1. Does the model fit better than chance?
+2. Interpret the model. What predicts a higher odds of recieving a complaint?
+3. Does it appear that adding the random effect was needed?
