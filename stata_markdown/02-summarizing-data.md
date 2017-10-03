@@ -1,7 +1,7 @@
 ^#^ Summarizing Data
 
 Before we consider modeling the data in any meaningful way, it is important to explore the data to get some sense of what the data looks like, as
-certain modeling decisions will depend on the structure of the data. This section and [the next](visualization.html) will cover how to examine and
+certain modeling decisions will depend on the structure of the data. This chapter and [the next](visualization.html) will cover how to examine and
 visualize the data.
 
 We will be using the built-in data set "auto" for a lot of the examples. If you're not familiar with the `sysuse` command, it functions similarly to
@@ -489,7 +489,7 @@ can load it via
 webuse nhanes2, clear
 ```
 
-1. Use `describe` to get a sense of the data. How many observations? How many variables?
+1. Use [`describe`](#describe-summarize-codebook) to get a sense of the data. How many observations? How many variables?
 2. Use `tab`, `summarize`, `mean`, and/or `codebook` to get an understanding of the some of variables that we'll be using a lot going forward:
     - `region`
     - `houssiz`
@@ -497,4 +497,4 @@ webuse nhanes2, clear
     - `diabetes`
     - `iron`
 3. Does `race` have any missing data? Does `diabetes`? Does `lead`?
-4. What is more highly correlated? A person's height and weight, or their diastolic and systolic blood pressure?
+4. What is more highly [correlated](#correlate)? A person's height and weight, or their diastolic and systolic blood pressure?

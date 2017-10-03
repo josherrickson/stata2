@@ -42,9 +42,9 @@ There are several assumptions necessary for a one-sample t-test, most of which a
 1. Independence. Each value must come from an independent source. If you have repeated measures (e.g. two different measures for the same person),
    this is violated. See the section of [mixed models](mixed-models.html) for dealing with this sort of data.
 2. The distribution of the *mean* is normal. Note that this assumption is *not* about the data itself. This assumption is valid if *either* the sample
-   suggests that the data is normal (a bell-curve) *or* the sample size is large (above ~30)^[This is by
-   the [central limit theorem](https://en.wikipedia.org/wiki/Central_limit_theorem)]. If this assumption does not hold, we generally still use the
-   t-test, although there are tests called "non-parametric" tests which do not require this assumption. Not everyone is convinced they are necessary.
+   suggests that the data is normal (a bell-curve) *or* the sample size is large (above ~30)^[This is by the [central limit
+   theorem](https://en.wikipedia.org/wiki/Central_limit_theorem).]. If this assumption does not hold, we generally still use the t-test, although
+   there are tests called "non-parametric" tests which do not require this assumption. Not everyone is convinced they are necessary.
 
 There is no way to test the independence assumption, you must determine this based upon your knowledge of the data.
 
@@ -90,7 +90,7 @@ this data is 20. We sometimes also just call 20, the value the null hypothesis i
 hypothesis of 20.").
 
 Looking at the analysis, we see that we get some summary statistics. The 95% confidence interval represents the range which, if we were to draw
-repeated samples of the same size (74) from the population of all cars, we would expect 95% of them to contain the true population mean.
+repeated samples of the same size (74) from the population of all cars, we would expect 95% of the estimated means to fall in that range.
 
 Below that, we see some details of the test being run. The important detail is that the null Hypothesis (`Ho`) is what you meant for it to be.
 
@@ -152,16 +152,16 @@ ttest mpg, by(foreign) unequal
 The unequal test is slightly more conservative, but there has been some work (e.g. [Delacre et al 2017](#citations), [Ruxton 2006](#citations))
 showing that you should always use the unequal version.
 
-Also, the equal variance version (the first one we ran) is known as Student's^[Named not for students in a class, but the pseudonym for statistician
-William Sealy Gosset. Gosset worked at the Guinness brewery when he was performing some of his seminal work, so Gosset was not allowed to publish
-under his own name!] t-test, and the unequal variance version (with the `unequal` option) is known as Welch's t-test.
+The equal variance version (the first one we ran) is known as Student's^[Named not for students in a class, but the pseudonym for statistician William
+Sealy Gosset. Gosset worked at the Guinness brewery when he was performing some of his seminal work and wasn't allowed to publish under his own name,
+so he used the pseudonym Student.] t-test, and the unequal variance version (with the `unequal` option) is known as Welch's t-test.
 
 If you want to test whether the variance between the two groups is equal, you can use `sdtest` in a similar fashion to `ttest` (`sdtest mpg,
 by(foreign)`).
 
 ^#^^#^^#^ Paired
 
-We noted in the assumptions above that we need the two groups to be independent. What if they aren't? Examples of paired data would include
+We noted in the assumptions above that we need the two groups to be independent. What if they aren't? An example of paired data would include
 before-and-after measures or measures from two family members. In both cases, it is reasonable to assume the two measures from the same person or
 family are more similar than a measure from one person against a measure from another person.
 
@@ -215,9 +215,9 @@ tab foreign rep78
 If you're not familiar with crosstabs, each cell represents the number of observations which fall into the category - for example, there are 8 cars
 which are both Domestic and have a Repair record of 2.
 
-We can think of testing whether the association between these two variables exists from either direction - we can either ask "Is the distribution of
-the repair record among domestic cars the same as among foreign cars", or "Is the distribution (percentage) of foreign cars the same across all levels
-of repair record". We test it by adding the `chi2` option to `tab`:
+We can think of testing whether the association between these two variables exists from either direction - we can either ask "Is the probability of a
+car having a specific repair record the same among domestic cars as among foreign cars", or "Is the probability of a car being foreign or domestic the
+same across all levels of repair record". We test it by adding the `chi2` option to `tab`:
 
 ~~~~
 <<dd_do>>
@@ -225,7 +225,7 @@ tab foreign rep78, chi2
 <</dd_do>>
 ~~~~
 
-Here we can see that The p-value (`pr`) associated with the ^$^\chi^2\^$^ test is very low (less than .001, p-values are never 0^[Unless you're in a
+Here we can see that the p-value (`pr`) associated with the ^$^\chi^2\^$^ test is very low (less than .001, p-values are never 0^[Unless you're in a
 pathological setting, i.e. you're testing whether the average height of a population is less than 6 feet, and somehow you get an average height of -20
 feet....]!), so we can reject the null hypothesis and claim there is evidence of a statistically significant association between `foreign` and
 `rep78`.

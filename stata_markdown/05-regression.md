@@ -1,23 +1,23 @@
 ^#^ Regression
 
-One notable exclusion from the previous session was comparing the mean of a continuous variables across three or more groups. Two-sample t-tests
-compare the means across two groups, and ^$^\chi^2^$^ tests can compare two categorical variables with arbitrary number of levels, but the traditional
-test for comparing means across multiple groups is ANOVA (ANalysis Of VAriance). While historically this has been a very useful procedure due to the
-ease with which it can be performed manually, its modern use has been supplanted by regression, which is mathematically equivalent and easier to
-extend (the downside of regression is that it is more difficult to calculate, but given that we are no longer doing statistical analyses by
-hand....). This relationship extends to other variations of ANOVA such as ANCOVA or MANOVA.
+One notable exclusion from the [previous chapter](univariate-and-some-bivariate-analysis.html) was comparing the mean of a continuous variables across
+three or more groups. Two-sample t-tests compare the means across two groups, and ^$^\chi^2^$^ tests can compare two categorical variables with
+arbitrary number of levels, but the traditional test for comparing means across multiple groups is ANOVA (ANalysis Of VAriance). While historically
+this has been a very useful procedure due to the ease with which it can be performed manually, its modern use has been supplanted by regression, which
+is mathematically equivalent and easier to extend (the downside of regression is that it is more difficult to calculate, but given that we are no
+longer doing statistical analyses by hand...). This relationship extends to other variations of ANOVA such as ANCOVA or MANOVA.
 
 If you still want to fit an ANOVA, it can be done with the `oneway` command. Otherwise we turn now to regression.
 
 Regression is a set of techniques where we attempt to fit a model to a data set estimating the relationships between a set of predictor variables
 (either continuous or categorical in nature) and a response variable of interest. There are many versions of regression which are appropriate for
-different types of response variables, or address different concerns when fitting the model. In this chapter and the next, we will discuss a few
-variations.
+different types of response variables, or address different concerns when fitting the model. In this chapter and [the next](mixed-models.html), we
+will discuss a few variations.
 
 ^#^^#^ Terminology
 
 When discussing any form of regression, we think of predicting the value of one variable^[There are variations of regression with multiple outcomes,
-but they are for very specialized circumstances and can generally be fit as several basic regression models instead] based upon several other
+but they are for very specialized circumstances and can generally be fit as several basic regression models instead.] based upon several other
 variables.
 
 The variable we are predicting can be called the "outcome", the "response" or the "dependent variable".
@@ -57,7 +57,7 @@ We will now fit a model, discussing assumptions afterwards, because almost all a
 ^#^^#^^#^ Fitting the model
 
 Stata's `regress` command fit the linear regression model. It is followed by the outcome variable followed by all predictors. For this example, let's
-reload the auto data and fit a relatively simple model, predicting `mpg` based on `gear_ratio` and `headroom`.
+use the auto data and fit a relatively simple model, predicting `mpg` based on `gear_ratio` and `headroom`.
 
 ~~~~
 <<dd_do>>
@@ -67,9 +67,9 @@ regress mpg gear_ratio headroom
 
 There is a lot of important output here, so we will step through each piece.
 
-First, the top left table is the ANOVA table. If you were to fit a regression model with a
-single [categorical predictor](#continuous-vs-categorical-predictors), this would be identical to running ANOVA via `oneway`. In general we don't need
-to interpret anything here, as there are further measures of model fit in the regression frameworks.
+First, the top left table is the ANOVA table. If you were to fit a regression model with a single [categorical
+predictor](#including-categorical-predictors), this would be identical to running ANOVA via `oneway`. In general we don't need to interpret anything
+here, as there are further measures of model fit in the regression frameworks.
 
 Next, the top right part has a series of measures.
 
@@ -175,6 +175,9 @@ regress mpg headroom gear_ratio ib3.rep78
 <</dd_do>>
 ~~~~
 
+**This does not fit a different model.** Both models (with `i.rep78` and `ib3.rep78`) are identical, we're just seeing slight variations. If the
+models do change (especially the model fit numbers in the top right), something has gone wrong.
+
 ^#^^#^^#^ Interactions
 
 Each coefficient we've look at so far is only testing whether there is a relationship between the predictor and response when the other predictors are
@@ -200,7 +203,7 @@ then to add an interaction between ^$^X_1^$^ and ^$^X_2^$^, we simply add a new 
     - the change in the relationship between ^$^X_1^$^ and ^$^Y^$^ as ^$^X_2^$^ changes.
     - the change in the relationship between ^$^X_2^$^ and ^$^Y^$^ as ^$^X_1^$^ changes.
 
-Adding these to the `reg` call is almost as easy. We'll use `#` or `##` instead. `#` includes only the interaction, whereas `##` includes both the
+Adding these to the `regress` call is almost as easy. We'll use `#` or `##` instead. `#` includes only the interaction, whereas `##` includes both the
 interaction and the main effects.
 
 - `a#b`: Only the interaction
@@ -220,9 +223,9 @@ need `c.` here! This can get pretty confusing, but it's never wrong to include `
 Once we include an interaction, the relationship between the variables included in the interaction and the response are not constant - the
 relationship depends on the value of the other interacted variables. This can be hard to visualize with the basic regression output, so we'll look at
 `margins` again instead. We'll want to look at the relationship between `mpg` and `headroom` at a few different values of `gear_ratio` to get a sense
-of the pattern. `gear_ratio` ranges from 2.19 to 3.89 (this can be obtained with `summarize` or `codebook`, just don't forget to re-run the `regress`
-command to gain access to the [postestimation commands](summarizing-data.html#postestimation-commands) again), so let's look at the relationship at
-those extremes and at 3:
+of the pattern. `gear_ratio` ranges from 2.19 to 3.89 (this can be obtained with `summarize` or `codebook`, just don't forget to [save the
+results](summarizing-data.html#storing-and-restoring-estimation-commands) or re-run the `regress` command to gain access to the [postestimation
+commands](summarizing-data.html#postestimation-commands) again), so let's look at the relationship at those extremes and at 3:
 
 ~~~~
 <<dd_do>>
@@ -265,20 +268,23 @@ To center, use the following:
 <<dd_do>>
 summ gear_ratio
 gen gear_ratioc = gear_ratio - `r(mean)'
+summ headroom
 gen headroomc = headroom - `r(mean)'
+summ gear_ratioc headroomc
 regress mpg c.headroomc##c.gear_ratioc i.rep78
 <</dd_do>>
 ~~~~
 
 If you compare fit characteristics and the interaction coefficient (and other coefficients), you'll notice nothing has changed save the coefficient
-for `headroomc` and `gear_ratioc`. If we were to re-run the `margins` commands from before, we'd see the same results
+for `headroomc` and `gear_ratioc`. If we were to re-run the `margins` commands from before, we'd see the same results.
 
 ^#^^#^^#^ Robust standard errors
 
 The standard error associated with each coefficient are determined with the assumption that the model is "true" and that, were we given an infinite
 sample size, the estimates ^$^\hat{\beta}^$^ would converge to the true ^$^\beta^$^. In many situations, this is clearly untrue.
 
-If you believe this is untrue, the estimates will be unaffected, but their standard errors will be incorrect
+If you believe this is untrue, the estimates will be unaffected, but their standard errors will be incorrect. We can adjust for this by using "robust"
+standard errors, also known as Sandwich estimators or Huber-White estimators, with the `vce(robust)` option to `regress`.
 
 ~~~~
 <<dd_do>>
@@ -359,7 +365,7 @@ twoway scatter resids linearpredictor
 <<dd_graph: replace>>
 
 (The two warnings about missing values are due to 4 cars not having a value of `rep78`. See [multiple imputation](multiple-imputation.html) for a
-strategy for dealing with missing data.
+strategy for dealing with missing data.)
 
 ^#^^#^^#^^#^ Errors are homogeneous
 
@@ -368,7 +374,7 @@ truly random sample of all individuals in Michigan, the distribution of their he
 a single distribution at work there. If on the other hand, we took a random sample of basketball players and school children, this would definitely be
 heterogeneous. The basketball players have a markedly difference distribution of heights that school children!
 
-In linear regression, the homogeneity assumption is that the distribution of the errors are uniform. Violations would include errors changing as the
+In linear regression, the homogeneity assumption is that the distribution of the errors is uniform. Violations would include errors changing as the
 predictor increased, or several groups having very different noise in their measurements.
 
 This is an assumption we can examine, again with the residuals vs fitted plot. We're looking for either a blatant deviation from a mean of 0, or an
@@ -502,9 +508,10 @@ logit foreign gear_ratio headroom
 ~~~~
 
 When you try this yourself, you may notice that its not quite as fast as `regress`. That is because for linear regression we have a "closed form
-solution" - we just do some quick math and reach an answer. However, almost every time of regression lacks a closed form solution, so instead we solve
-it iteratively - Stata guesses at the best coefficients that minimize error^[Technically that maximizes likelihood, but that distinction is not
-important for understanding.], and keeps guessing (using the knowledge of the previous guesses) until it stops getting significantly different results.
+solution" - we just do some quick math and reach an answer. However, almost every other type of regression lacks a closed form solution, so instead we
+solve it iteratively - Stata guesses at the best coefficients that minimize error^[Technically that maximizes likelihood, but that distinction is not
+important for understanding.], and keeps guessing (using the knowledge of the previous guesses) until it stops getting significantly different
+results.
 
 From this output, we get the "Number of obs" again. Instead of an ANOVA table with a F-statistic to test model significance, there is instead a "chi2"
 (^$^\chi^2^$^, pronounced "ky-squared" as in "Kyle"). In this model, we reject the null that all coefficients are identically 0.
@@ -514,8 +521,8 @@ reports one here, but be careful assigning too much meaning to it. It is not unc
 above 1. We'll discuss measuring [goodness of fit](#logistic-goodness-of-fit) below.
 
 The coefficients table is interpreted in almost the same way as with regression. We see that `gear_ratio` has a significant positive coefficient, and
-`headroom` is indistinguishable from 0. We *cannot* nicely interpret the coefficients. All we can say is that "As gear ratio increases, the
-probability of a car being foreign increases."
+`headroom`'s coefficient is indistinguishable from 0. We *cannot* nicely interpret the coefficients. All we can say is that "As gear ratio increases,
+the probability of a car being foreign increases."
 
 To add any interpretability to these coefficients, we should instead look at the odds ratios (these coefficients are known as the log-odds). We can
 obtain this with the `or` options.
@@ -531,7 +538,7 @@ represented.
 
 Odds ratios null hypothesis is at 1, not at 0. Odds ratios are always positive. So a significant odds ratio will be away from 1, rather than away from
 0 as in linear regression or the log odds. We can interpret odds ratios as percentages. The odds ratio for `gear_ratio` is
-<<dd_display: %9.4f _b[gear_ratio]>>, suggesting that a 1 increase in the odds ratio leads to a 30,833% increase in the probability that the car is
+<<dd_display: %9.4f exp(_b[gear_ratio])>>, suggesting that a 1 increase in the odds ratio leads to a 30,833% increase in the odds that the car is
 foreign! This is massive! But keep in mind, `gear_ratio` had a very narrow range - an increase of 1 is very large. Let's rescale gear_ratio and try again.
 
 ~~~~
