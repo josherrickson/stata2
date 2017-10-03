@@ -164,24 +164,3 @@ svy: reg weight height i.sex if race_black == 1
 ~~~~
 
 Stata refuses to even calculate standard errors.
-
-^#^^#^ Survey and multiple imputation
-
-Just a quick note, if you want to utilize by complex survey design and multiple imputation simultaneously, proper ordering needs to be given. Note
-that only weights play a role in multiple imputation.
-
-```
-mi set ...
-mi svyset ...
-mi impute ... [pweight = weight]
-mi estimate: svy: regress ...
-```
-
-There has been some discussion that imputation should not take into account any complex survey design features (because you want the imputation to
-reflect the sample, not necessarily the population). See for example [Little and Vartivarian 2003](#citations). If you follow this advice, simply
-exclude the `[pweight = ...]` part of the `mi impute` command. In either case, estimation commands still need both the `mi estimate: svy:` prefixes in
-that order.
-
-^#^^#^ Citations
-
-- Little, RJ, and S Vartivarian. 2003. On weighting the rates in non-response weights. Stat Med 22, no. 9: 1589-1599.
