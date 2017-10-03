@@ -210,3 +210,38 @@ estat vif
 ~~~~
 
 Nothing to concern here. Sex and sex/age interaction are close, but we expect interactions to be correlated to main effects. You can center age if you are concerned.
+
+^#^^#^ Exercise 5
+
+[Exercise 5](regression.html#exercise-5)
+
+~~~~
+<<dd_do>>
+webuse nhanes2, clear
+logit diabetes i.sex i.race c.age weight height i.region
+<</dd_do>>
+~~~~
+
+1)
+
+~~~~
+<<dd_do>>
+estat gof
+estat classification
+<</dd_do>>
+~~~~
+
+Both suggest the model does not fit well. Note that the original ^$^\chi^2^$^ test does show the model is better than a model with no predictors, but
+the classification shows that we predict a negative response for all but a single observation.
+
+2)
+
+~~~~
+<<dd_do>>
+margins race, pwcompare(pv)
+margins region, pwcompare(pv)
+<</dd_do>>
+~~~~
+
+Blacks are more likely to have diabetes than whites or others. Age and weight are positive predictors whereas height is a negative predictor for some
+reason. There is no effect of gender or region.

@@ -449,6 +449,26 @@ outcome. Then you can fit a single model including all of this. The "subset" can
 Note that adjustments to fix assumptions (e.g. transformations) or multicollinearity would not fall into the category of model selection and are fine
 to use.
 
+^#^^#^ Exercise 4
+
+Reload the NHANES data.
+
+```
+webuse nhanes2, clear
+```
+
+[Fit a linear regression model](#fitting-the-model) predicting `lead` based upon `sex`, `race`, `age`, `weight`, `height`, and `region`. Make sure to
+handle [categorical variables](#including-categorical-predictors) appropriately! Answer the following questions which may or may not require running
+additional command.
+
+1. How well does the model fit?
+2. Does one gender tend to have higher levels of lead?
+3. Is the coefficient on age statistically significant? Do you think it is clinically interesting?
+4. Looking at all the differences between regions, what conclusion can you draw?
+5. Add an [interaction](#interactions) between gender and age. What is the interpretation here?
+6. Do any [assumptions](#assumptions) appear violated?
+7. Does [multicollinearity](#multicollinearity) appear to be a concern?
+
 ^#^^#^ Logistic Regression
 
 Let's violate one of the [assumptions](#relationship-is-linear-and-additive). Instead of the relationship being linear, we can generalize to allow the
@@ -681,7 +701,7 @@ There are several other models which we will not cover, but function similarly t
   multinomial logistic regression. It essentially fits a model predicting membership in each group versus all other, with some restrictions across the
   models.
 
-^#^^#^ Exercise 4
+^#^^#^ Exercise 5
 
 Reload the NHANES data.
 
@@ -689,14 +709,8 @@ Reload the NHANES data.
 webuse nhanes2, clear
 ```
 
-[Fit a linear regression model](#fitting-the-model) predicting `lead` based upon `sex`, `race`, `age`, `weight`, `height`, and `region`. Make sure to
-handle [categorical variables](#including-categorical-predictors) appropriately! Answer the following questions which may or may not require running
-additional command.
+This time we'll fit a [logistic regression model](#logistic-regression), prediciting diabetes status on `sex`, `race`, `age`, `weight`, `height`, and
+`region`. As before, be sure to handle [categorical variables](#categorical-variables-and-interactions) appropriately.
 
-1. How well does the model fit?
-2. Does one gender tend to have higher levels of lead?
-3. Is the coefficient on age statistically significant? Do you think it is clinically interesting?
-4. Looking at all the differences between regions, what conclusion can you draw?
-5. Add an [interaction](#interactions) between gender and age. What is the interpretation here?
-6. Do any [assumptions](#assumptions) appear violated?
-7. Does [multicollinearity](#multicollinearity) appear to be a concern?
+1. Does the model [fit well](#logistic-goodness-of-fit)? Does the model classify well?
+2. Ignoring any issues with model fit, [what predicts](#fitting-the-logistic-model) higher odds of having diabetes?
