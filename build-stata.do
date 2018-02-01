@@ -1,7 +1,6 @@
-local files 02-summarizing-data 03-visualization 04-univariate-analysis ///
-						05-regression 06-mixed-models 07-survey-data 08-multiple-imputation ///
-            09-solutions
+local files : dir "stata_markdown" files "*.md"
 
 foreach f in `files' {
-	dyndoc stata_markdown/`f'.md, saving("`f'.Rmd") replace nostop
+  local f2 = substr("`f'", 1, strlen("`f'") - 3)
+  dyndoc "stata_markdown/`f2'.md", saving("`f2'.Rmd") replace nostop
 }
