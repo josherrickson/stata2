@@ -61,6 +61,7 @@ use the auto data and fit a relatively simple model, predicting `mpg` based on `
 
 ~~~~
 <<dd_do>>
+sysuse auto, clear
 regress mpg gear_ratio headroom
 <</dd_do>>
 ~~~~
