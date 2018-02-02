@@ -4,7 +4,6 @@ md2=$(shell find stata_markdown -name "*.md" | sed 's.stata_markdown/..')
 Stata_Ready=$(md2:.md=.Rmd)
 
 stata_markdown/%.Rmd: stata_markdown/%.md
-	@rm -f mycensus9.dta
 	@echo "$< -> $@"
 	@/Applications/Stata/StataSE.app/Contents/MacOS/stata-se -b 'dyndoc "$<", saving("$@") replace nostop'
 # Remove <p> at the front of sections
