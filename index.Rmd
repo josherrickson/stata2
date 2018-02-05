@@ -16,12 +16,9 @@ github-repo: rstudio/bookdown-demo
 
 ## How to use this document
 
-These notes are published in [bookdown](https://bookdown.org/) format
-which enables easy creation of longform documents (using a mixture of
-[markdown](https://daringfireball.net/projects/markdown/),
-[R](https://www.r-project.org/), and for these notes specifically,
-[Stata](http://www.stata.com/)'s
-[dyndoc](http://www.stata.com/manuals/pdyndoc.pdf)).
+These notes are published in [bookdown](https://bookdown.org/) format which enables easy creation of longform documents (using a mixture of
+[markdown](https://daringfireball.net/projects/markdown/), [R](https://www.r-project.org/), and for these notes specifically,
+[Stata](http://www.stata.com/)'s [dyndoc](http://www.stata.com/manuals/pdyndoc.pdf), which was added in Stata 15).
 
 The table of contents is found on the left hand side, with subsections expanding below the current section. At the top of the page are three icons,
 from left to right they 1) Hide/show the table of contents, 2) Search this document, and 3) Change the font the book is displayed in.
@@ -49,12 +46,7 @@ All images should link to full-size versions to see detail if needed.
 
 ## Acknowledgments
 
-These notes have evolved over the years thanks to many CSCAR
-statisticians, including Giselle Kolenic, Brady West, Heidi Reichert,
-and Lingling Zhang.
+These notes have evolved over the years thanks to many CSCAR statisticians, including Giselle Kolenic, Brady West, Heidi Reichert, and Lingling Zhang.
 
-This material was created for use in workshops and short courses
-presented by faculty and staff from the Consulting for Statistics,
-Computing \& Analytics Research (CSCAR) at the University of
-Michigan. No part of this material may be used for other purposes,
-copied, changed, or sold.
+This material was created for use in workshops and short courses presented by faculty and staff from the Consulting for Statistics, Computing \&
+Analytics Research (CSCAR) at the University of Michigan. No part of this material may be used for other purposes, copied, changed, or sold.

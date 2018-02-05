@@ -121,7 +121,17 @@ twoway (scatter mpg weight, msymbol(t)) ///
 <<dd_graph: replace>>
 
 Putting these options "globally", as `twoway (...) (...), msymbol(to)` would NOT work, as `msymbol` is an option specifically for `twoway scatter`
-(and a few others), not for the more general `twoway`.
+(and a few others), not for the more general `twoway`. There are options that apply to the `twoway` command, see `help twoway_options` for details.
+
+There is an alternate way to specify the overlaid plots. These two commands are equivalent:
+
+```
+twoway (scatter mpg weight) (lfit mpg weight)
+twoway scatter mpg weight || lfit mpg weight
+```
+
+We prefer the latter as it makes it's cleaner to distinguish when you have multiple overlaid plots with their own options, but some authors may chose
+the second.
 
 ^#^^#^ Other graphs
 
@@ -149,15 +159,14 @@ display all graphs on the same output. For example,
 
 ~~~~
 <<dd_do>>
-hist mpg, by(foreign)
+twoway (scatter mpg weight) (lfit mpg weight), by(foreign)
 <</dd_do>>
 ~~~~
 
 <<dd_graph: replace>>
 
-Alternatively, you may way to represent another variable on a single plot. For example, let's say we want to create the scatter plot and best-fit from
-above, but differentiate the genders on one graph (rather than two separate windows via `by`). To do this, we'd overlap two `scatter` and `lfit` plots
-in a single `twoway`, each with a conditional `if`.
+It often looks better to see the two plots overlaid on each other for a more direct comparison. To do this, rather than using `by(...)`, we'll instead
+add each overlay conditionally:
 
 ~~~~
 <<dd_do>>
@@ -227,7 +236,8 @@ or you can access them directly:
 
 You may have noticed that opening a new plot closes the old one. What if you wanted to compare the plots? The behind-the-scenes reason that the old
 plots are closed is that Stata names each plot and each plot can only be open once. The default name is "Graph", so with each new plot, the "Graph"
-plot is overridden. If you closed a plot and wanted to re-open it, you can run the following at any point *until you run another graph*.
+plot is overridden. If you closed a plot and wanted to re-open it, you can run the following at any point *until you run another graph* just like with
+[estimation commands](summarizing-data.html#estimation-commands).
 
 ```
 graph display Graph
@@ -237,7 +247,7 @@ When we create a new plot with the default name, we lose the last one.
 
 If we give a plot a non-default name, it will be saved (so that it can be re-displayed later) and more importantly, will open a new window without
 closing the last. Running two plots with custom names opens two separate windows. (These are not run in the notes because obviously this won't
-demonstrate well, but try them on your own.
+demonstrate well, but try them on your own.)
 
 ```
 hist price, name(g1)
@@ -265,7 +275,7 @@ Finally, if you'd rather have all the graphs in one window with tabs instead of 
 set autotabgraphs on
 ```
 
-You still need to name graphs separately.
+(You can pass the `permanently` option to not have to do this every time you open Stata.)  You still need to name graphs separately.
 
 ^#^^#^ Exercise 2
 

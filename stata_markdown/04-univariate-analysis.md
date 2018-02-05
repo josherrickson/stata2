@@ -101,7 +101,7 @@ true population mean. In other words, we get the following three interpretations
 * There is <<dd_display: %9.2f 100*`r(p_l)'>>% chance that if the true mean were 20, we would observe a sample mean of 21.2973 or lower.
 * There is <<dd_display: %9.2f 100*`r(p_u)'>>% chance that if the true mean were 20, we would observe a sample mean of 21.2973 or higher.
 * There is <<dd_display: %9.2f 100*`r(p)'>>% chance that if the true mean were 20, we would observe a sample mean of 21.2973 or higher *or* a sample
-  mean of <<dd_display: %9.4f 40-21.2973>>.
+  mean of <<dd_display: %9.4f 40-21.2973>> (this is calculated as 20 - (21.2973 - 20), in other words, 1.2973 below 20).
 
 The last interpretation (corresponding to `Ha: mean != 20` from the output) is known as the two-sided p-value, and should be your default. The other
 two, known as one-sided p-values, can be used if a priori you decide that you're only interested in one direction.
@@ -139,7 +139,11 @@ The p-values have the same interpretation, though in terms of the difference of 
 test, you should use the two-sided p-value, so our p-value is <<dd_display: %9.4f `r(p)'>>. Just as a note, do not report this p-value as 0 if you
 round! Instead, report that the p-value is less than .01 or less than .001.
 
-However, there is an additional assumption here that we neglected; namely that the variance of the two groups is equivalent. If you make this
+"There is less than a .1% chance that, if the average mileage was equivalent in domestic and foreign cars, we would observe a difference in the
+average mileage of 4.945804 or more." Note that the sign of the difference doesn't matter here because we're looking at the two-sided version; the
+sign tells us that foreign cars in the sample have higher average mileage than domestic cars.
+
+However, there is an additional assumption here that we neglected; namely that the variances of the two groups are equivalent. If you make this
 assumption, then the above analysis is sufficient. However, if you don't make this assumption, you can instead run the two-sample t-test with unequal
 variances by adding the `unequal` option.
 
@@ -152,9 +156,10 @@ ttest mpg, by(foreign) unequal
 The unequal test is slightly more conservative, but there has been some work (e.g. [Delacre et al 2017](#citations), [Ruxton 2006](#citations))
 showing that you should always use the unequal version.
 
-The equal variance version (the first one we ran) is known as Student's^[Named not for students in a class, but the pseudonym for statistician William
-Sealy Gosset. Gosset worked at the Guinness brewery when he was performing some of his seminal work and wasn't allowed to publish under his own name,
-so he used the pseudonym Student.] t-test, and the unequal variance version (with the `unequal` option) is known as Welch's t-test.
+The equal variance version (the first one we ran) is known as Student's^[Named not for students in a class, but the pseudonym for statistician
+[William Sealy Gosset](https://en.wikipedia.org/wiki/William_Sealy_Gosset). Gosset worked at the Guinness brewery when he was performing some of his
+seminal work and wasn't allowed to publish under his own name, so he used the pseudonym Student.] t-test, and the unequal variance version (with the
+`unequal` option) is known as Welch's t-test.
 
 If you want to test whether the variance between the two groups is equal, you can use `sdtest` in a similar fashion to `ttest` (`sdtest mpg,
 by(foreign)`).
@@ -213,7 +218,7 @@ tab foreign rep78
 ~~~~
 
 If you're not familiar with crosstabs, each cell represents the number of observations which fall into the category - for example, there are 8 cars
-which are both Domestic and have a Repair record of 2.
+which are both Domestic and have a Repair Record of 2.
 
 We can think of testing whether the association between these two variables exists from either direction - we can either ask "Is the probability of a
 car having a specific repair record the same among domestic cars as among foreign cars", or "Is the probability of a car being foreign or domestic the
@@ -235,6 +240,46 @@ Note that the ^$^\chi^2\^$^ test ignores scale - if we had 4,800 Domestic cars i
 
 Finally, the critiques [above](univariate-and-some-bivariate-analysis.html) about the lack of usefulness of t-tests extends to ^$^\chi^2^$^ tests as
 well.
+
+^#^^#^^#^ Fisher's Exact Test
+
+However, we probably should not have performed a ^$^\chi^2^$^ test here. One important assumption of the ^$^\chi^2^$^ test is that the *expected*
+count in each cell is at least 5. The expected count is the row total times the column total divided by the total number. For example, we looked at
+the 8 vehicles that were domestic which a Repair Record of 2. The row total is the number of domestic cars (48) and the column total is the number of
+cars with Repair Record of 2 (8), with a total of 69 cars overall (`rep78` has 5 missing values). Therefore, the expected count is
+
+^$$^
+    \frac{48*8}{69} = 5.565
+^$$^
+
+This passes the assumption. To emphasize - this passed because the *expected count* is above 5. The fact that the observed count (8) is above 5 plays
+no role in this assumption.
+
+Rather than manually calculating this for each entry, the `expected` option tells Stata to do it for us.
+
+~~~~
+<<dd_do>>
+tab foreign rep78, expected
+<</dd_do>>
+~~~~
+
+We see that the assumption fails in a number of cells.
+
+There are several possible solutions. One is to perform instead of a ^$^\chi^2^$^ test, use a Fisher's Exact test. Originally designed for 2x2 designs
+(two binary variables), it can be carried out for any arbitrarily large crosstab - in theory. In practice, the calculation is simply too demanding for
+large tables. This 2x5 table is fine, but for example, a 9x9 table would fail.
+
+~~~~
+<<dd_do>>
+tab foreign rep78, exact
+<</dd_do>>
+~~~~
+
+We obtain the same conclusion.
+
+If your crosstab is too large for the exact test, you may need to consider rebinning or an entirely different analysis method such as some sort of
+regression such as [logistic regression](regression.html#logistic-regression) if one of the variables was binary, or multinomial or ordinal regression
+if neither are binary. (Multinomial and ordinal regression will not be covered in this workshop.)
 
 ^#^^#^ Exercise 3
 

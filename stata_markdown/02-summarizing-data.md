@@ -95,7 +95,7 @@ empty, have a single entry, or have multiple entries (the order of which is some
 variable and the rest are predictors or independent variables).^[We won't cover in this class, but there are multiple-equation estimating commands
 which have syntax `command (varlist) (varlist) ... (varlist) [if] [in] [weight] [,options]`. ]
 
-Estimation commands are stored after they are run, and exist regardless of how many other non-estimation commands are run in between them. These
+Estimation commands are stored after they are run, and persist regardless of how many other non-estimation commands are run in between them. These
 non-estimation commands include data manipulation and [postestimation commands](#postestimation-commands). As soon as another estimation command is
 run, the first is dropped and the new one is saved.
 
@@ -232,7 +232,7 @@ est table mean1 mean2
 
 If you are familiar with regression, you should be able to see how useful this might be!
 
-Finally, we can see all saved commands with `dir`, drop a specific estimation command with `drop`, or remove all with `clear`:
+Finally, we can see all saved estimates with `dir`, drop a specific estimation command with `drop`, or remove all with `clear`:
 
 ~~~~
 <<dd_do>>
@@ -332,14 +332,22 @@ If you are not familiar with the `list` command, it prints out data. Giving it a
 to `rep\*`, which is any variable that starts with "rep" - the \* is a wildcard), and the `in` statement restricts to the first 5 observations (we
 just want a quick visualization, not to print everything).
 
-Take note of how the missing value is treated when creating the dummies.
+Take note of how the missing value is propogated when creating the dummies.
 
 ^#^^#^ `correlate`
 
 With the use of `tab` and `tab2` for crosstabs, we've left univariate summaries and moved to joint summaries. For continuous variables, we can use the
 correlation to examine how similar two continuous variables are. The most common version of correlation is Pearson's correlation, which ranges from -1
-to 1. A value of 0 represents no correlation, a value of 1 represents perfect correlation, a value of -1 represents perfect negative correlation. We
-can calculate the Pearson's correlation with `correlate`.
+to 1.
+
+- A value of 0 represents no correlation; having information about one variable provides no insight into the other.
+- A value towards 1 represents positive correlation; as one value increases, the other tends to increase as well. A correlation of 1 would be perfect
+correlation; the two variables differ by only a transformation, e.g. your height in inches and centimeters.
+- A value towards -1 represents negative correlation; as one value increases, the other tends to decreases (and vice-versa). A correlation of -1 would
+  be perfect negative correlation, e.g. during a road trip, your distance travel is perfectly negatively correlated with your distance to you
+  destination (ignoring detours).
+
+We can calculate the Pearson's correlation with `correlate`.
 
 ~~~~
 <<dd_do>>
@@ -376,6 +384,14 @@ and low mileage cars tend to be large. A few notes:
 - The two correlations with `mpg` are extremely similar. We might generally expect that, given that `weight` and `length` are so strongly
   correlated. Note that despite that we expect that, it is not a rule - it is entirely possible (though unlikely) that the correlations with `mpg`
   could be very dissimilar.
+
+What are thresholds for a "low" or "high" correlation? This will depend greatly on your field and setting, a common metric is that .3 is a low
+correlation, .6 is a moderate correlation, and .8 is a strong correlation.
+
+It is possible to obtain p-values testing whether each of those correlations are significantly distinguishable from 0 by passing the `sig`
+option. However, p-values for correlations are extremely dependent on sample size and should not be trusted.^[This is true of most p-values - it's
+often the case that large sample sizes can provide small p-values for scientifically insignificant effects. However, correlation is especially
+susceptible to this issue.] The magnitude of the correlation is much more important than it's significance.
 
 ^#^^#^^#^ varlists in Stata
 
@@ -415,7 +431,7 @@ corr _all
 <</dd_do>>
 ~~~~
 
-Notice that it automatically ignored the string variable `make`. Not all commands will work this well, so `\_all` may occasionally fail.
+Notice that it automatically ignored the string variable `make`. Not all commands will work this well, so `\_all` may occasionally fail unexpectedly.
 
 ^#^^#^^#^ Pairwise completion vs complete case
 
@@ -423,7 +439,7 @@ You may have noticed that the `cor` command reports the number of observations i
 observations, but the `\_all` version used on 69. `correlate` uses what's known as complete cases analysis - any observation missing *any* value used
 in the command is excluded. `rep78` is missing 5 observations (run the `misstable summarize` command to see this).
 
-On the other hand, pairwise completion only excluded missing values from the relevant comparisons. If a given correlation doesn't involve `rep78`, it
+On the other hand, pairwise completion only excluds missing values from the relevant comparisons. If a given correlation doesn't involve `rep78`, it
 will use all the data. We can obtain this with `pwcorr`.
 
 ~~~~
@@ -434,7 +450,7 @@ pwcorr rep78 price trunk
 ~~~~
 
 Notice the two correlations involving `rep78` are identical - the same set of observations are dropped in both. However, the correlation between
-`price` and `trunk differs - in `correlate`, it is only using 69 observations, whereas in `pwcorr` it uses all 74.
+`price` and `trunk` differs - in `correlate`, it is only using 69 observations, whereas in `pwcorr` it uses all 74.
 
 It may seem that `pwcorr` is always superior (and, in isolation it is). However, most models such as [regression](regression.html) only support
 complete cases analysis, so in those cases, if you are exploring your data, it does not make sense to do pairwise comparison. Ultimately, the choice
@@ -490,7 +506,8 @@ webuse nhanes2, clear
 ```
 
 1. Use [`describe`](#describe-summarize-codebook) to get a sense of the data. How many observations? How many variables?
-2. Use `tab`, `summarize`, `mean`, and/or `codebook` to get an understanding of the some of variables that we'll be using a lot going forward:
+2. Use [`tab`](#tab), [`summarize`](#describe-summarize-codebook), [`codebook`](#describe-summarize-codebook), and/or [`mean`](#mean) to get an
+   understanding of the some of variables that we'll be using a lot going forward:
     - `region`
     - `houssiz`
     - `sex`
