@@ -466,7 +466,7 @@ webuse nhanes2, clear
 
 [Fit a linear regression model](#fitting-the-model) predicting `lead` based upon `sex`, `race`, `age`, `weight`, `height`, and `region`. Make sure to
 handle [categorical variables](#including-categorical-predictors) appropriately! Answer the following questions which may or may not require running
-additional command.
+additional commands.
 
 1. How well does the model fit?
 2. Does one gender tend to have higher levels of lead?

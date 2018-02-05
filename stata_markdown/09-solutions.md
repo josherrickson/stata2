@@ -95,7 +95,7 @@ ttest age, by(sex)
 <</dd_do>>
 ~~~~
 
-We fail to reject; there is no difference that the average height differs by gender.
+We fail to reject; there is no difference that the average age differs by gender.
 
 4)
 
