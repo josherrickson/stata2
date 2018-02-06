@@ -56,8 +56,8 @@ We will now fit a model, discussing assumptions afterwards, because almost all a
 
 ^#^^#^^#^ Fitting the model
 
-Stata's `regress` command fit the linear regression model. It is followed by the outcome variable followed by all predictors. For this example, let's
-use the auto data and fit a relatively simple model, predicting `mpg` based on `gear_ratio` and `headroom`.
+Stata's `regress` command fit the linear regression model. It is followed by a varlist where the first variable is the outcome variable and all others
+are predictors. For this example, let's use the auto data and fit a relatively simple model, predicting `mpg` based on `gear_ratio` and `headroom`.
 
 ~~~~
 <<dd_do>>
@@ -84,8 +84,8 @@ Next, the top right part has a series of measures.
   return to the model design phase. If this test does reject, you can continue interpreting.
 - The ^$^R^2^$^ ("R-squared") is a measure of model fit. It ranges from 0 to 1 and is a percentage, explaining what percent in the variation in the
   response is explained by the linear relationship with the predictors. What's considered a "large" ^$^R^2^$^ depends greatly on your field and the
-  situation, in very general terms, .6 is good and above .8 is great. However, if you know that there are a lot of unmeasured variables, a much
-  smaller ^$^R^2^$^ can be considered good as well.
+  situation, in very general terms, .6 is good and above .8 is great. However, if you know that there are a lot of unmeasured variables, a much lower
+  threshold for a "good" ^$^R^2^$^ may be used.
 - Mathematically, adding a new predictor to the model will increase the ^$^R^2^$^, regardless of how useless the variable is.^[The only exception is
   if the predictor being added is either constant or identical to another variable.] This makes ^$^R^2^$^ poor for model comparison, as it would
   always select the model with the most predictors. Instead, the adjusted ^$^R^2^$^ ("Adj R-Squared") accounts for this; it penalizes the ^$^R^2^$^ by
@@ -96,7 +96,7 @@ Next, the top right part has a series of measures.
 
 Finally, we get to the coefficient table. Each row represents a single predictor. The "\_cons" row is the intercept; it's Coef. of
 <<dd_display: %9.4f _b[_cons]>> represents the average response *when all other predictors are 0*. This is usually not interesting; how many cars
-weighing 0 lbs do you know of? So we'll ignore this and instead go over the other rows.
+weighing 0 lbs do you know of? So we'll ignore this and consider only the other rows. The columns are:
 
 - "Coef.": These are the ^$^\beta^$^ from the above model. We interpret each as "For a 1 increase in the value of the covariate with all other
   predictors held constant, we would predict this change in the response, on average." For example, for every additional inch^[This is why it's
@@ -104,12 +104,10 @@ weighing 0 lbs do you know of? So we'll ignore this and instead go over the othe
   average of <<dd_display: %9.4f abs(_b[headroom])>> lower mpg.
 - "Std. Err.": This represents the error attached to the coefficient. This is rarely interpreted; but if it gets extremely large or extremely small
   (and the Coef. doesn't likewise go to extremes), its an indication there may be something wrong.
-- "t": This is the standardized coefficient, calculated as Coef./Std. Err. We can't directly compare the Coef.'s because of the different scales, but
-  we can examine the standardized coefficients to get a sense of which predictor has a larger impact. In this model, we see that the impact of weight
-  is much more than the impact of displacement.
-- "P>|t|": The p-value testing whether the coefficient is significantly different than 0. In this model, we see that both `gear_ratio` and `headroom`
-  have significant p-values.
-- "[95% Conf. interval]": A range of possible values.
+- "t" and "P>|t": These are testing the hypothesis that the coefficient are equal to zero. In this model, we see that both `gear_ratio` and `headroom`
+  have significant p-values. The p-value is specifically measuring the probability of seeing a coefficient as extreme or more extreme than what we
+  observed, if the true coefficient were 0.
+- "[95% Conf. interval]": A typically confidence interval for the Coefficient.
 
 Whenever we look at any model, a distinction needs to be drawn between statistical significance and practical significance. While these two
 interpretations of significance often align, they are not guaranteed to. We often have statistical significance (a p-value less than .05) when there
@@ -119,7 +117,12 @@ significance can occur with very noisy data or a small sample size, which might 
 
 ^#^^#^^#^ Including categorical predictors
 
-Let's say we want to add `rep78`, a categorical variable with 5 levels, to the model. Naively, we simply add it:
+Let's say we want to add `rep78`, a categorical variable with 5 levels, to the model. Regression can't actually handle categorical variables; instead
+it creates [dummy variables](summarizing-data.html#generating-dummy-variables). A dummy variable is needed for all *but one* of the levels of the
+categorical, the excluded categorical variable is the baseline that all others are compared to^[Once we know the value of all but one of the dummies,
+the last is automatically determined so adds no new information.].
+
+Naively, let's simply add the categorical `rep78` to the model:
 
 ~~~~
 <<dd_do>>
@@ -127,12 +130,11 @@ regress mpg gear_ratio headroom rep78
 <</dd_do>>
 ~~~~
 
-We only get a single coefficient. Stata is treating `rep78` as continuous. When including a categorical predictor, Stata will create dummy variables
-(variables which take on value 1 if the observation is in that category and 0 otherwise) and include all but one, which is the reference (or
-baseline). Since we only see a single coefficient here, we know Stata did it incorrectly.
+We only get a single coefficient. Stata is treating `rep78` as continuous.
 
-The issue is that Stata doesn't know we want to treat `rep78` as categorical. If we prefix the variable name with `i.`, Stata will know it is
-categorical.
+The issue is that Stata doesn't know we want to treat `rep78` as categorical^[It's a bit confusing because if you look at the
+[`codebook`](summarizing-data.html#describe-summarize-codebook) for `rep78`, Stata correctly surmises that it is categorical. However, when it comes
+to modeling, Stata is not willing to make that assumption.]. If we prefix the variable name with `i.`, Stata will know it is categorical.
 
 ~~~~
 <<dd_do>>
@@ -146,27 +148,36 @@ significant. We will discuss [multicollinearity later](#multicollinearity), as w
 why [model selection is bad](#model-selection-is-bad).
 
 Now we see 4 rows for `rep78`, each corresponding to a comparison between response 1 and the row. For example, the first row, 2, is saying that when
-`rep78` is 2 compared to when it is 1 (with `gear_ratio` and `headroom` held at some fixed level), the average predicted response drops by
-<<dd_display: %9.3f abs(_b[2.rep78])>> (though it is not statistical significant). The last row, 5, is saying that when `rep78` is 5 compare to when
-it is 1 (with `gear_ratio` and `headroom` held at some fixed level, the average predicted response increases by <<dd_display: %9.3f _b[5.rep78]>>
-(again, not statistically significant).
+`rep78` is 2 compared to when it is 1 (with `gear_ratio` and `headroom` held at some fixed level), the average predicted mpg drops by <<dd_display:
+%9.3f abs(_b[2.rep78])>> (though it is not statistical significant). The last row, 5, is saying that when `rep78` is 5 compare to when it is 1 (with
+`gear_ratio` and `headroom` held at some fixed level, the average predicted mpg increases by <<dd_display: %9.3f _b[5.rep78]>> (again, not
+statistically significant).
 
-To see the other comparisons (does 2 differ from 4?), we can use the `margins` command.
+What about the other comparison? (Does 2 differ from 4?) Let's use the `margins` command. First, we'll get the marginal means at each level - if
+*every* car in the data set had a `rep78` level of ^$^i^$^, what is the average mileage?
 
 ~~~~
 <<dd_do>>
 margins rep78
+<</dd_do>>
+~~~~
+
+Note that the difference in the marginal means corresponds to the coefficients above. E.g. the marginal means at repair record 1 and 2 are 20.42972
+and 21.63332 respectively, for a difference of 1.2036 - which is exactly (with rounding) the coefficient we saw on `rep78 = 2` above!
+
+Note that the t-tests here are simply testing whether the marginal means are different than zero - of no real interest.
+
+Now, we can look at all pairwise comparisons by adding the `pwcompare(pv)` option to margins:
+
+~~~~
+<<dd_do>>
 margins rep78, pwcompare(pv)
 <</dd_do>>
 ~~~~
 
-The first `margins` call, without any options, displays the marginal means for each category - if every car had `rep78` at those levels, it's the
-average predicted mileage of all cars. The t-test here is useless - it's only testing that the average mileage of the cars in each group is not 0!
-
-The second `margins` call adds the `pwcompare(pv)` option, which performs pairwise test between each pair of `rep78` levels. This is similar to a
-post-hoc test from ANOVA if you are familiar with it. The only statistical significance we find is 5 vs 3 and 5 vs 4, suggesting that 5 is dissimilar
-from 3 and 4. (Confusingly, 3 and 4 are not dissimilar from 1 or 2, but 5 is similar to 1 and 2! These sort of things can happen; its best to focus
-only on the comparisons that are of theoretical interest.)
+This result is similar to a post-hoc test from ANOVA if you are familiar with it. The only statistical significance we find is 5 vs 3 and 5 vs 4,
+suggesting that 5 is dissimilar from 3 and 4. (Confusingly, 3 and 4 are not dissimilar from 1 or 2, but 5 is similar to 1 and 2! These sort of things
+can happen; its best to focus only on the comparisons that are of theoretical interest.)
 
 By default, using `i.` makes the first level (lowest numerical value) as the reference category. You can adjust this by using `ib#.` instead, such as:
 
@@ -176,8 +187,8 @@ regress mpg headroom gear_ratio ib3.rep78
 <</dd_do>>
 ~~~~
 
-**This does not fit a different model.** Both models (with `i.rep78` and `ib3.rep78`) are identical, we're just seeing slight variations. If the
-models do change (especially the model fit numbers in the top right), something has gone wrong.
+**This does not fit a different model.** Both models (with `i.rep78` and `ib3.rep78`) are identical, we're just adjusting what is reported. If the
+models do change (especially the model fit numbers in the top right), something has gone wrong!
 
 ^#^^#^^#^ Interactions
 
@@ -212,33 +223,40 @@ interaction and the main effects.
 - `a b a#b`: Same as `a##b`
 - `a b a##b`: Same as `a##b`, except it'll be uglier because you're including main effects twice and one will be ignored.
 
+Let's change up the model a bit. Let's predict mileage based upon price and gear ratio. We include mileage to address whether higher price cars have
+better mileage (better engineering). However, sportier cars (higher gear ratio) are generally expensive and may have worse mileage for the sake of
+performance. By including an interactino between price and gear ratio, we can test whether the relationship between price and mileage depends on the
+sportiness of the car.
+
 ~~~~
 <<dd_do>>
-regress mpg c.headroom##c.gear_ratio i.rep78
+regress mpg c.price##c.gear_ratio
 <</dd_do>>
 ~~~~
 
 Note that we used `c.`, similar to `i.`. `c.` forces Stata to treat it as continuous. Stata assumes anything in an interaction is categorical, so we
 need `c.` here! This can get pretty confusing, but it's never wrong to include `i.` or `c.` when specifying a regression.
 
-Once we include an interaction, the relationship between the variables included in the interaction and the response are not constant - the
-relationship depends on the value of the other interacted variables. This can be hard to visualize with the basic regression output, so we'll look at
-`margins` again instead. We'll want to look at the relationship between `mpg` and `headroom` at a few different values of `gear_ratio` to get a sense
-of the pattern. `gear_ratio` ranges from 2.19 to 3.89 (this can be obtained with `summarize` or `codebook`, just don't forget to [save the
-results](summarizing-data.html#storing-and-restoring-estimation-commands) or re-run the `regress` command to gain access to the [postestimation
-commands](summarizing-data.html#postestimation-commands) again), so let's look at the relationship at those extremes and at 3:
+Lots of significance here, but once we include an interaction, the relationship between the variables included in the interaction and the response are
+not constant - the relationship depends on the value of the other interacted variables. This can be hard to visualize with the basic regression
+output, so we'll look at `margins` again instead. We'll want to look at the relationship between `mpg` and `price` at a few different values of
+`gear_ratio` to get a sense of the pattern. `gear_ratio` ranges from 2.19 to 3.89 (this can be obtained with `summarize` or `codebook`, just don't
+forget to [save the results](summarizing-data.html#storing-and-restoring-estimation-commands) or re-run the `regress` command to gain access to the
+[postestimation commands](summarizing-data.html#postestimation-commands) again), so let's look at the relationship at those extremes and at 3:
 
 ~~~~
 <<dd_do>>
-margins, dydx(headroom) at(gear_ratio = (2.19 3 3.89))
+margins, dydx(price) at(gear_ratio = (2.25 2.75 3.25 3.75))
 <</dd_do>>
 ~~~~
 
-While none of the p-values are significant, let's pretend they were for the sake of discussion. Notice the pattern in the "dy/dx" column. With a low
-gear ratio, the relationship between headroom and mpg is negative - a larger headroom car is predicted to have lower mileage. At the other end, with a
-high gear ratio, the relationship is much closer to 0, and perhaps even slightly positive.
+This tells an interesting story. Notice the "dy/dx" column. All the values are negative and getting more negative. As the gear ratio increases, the
+relationship between price and mileage gets more negative. This effect is significant at all levels except with the lowest gear ratio. In the
+regression model above, the coefficient on price was positve and highly signifcant. How do we explain this seeming contradiction? Remember, the
+interpretation of the main effects in the presence of interactions is it's the relationship between price and mileage *when gear ratio is 0*. Gear
+ratio is never 0! We are extrapolating.
 
-Follow this with a call to `marginsplot` for a great visualization:
+To better understand the pattern we're seeing, let's visualize this:
 
 ~~~~
 <<dd_do>>
@@ -248,14 +266,66 @@ marginsplot
 
 <<dd_graph: replace>>
 
-With low gear_ratio, there is a negative relationship between headroom and mileage - adding headroom to a low gear ratio car is predicted to decrease
-mileage, on average. However, the effect decreases as gear ratio increases, and at high levels of gear ratio, there is no longer any relationship. You
-can detect this by looking at the means (the points) and the confidence bands; here there is no relationship at all, but there is some suggestion that
-the relationship we describe may be occurring.
+With low gear_ratio, there is no relationship between priceand mileage - increasing the cost of a low gear ratio car is predicted to have no effect on
+milage, on average. As the gear ratio increases, the relationship becomes significant and negative - among sporty cars (higher gear ratio), the more
+expensive the car is the worse it's mileage!
 
-Note that the choice of looking at the effect of headroom for different levels of gear ratio was arbitrary; we could have easily looked at the effect
-of gear ratio for different levels of headroom (just swap what's the in the `dydx( )` and `at( )` options). The choice in a real modeling situation
-should depend on which is more interesting.
+We can create a rather complicated looking plot to examine this.
+
+~~~~
+<<dd_do>>
+twoway (scatter mpg price if gear_ratio < 2.5, ///
+         msymbol(circle) mcolor(red)) ///
+       (lfit mpg price if gear_ratio < 2.5, ///
+          lcolor(red)) ///
+       (scatter mpg price if gear_ratio >= 2.5 & gear_ratio < 3.0, ///
+          msymbol(triangle) mcolor(green)) ///
+       (lfit mpg price if gear_ratio >= 2.5 & gear_ratio < 3.0, ///
+          lcolor(green)) ///
+       (scatter mpg price if gear_ratio >= 3.0 & gear_ratio < 3.5, ///
+          msymbol(square) mcolor(blue)) ///
+       (lfit mpg price if gear_ratio >= 3.0 & gear_ratio < 3.5, ///
+          lcolor(blue)) ///
+       (scatter mpg price if gear_ratio >= 3.5 & gear_ratio < ., ///
+          msymbol(diamond) mcolor(purple))  ///
+       (lfit mpg price if gear_ratio >= 3.5 & gear_ratio < ., ///
+          lcolor(purple)) , ///
+        	legend(label(1 "< 2.5") label(3 "2.5 - 3.0") ///
+                   label(5 "3.0 - 3.5") label(7 "> 3.5") ///
+                   order(1 3 5 7)) ///
+            ylab("mpg")
+<</dd_do>>
+~~~~
+
+<<dd_graph: replace>>
+
+Each color represents a selection of cars with the given gear ratios. The cars with the lowest `gear_ratio`, in red, show no relationship between
+price and mileage. The green and purple cars with mid-range gear ratio, show negative relationships. The strongest negative relationship is among the
+purple cars with the highest gear ratio.
+
+There are a few variations of the `margins` call we might want to use. First, we could reverse the roles of `price` and `gear_ratio`. We would do this
+if our hypothesis was that sportier cars decrease mileage, and the more expensive the car is, the stronger this effect.
+
+```
+margins, dydx(gear_ratio) at(price = (5000 10000 15000))
+```
+
+Next, what if we have a categorical by continuous interaction? Instead of `dydx`, we'd simply give the categorical variable in the varlist:
+
+```
+regress c.continuous##i.categorical
+margins categorical, at(continuous = (1.5 5 8.5))
+margins, dydx(continuous) at(categorical = (1 2 3))
+```
+
+Finally, for categorical by categorical interactions, we get one additional variation:
+
+```
+regress i.cat1##i.cat2
+margins cat1#cat2
+```
+
+Often discovering which variety of these you want may require some trial an error!
 
 ^#^^#^^#^^#^ Centering
 
@@ -269,15 +339,19 @@ To center, use the following:
 <<dd_do>>
 summ gear_ratio
 gen gear_ratioc = gear_ratio - `r(mean)'
-summ headroom
-gen headroomc = headroom - `r(mean)'
-summ gear_ratioc headroomc
-regress mpg c.headroomc##c.gear_ratioc i.rep78
+summ price
+gen pricec = price - `r(mean)'
+summ gear_ratioc pricec
+regress mpg c.pricec##c.gear_ratioc
 <</dd_do>>
 ~~~~
 
-If you compare fit characteristics and the interaction coefficient (and other coefficients), you'll notice nothing has changed save the coefficient
-for `headroomc` and `gear_ratioc`. If we were to re-run the `margins` commands from before, we'd see the same results.
+If you compare fit characteristics and the interaction coefficient (and other coefficients), you'll notice nothing has changed save the coefficients
+for `pricec` and `gear_ratioc`. Now the interpretation the price main effect (which before was nonsense because gear ratio was never 0) is -.0009161,
+which corresponds to the relationship between price and mileage when `gear_ratio` is 3.014865.
+
+If we were to re-run the `margins` commands from before, we'd see the same results (albeit with different scaling both in the `at( )` option and in
+the axes of the response.)
 
 ^#^^#^^#^ Robust standard errors
 
@@ -289,16 +363,16 @@ standard errors, also known as Sandwich estimators or Huber-White estimators, wi
 
 ~~~~
 <<dd_do>>
-regress mpg c.headroom##c.gear_ratio i.rep78, vce(robust)
+regress mpg c.price##c.gear_ratio, vce(robust)
 <</dd_do>>
 ~~~~
 
 Notice that compared to the [previous model](#interactions), the Coef estimates but the standard errors (and corresponding t-statistic, p-value and
 confidence interval) are slightly different.
 
-Typically, the robust standard errors should be slightly larger than the non-robust standard errors, but not always (as in this case). Generally, the
-only situation where the robust standard errors will decrease is when the error variance is highest for observations near the average value of the
-predictors. This does not often happen (generally the higher residuals occur in observations that could be considered outliers).
+Typically, the robust standard errors should be slightly larger than the non-robust standard errors, but not always. The only common situation where
+the robust standard errors will decrease is when the error variance is highest for observations near the average value of the predictors. This does
+not often happen (generally the higher residuals occur in observations that could be considered outliers).
 
 There has been some argument that robust standard errors should always be used, because if the model is correctly specified, the robust standard
 errors and regular standard errors should be almost identical, so there is no harm in using them.
@@ -365,9 +439,6 @@ twoway scatter resids linearpredictor
 
 <<dd_graph: replace>>
 
-(The two warnings about missing values are due to 4 cars not having a value of `rep78`. See [multiple imputation](multiple-imputation.html) for a
-strategy for dealing with missing data.)
-
 ^#^^#^^#^^#^ Errors are homogeneous
 
 "Homogeneity" is a fancy term for "uniform in distribution", whereas "heterogeneity" represents "not uniform in distribution". If we were to take a
@@ -400,14 +471,23 @@ Multicollinearity is an issue when 2 or more predictors are correlated. If only 
 `correlate`) may provide some indication, but you can have many-way multicollinearity where each pairwise correlation is low. You can use the variance
 inflation factor to try and identify if this is an issue.
 
+
+Let's fit a model with a bunch of main effects. We use `quietly` to suppress the output to save space.
+
 ~~~~
 <<dd_do>>
+quietly regress mpg headroom trunk weight length turn displacement
 estat vif
 <</dd_do>>
 ~~~~
 
 The rule of thumb is VIF > 10 or 1/VIF (called the tolerance) < .1 suggests that the variable is involved in multicollinearity and more exploration
-may be needed. We've got a ton of multicollinearity here, so we'd need to explore more and perhaps exclude one of them.
+may be needed.
+
+Shockingly, we see that `weight` and `length` have high VIF's - not surprisingly these are related!
+
+Note that generally, a high VIF on an interaction or a main effect in the presence of an interaction is not a concern (of course an interaction is
+collinear with its main effects!).
 
 Multicollinearity can be an issue because the more correlated predictors are, the more likely that their combined effect will be inappropriately
 spread among them. For a very simple example, imagine that we have the model
@@ -436,7 +516,7 @@ This is an extreme example, but in practice we can be close to this situation.
 
 Overfitting occurs when a model includes so many predictors that you can no longer generalize to the population. The rule of thumb is that you should
 have no more than one predictor for every 10-20 observations. The smaller your sample size, the more conservative you should be. For example, a sample
-size of 100 should use no more than 10-20 predictors. Recall that a categorical predictor with ^$^k^$^ different levels adds ^$^k-1^$^ predictors!
+size of 100 should use no more than 5-10 predictors. Recall that a categorical predictor with ^$^k^$^ different levels adds ^$^k-1^$^ predictors!
 
 ^#^^#^^#^^#^ Model Selection is bad
 
