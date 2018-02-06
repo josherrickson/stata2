@@ -3,7 +3,7 @@
 One major strength of Stata is the ease with which it can analyze data sets arising from complex sample surveys. When working with data collected from
 a sample with a complex design (anything above and beyond a simple random sample of a population, where the sample design involves clustering and
 stratification of sampled elements, and multiple stages of sampling), standard statistical analysis procedures that assume a simple random sample
-(such as everything we've discussed so far) will result in very biased estimates of statistics that do no take the design of the sample into
+(such as everything we've discussed so far) will result in very biased estimates of statistics that do not take the design of the sample into
 account. Two major problems arise when survey data is analyzed without taking the design into account:
 
 1. Representation
@@ -49,8 +49,8 @@ svyset <psu> [pweight = <weight>], strata(<strata>)
 ```
 
 The `svyset` command defines the variables identifying the complex design of the sample to Stata, and only needs to be submitted once in a given Stata
-session. The `<psu>` is a variable identifying the primary sampling unit (PSU) that an observation came from. The <weight> is a variable containing
-sampling weights. Finally, the `strata` is a variable identifying the sampling stratum that an observation came from.
+session. The `<psu>` is a variable identifying the primary sampling unit (PSU) that an observation came from. The `<weight>` is a variable containing
+sampling weights. Finally, the `<strata>` is a variable identifying the sampling stratum that an observation came from.
 
 The NHANES data we've been using in our examples is actually from a complex sample design, which we've been ignoring. Let's incorporate the sampling
 into the analysis.
@@ -128,13 +128,13 @@ mean weight [pweight=finalwgt], over(sex)
 
 We see that the weights affect on the standard error, whereas the stratification and clustering also affects the estimates.
 
-As with `mi:`, many of the usual commands such as `regress` or `logit` can be prefaced by `svy:`. If a command errors with the `svy:` prefix, a lot of
-the time the survey design will not affect it, and the documentation for the command will inform of that.
+Many of the usual commands such as `regress` or `logit` can be prefaced by `svy:`. If a command errors with the `svy:` prefix, a lot of the time the
+survey design will not affect it, and the documentation for the command will inform of that.
 
 ^#^^#^ Subset analyses for complex sample survey data
 
 In general, analysis of a particular subset of observations from a sample with a complex design should be handled very carefully. It is usually not
-appropriate to delete cases from the data-set that fall outside the sub-population of interest, or to use an if statement to filter them out. In
+appropriate to delete cases from the data-set that fall outside the sub-population of interest, or to use an `if` statement to filter them out. In
 Stata, sub-population analyses for this type of data are analyzed using a subpop indicator.
 
 Suppose we want to perform an analysis only for the cases where race is black in the NHANES data set. First, we must create an indicator variable
@@ -163,4 +163,4 @@ svy: reg weight height i.sex if race_black == 1
 <</dd_do>>
 ~~~~
 
-Stata refuses to even calculate standard errors.
+The point estimates and ^$^R^2^$^ are the same, but Stata refuses to even calculate standard errors.
