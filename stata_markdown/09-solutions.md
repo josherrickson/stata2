@@ -209,7 +209,8 @@ estat vif
 <</dd_do>>
 ~~~~
 
-Nothing to concern here. Sex and sex/age interaction are close, but we expect interactions to be correlated to main effects. You can center age if you are concerned.
+Nothing of concern here. The only moderately high VIF's are on sex and it's interaction, which does not concern us (of course a main effect and
+interaction are collinear.).
 
 ^#^^#^ Exercise 5
 

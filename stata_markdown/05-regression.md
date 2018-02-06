@@ -560,7 +560,7 @@ additional commands.
 
 Let's violate one of the [assumptions](#relationship-is-linear-and-additive). Instead of the relationship being linear, we can generalize to allow the
 relationship to be any functional form. These types of models are called "Generalized Linear Models" or "GLMs", mainly because we can transform the
-model to be linear in some sense. Logistic regression is one specific form of a GLM, others in Poisson and Negative Binomial regression.
+model to be linear in some sense. Logistic regression is one specific form of a GLM, others include Poisson and Negative Binomial regression.
 
 Logistic regression is used when the outcome is dichotomous - either a positive outcome (1) or a negative outcome (0). For example, presence or
 absence of some disease. The equation for this model is
@@ -570,7 +570,7 @@ absence of some disease. The equation for this model is
 ^$$^
 
 The right hand side is what's known as the "logit" function, that is, logit(^$^z^$^) = ^$^\frac{1}{1 + e^{-z}}^$^. Understanding this form isn't
-crucial to understanding the model, but there are two quirks that need to be examined.
+crucial to understanding the model, but there are two quirks that need to be noted.
 
 1. The relationship between the ^$^X^$^'s and the outcome is nonlinear.
 2. Note that the left-hand side of this model is not just ^$^Y^$^, but rather, the probability of ^$^Y^$^ being 1 (a positive result) given the
@@ -594,8 +594,8 @@ solve it iteratively - Stata guesses at the best coefficients that minimize erro
 important for understanding.], and keeps guessing (using the knowledge of the previous guesses) until it stops getting significantly different
 results.
 
-From this output, we get the "Number of obs" again. Instead of an ANOVA table with a F-statistic to test model significance, there is instead a "chi2"
-(^$^\chi^2^$^, pronounced "ky-squared" as in "Kyle"). In this model, we reject the null that all coefficients are identically 0.
+From this output, we get the "Number of obs" again. Instead of an ANOVA table with a F-statistic to test model significance, there is instead a
+^$^\chi^2^$^ testing whether all coefficients are identically 0.
 
 When we move away from linear regression, we no longer get an ^$^R^2^$^ measure. There have been various pseudo-^$^R^2^$^'s suggested, and Stata
 reports one here, but be careful assigning too much meaning to it. It is not uncommon to get pseudo-^$^R^2^$^ values that are negative or
@@ -614,13 +614,14 @@ logit, or
 <</dd_do>>
 ~~~~
 
-Notice that the "chi2", "PseudoR2", "z" and "P>|z|" do not change - we're fitting the same model! We're just changing how the coefficients are
-represented.
+Notice that the "LR chi2(2)", "Pseudo R2", "z" and "P>|z|" do not change - we're fitting the same model! We're just changing how the coefficients are
+represented, similar to [changing the baseline of a categorical variable](#including-categorical-predictors).
 
 Odds ratios null hypothesis is at 1, not at 0. Odds ratios are always positive. So a significant odds ratio will be away from 1, rather than away from
-0 as in linear regression or the log odds. We can interpret odds ratios as percentages. The odds ratio for `gear_ratio` is
+0 as in linear regression or the log odds. We can interpret odds ratios as percentage changes in the odds. The odds ratio for `gear_ratio` is
 <<dd_display: %9.4f exp(_b[gear_ratio])>>, suggesting that a 1 increase in the odds ratio leads to a 30,833% increase in the odds that the car is
-foreign! This is massive! But keep in mind, `gear_ratio` had a very narrow range - an increase of 1 is very large. Let's rescale gear_ratio and try again.
+foreign! This is massive! But keep in mind, `gear_ratio` had a very narrow range - an increase of 1 is very large. Let's rescale gear_ratio and try
+again.
 
 ~~~~
 <<dd_do>>
@@ -630,11 +631,12 @@ logit foreign gear_ratio2 headroom, or
 ~~~~
 
 Note once again that the model fit characteristics haven't changed; we've fit the same model, just with different units. Now the interpretation is
-more reasonable, for every .1 increase in `gear_ratio` (which corresponds to a 1 increase in `gear_ratio2`), we predict an average mileage increase of
-77%.
+more reasonable, for every .1 increase in `gear_ratio` (which corresponds to a 1 increase in `gear_ratio2`), we predict an increase in the odds of a
+car being foreign by <<dd_display: %9.1f 100*(exp(_b[gear_ratio2]) - 1)>>%.
 
 The odds ratio on headroom is not distinguishable from 1, however, if it were, the interpretation is that increasing the headroom by 1 inch is
-predicted to decrease the mileage by about <<dd_display: %9.1f 100*(1-exp(_b[headroom]))>>% on average (1 - <<dd_display: %9.3f exp(_b[headroom])>>).
+predicted to decrease the odds of a car being foreign by about <<dd_display: %9.1f 100*(1-exp(_b[headroom]))>>% on average (1 - <<dd_display: %9.3f
+exp(_b[headroom])>>).
 
 ^#^^#^^#^ Categorical Variables and Interactions
 
@@ -650,33 +652,34 @@ The assumptions for logistic regression are simpler than linear. The outcome mea
 positive. (Technically they don't have to be positive/negative. We could think of predicting male/female and code male = 0 and female = 1. However,
 the convention would be to consider the outcome as "The person is female" so a 1 represents a "success" and a 0 a "failure" of that statement.) The
 errors in a logistic regression model are fairly contained (you can't be wrong than more than 1!) so there are no real assumptions about them. The
-[independence](#independence) assumption is still here and still important, again, a mixed logistic model may be appropriate if the data is not
-independent.
+[independence](#independence) assumption is still here and still important, again, a mixed model (specifically a [logistic mixed
+model](mixed-models.html#logistic-mixed-model)) may be appropriate if the data is not independent.
 
 ^#^^#^^#^ Logistic goodness of fit
 
 As we mentioned earlier, there are various issues with the Pseudo ^$^R^2^$^ reported by `logit`, so use it carefully. There are two alternate
 approaches.
 
-The first is to look at a classification table:
+The first is to look at the ROC curve:
 
 ~~~~
 <<dd_do>>
-estat classification
+lroc
 <</dd_do>>
 ~~~~
 
-Classification is based upon the predicted probability, a predicted probability above .5 is classified as "1", below as "0". The output here is rather
-long, but the general idea is to capture how well we're predicting without having too many false results. (If your outcome variable was 80% 1's and
-20% 0's, if I predicted all 1's, I'd be right 80% of the time! So it's important to also see that I'm wrong in 100% of the true 0's).
+<<dd_graph: replace>>
 
-- Sensitivity is how likely you are to correctly predicted a positive outcome.
-- Specificity is how likely you are to correctly predicted a negative outcome.
-- The positive/negative predictive values are how likely a positive/negative prediction is to be correct.
+The ROC curve is a bit complicated to explain, but basically over a range of thresholds, it classifies each observation as predicting a 0 or 1. E.g.,
+with a threshold of .2, any observation whose predicted probability is below .2 is classified as a "0", any observation whose predicted probability is
+above .2 is classified as a "1". For each such threshold, the specificity (fraction of correctly classified "0"'s) versus the sensitivity(fraction of
+correctly classified "1"'s) are computed and plotted against each other. If the two fractions are equal, it's a coin-flip and the model does no better
+than chance. On the other hand, the higher the ratio of sensitivity/(1 - specificity) is, the better classified we are.
 
-We want those results to be high.
-
-The various false rates are for misclassification, and we want those low. In this model, we've done pretty good!
+The bottom left corner of the ROC curve is a threshold of 0 and the top right of 1, both of which would classify every observation the same, so
+they're no good. We want to the ROC curve to be as close to "filling" the top area as possible. The Area under the ROC curve (called AUC) is a measure
+of fit; the fit here is .9384, which is very good. (The AUC ranges from .5 to 1. .5 indicates, as we've said, chance, and 1 indicates a perfect
+fit. An AUC of 1 is actually troublesome as we might be [overfit](regression.html#logit-miscellaneous).)
 
 The second is a more formal test. There are two variants, a Pearson ^$^\chi^2^$^ test and the Hosmer-Lemeshow test. Both are fit with the `estat gof`
 command. Both are testing the hypothesis that the observed positive responses match predicted positive responses in subgroups of the
@@ -758,7 +761,7 @@ tab foreign repair_binary
 
 Since we have a zero in one of the cells, that's partial separation. Complete separation would be zero in both off-diagonal cells.
 
-^#^^#^^#^ `logit` Miscellaneous.
+^#^^#^^#^ `logit` Miscellaneous
 
 The `logit` model supports the margins command just like `regress` does. It does not support `estat vif` because variance inflation factors are not
 defined for logistic models.
