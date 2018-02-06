@@ -199,16 +199,52 @@ ttest bp_change == 0
 <</dd_do>>
 ~~~~
 
+^#^^#^^#^ Comparing Proportions
+
+If you have a ordinal variable (a categorical variable that has an ordering to it), a t-test is often still appropriate^[This requires the assumption
+that the ordinal variable can be well approximated by a continuous variable. This assumption is fine if each level of the ordinal variable is
+"equally" spaced (e.g. the amount of "effort" to go from level 1 to level 2 is the same as from level 4 to level 5).]. However, for binary variables,
+we should not use a regular t-test. Instead we use a Z-test^[The statistical reasoning is that when we're dealing with proportions, the variance is
+determined directly by the mean. A t-test assumes we need to estimate the variance as well. A Z-test assumes we know the variance, which will be more
+efficient.].
+
+The command in stata is `prtest` and it functions identically to `ttest`:
+
+One-sample:
+~~~~
+<<dd_do>>
+webuse pneumoniacrt, clear
+prtest pneumonia = .25
+<</dd_do>>
+~~~~
+
+Independent two-sample:
+~~~~
+<<dd_do>>
+prtest pneumonia, by(vaccine)
+<</dd_do>>
+~~~~
+
+Paired two-sample
+~~~~
+<<dd_do>>
+sysuse bpwide, clear
+gen bp_beforehigh = bp_before > 160
+gen bp_afterhigh = bp_after > 160
+list *high in 1/5
+prtest bp_afterhigh = bp_beforehigh
+<</dd_do>>
+~~~~
+
 
 
 ^#^^#^ Chi-square test
 
-While t-tests can technically be used with binary data or ordinal variables^[Categorical variables that are ordered in some sense - e.g. clothing
-sizes of small, medium and large.], they cannot with non-ordinal. If we want to compare two categorical or binary variables, we can instead use a
-^$^\chi^2^$^ test (^$^\chi^$^ is a Greek letter which is spelled "chi" in English, and rhymes with "why"). There are a few variations on the
-^$^\chi^2^$^ test, the version we talk of here is a test of association, where we are testing the null hypothesis that the distribution of one
-variable is the same at every level of another variable. Let's return to the auto data set, and compare `rep78` (Repair Record 1978) and
-`foreign`. We'll start by looking at a crosstab.
+We've seen how to handle continuous and binary variables, and even some ordinal variables. However, if we want to look at a categorical variable which
+is not binary and we cannot treat as continuous, we can instead use a ^$^\chi^2^$^ test (^$^\chi^$^ is a Greek letter which is spelled "chi" in
+English, and rhymes with "why"). There are a few variations on the ^$^\chi^2^$^ test, the version we talk of here is a test of association, where we
+are testing the null hypothesis that the distribution of one variable is the same at every level of another variable. Let's return to the auto data
+set, and compare `rep78` (Repair Record 1978) and `foreign`. We'll start by looking at a crosstab.
 
 ~~~~
 <<dd_do>>
