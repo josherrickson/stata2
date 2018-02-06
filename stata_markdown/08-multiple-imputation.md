@@ -56,7 +56,7 @@ summarize
 
 We see from the summary that both `age` and `bmi` have some missing data.
 
-^#^^#^ Setting up data
+^#^^#^^#^ Setting up data
 
 We need to tell Stata how we're going to be doing the imputations. First, use the `mi set` command to determine how the multiple data sets will be
 stored. Really which option you choose is up to you, I prefer to "`flong`" option, where each imputed data set is stacked on top of each other. If you
@@ -94,7 +94,7 @@ mi describe
 We see 126 complete observations with 28 incomplete, the two variables to be imputed, and the 4 unregistered variables which will automatically be
 registered as regular.
 
-^#^^#^^#^ Imputing transformations
+^#^^#^^#^^#^ Imputing transformations
 
 What happens if you had a transform of a variable? Say you had a variable for salary, and wanted to use a log transformation?
 
@@ -104,7 +104,7 @@ current statistical literature is to **transform first, impute second**.([Hippel
 Stata technically supports the other option via `mi register passive`, but we don't recommend it's usage. Instead, transform your original data, then
 flag both the variable and its transformations as "imputed"
 
-^#^^#^ Performing the imputation
+^#^^#^^#^ Performing the imputation
 
 Now that we've got the MI set up, we can perform the actual procedure. There are a very wide number of variations on how this imputation can be done
 (including defining your own!). You can see these as the options to `mi impute`. We'll just be focusing on the "chained" approach, which is a good
@@ -118,7 +118,7 @@ mi impute chained (<method 1>) <variables to impute with method 1> ///
                   = <all non-imputed variables>, add(<number of imputations>)
 ```
 
-The "<methods>" are essentially what type of model you would use to predict the outcome. For example, for continuous data, use `regress`. For binary
+The `<methods>` are essentially what type of model you would use to predict the outcome. For example, for continuous data, use `regress`. For binary
 data use `logit`. It also supports `ologit` (ordinal logistic regression, multiple categories with ordering), `mlogit` (multinomial logistic
 regression, multiple categories without ordering), `poisson` or `nbreg` (poisson regression or negative binomial regression, for count data), as well
 as some others. See `help mi impute chained` under "uvmethod" for the full list.
@@ -142,13 +142,23 @@ mi impute chained (regress) bmi age (logit) smokes = attack female hsgrad, add(5
 
 Here, `regress` was used for `bmi` and `age`, and `logit` was used for `smokes`.
 
-^#^^#^^#^ Choosing the number of imputations
+^#^^#^^#^^#^ Choosing the number of imputations
 
-Classic literature has suggested you need only 5 imputations to obtain valid results, though some modern literature ([Graham 2007](#citations))
-suggest needing many more, 20 or even 100. If your data is not too large, 100 is a great choice. You can always try running the entire procedure with
-5 imputations twice. If your results differ, you should try running many more imputations to stabilize the estimates.
+Classic literature has suggested you need only 5 imputations to obtain valid results. This will address the efficiency of point estimates, but not
+standard errors. More modern literature increases this number, with a good starting point being 200 imputations. ([Graham 2007](#citations), [White et
+al 2011](#citations))
 
-^#^^#^^#^ `_mi_` variables
+If your data set is large and the imputation is slow, a recent paper ([Von Hippel 2018](#citations)) gives a two-stage procedure to estimate the
+required number of imputations. This two-stage procedure first performs a small number of imputations and carries out the analysis. It then using the
+results of that analysis to inform a better estimate of the required sample size. You can install the user command `how_many_imputations` for details
+and examples
+
+```
+ssc install how_many_imputations
+help how_many_imputations
+```
+
+^#^^#^^#^^#^ `_mi_` variables
 
 After you've performed your imputation^[Technically this happens as soon as you run `mi set`, but they're not interesting until after `mi impute`.],
 three new variables are added to your data, and your data gets ^$^M^$^ additional copies of itself. In the example
@@ -159,7 +169,7 @@ and 5 copies with imputed values. The new variables added are:
 - `_mi_miss` flags whether the row had missing data originally.
 - `_mi_m` is which data-set we're looking at. 0 represents the unimputed data, 1 represents the first imputation, 2 the second, etc.
 
-^#^^#^ Analyzing `mi` data
+^#^^#^^#^ Analyzing `mi` data
 
 Now that we've got the data set up for multiple imputations, and done the imputation, most of the hard part is over. Analyzing MI data is
 straightforward, usually. (When it isn't, you can do this [manually](#manual-mi).)
@@ -187,7 +197,7 @@ interpretations](regression.html#fitting-the-logistic-model) hold. Note that an 
 hypothesis that all coefficients are identically zero. Among the coefficients, we see that smokers have significantly higher odds of having a heart
 attack, and there's some weak evidence that age plays a role.
 
-^#^^#^^#^ MI Postestimation
+^#^^#^^#^^#^ MI Postestimation
 
 In general, most postestimation commands will not work after MI. The general approach is to do the MI [manually](#manual-mi) and run the
 postestimation for each imputation. One exception is that `mi predict` works how `predict` does.
@@ -258,3 +268,6 @@ that order.
 
 - Little, RJ, and S Vartivarian. 2003. On weighting the rates in non-response weights. Stat Med 22, no. 9: 1589-1599.
 - Von Hippel, Paul T. "How to impute interactions, squares, and other transformed variables." Sociological Methodology 39.1 (2009): 265-291.
+- von Hippel, Paul T. "How Many Imputations Do You Need? A Two-stage Calculation Using a Quadratic Rule." Sociological Methods & Research (2018): 0049124117747303.
+- White, I. R., P. Royston, and A. M. Wood. 2011. “Multiple Imputation Using Chained Equations: Issues and Guidance for Practice.” Statistics in
+  Medicine 30:377-99.
