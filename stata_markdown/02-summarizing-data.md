@@ -507,11 +507,10 @@ webuse nhanes2, clear
 
 1. Use [`describe`](#describe-summarize-codebook) to get a sense of the data. How many observations? How many variables?
 2. Use [`tab`](#tab), [`summarize`](#describe-summarize-codebook), [`codebook`](#describe-summarize-codebook), and/or [`mean`](#mean) to get an
-   understanding of the some of variables that we'll be using a lot going forward:
+   understanding of the some of variables that we'll be using going forward:
     - `region`
-    - `houssiz`
     - `sex`
     - `diabetes`
-    - `iron`
+    - `lead`
 3. Does `race` have any missing data? Does `diabetes`? Does `lead`?
 4. What is more highly [correlated](#correlate)? A person's height and weight, or their diastolic and systolic blood pressure?

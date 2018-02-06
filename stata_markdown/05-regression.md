@@ -549,8 +549,8 @@ handle [categorical variables](#including-categorical-predictors) appropriately!
 additional commands.
 
 1. How well does the model fit?
-2. Does one gender tend to have higher levels of lead?
-3. Is the coefficient on age statistically significant? Do you think it is clinically interesting?
+2. Does one gender tend to have higher levels of lead? Does this appear practically interesting?
+3. Is the coefficient on age statistically significant? Do you think it is practically interesting?
 4. Looking at all the differences between regions, what conclusion can you draw?
 5. Add an [interaction](#interactions) between gender and age. What is the interpretation here?
 6. Do any [assumptions](#assumptions) appear violated?
@@ -804,4 +804,4 @@ This time we'll fit a [logistic regression model](#logistic-regression), predici
 `region`. As before, be sure to handle [categorical variables](#categorical-variables-and-interactions) appropriately.
 
 1. Does the model [fit well](#logistic-goodness-of-fit)? Does the model classify well?
-2. Ignoring any issues with model fit, [what predicts](#fitting-the-logistic-model) higher odds of having diabetes?
+2. What predicts higher odds of having diabetes?

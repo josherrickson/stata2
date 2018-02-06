@@ -127,7 +127,7 @@ regress lead i.sex i.race c.age c.weight c.height i.region
 
 1)
 
-The F-test rejects and the R-squared is low but good, so this model fits decently.
+The F-test rejects so the model is informative. The ^$^R^2^$^ is low, so there is a lot of variability we're not capturing in this model.
 
 2)
 
@@ -143,7 +143,7 @@ summ lead
 <</dd_do>>
 ~~~~
 
-We see that lead levels range from 2 to 80. The coefficient on age is about .02, so a person 50 years old would only expect .02*50 = 1 higher value
+We see that lead levels range from 2 to 80. The coefficient on age is about .02, so age would need to increase by about 50 years to see a higher value
 for the lead score. Unlikely to be clinically interesting! This is a side effect of the massive sample size.
 
 4)
@@ -161,15 +161,18 @@ It looks like South is significantly lower levels of lead than the other regions
 ~~~~
 <<dd_do>>
 regress lead i.sex##c.age i.race c.weight c.height i.region
-margins sex, at(age = (20(10)70))
+margins sex, dydx(age)
+quietly margins sex, at(age = (20 45 70))
 marginsplot
 <</dd_do>>
 ~~~~
 
 <<dd_graph: replace>>
 
-We see significance in the interaction, so we looked at an interaction plot. Looks like men's lead levels don't change with age, but women's increases
-with age.
+We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again,
+rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly
+1 unit every 20 years). The marginal plot helps us to visualize this. For men, from age 20 to 70, the average lead decreases barely half a point. For
+women, we see nearly a 3 point average increase.
 
 6)
 ~~~~
@@ -214,8 +217,6 @@ interaction are collinear.).
 
 ^#^^#^ Exercise 5
 
-[Exercise 5](regression.html#exercise-5)
-
 ~~~~
 <<dd_do>>
 webuse nhanes2, clear
@@ -228,12 +229,14 @@ logit diabetes i.sex i.race c.age weight height i.region
 ~~~~
 <<dd_do>>
 estat gof
-estat classification
+estat gof, group(20)
+lroc
 <</dd_do>>
 ~~~~
 
-Both suggest the model does not fit well. Note that the original ^$^\chi^2^$^ test does show the model is better than a model with no predictors, but
-the classification shows that we predict a negative response for all but a single observation.
+<<dd_graph: replace>>
+
+We cannot reject the model fit (even once we switch to the proper Hosmer-Lemeshow test, which used 20 instead of 10 because we have 10 predictors). The ROC and AUC look decent but not great.
 
 2)
 
@@ -252,7 +255,8 @@ reason. There is no effect of gender or region.
 ~~~~
 <<dd_do>>
 webuse chicken, clear
-melogit complain grade i.race i.gender tenure age income nworkers i.genderm || restaurant:
+melogit complain grade i.race i.gender tenure age income ///
+    nworkers i.genderm || restaurant:
 <</dd_do>>
 ~~~~
 
