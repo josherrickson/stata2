@@ -131,50 +131,6 @@ The F-test rejects so the model is informative. The ^$^R^2^$^ is low, so there i
 
 2)
 
-The coffecient on "Female" is -5 and is statistically significant, so there is evidence that males have higher average lead levels.
-
-3)
-
-The p-value is very small, so it is statistically significant. However, if we look at lead levels:
-
-~~~~
-<<dd_do>>
-summ lead
-<</dd_do>>
-~~~~
-
-We see that lead levels range from 2 to 80. The coefficient on age is about .02, so age would need to increase by about 50 years to see a higher value
-for the lead score. Unlikely to be clinically interesting! This is a side effect of the massive sample size.
-
-4)
-
-~~~~
-<<dd_do>>
-margins region
-margins region, pwcompare(pv)
-<</dd_do>>
-~~~~
-
-It looks like South is significantly lower levels of lead than the other regions, which show no difference between them.
-
-5)
-~~~~
-<<dd_do>>
-regress lead i.sex##c.age i.race c.weight c.height i.region
-margins sex, dydx(age)
-quietly margins sex, at(age = (20 45 70))
-marginsplot
-<</dd_do>>
-~~~~
-
-<<dd_graph: replace>>
-
-We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again,
-rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly
-1 unit every 20 years). The marginal plot helps us to visualize this. For men, from age 20 to 70, the average lead decreases barely half a point. For
-women, we see nearly a 3 point average increase.
-
-6)
 ~~~~
 <<dd_do>>
 rvfplot
@@ -204,7 +160,7 @@ desc loglead
 
 Perhaps we should have run the model with `loglead` as the output instead.
 
-7)
+3)
 
 ~~~~
 <<dd_do>>
@@ -214,6 +170,53 @@ estat vif
 
 Nothing of concern here. The only moderately high VIF's are on sex and it's interaction, which does not concern us (of course a main effect and
 interaction are collinear.).
+
+4)
+
+The coffecient on "Female" is -5 and is statistically significant, so there is evidence that males have higher average lead levels.
+
+5)
+
+The p-value is very small, so it is statistically significant. However, if we look at lead levels:
+
+~~~~
+<<dd_do>>
+summ lead
+<</dd_do>>
+~~~~
+
+We see that lead levels range from 2 to 80. The coefficient on age is about .02, so age would need to increase by about 50 years to see a higher value
+for the lead score. Unlikely to be clinically interesting! This is a side effect of the massive sample size.
+
+6)
+
+~~~~
+<<dd_do>>
+margins region
+margins region, pwcompare(pv)
+<</dd_do>>
+~~~~
+
+It looks like South is significantly lower levels of lead than the other regions, which show no difference between them.
+
+7)
+
+~~~~
+<<dd_do>>
+regress lead i.sex##c.age i.race c.weight c.height i.region
+margins sex, dydx(age)
+quietly margins sex, at(age = (20 45 70))
+marginsplot
+<</dd_do>>
+~~~~
+
+<<dd_graph: replace>>
+
+We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again,
+rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly
+1 unit every 20 years). The marginal plot helps us to visualize this. For men, from age 20 to 70, the average lead decreases barely half a point. For
+women, we see nearly a 3 point average increase.
+
 
 ^#^^#^ Exercise 5
 

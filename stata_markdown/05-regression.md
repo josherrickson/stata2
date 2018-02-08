@@ -439,6 +439,8 @@ twoway scatter resids linearpredictor
 
 <<dd_graph: replace>>
 
+Of course we can clean this plot up with the [typical options](visualization.html#the-graph-command).
+
 ^#^^#^^#^^#^ Errors are homogeneous
 
 "Homogeneity" is a fancy term for "uniform in distribution", whereas "heterogeneity" represents "not uniform in distribution". If we were to take a
@@ -549,12 +551,12 @@ handle [categorical variables](#including-categorical-predictors) appropriately!
 additional commands.
 
 1. How well does the model fit?
-2. Does one gender tend to have higher levels of lead? Does this appear practically interesting?
-3. Is the coefficient on age statistically significant? Do you think it is practically interesting?
-4. Looking at all the differences between regions, what conclusion can you draw?
-5. Add an [interaction](#interactions) between gender and age. What is the interpretation here?
-6. Do any [assumptions](#assumptions) appear violated?
-7. Does [multicollinearity](#multicollinearity) appear to be a concern?
+2. Do any [assumptions](#assumptions) appear violated?
+3. Does [multicollinearity](#multicollinearity) appear to be a concern?
+4. Does one gender tend to have higher levels of lead? Does this appear practically interesting?
+5. Is the coefficient on age statistically significant? Do you think it is practically interesting?
+6. Looking at all the differences between regions, what conclusion can you draw?
+7. Add an [interaction](#interactions) between gender and age. What is the interpretation here?
 
 ^#^^#^ Logistic Regression
 
@@ -635,8 +637,8 @@ more reasonable, for every .1 increase in `gear_ratio` (which corresponds to a 1
 car being foreign by <<dd_display: %9.1f 100*(exp(_b[gear_ratio2]) - 1)>>%.
 
 The odds ratio on headroom is not distinguishable from 1, however, if it were, the interpretation is that increasing the headroom by 1 inch is
-predicted to decrease the odds of a car being foreign by about <<dd_display: %9.1f 100*(1-exp(_b[headroom]))>>% on average (1 - <<dd_display: %9.3f
-exp(_b[headroom])>>).
+predicted to decrease the odds of a car being foreign by about <<dd_display: %9.1f 100*(1-exp(_b[headroom]))>>% on average (1 -
+<<dd_display: %9.3f exp(_b[headroom])>>).
 
 ^#^^#^^#^ Categorical Variables and Interactions
 
