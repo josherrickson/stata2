@@ -283,22 +283,6 @@ tab rep78 foreign, missing
 <</dd_do>>
 ~~~~
 
-What if instead you wanted each individual table? You could run multiple `tab` statements, or use the `tab1` command instead.
-
-~~~~
-<<dd_do>>
-tab1 rep78 foreign, missing
-<</dd_do>>
-~~~~
-
-If you give more than two arguments to `tab`, it will not run. If you wanted all pairwise tables, you can use `tab2`:
-
-~~~~
-<<dd_do>>
-tab2 rep78 foreign headroom, missing
-<</dd_do>>
-~~~~
-
 ^#^^#^^#^ Generating dummy variables
 
 Although Stata has excellent categorical variable handling capabilities, you may occasionally have the situation where you want the dummy variables
@@ -336,7 +320,7 @@ Take note of how the missing value is propogated when creating the dummies.
 
 ^#^^#^ `correlate`
 
-With the use of `tab` and `tab2` for crosstabs, we've left univariate summaries and moved to joint summaries. For continuous variables, we can use the
+With the use of `tab` for crosstabs, we've left univariate summaries and moved to joint summaries. For continuous variables, we can use the
 correlation to examine how similar two continuous variables are. The most common version of correlation is Pearson's correlation, which ranges from -1
 to 1.
 
