@@ -423,7 +423,7 @@ You may have noticed that the `cor` command reports the number of observations i
 observations, but the `\_all` version used on 69. `correlate` uses what's known as complete cases analysis - any observation missing *any* value used
 in the command is excluded. `rep78` is missing 5 observations (run the `misstable summarize` command to see this).
 
-On the other hand, pairwise completion only excluds missing values from the relevant comparisons. If a given correlation doesn't involve `rep78`, it
+On the other hand, pairwise completion only excludes missing values from the relevant comparisons. If a given correlation doesn't involve `rep78`, it
 will use all the data. We can obtain this with `pwcorr`.
 
 ~~~~

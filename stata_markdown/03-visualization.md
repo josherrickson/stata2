@@ -130,8 +130,8 @@ twoway (scatter mpg weight) (lfit mpg weight)
 twoway scatter mpg weight || lfit mpg weight
 ```
 
-We prefer the latter as it makes it's cleaner to distinguish when you have multiple overlaid plots with their own options, but some authors may chose
-the second.
+We prefer the former as it makes it's cleaner to distinguish when you have multiple overlaid plots with their own options, but some authors may chose
+the latter.
 
 ^#^^#^ Other graphs
 
