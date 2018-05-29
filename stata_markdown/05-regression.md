@@ -148,10 +148,10 @@ significant. We will discuss [multicollinearity later](#multicollinearity), as w
 why [model selection is bad](#model-selection-is-bad).
 
 Now we see 4 rows for `rep78`, each corresponding to a comparison between response 1 and the row. For example, the first row, 2, is saying that when
-`rep78` is 2 compared to when it is 1 (with `gear_ratio` and `headroom` held at some fixed level), the average predicted mpg drops by <<dd_display:
-%9.3f abs(_b[2.rep78])>> (though it is not statistical significant). The last row, 5, is saying that when `rep78` is 5 compare to when it is 1 (with
-`gear_ratio` and `headroom` held at some fixed level, the average predicted mpg increases by <<dd_display: %9.3f _b[5.rep78]>> (again, not
-statistically significant).
+`rep78` is 2 compared to when it is 1 (with `gear_ratio` and `headroom` held at some fixed level), the average predicted mpg drops by
+<<dd_display: %9.3f abs(_b[2.rep78])>> (though it is not statistical significant). The last row, 5, is saying that when `rep78` is 5 compare to when
+it is 1 (with `gear_ratio` and `headroom` held at some fixed level, the average predicted mpg increases by <<dd_display: %9.3f _b[5.rep78]>> (again,
+not statistically significant).
 
 What about the other comparison? (Does 2 differ from 4?) Let's use the `margins` command. First, we'll get the marginal means at each level - if
 *every* car in the data set had a `rep78` level of ^$^i^$^, what is the average mileage?
@@ -165,7 +165,7 @@ margins rep78
 Note that the difference in the marginal means corresponds to the coefficients above. E.g. the marginal means at repair record 1 and 2 are 20.42972
 and 21.63332 respectively, for a difference of 1.2036 - which is exactly (with rounding) the coefficient we saw on `rep78 = 2` above!
 
-Note that the t-tests here are simply testing whether the marginal means are different than zero - of no real interest.
+The t-tests here are simply testing whether the marginal means are different than zero - of no real interest.
 
 Now, we can look at all pairwise comparisons by adding the `pwcompare(pv)` option to margins:
 
@@ -266,7 +266,7 @@ marginsplot
 
 <<dd_graph: replace>>
 
-With low gear_ratio, there is no relationship between priceand mileage - increasing the cost of a low gear ratio car is predicted to have no effect on
+With low gear_ratio, there is no relationship between price and mileage - increasing the cost of a low gear ratio car is predicted to have no effect on
 milage, on average. As the gear ratio increases, the relationship becomes significant and negative - among sporty cars (higher gear ratio), the more
 expensive the car is the worse it's mileage!
 
@@ -293,7 +293,7 @@ twoway (scatter mpg price if gear_ratio < 2.5, ///
         	legend(label(1 "< 2.5") label(3 "2.5 - 3.0") ///
                    label(5 "3.0 - 3.5") label(7 "> 3.5") ///
                    order(1 3 5 7)) ///
-            ylab("mpg")
+            ytitle("mpg")
 <</dd_do>>
 ~~~~
 
@@ -325,7 +325,7 @@ regress i.cat1##i.cat2
 margins cat1#cat2
 ```
 
-Often discovering which variety of these you want may require some trial an error!
+Often discovering which variety of these you want may require some trial and error!
 
 ^#^^#^^#^^#^ Centering
 
@@ -367,8 +367,8 @@ regress mpg c.price##c.gear_ratio, vce(robust)
 <</dd_do>>
 ~~~~
 
-Notice that compared to the [previous model](#interactions), the Coef estimates but the standard errors (and corresponding t-statistic, p-value and
-confidence interval) are slightly different.
+Notice that compared to the [previous model](#interactions), the Coef estimates are the same but the standard errors (and corresponding t-statistic,
+p-value and confidence interval) are slightly different.
 
 Typically, the robust standard errors should be slightly larger than the non-robust standard errors, but not always. The only common situation where
 the robust standard errors will decrease is when the error variance is highest for observations near the average value of the predictors. This does
@@ -694,7 +694,7 @@ estat gof
 ~~~~
 
 We see here a p-value of <<dd_display: %9.3f `=1 - chi2(`r(df)', `r(chi2)')'>>, failing to reject the null, so there is no evidence that the model
-fits well.
+does not fit well.
 
 There is some concern that when the "number of covariate patterns" is close to the number of observations , the Pearson test is invalid. In this data,
 we see that <<dd_display: %9.0f `r(m)'>> is indeed "close" to <<dd_display: %9.0f `r(N)'>>. Instead, we can use the Hosmer-Lemeshow by passing the
@@ -725,7 +725,7 @@ outcome. Consider trying to predict gender based on height. With a smaller sampl
 every female. This is called "perfect separation"; using this sample, knowing height gives perfect information about gender
 
 "Partial separation" can also occur; this is when prediction is perfect only for one limit. Take the height scenario again; say everyone above 5'8" is
-male, and there are two men but the rest women below 5'8". Here, we will always predict Male for heights above 5'8".
+male, and there are two men and all the women below 5'8". Here, we will always predict Male for heights above 5'8".
 
 Separation (of either type) often produces coefficients to be extreme with large standard errors. Stata will sometimes warn about this, but not
 always. If you notice these exceptional coefficients or if Stata does warn about separation, you'll need to investigate and consider excluding certain

@@ -50,6 +50,16 @@ This is taking it a bit far; it's rare to see more than 3 levels, but in theory,
 For this workshop, we will only briefly discuss this from hierarchical point of view, preferring the mixed models view (with the reminder again that
 they are the same!).
 
+^#^^#^^#^ Econometric terminology
+
+To make the terminology a bit more complicated, in econometrics, some of the terms we will use here are overloaded. When you are discussing mixed
+models with someone with econometric or economics training, it's important to differentiate between the statistical terms of "fixed effects" and
+"random effects" which are the two components of a mixed model that we [discuss below](#linear_mixed_model), and what econometricians called "fixed
+effects regression" and "random effects regression".
+
+Without going into the full details of the econometric world, what econometricians called "random effects regression" is essentially what
+statisticians called "mixed models", what we're talking about here. The Stata command `xtreg` handles those econometric models.
+
 ^#^^#^ Wide vs Long data, Time-varying vs Time-invariant
 
 Before you begin your analysis, you need to ensure that the data is in the proper format. Let's consider the NLS data, where we have measures of
@@ -61,8 +71,8 @@ for only a subset of those years, but would have missing values in the other yea
 Long format of the data would have each row represent a woman and a year, so that each woman can have up to 20 rows (if a woman wasn't measured in a
 given year, that row & year is missing).
 
-To fit a mixed model, we need the data in long format. We can use the `reshape` command to transform wide data to long. This is covered in the Stata I
-set of notes.
+To fit a mixed model, we need the data in long format. We can use the `reshape` command to transform wide data to long. This is covered in the [Stata
+I](https://errickson.net/stata1/data-manipulation.html#reshaping-files) set of notes.
 
 Additionally, there is the concept of time-varying vs time-invariant variables. Time-varying variables are those which can be different for each entry
 within the same individual. Examples include weight or salary. Time-invariant are those which are the same across all entries. Examples include race
@@ -159,7 +169,7 @@ Generally, failure to converge will be due to an issue with the data. Things to 
 
 - Different scales of predictors. For example, salary (in dollars) and number of children. The scales are drastically different which can cause
   issues. Try re-scaling any variables on extreme scales (you can do this with `egen scaledvar = std(origvar)`). This will affect interpretation (the
-  estimated coefficient will be the average predicted change with a on standard deviation increase in the predictor) but not the overall model fit.
+  estimated coefficient will be the average predicted change with a one standard deviation increase in the predictor) but not the overall model fit.
 - High correlation can cause this. Check correlations (`pwcorr` or `corr`) between your predictors (including any categorical variables) and if you
   find a highly correlated pair, try removing one.
 - If the iteration keeps running (as opposed to ending and complaining about lack of convergence), try passing the option `emiterate(#)` with a few
