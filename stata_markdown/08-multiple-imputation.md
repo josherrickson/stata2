@@ -249,12 +249,15 @@ mi impute ... [pweight = weight]
 mi estimate: svy: regress ...
 ```
 
-There has been some discussion that imputation should not take into account any complex survey design features (because you want the imputation to
+<del>There has been some discussion that imputation should not take into account any complex survey design features (because you want the imputation to
 reflect the sample, not necessarily the population). See for example [Little and Vartivarian 2003](#citations). If you follow this advice, simply
 exclude the `[pweight = ...]` part of the `mi impute` command. In either case, estimation commands still need both the `mi estimate: svy:` prefixes in
-that order.
+that order.</del>
+
+The above paragraph is no longer accurate. See [Reist and Larsen 2012](#citations). Survey weights must be used in mulitple imputations.
 
 ^#^^#^ Citations
 
 - Little, RJ, and S Vartivarian. 2003. On weighting the rates in non-response weights. Stat Med 22, no. 9: 1589-1599.
 - Von Hippel, Paul T. "How to impute interactions, squares, and other transformed variables." Sociological Methodology 39.1 (2009): 265-291.
+- Reist, Benjamin M., and Michael D. Larsen. "Post-Imputation Calibration Under Rubin’s Multiple Imputation Variance Estimator." Section on Survey Research Methods, Joint Statistical Meeting. 2012.
