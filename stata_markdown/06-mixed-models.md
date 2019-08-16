@@ -32,9 +32,9 @@ sense that we have yearly data for women, so each woman can have up to 20 data p
 There are several different names for mixed models which you might encounter, that all fit essentially the same model:
 
 - Mixed model
-- Mixed Effects regression
-- Multilevel regression
-- Hierarchical regression (specifically HLM, hierarchical linear model)
+- Mixed Effects regression/model
+- Multilevel regression/model
+- Hierarchical regression/model (specifically HLM, hierarchical linear model)
 
 The hierarchical/multilevel variations require thinking about the levels of the data and involves "nesting", where one variable only occurs within
 another, e.g. family members nested in a household. The most canonical example of this is students in classrooms, we could have
@@ -50,18 +50,29 @@ This is taking it a bit far; it's rare to see more than 3 levels, but in theory,
 For this workshop, we will only briefly discuss this from hierarchical point of view, preferring the mixed models view (with the reminder again that
 they are the same!).
 
+^#^^#^^#^ Econometric terminology
+
+To make the terminology a bit more complicated, in econometrics, some of the terms we will use here are overloaded. When you are discussing mixed
+models with someone with econometric or economics training, it's important to differentiate between the statistical terms of "fixed effects" and
+"random effects" which are the two components of a mixed model that we [discuss below](#linear_mixed_model), and what econometricians called "fixed
+effects regression" and "random effects regression".
+
+Without going into the full details of the econometric world, what econometricians called "random effects regression" is essentially what
+statisticians called "mixed models", what we're talking about here. The Stata command `xtreg` handles those econometric models.
+
 ^#^^#^ Wide vs Long data, Time-varying vs Time-invariant
 
 Before you begin your analysis, you need to ensure that the data is in the proper format. Let's consider the NLS data, where we have measures of
 women's salary over 20 years.
 
-Wide format of the data would have row represent a woman, and she would have 20 columns worth of salary information (plus additional demographics).
+Wide format of the data would have row represent a woman, and she would have 20 columns worth of salary information^[She may have salary information
+for only a subset of those years, but would have missing values in the other years.] (plus additional demographics).
 
 Long format of the data would have each row represent a woman and a year, so that each woman can have up to 20 rows (if a woman wasn't measured in a
-given year, that row & year is blank).
+given year, that row & year is missing).
 
-To fit a mixed model, we need the data in long format. We can use the `reshape` command to transform wide data to long. This is covered in the Stata I
-set of notes.
+To fit a mixed model, we need the data in long format. We can use the `reshape` command to transform wide data to long. This is covered in the [Stata
+I](https://errickson.net/stata1/data-manipulation.html#reshaping-files) set of notes.
 
 Additionally, there is the concept of time-varying vs time-invariant variables. Time-varying variables are those which can be different for each entry
 within the same individual. Examples include weight or salary. Time-invariant are those which are the same across all entries. Examples include race
@@ -76,12 +87,13 @@ because it contains a mixture of *fixed effects* and *random effects*.
 
 - Fixed effects: These are the predictors that are present in regular linear regression. We will obtain coefficients for these predictors and be able
   to test and interpret them. Technically, an OLS linear model is a mixed model with only fixed effects.^[Though why called it mixed at that point?]
-- Random effects: These are the "grouping" variables, and must be categorical (Stata will force every variable to be prefaced by `i.`). These are
-  essentially just predictors as well, however, we do not obtain coefficients to test or interpret. We do get a measure of the variability across
-  groups, and a test of whether the random effect is benefiting the model.
+- Random effects: These are the "grouping" variables, and must be categorical (Stata will force every variable used to produce random effects as if it
+  were prefaced by `i.`). These are essentially just predictors as well, however, we do not obtain coefficients to test or interpret. We do get a
+  measure of the variability across groups, and a test of whether the random effect is benefiting the model.
 
 Let's fit a model using the `mixed` command. It works similar to `regress` with a slight tweak. We'll try and predict log of wages^[Typically, salary
-information is very right-skewed, and a log transformation produces normality.] using work experience and race. This data
+information is very right-skewed, and a log transformation makes the data closer to normal.] using work experience, race and age. The variable
+`idcode` identifies individuals.
 
 ~~~~
 <<dd_do>>
@@ -157,12 +169,12 @@ Generally, failure to converge will be due to an issue with the data. Things to 
 
 - Different scales of predictors. For example, salary (in dollars) and number of children. The scales are drastically different which can cause
   issues. Try re-scaling any variables on extreme scales (you can do this with `egen scaledvar = std(origvar)`). This will affect interpretation (the
-  estimated coefficient will be the average predicted change with a on standard deviation increase in the predictor) but not the overall model fit.
-- High correlation can cause this. Check correlations (`cor`) between your predictors (including any categorical variables) and if you find a highly
-  correlated pair, try removing one.
+  estimated coefficient will be the average predicted change with a one standard deviation increase in the predictor) but not the overall model fit.
+- High correlation can cause this. Check correlations (`pwcorr` or `corr`) between your predictors (including any categorical variables) and if you
+  find a highly correlated pair, try removing one.
 - If the iteration keeps running (as opposed to ending and complaining about lack of convergence), try passing the option `emiterate(#)` with a few
-  "large" ("large" is relative to sample size) to tell the algorithm to stop after # iterations, regardless of convergence. You're looking for two
-  things:
+  "large" ("large" is relative to sample size) numbers to tell the algorithm to stop after # iterations, regardless of convergence. You're looking for
+  two things:
     - First, if there are any estimated standard errors that are extremely close to zero, that predictor may be causing the issue. Try removing it.
     - Second, if you try a few different max iterations (say 50, 100 and 200), and the estimated coefficients and standard errors are relatively
       constant, you could consider that model as "good enough". You wouldn't have much confidence in the point estimates of the coefficients, but you
@@ -175,8 +187,8 @@ Similar to [logistic regression](regression.html#logistic-regression) being an e
 logistic mixed models are an extension to [linear mixed models](#linear-mixed-model) when the outcome variable is binary.
 
 The command for logistic mixed models is `melogit`. The rest of the command works very similarly to `mixed`, and interpretation is the best of
-logistic regression (for fixed effects) and linear mixed models (for random effects). Unfortunately, neither `estat classification` nor `estat gof` is
-supported, so goodness of fit must be measured solely on the ^$^\chi^2^$^ test and perhaps a manual model fit comparison.
+logistic regression (for fixed effects) and linear mixed models (for random effects). Unfortunately, neither `lroc` nor `estat gof` is supported, so
+goodness of fit must be measured solely on the ^$^\chi^2^$^ test and perhaps a manual model fit comparison.
 
 By default the log-odds are reported, give the `or` option to report the odds ratios.
 

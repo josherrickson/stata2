@@ -39,4 +39,3 @@ open:
 
 publish:
 	@cp -r _book/* ~/repositories/josherrickson.github.io/stata2/.
-#	@cp images/* ~/repositories/josherrickson.github.io/images/.

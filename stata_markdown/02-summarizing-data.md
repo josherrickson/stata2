@@ -283,22 +283,6 @@ tab rep78 foreign, missing
 <</dd_do>>
 ~~~~
 
-What if instead you wanted each individual table? You could run multiple `tab` statements, or use the `tab1` command instead.
-
-~~~~
-<<dd_do>>
-tab1 rep78 foreign, missing
-<</dd_do>>
-~~~~
-
-If you give more than two arguments to `tab`, it will not run. If you wanted all pairwise tables, you can use `tab2`:
-
-~~~~
-<<dd_do>>
-tab2 rep78 foreign headroom, missing
-<</dd_do>>
-~~~~
-
 ^#^^#^^#^ Generating dummy variables
 
 Although Stata has excellent categorical variable handling capabilities, you may occasionally have the situation where you want the dummy variables
@@ -336,7 +320,7 @@ Take note of how the missing value is propogated when creating the dummies.
 
 ^#^^#^ `correlate`
 
-With the use of `tab` and `tab2` for crosstabs, we've left univariate summaries and moved to joint summaries. For continuous variables, we can use the
+With the use of `tab` for crosstabs, we've left univariate summaries and moved to joint summaries. For continuous variables, we can use the
 correlation to examine how similar two continuous variables are. The most common version of correlation is Pearson's correlation, which ranges from -1
 to 1.
 
@@ -439,7 +423,7 @@ You may have noticed that the `cor` command reports the number of observations i
 observations, but the `\_all` version used on 69. `correlate` uses what's known as complete cases analysis - any observation missing *any* value used
 in the command is excluded. `rep78` is missing 5 observations (run the `misstable summarize` command to see this).
 
-On the other hand, pairwise completion only excluds missing values from the relevant comparisons. If a given correlation doesn't involve `rep78`, it
+On the other hand, pairwise completion only excludes missing values from the relevant comparisons. If a given correlation doesn't involve `rep78`, it
 will use all the data. We can obtain this with `pwcorr`.
 
 ~~~~
@@ -507,11 +491,10 @@ webuse nhanes2, clear
 
 1. Use [`describe`](#describe-summarize-codebook) to get a sense of the data. How many observations? How many variables?
 2. Use [`tab`](#tab), [`summarize`](#describe-summarize-codebook), [`codebook`](#describe-summarize-codebook), and/or [`mean`](#mean) to get an
-   understanding of the some of variables that we'll be using a lot going forward:
+   understanding of the some of variables that we'll be using going forward:
     - `region`
-    - `houssiz`
     - `sex`
     - `diabetes`
-    - `iron`
+    - `lead`
 3. Does `race` have any missing data? Does `diabetes`? Does `lead`?
 4. What is more highly [correlated](#correlate)? A person's height and weight, or their diastolic and systolic blood pressure?
