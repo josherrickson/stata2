@@ -99,7 +99,7 @@ independent of boood pressure.
 
 ````
 
-<img src="Graph41.svg" >
+![](images/exercise2.svg)
 
 We can see the correlation between blood pressure measures, with a bit stronger of a relationship for men.
 
@@ -260,7 +260,7 @@ The F-test rejects so the model is informative. The ^$^R^2^$^ is low, so there i
 
 ````
 
-<img src="Graph42.svg" >
+![](images/exercise41.svg)
 
 This doesn't look great. We don't see any signs of nonnormality, but we do see a lot of very large positive residuals. If you look at a histogram for
 `lead`,
@@ -271,7 +271,7 @@ This doesn't look great. We don't see any signs of nonnormality, but we do see a
 
 ````
 
-<img src="Graph43.svg" >
+![](images/exercise42.svg)
 
 We see right skew. The maintainers of this data noticed the same concern, as they include a `loglead` variable in the data to attempt to address this.
 
@@ -441,7 +441,7 @@ Variables that uniquely identify margins: age sex
 
 ````
 
-<img src="Graph44.svg" >
+![](images/exercise47.svg)
 
 We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again,
 rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly
@@ -525,7 +525,7 @@ Area under ROC curve   =   0.7665
 
 ````
 
-<img src="Graph45.svg" >
+![](images/exercise5.svg)
 
 We cannot reject the model fit (even once we switch to the proper Hosmer-Lemeshow test, which used 20 instead of 10 because we have 10 predictors). The ROC and AUC look decent but not great.
 

@@ -233,23 +233,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-graph-command" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="the-graph-command"><span class="header-section-number">2.1</span> The <code>graph</code> command</h2>
 <p>Most (though not all, see some <a href="#other-graphs">other graphs</a> below) graphs in Stata are created by the <code>graph</code> command. Generally the syntax is</p>
-<pre><code>graph &lt;type&gt; &lt;variable(s)&gt;, &lt;options&gt;</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> &lt;<span class="dv">type</span>&gt; &lt;<span class="kw">variable</span>(<span class="fu">s</span>)&gt;, &lt;options&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The “type” is the subcommand.</p>
 <p>For example, to create a bar chart of <code>price</code> by <code>rep78</code>, we could run</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">graph</span> <span class="bn">bar</span> price, <span class="bn">over</span>(rep78)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph23.svg"></p>
+<p><img src="images/bar1.svg" class="img-fluid"></p>
 <p>For further information, we could instead construct a boxplot.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">graph</span> box price, <span class="bn">over</span>(rep78)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph24.svg"></p>
+<p><img src="images/bar2.svg" class="img-fluid"></p>
 <p>There are a few other infrequently used graphs, see <code>help graph</code> for details.</p>
 <p>There is a plot subcommand, <code>twoway</code>, which takes additional sub-subcommands, and supports a wide range of types.</p>
-<pre><code>graph twoway &lt;type&gt; &lt;variable(s)&gt;, &lt;options&gt;</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="kw">twoway</span> &lt;<span class="dv">type</span>&gt; &lt;<span class="kw">variable</span>(<span class="fu">s</span>)&gt;, &lt;options&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>twoway</code> creates most of the scatterplot-esque plots. The “types” in <code>twoway</code> are subcommands different from the subcommands in non-<code>twoway</code> <code>graph</code>, it takes options such as <code>scatter</code> to create a scatterplot:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">graph</span> <span class="kw">twoway</span> <span class="kw">scatter</span> mpg <span class="kw">weight</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph25.svg"></p>
+<p><img src="images/scatter1.svg" class="img-fluid"></p>
 <p><strong>Note:</strong> For <code>graph twoway</code> commands, the <code>graph</code> is optional. E.g., these commands are equivalent:</p>
-<pre><code>graph twoway scatter mpg weight
-twoway scatter mpg weight</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="kw">twoway</span> <span class="kw">scatter</span> mpg <span class="kw">weight</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> <span class="kw">scatter</span> mpg <span class="kw">weight</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This is <em>not</em> true of commands like <code>graph box</code>.</p>
 <p>The options in the graphing commands are quite extensive and enable tweaking of many different settings. Rather than a full catalog of the options, here’s an example:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> <span class="kw">scatter</span> mpg <span class="kw">weight</span>, <span class="bn">msymbol</span>(<span class="fu">s</span>) <span class="co">///</span></span>
@@ -262,22 +262,22 @@ twoway scatter mpg weight</code></pre>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>&gt;                           <span class="kw">ylabel</span>(15 <span class="st">"15"</span> 25 <span class="st">"25"</span> 35 <span class="st">"35"</span>)</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph26.svg"></p>
+<p><img src="images/scatter2.svg" class="img-fluid"></p>
 <p>Graphs made using <code>twoway</code> have an additional benefit - it is easy to stack them. For example, <code>twoway lfit</code> creates a best-fit line between the points:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> <span class="kw">lfit</span> mpg <span class="kw">weight</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph27.svg"></p>
+<p><img src="images/lfit.svg" class="img-fluid"></p>
 <p>This isn’t really that useful. It would be much better to overlap those two - generate the scatter plot, then add the best fit line. We can easily do that by passing multiple plots to <code>twoway</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span>) (<span class="kw">lfit</span> mpg <span class="kw">weight</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph28.svg"></p>
+<p><img src="images/scatter_lfit.svg" class="img-fluid"></p>
 <p>Note that the order of the plots matters - if you can tell, the best-fit line was drawn on top of the scatter plot points. If you reversed the order in the command (<code>twoway (lfit mpg weight) (scatter mpg weight)</code>), the line would be drawn first and the points on top of it.</p>
 <p>Finally, note that options can be passed to each individual plot:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span>, <span class="bn">msymbol</span>(t)) <span class="co">///</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> mpg <span class="kw">weight</span>, lcolor(<span class="kw">green</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph29.svg"></p>
+<p><img src="images/scatter_lfit2.svg" class="img-fluid"></p>
 <p>Putting these options “globally”, as <code>twoway (...) (...), msymbol(to)</code> would NOT work, as <code>msymbol</code> is an option specifically for <code>twoway scatter</code> (and a few others), not for the more general <code>twoway</code>. There are options that apply to the <code>twoway</code> command, see <code>help twoway_options</code> for details.</p>
 <p>There is an alternate way to specify the overlaid plots. These two commands are equivalent:</p>
-<pre><code>twoway (scatter mpg weight) (lfit mpg weight)
-twoway scatter mpg weight || lfit mpg weight</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span>) (<span class="kw">lfit</span> mpg <span class="kw">weight</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">twoway</span> <span class="kw">scatter</span> mpg <span class="kw">weight</span> || <span class="kw">lfit</span> mpg <span class="kw">weight</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We prefer the former as it makes it’s cleaner to distinguish when you have multiple overlaid plots with their own options, but some authors may chose the latter.</p>
 </section>
 <section id="other-graphs" class="level2" data-number="2.2">
@@ -285,21 +285,21 @@ twoway scatter mpg weight || lfit mpg weight</code></pre>
 <p>There are a very large number of graphs which do not exist under the <code>graph</code> command. Most are very niche, but the most important general example is histogram, which has its own command.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">histogram</span> mpg</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>(<span class="bn">bin</span>=8, <span class="bn">start</span>=12, <span class="kw">width</span>=3.625)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph30.svg"></p>
+<p><img src="images/hist1.svg" class="img-fluid"></p>
 <p>You can see a full list of the non-graph plots by looking at</p>
-<pre><code>help graph other</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">graph</span> other</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="plotting-by-group" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="plotting-by-group"><span class="header-section-number">2.3</span> Plotting by group</h2>
 <p>All graph commands accept a <code>by(&lt;grouping var&gt;)</code> option which will repeat the graphing command for each level of the grouping variable, and display all graphs on the same output. For example,</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span>) (<span class="kw">lfit</span> mpg <span class="kw">weight</span>), <span class="kw">by</span>(foreign)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph31.svg"></p>
+<p><img src="images/by_plot.svg" class="img-fluid"></p>
 <p>It often looks better to see the two plots overlaid on each other for a more direct comparison. To do this, rather than using <code>by(...)</code>, we’ll instead add each overlay conditionally:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign ==  0) <span class="co">///</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">scatter</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign == 1) <span class="co">///</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">lfit</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign ==  0) <span class="co">///</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">lfit</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign == 1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph32.svg"></p>
+<p><img src="images/bygroup1.svg" class="img-fluid"></p>
 <p>Notice that Stata automatically made each plot a separate color, but not in a logical fashion. Here’s a cleaned up version:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign ==  0, mcolor(<span class="bn">orange</span>)) <span class="co">///</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">scatter</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign == 1, mcolor(<span class="kw">green</span>)) <span class="co">///</span></span>
@@ -308,24 +308,24 @@ twoway scatter mpg weight || lfit mpg weight</code></pre>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>&gt;       <span class="bn">legend</span>(<span class="kw">label</span>(1 <span class="st">"Domestic"</span>) <span class="kw">label</span>(2 <span class="st">"Foreign"</span>) <span class="kw">order</span>(1 2)) <span class="co">///</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>&gt;       <span class="bn">title</span>(<span class="st">"Mileage vs Weight"</span>) <span class="bn">xtitle</span>(<span class="st">"Weight (lbs)"</span>) <span class="co">///</span></span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>&gt;       <span class="bn">ytitle</span>(<span class="st">"Mileage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph33.svg"></p>
+<p><img src="images/bygroup2.svg" class="img-fluid"></p>
 <p>(Since its not entirely clear from the code, the <code>order(1 2)</code> argument inside <code>legend</code> serves two purposes - first, it “orders” the entries in the legend box, but secondly and more importantly, it does <em>not</em> contain 3 or 4. If you look at the previous plot, it had four entries in the legend for the two <code>scatter</code>s plus two <code>lfit</code>s. By excluding 3 and 4 from <code>order</code> [3 and 4 corresponding to the two <code>lfits</code>], their legend entries are ignored.)</p>
 </section>
 <section id="getting-help-on-graphs" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="getting-help-on-graphs"><span class="header-section-number">2.4</span> Getting help on Graphs</h2>
 <p>There are a ton of options in all these graphs. Rather than list them all, we instead direct you to some various help pages.</p>
 <p>For general assistance, start with</p>
-<pre><code>help graph</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">graph</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Each individual type of graph has its own help page:</p>
-<pre><code>help graph box
-help graph twoway
-help twoway scatter
-help histogram</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">graph</span> box</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">graph</span> <span class="kw">twoway</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">twoway</span> <span class="kw">scatter</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">histogram</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>There are various generalized options which are the same over the variety of plots. These can be found in the documentation of each individual graph, or you can access them directly:</p>
 <table class="table">
 <colgroup>
-<col style="width: 62%">
-<col style="width: 37%">
+<col style="width: 61%">
+<col style="width: 38%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -364,26 +364,26 @@ help histogram</code></pre>
 <section id="displaying-multiple-graphs-simultaneously" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="displaying-multiple-graphs-simultaneously"><span class="header-section-number">2.5</span> Displaying multiple graphs simultaneously</h2>
 <p>You may have noticed that opening a new plot closes the old one. What if you wanted to compare the plots? The behind-the-scenes reason that the old plots are closed is that Stata names each plot and each plot can only be open once. The default name is “Graph”, so with each new plot, the “Graph” plot is overridden. If you closed a plot and wanted to re-open it, you can run the following at any point <em>until you run another graph</em> just like with <a href="summarizing-data.html#estimation-commands">estimation commands</a>.</p>
-<pre><code>graph display Graph</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="kw">display</span> Graph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When we create a new plot with the default name, we lose the last one.</p>
 <p>If we give a plot a non-default name, it will be saved (so that it can be re-displayed later) and more importantly, will open a new window without closing the last. Running two plots with custom names opens two separate windows. (These are not run in the notes because obviously this won’t demonstrate well, but try them on your own.)</p>
-<pre><code>hist price, name(g1)
-hist mpg, name(g2)</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">hist</span> price, <span class="bn">name</span>(g1)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">hist</span> mpg, <span class="bn">name</span>(g2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Names can be re-used (and plots re-generated) easily:</p>
-<pre><code>hist price, title("Histogram of Price") name(g1, replace)</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">hist</span> price, <span class="bn">title</span>(<span class="st">"Histogram of Price"</span>) <span class="bn">name</span>(g1, <span class="kw">replace</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can also list (using <code>dir</code>), re-display (using <code>display</code>), or drop graphs (using <code>drop</code>):</p>
-<pre><code>graph dir
-graph display g1
-graph drop g1
-graph drop _all</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="ot">dir</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="kw">display</span> g1</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="kw">drop</span> g1</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="kw">drop</span> <span class="dt">_all</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Finally, if you’d rather have all the graphs in one window with tabs instead of separate windows, use</p>
-<pre><code>set autotabgraphs on</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">set</span> autotabgraphs <span class="kw">on</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>(You can pass the <code>permanently</code> option to not have to do this every time you open Stata.) You still need to name graphs separately.</p>
 </section>
 <section id="exercise-2" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">2.6</span> Exercise 2</h2>
 <p>Reload the NHANES data if you haven’t:</p>
-<pre><code>webuse nhanes2, clear</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">webuse</span> nhanes2, <span class="kw">clear</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Using <code>twoway scatter</code> and <code>twoway lfit</code>, create a scatter plot of diastolic and systolic blood pressure, by gender. Be sure to color the lines and points consistenly and to clean up the legend.</p>
 
 

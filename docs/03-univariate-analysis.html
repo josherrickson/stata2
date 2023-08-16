@@ -264,10 +264,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s test whether the average mileage in the data is different from 20.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">hist</span> mpg, <span class="fu">normal</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>(<span class="bn">bin</span>=8, <span class="bn">start</span>=12, <span class="kw">width</span>=3.625)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph34.svg"></p>
+<p><img src="images/univar_hist.svg" class="img-fluid"></p>
 <p>In a histogram, we are looking for violations from the bell-shape of a normal curve. We added the normal curve to the plot by the <code>normal</code> option. We can see that while the data is not perfectly normal, it also is not too far off. We can look at a qq-plot for further details.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">qnorm</span> mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph35.svg"></p>
+<p><img src="images/univar_qqplot.svg" class="img-fluid"></p>
 <p>With a qq-plot, we are looking for the points to roughly fall in a straight line, alone the 45-degree line. Here we see some mild violations of those, especially at either end.</p>
 <p>Put together, this indicates that normality is not perfect, but its also not a terrible violation.</p>
 <p>However, we don’t really care! The sample size is large enough that that assumption is valid. We can therefore perform our test using the <code>ttest</code> command.</p>

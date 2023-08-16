@@ -414,7 +414,7 @@ Variables that uniquely identify margins: gear_ratio
 
 ````
 
-<img src="Graph36.svg" >
+![](images/reg_margins1.svg)
 
 With low gear_ratio, there is no relationship between price and mileage - increasing the cost of a low gear ratio car is predicted to have no effect on
 milage, on average. As the gear ratio increases, the relationship becomes significant and negative - among sporty cars (higher gear ratio), the more
@@ -446,7 +446,7 @@ We can create a rather complicated looking plot to examine this.
 
 ````
 
-<img src="Graph37.svg" >
+![](images/reg_margins2.svg)
 
 Each color represents a selection of cars with the given gear ratios. The cars with the lowest `gear_ratio`, in red, show no relationship between
 price and mileage. The green and purple cars with mid-range gear ratio, show negative relationships. The strongest negative relationship is among the
@@ -601,7 +601,7 @@ opposed to multiplicative). We can examine this assumption by looking at plots o
 
 ````
 
-<img src="Graph38.svg" >
+![](images/reg_rvfplot.svg)
 
 What we're seeing here is a scatterplot between the fitted values (the predicted values for each individual) and their errors (the difference between
 the predicted values and observed values). If you can see a pattern in the scatterplot, that is evidence that this assumption is
@@ -641,7 +641,7 @@ In other words, we can replicate the above `rvfplot` via:
 
 ````
 
-<img src="Graph39.svg" >
+![](images/reg_rvfmanually.svg)
 
 Of course we can clean this plot up with the [typical options](visualization.html#the-graph-command).
 
@@ -942,7 +942,7 @@ Area under ROC curve   =   0.9384
 
 ````
 
-<img src="Graph40.svg" >
+![](images/reg_loc.svg)
 
 The ROC curve is a bit complicated to explain, but basically over a range of thresholds, it classifies each observation as predicting a 0 or 1. E.g.,
 with a threshold of .2, any observation whose predicted probability is below .2 is classified as a "0", any observation whose predicted probability is

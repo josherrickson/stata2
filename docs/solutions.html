@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> bpdiast bpsystol <span class="kw">if</span> sex == 1, lcolor(<span class="bn">blue</span>)) <span class="co">///</span></span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> bpdiast bpsystol <span class="kw">if</span> sex == 2, lcolor(<span class="bn">pink</span>)), <span class="co">///</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>&gt;         <span class="bn">legend</span>(<span class="kw">label</span>(1 <span class="st">"Men"</span>) <span class="kw">label</span>(2 <span class="st">"Women"</span>) <span class="kw">order</span>(1 2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph41.svg"></p>
+<p><img src="images/exercise2.svg" class="img-fluid"></p>
 <p>We can see the correlation between blood pressure measures, with a bit stronger of a relationship for men.</p>
 </section>
 <section id="exercise-3" class="level2" data-number="8.3">
@@ -436,11 +436,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li></li>
 </ol>
 <div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">rvfplot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph42.svg"></p>
+<p><img src="images/exercise41.svg" class="img-fluid"></p>
 <p>This doesn’t look great. We don’t see any signs of nonnormality, but we do see a lot of very large positive residuals. If you look at a histogram for <code>lead</code>,</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">hist</span> lead</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(<span class="bn">bin</span>=36, <span class="bn">start</span>=2, <span class="kw">width</span>=2.1666667)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph43.svg"></p>
+<p><img src="images/exercise42.svg" class="img-fluid"></p>
 <p>We see right skew. The maintainers of this data noticed the same concern, as they include a <code>loglead</code> variable in the data to attempt to address this.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">desc</span> loglead</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -585,7 +585,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>. marginsplot</span>
 <span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a>Variables that uniquely identify margins: age sex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph44.svg"></p>
+<p><img src="images/exercise47.svg" class="img-fluid"></p>
 <p>We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again, rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly 1 unit every 20 years). The marginal plot helps us to visualize this. For men, from age 20 to 70, the average lead decreases barely half a point. For women, we see nearly a 3 point average increase.</p>
 </section>
 <section id="exercise-5" class="level2" data-number="8.5">
@@ -657,7 +657,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>Number <span class="kw">of</span> observations =    10349</span>
 <span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>Area under ROC curve   =   0.7665</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><img src="Graph45.svg"></p>
+<p><img src="images/exercise5.svg" class="img-fluid"></p>
 <p>We cannot reject the model fit (even once we switch to the proper Hosmer-Lemeshow test, which used 20 instead of 10 because we have 10 predictors). The ROC and AUC look decent but not great.</p>
 <ol start="2" type="1">
 <li></li>
