@@ -1,14 +1,14 @@
-^#^ Exercise solutions
+# Exercise solutions
 
-^#^^#^ Exercise 1
+## Exercise 1
 
-~~~~
+````stata
 . webuse nhanes2, clear
 
-~~~~
+````
 
 1)
-~~~~
+````stata
 . describe, short
 
 Contains data from https://www.stata-press.com/data/r18/nhanes2.dta
@@ -16,12 +16,12 @@ Contains data from https://www.stata-press.com/data/r18/nhanes2.dta
     Variables:            58                  20 Dec 2022 10:07
 Sorted by: 
 
-~~~~
+````
 
 There are 10,351 observations of 59 variables. The full `describe` output is suppressed for space, but you should run it.
 
 3)
-~~~~
+````stata
 . tab race, mi
 
        Race |      Freq.     Percent        Cum.
@@ -32,9 +32,9 @@ There are 10,351 observations of 59 variables. The full `describe` output is sup
 ------------+-----------------------------------
       Total |     10,351      100.00
 
-~~~~
+````
 No missing data.
-~~~~
+````stata
 . tab diabetes, mi
 
     Diabetes |
@@ -46,11 +46,11 @@ Not diabetic |      9,850       95.16       95.16
 -------------+-----------------------------------
        Total |     10,351      100.00
 
-~~~~
+````
 Two missing values.
 
 `lead` is continuous, so a table isn't the most effective.
-~~~~
+````stata
 . codebook lead
 
 -------------------------------------------------------------------------------
@@ -68,11 +68,11 @@ lead                                                              Lead (mcg/dL)
            Percentiles:     10%       25%       50%       75%       90%
                               8        10        13        17        22
 
-~~~~
+````
 There's a lot of missingness.
 
 4)
-~~~~
+````stata
 . pwcorr height weight bp*
 
              |   height   weight bpsystol  bpdiast
@@ -82,13 +82,13 @@ There's a lot of missingness.
     bpsystol |  -0.0364   0.2861   1.0000 
      bpdiast |   0.0675   0.3799   0.6831   1.0000 
 
-~~~~
+````
 Blood pressure is highly correlated, more-so than height and weight. Weight is also correlated with both forms of BP. Height looks to be completely
 independent of boood pressure.
 
-^#^^#^ Exercise 2
+## Exercise 2
 
-~~~~
+````stata
 . webuse nhanes2, clear
 
 . twoway (scatter bpdiast bpsystol if sex == 1, mcolor(blue)) ///
@@ -97,18 +97,18 @@ independent of boood pressure.
 >        (lfit bpdiast bpsystol if sex == 2, lcolor(pink)), ///
 >         legend(label(1 "Men") label(2 "Women") order(1 2))
 
-~~~~
+````
 
-<img src="Graph18.svg" >
+<img src="Graph41.svg" >
 
 We can see the correlation between blood pressure measures, with a bit stronger of a relationship for men.
 
-^#^^#^ Exercise 3
+## Exercise 3
 
-~~~~
+````stata
 . webuse nhanes2, clear
 
-~~~~
+````
 
 1)
 
@@ -116,7 +116,7 @@ The sample size is massive, so the central limit theorem suffices.
 
 2)
 
-~~~~
+````stata
 . ttest height == 176 if sex == 1
 
 One-sample t test
@@ -131,13 +131,13 @@ H0: mean = 176                                   Degrees of freedom =     4914
    Ha: mean < 176               Ha: mean != 176               Ha: mean > 176
  Pr(T < t) = 0.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 1.0000
 
-~~~~
+````
 
 The test rejects; the average height of men in the sample is lower than the national average.
 
 3)
 
-~~~~
+````stata
 . ttest age, by(sex)
 
 Two-sample t test with equal variances
@@ -157,13 +157,13 @@ H0: diff = 0                                     Degrees of freedom =    10349
     Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
  Pr(T < t) = 0.1906         Pr(|T| > |t|) = 0.3812          Pr(T > t) = 0.8094
 
-~~~~
+````
 
 We fail to reject; there is no difference that the average age differs by gender.
 
 4)
 
-~~~~
+````stata
 . tab race diabetes
 
            |    Diabetes status
@@ -175,12 +175,12 @@ We fail to reject; there is no difference that the average age differs by gender
 -----------+----------------------+----------
      Total |     9,850        499 |    10,349 
 
-~~~~
+````
 
 Given the different scales per race, it's hard to draw a comparison. We can look at the rowwise percents. (If you ran `tab diabetes race`, you'd need
 the columnwise percents.)
 
-~~~~
+````stata
 . tab race diabetes, row chi2
 
 +----------------+
@@ -207,13 +207,13 @@ the columnwise percents.)
 
           Pearson chi2(2) =  25.3630   Pr = 0.000
 
-~~~~
+````
 
 Nearly double the percent of blacks have diabetes and the ^$^\chi^2^$^ test confirms the difference is statistically significant.
 
-^#^^#^ Exercise 4
+## Exercise 4
 
-~~~~
+````stata
 . webuse nhanes2, clear
 
 . regress lead i.sex i.race c.age c.weight c.height i.region
@@ -247,7 +247,7 @@ Nearly double the percent of blacks have diabetes and the ^$^\chi^2^$^ test conf
        _cons |   21.16891   2.199034     9.63   0.000     16.85783       25.48
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 1)
 
@@ -255,27 +255,27 @@ The F-test rejects so the model is informative. The ^$^R^2^$^ is low, so there i
 
 2)
 
-~~~~
+````stata
 . rvfplot
 
-~~~~
+````
 
-<img src="Graph19.svg" >
+<img src="Graph42.svg" >
 
 This doesn't look great. We don't see any signs of nonnormality, but we do see a lot of very large positive residuals. If you look at a histogram for
 `lead`,
 
-~~~~
+````stata
 . hist lead
 (bin=36, start=2, width=2.1666667)
 
-~~~~
+````
 
-<img src="Graph20.svg" >
+<img src="Graph43.svg" >
 
 We see right skew. The maintainers of this data noticed the same concern, as they include a `loglead` variable in the data to attempt to address this.
 
-~~~~
+````stata
 . desc loglead
 
 Variable      Storage   Display    Value
@@ -283,13 +283,13 @@ Variable      Storage   Display    Value
 -------------------------------------------------------------------------------
 loglead         float   %9.0g                 log(lead)
 
-~~~~
+````
 
 Perhaps we should have run the model with `loglead` as the output instead.
 
 3)
 
-~~~~
+````stata
 . estat vif
 
     Variable |       VIF       1/VIF  
@@ -308,7 +308,7 @@ Perhaps we should have run the model with `loglead` as the output instead.
 -------------+----------------------
     Mean VIF |      1.59
 
-~~~~
+````
 
 Nothing of concern here. The only moderately high VIF's are on sex and it's interaction, which does not concern us (of course a main effect and
 interaction are collinear.).
@@ -321,21 +321,21 @@ The coffecient on "Female" is -5 and is statistically significant, so there is e
 
 The p-value is very small, so it is statistically significant. However, if we look at lead levels:
 
-~~~~
+````stata
 . summ lead
 
     Variable |        Obs        Mean    Std. dev.       Min        Max
 -------------+---------------------------------------------------------
         lead |      4,948    14.32033    6.166468          2         80
 
-~~~~
+````
 
 We see that lead levels range from 2 to 80. The coefficient on age is about .02, so age would need to increase by about 50 years to see a higher value
 for the lead score. Unlikely to be clinically interesting! This is a side effect of the massive sample size.
 
 6)
 
-~~~~
+````stata
 . margins region
 
 Predictive margins                                       Number of obs = 4,948
@@ -374,13 +374,13 @@ Expression: Linear prediction, predict()
      W vs S  |   1.573087   .2227974     7.06   0.000
 -----------------------------------------------------
 
-~~~~
+````
 
 It looks like South is significantly lower levels of lead than the other regions, which show no difference between them.
 
 7)
 
-~~~~
+````stata
 . regress lead i.sex##c.age i.race c.weight c.height i.region
 
       Source |       SS           df       MS      Number of obs   =     4,948
@@ -439,9 +439,9 @@ age          |
 
 Variables that uniquely identify margins: age sex
 
-~~~~
+````
 
-<img src="Graph21.svg" >
+<img src="Graph44.svg" >
 
 We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again,
 rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly
@@ -449,9 +449,9 @@ rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while 
 women, we see nearly a 3 point average increase.
 
 
-^#^^#^ Exercise 5
+## Exercise 5
 
-~~~~
+````stata
 . webuse nhanes2, clear
 
 . logit diabetes i.sex i.race c.age weight height i.region
@@ -490,11 +490,11 @@ Log likelihood = -1776.9935                             Pseudo R2     = 0.1114
        _cons |  -4.645124     1.3496    -3.44   0.001    -7.290292   -1.999956
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 1)
 
-~~~~
+````stata
 . estat gof
 
 Goodness-of-fit test after logistic model
@@ -523,15 +523,15 @@ Logistic model for diabetes
 Number of observations =    10349
 Area under ROC curve   =   0.7665
 
-~~~~
+````
 
-<img src="Graph22.svg" >
+<img src="Graph45.svg" >
 
 We cannot reject the model fit (even once we switch to the proper Hosmer-Lemeshow test, which used 20 instead of 10 because we have 10 predictors). The ROC and AUC look decent but not great.
 
 2)
 
-~~~~
+````stata
 . margins race, pwcompare(pv)
 
 Pairwise comparisons of predictive margins              Number of obs = 10,349
@@ -569,14 +569,14 @@ Expression: Pr(diabetes), predict()
      W vs S  |  -.0086724   .0057535    -1.51   0.132
 -----------------------------------------------------
 
-~~~~
+````
 
 Blacks are more likely to have diabetes than whites or others. Age and weight are positive predictors whereas height is a negative predictor for some
 reason. There is no effect of gender or region.
 
-^#^^#^ Exercise 6
+## Exercise 6
 
-~~~~
+````stata
 . webuse chicken, clear
 
 . melogit complain grade i.race i.gender tenure age income ///
@@ -635,7 +635,7 @@ restaurant   |
 ------------------------------------------------------------------------------
 LR test vs. logistic model: chibar2(01) = 32.07       Prob >= chibar2 = 0.0000
 
-~~~~
+````
 
 1)
 
@@ -643,7 +643,7 @@ We can't look at fit statistics, but the ^$^\chi^2^$^ is significant, so we're d
 
 2)
 
-~~~~
+````stata
 . margins race, pwcompare(pv)
 
 Pairwise comparisons of predictive margins               Number of obs = 2,763
@@ -661,7 +661,7 @@ Expression: Marginal predicted mean, predict()
      3 vs 2  |   .1019918    .019303     5.28   0.000
 -----------------------------------------------------
 
-~~~~
+````
 
 Unfortunately, this data is poorly labeled so we can't talk in specifics about things, but generally
 

@@ -1,4 +1,4 @@
-^#^ Survey Data
+# Survey Data
 
 One major strength of Stata is the ease with which it can analyze data sets arising from complex sample surveys. When working with data collected from
 a sample with a complex design (anything above and beyond a simple random sample of a population, where the sample design involves clustering and
@@ -15,7 +15,7 @@ Stata is one of the leaders in terms of statistical software that can perform th
 perform design-based analyses of data arising from a sample with a complex design. The basic process consists of two steps (similar to
 [`mi`](multiple-imputation.html)), first using `svyset` to describe the complex survey design, secondly using the `svy:` prefix to perform analyses.
 
-^#^^#^ Definitions
+## Definitions
 
 Complex survey design is a massive topic which there are entire departments devoted to (Program at Survey Methodology here at Michigan) and which we
 offer a separate full day workshop (Survey Design). A simple survey design takes a random sample from the population as a whole. There are various
@@ -40,7 +40,7 @@ school, weighted by their weight to attempt to capture more overweight students.
 
 One final term is *primary sampling unit* which is the first level at which we randomized. In this example, that would be schools.
 
-^#^^#^ Describing the survey
+## Describing the survey
 
 The general syntax is
 
@@ -55,14 +55,14 @@ sampling weights. Finally, the `<strata>` is a variable identifying the sampling
 The NHANES data we've been using in our examples is actually from a complex sample design, which we've been ignoring. Let's incorporate the sampling
 into the analysis.
 
-~~~~
+````stata
 . webuse nhanes2, clear
 
-~~~~
+````
 
 The three variables of interest in the data are `finalwgt` for the sampling weights, `strata` for the strata, and `psu` for the clusters.
 
-~~~~
+````stata
 . describe finalwgt strata psu
 
 Variable      Storage   Display    Value
@@ -72,18 +72,18 @@ finalwgt        long    %9.0g                 Sampling weight (except lead)
 strata          byte    %9.0g                 Stratum identifier
 psu             byte    %9.0g      psulbl     Primary sampling unit
 
-~~~~
+````
 
 It's useful to know that to remove any existing survey design, you can run
 
-~~~~
+````stata
 . svyset, clear
 
-~~~~
+````
 
 Let's set up the survey design now.
 
-~~~~
+````stata
 . svyset psu [pweight = finalwgt], strata(strata)
 
 Sampling weights: finalwgt
@@ -93,11 +93,11 @@ Sampling weights: finalwgt
  Sampling unit 1: psu
            FPC 1: <zero>
 
-~~~~
+````
 
 To get information about the strata and cluster variables use the following command or menu:
 
-~~~~
+````stata
 . svydescribe
 
 Survey: Describing stage 1 sampling units
@@ -146,12 +146,12 @@ Sampling weights: finalwgt
 ----------------------------------------------------------
       31        62    10,351        67     167.0       288
 
-~~~~
+````
 
 Once the survey is defined with svyset, most common commands can be prefaced by svy: to analyze the data with the sampling structure.  The svy: tab
 command works exactly like the tabulate command, only taking the design of the sample into account when producing estimates and chi-square statistics.
 
-~~~~
+````stata
 . svy: tab sex
 (running tabulate on estimation sample)
 
@@ -169,11 +169,11 @@ Number of PSUs   = 62                            Population size = 117,157,513
 ----------------------
 Key: proportion = Cell proportion
 
-~~~~
+````
 
 Next, lets look at the mean weight by gender.
 
-~~~~
+````stata
 . svy: mean weight, over(sex)
 (running mean on estimation sample)
 
@@ -192,11 +192,11 @@ c.weight@sex |
      Female  |   65.70701    .266384      65.16372    66.25031
 --------------------------------------------------------------
 
-~~~~
+````
 
 Compare this to the usual mean command, without the design information:
 
-~~~~
+````stata
 . mean weight, over(sex)
 
 Mean estimation                         Number of obs = 10,351
@@ -209,11 +209,11 @@ c.weight@sex |
      Female  |   66.39418   .1998523      66.00243    66.78593
 --------------------------------------------------------------
 
-~~~~
+````
 
 And compare the `svy:` results to the usual `mean` command, with only the weights considered:
 
-~~~~
+````stata
 . mean weight [pweight=finalwgt], over(sex)
 
 Mean estimation                         Number of obs = 10,351
@@ -226,14 +226,14 @@ c.weight@sex |
      Female  |   65.70701   .2265547      65.26292     66.1511
 --------------------------------------------------------------
 
-~~~~
+````
 
 We see that the weights affect on the standard error, whereas the stratification and clustering also affects the estimates.
 
 Many of the usual commands such as `regress` or `logit` can be prefaced by `svy:`. If a command errors with the `svy:` prefix, a lot of the time the
 survey design will not affect it, and the documentation for the command will inform of that.
 
-^#^^#^ Subset analyses for complex sample survey data
+## Subset analyses for complex sample survey data
 
 In general, analysis of a particular subset of observations from a sample with a complex design should be handled very carefully. It is usually not
 appropriate to delete cases from the data-set that fall outside the sub-population of interest, or to use an `if` statement to filter them out. In
@@ -242,17 +242,17 @@ Stata, sub-population analyses for this type of data are analyzed using a subpop
 Suppose we want to perform an analysis only for the cases where race is black in the NHANES data set. First, we must create an indicator variable
 that equals 1 for these cases.
 
-~~~~
+````stata
 . gen race_black = race == 2
 
 . replace race_black = . if race == .
 (0 real changes made)
 
-~~~~
+````
 
 Now we can run a simple regression model only on
 
-~~~~
+````stata
 . svy, subpop(race_black): regress weight height i.sex
 (running regress on estimation sample)
 
@@ -279,11 +279,11 @@ Number of PSUs   = 60                            Population size = 113,415,086
 ------------------------------------------------------------------------------
 Note: 1 stratum omitted because it contains no subpopulation members.
 
-~~~~
+````
 
 Compare the `svy, subpop( ):` results to the usual `svy: regress` command using an `if` statement:
 
-~~~~
+````stata
 . svy: reg weight height i.sex if race_black == 1
 (running regress on estimation sample)
 
@@ -308,6 +308,6 @@ Number of PSUs   = 55                             Population size = 11,189,236
 ------------------------------------------------------------------------------
 Note: Missing standard errors because of stratum with single sampling unit.
 
-~~~~
+````
 
 The point estimates and ^$^R^2^$^ are the same, but Stata refuses to even calculate standard errors.

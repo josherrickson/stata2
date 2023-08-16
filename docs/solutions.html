@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intermediate Stata (Statistical Modeling) - 8&nbsp; lead Lead (mcg/dL)</title>
+<title>Intermediate Stata (Statistical Modeling) - 8&nbsp; Exercise solutions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -61,6 +95,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -73,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./solutions.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead                                                              Lead (mcg/dL)</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./solutions.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -107,49 +143,49 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-summarizing-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-univariate-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-survey-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multiple-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./solutions.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></span></a>
   </div>
 </li>
     </ul>
@@ -162,8 +198,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#one-sample-t-test" id="toc-one-sample-t-test" class="nav-link active" data-scroll-target="#one-sample-t-test"><span class="header-section-number">8.1</span> One-sample t test</a></li>
-  <li><a href="#log-likelihood--1321.7325-prob-chi2-0.0000" id="toc-log-likelihood--1321.7325-prob-chi2-0.0000" class="nav-link" data-scroll-target="#log-likelihood--1321.7325-prob-chi2-0.0000"><span class="header-section-number">8.3</span> Log likelihood = -1321.7325 Prob &gt; chi2 = 0.0000</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link active" data-scroll-target="#exercise-1"><span class="header-section-number">8.1</span> Exercise 1</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">8.2</span> Exercise 2</a></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">8.3</span> Exercise 3</a></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">8.4</span> Exercise 4</a></li>
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="header-section-number">8.5</span> Exercise 5</a></li>
+  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="header-section-number">8.6</span> Exercise 6</a></li>
   </ul>
 </nav>
     </div>
@@ -172,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></h1>
 </div>
 
 
@@ -187,683 +227,561 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><sup>#</sup> Exercise solutions</p>
-<p><sup>##</sup> Exercise 1</p>
-<pre><code>. webuse nhanes2, clear
-</code></pre>
+<section id="exercise-1" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">8.1</span> Exercise 1</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> nhanes2, <span class="kw">clear</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol type="1">
 <li></li>
 </ol>
-<pre><code>. describe, short
-
-Contains data from https://www.stata-press.com/data/r18/nhanes2.dta
- Observations:        10,351                  
-    Variables:            58                  20 Dec 2022 10:07
-Sorted by: 
-</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">describe</span>, <span class="kw">short</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Contains <span class="kw">data</span> from https:<span class="co">//www.stata-press.com/data/r18/nhanes2.dta</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> Observations:        10,351                  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    Variables:            58                  20 Dec 2022 10:07</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Sorted <span class="kw">by</span>: </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>There are 10,351 observations of 59 variables. The full <code>describe</code> output is suppressed for space, but you should run it.</p>
 <ol start="3" type="1">
 <li></li>
 </ol>
-<pre><code>. tab race, mi
-
-       Race |      Freq.     Percent        Cum.
-------------+-----------------------------------
-      White |      9,065       87.58       87.58
-      Black |      1,086       10.49       98.07
-      Other |        200        1.93      100.00
-------------+-----------------------------------
-      Total |     10,351      100.00
-</code></pre>
-<p>No missing data. ~~~~ . tab diabetes, mi</p>
-<pre><code>Diabetes |
-  status |      Freq.     Percent        Cum.</code></pre>
-<p>————-+———————————– Not diabetic | 9,850 95.16 95.16 Diabetic | 499 4.82 99.98 . | 2 0.02 100.00 ————-+———————————– Total | 10,351 100.00</p>
-<pre><code>Two missing values.
-
-`lead` is continuous, so a table isn't the most effective.</code></pre>
-<p>. codebook lead</p>
-<hr>
-<pre><code>              Type: Numeric (byte)
-
-             Range: [2,80]                        Units: 1
-     Unique values: 53                        Missing .: 5,403/10,351
-
-              Mean: 14.3203
-         Std. dev.: 6.16647
-
-       Percentiles:     10%       25%       50%       75%       90%
-                          8        10        13        17        22</code></pre>
-<pre><code>There's a lot of missingness.
-
-4)</code></pre>
-<p>. pwcorr height weight bp*</p>
-<pre><code>         |   height   weight bpsystol  bpdiast</code></pre>
-<p>————-+———————————— height | 1.0000 weight | 0.4775 1.0000 bpsystol | -0.0364 0.2861 1.0000 bpdiast | 0.0675 0.3799 0.6831 1.0000</p>
-<pre><code>Blood pressure is highly correlated, more-so than height and weight. Weight is also correlated with both forms of BP. Height looks to be completely
-independent of boood pressure.
-
-^#^^#^ Exercise 2
-</code></pre>
-<p>. webuse nhanes2, clear</p>
-<p>. twoway (scatter bpdiast bpsystol if sex == 1, mcolor(blue)) /// &gt; (scatter bpdiast bpsystol if sex == 2, mcolor(pink)) /// &gt; (lfit bpdiast bpsystol if sex == 1, lcolor(blue)) /// &gt; (lfit bpdiast bpsystol if sex == 2, lcolor(pink)), /// &gt; legend(label(1 “Men”) label(2 “Women”) order(1 2))</p>
-<pre><code>
-&lt;img src="Graph18.svg" &gt;
-
-We can see the correlation between blood pressure measures, with a bit stronger of a relationship for men.
-
-^#^^#^ Exercise 3
-</code></pre>
-<p>. webuse nhanes2, clear</p>
-<pre><code>
-1)
-
-The sample size is massive, so the central limit theorem suffices.
-
-2)
-</code></pre>
-<p>. ttest height == 176 if sex == 1</p>
-<section id="one-sample-t-test" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="one-sample-t-test"><span class="header-section-number">8.1</span> One-sample t test</h2>
-<table class="table">
-<colgroup>
-<col style="width: 11%">
-<col style="width: 88%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Variable</th>
-<th>Obs Mean Std. err. Std. dev. [95% conf. interval]</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>height</td>
-<td>4,915 174.7421 .1026447 7.196115 174.5408 174.9433</td>
-</tr>
-</tbody>
-</table>
-<table class="table">
-<colgroup>
-<col style="width: 100%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">mean = mean(height) t = -12.2553 H0: mean = 176 Degrees of freedom = 4914</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Group | Obs Mean Std. err. Std. dev. [95% conf. interval] ———+——————————————————————– Male | 4,915 47.4238 .2448869 17.1683 46.94372 47.90389 Female | 5,436 47.72057 .2340613 17.25716 47.26171 48.17942 ———+——————————————————————– Combined | 10,351 47.57965 .1692044 17.21483 47.24798 47.91133 ———+——————————————————————– diff | -.2967619 .338842 -.9609578 .3674339</td>
-</tr>
-</tbody>
-</table>
-<pre><code>diff = mean(Male) - mean(Female)                              t =  -0.8758</code></pre>
-<p>H0: diff = 0 Degrees of freedom = 10349</p>
-<pre><code>Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff &gt; 0</code></pre>
-<p>Pr(T &lt; t) = 0.1906 Pr(|T| &gt; |t|) = 0.3812 Pr(T &gt; t) = 0.8094</p>
-<pre><code>
-We fail to reject; there is no difference that the average age differs by gender.
-
-4)
-</code></pre>
-<p>. tab race diabetes</p>
-<pre><code>       |    Diabetes status
-  Race | Not diabe   Diabetic |     Total</code></pre>
-<p>———–+———————-+———- White | 8,659 404 | 9,063 Black | 1,000 86 | 1,086 Other | 191 9 | 200 ———–+———————-+———- Total | 9,850 499 | 10,349</p>
-<pre><code>
-Given the different scales per race, it's hard to draw a comparison. We can look at the rowwise percents. (If you ran `tab diabetes race`, you'd need
-the columnwise percents.)
-</code></pre>
-<p>. tab race diabetes, row chi2</p>
-<table class="table">
-<colgroup>
-<col style="width: 23%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><h2 id="key" data-number="8.2" class="anchored"><span class="header-section-number">8.2</span> Key</h2>
-<p>frequency row percentage</p></td>
-</tr>
-</tbody>
-</table>
-<pre><code>       |    Diabetes status
-  Race | Not diabe   Diabetic |     Total</code></pre>
-<p>———–+———————-+———- White | 8,659 404 | 9,063 | 95.54 4.46 | 100.00 ———–+———————-+———- Black | 1,000 86 | 1,086 | 92.08 7.92 | 100.00 ———–+———————-+———- Other | 191 9 | 200 | 95.50 4.50 | 100.00 ———–+———————-+———- Total | 9,850 499 | 10,349 | 95.18 4.82 | 100.00</p>
-<pre><code>      Pearson chi2(2) =  25.3630   Pr = 0.000</code></pre>
-<pre><code>
-Nearly double the percent of blacks have diabetes and the ^$^\chi^2^$^ test confirms the difference is statistically significant.
-
-^#^^#^ Exercise 4
-</code></pre>
-<p>. webuse nhanes2, clear</p>
-<p>. regress lead i.sex i.race c.age c.weight c.height i.region</p>
-<pre><code>  Source |       SS           df       MS      Number of obs   =     4,948</code></pre>
-<p>————-+———————————- F(9, 4938) = 129.98 Model | 36027.945 9 4003.105 Prob &gt; F = 0.0000 Residual | 152083.33 4,938 30.7985682 R-squared = 0.1915 ————-+———————————- Adj R-squared = 0.1901 Total | 188111.275 4,947 38.0253234 Root MSE = 5.5496</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">lead | Coefficient Std. err. t P&gt;|t| [95% conf. interval]</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">————-+—————————————————————-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">sex |</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">Female | -5.26415 .2259894 -23.29 0.000 -5.70719 -4.82111</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">race |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">Black | 2.937124 .2671182 11.00 0.000 2.413454 3.460794</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">Other | -.5521668 .5617011 -0.98 0.326 -1.653351 .549017</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">age | .0196081 .0048918 4.01 0.000 .0100181 .0291981</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">weight | -.0012435 .0059001 -0.21 0.833 -.0128103 .0103233</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">height | -.0275532 .0127149 -2.17 0.030 -.05248 -.0026264</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">region |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">MW | -.1099025 .233614 -0.47 0.638 -.5678897 .3480848</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">S | -1.858491 .2346487 -7.92 0.000 -2.318507 -1.398476</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">W | -.2854048 .2380554 -1.20 0.231 -.7520992 .1812897</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">_cons | 21.16891 2.199034 9.63 0.000 16.85783 25.48</td>
-</tr>
-</tbody>
-</table>
-<pre><code>
-1)
-
-The F-test rejects so the model is informative. The ^$^R^2^$^ is low, so there is a lot of variability we're not capturing in this model.
-
-2)
-</code></pre>
-<p>. rvfplot</p>
-<pre><code>
-&lt;img src="Graph19.svg" &gt;
-
-This doesn't look great. We don't see any signs of nonnormality, but we do see a lot of very large positive residuals. If you look at a histogram for
-`lead`,
-</code></pre>
-<p>. hist lead (bin=36, start=2, width=2.1666667)</p>
-<pre><code>
-&lt;img src="Graph20.svg" &gt;
-
-We see right skew. The maintainers of this data noticed the same concern, as they include a `loglead` variable in the data to attempt to address this.
-</code></pre>
-<p>. desc loglead</p>
-<p>Variable Storage Display Value name type format label Variable label ——————————————————————————- loglead float %9.0g log(lead)</p>
-<pre><code>
-Perhaps we should have run the model with `loglead` as the output instead.
-
-3)
-</code></pre>
-<p>. estat vif</p>
-<pre><code>Variable |       VIF       1/VIF  </code></pre>
-<p>————-+———————- 2.sex | 2.05 0.488262 race | 2 | 1.05 0.950220 3 | 1.06 0.941064 age | 1.13 0.885331 weight | 1.33 0.749151 height | 2.44 0.410091 region | 2 | 1.71 0.583352 3 | 1.77 0.566163 4 | 1.73 0.576881 ————-+———————- Mean VIF | 1.59</p>
-<pre><code>
-Nothing of concern here. The only moderately high VIF's are on sex and it's interaction, which does not concern us (of course a main effect and
-interaction are collinear.).
-
-4)
-
-The coffecient on "Female" is -5 and is statistically significant, so there is evidence that males have higher average lead levels.
-
-5)
-
-The p-value is very small, so it is statistically significant. However, if we look at lead levels:
-</code></pre>
-<p>. summ lead</p>
-<pre><code>Variable |        Obs        Mean    Std. dev.       Min        Max</code></pre>
-<p>————-+——————————————————— lead | 4,948 14.32033 6.166468 2 80</p>
-<pre><code>
-We see that lead levels range from 2 to 80. The coefficient on age is about .02, so age would need to increase by about 50 years to see a higher value
-for the lead score. Unlikely to be clinically interesting! This is a side effect of the massive sample size.
-
-6)
-</code></pre>
-<p>. margins region</p>
-<p>Predictive margins Number of obs = 4,948 Model VCE: OLS</p>
-<p>Expression: Linear prediction, predict()</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">| Delta-method</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">| Margin std. err. t P&gt;|t| [95% conf. interval]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">————-+—————————————————————-</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">region |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">NE | 14.93498 .176734 84.51 0.000 14.5885 15.28145</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">MW | 14.82507 .1532375 96.75 0.000 14.52466 15.12549</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">S | 13.07649 .1525888 85.70 0.000 12.77734 13.37563</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">W | 14.64957 .1588465 92.22 0.000 14.33816 14.96098</td>
-</tr>
-</tbody>
-</table>
-<p>. margins region, pwcompare(pv)</p>
-<p>Pairwise comparisons of predictive margins Number of obs = 4,948 Model VCE: OLS</p>
-<p>Expression: Linear prediction, predict()</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">| Delta-method Unadjusted</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">| Contrast std. err. t P&gt;|t|</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">————-+—————————————</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">region |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">MW vs NE | -.1099025 .233614 -0.47 0.638</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">S vs NE | -1.858491 .2346487 -7.92 0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">W vs NE | -.2854048 .2380554 -1.20 0.231</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">S vs MW | -1.748589 .2161764 -8.09 0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">W vs MW | -.1755023 .2216647 -0.79 0.429</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">W vs S | 1.573087 .2227974 7.06 0.000</td>
-</tr>
-</tbody>
-</table>
-<pre><code>
-It looks like South is significantly lower levels of lead than the other regions, which show no difference between them.
-
-7)
-</code></pre>
-<p>. regress lead i.sex##c.age i.race c.weight c.height i.region</p>
-<pre><code>  Source |       SS           df       MS      Number of obs   =     4,948</code></pre>
-<p>————-+———————————- F(10, 4937) = 123.65 Model | 37676.3642 10 3767.63642 Prob &gt; F = 0.0000 Residual | 150434.91 4,937 30.4709156 R-squared = 0.2003 ————-+———————————- Adj R-squared = 0.1987 Total | 188111.275 4,947 38.0253234 Root MSE = 5.52</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">lead | Coefficient Std. err. t P&gt;|t| [95% conf. interval]</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">————-+—————————————————————-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">sex |</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">Female | -8.485856 .4923314 -17.24 0.000 -9.451044 -7.520667</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">age | -.0150619 .0067745 -2.22 0.026 -.0283429 -.0017809</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">sex#c.age |</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">Female | .0676205 .0091936 7.36 0.000 .0495969 .0856441</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">race |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">Black | 2.985719 .2657756 11.23 0.000 2.464681 3.506758</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">Other | -.5307013 .5587129 -0.95 0.342 -1.626027 .5646243</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">weight | -.0044452 .0058847 -0.76 0.450 -.0159819 .0070915</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">height | -.0266069 .0126477 -2.10 0.035 -.0514021 -.0018118</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">region |</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">MW | -.1417546 .2324084 -0.61 0.542 -.5973783 .3138691</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">S | -1.897967 .2334589 -8.13 0.000 -2.35565 -1.440284</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">W | -.2945939 .2367891 -1.24 0.214 -.7588057 .169618</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">_cons | 22.89998 2.199931 10.41 0.000 18.58714 27.21282</td>
-</tr>
-</tbody>
-</table>
-<p>. margins sex, dydx(age)</p>
-<p>Average marginal effects Number of obs = 4,948 Model VCE: OLS</p>
-<p>Expression: Linear prediction, predict() dy/dx wrt: age</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">| Delta-method</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">| dy/dx std. err. t P&gt;|t| [95% conf. interval]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">————-+—————————————————————-</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">age |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">sex |</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Male | -.0150619 .0067745 -2.22 0.026 -.0283429 -.0017809</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Female | .0525586 .006614 7.95 0.000 .0395923 .0655249</td>
-</tr>
-</tbody>
-</table>
-<p>. quietly margins sex, at(age = (20 45 70))</p>
-<p>. marginsplot</p>
-<p>Variables that uniquely identify margins: age sex</p>
-<pre><code>
-&lt;img src="Graph21.svg" &gt;
-
-We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again,
-rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly
-1 unit every 20 years). The marginal plot helps us to visualize this. For men, from age 20 to 70, the average lead decreases barely half a point. For
-women, we see nearly a 3 point average increase.
-
-
-^#^^#^ Exercise 5
-</code></pre>
-<p>. webuse nhanes2, clear</p>
-<p>. logit diabetes i.sex i.race c.age weight height i.region</p>
-<p>Iteration 0: Log likelihood = -1999.7591<br>
-Iteration 1: Log likelihood = -1819.9899<br>
-Iteration 2: Log likelihood = -1777.7462<br>
-Iteration 3: Log likelihood = -1776.9939<br>
-Iteration 4: Log likelihood = -1776.9935<br>
-Iteration 5: Log likelihood = -1776.9935</p>
-<p>Logistic regression Number of obs = 10,349 LR chi2(9) = 445.53 Prob &gt; chi2 = 0.0000 Log likelihood = -1776.9935 Pseudo R2 = 0.1114</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">diabetes | Coefficient Std. err. z P&gt;|z| [95% conf. interval]</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">————-+—————————————————————-</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">sex |</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">Female | .0934803 .137068 0.68 0.495 -.175168 .3621286</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">race |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">Black | .5781259 .1326244 4.36 0.000 .3181869 .8380648</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">Other | .408093 .3623376 1.13 0.260 -.3020757 1.118262</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">age | .058799 .0039646 14.83 0.000 .0510286 .0665695</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">weight | .0268805 .0031111 8.64 0.000 .0207829 .0329782</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">height | -.0220928 .0076659 -2.88 0.004 -.0371175 -.007068</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">region |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">MW | -.0265833 .1418506 -0.19 0.851 -.3046054 .2514388</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">S | .0998071 .1375642 0.73 0.468 -.1698138 .3694281</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">W | -.0984779 .1457444 -0.68 0.499 -.3841316 .1871758</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">|</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">_cons | -4.645124 1.3496 -3.44 0.001 -7.290292 -1.999956</td>
-</tr>
-</tbody>
-</table>
-<pre><code>
-1)
-</code></pre>
-<p>. estat gof</p>
-<p>Goodness-of-fit test after logistic model Variable: diabetes</p>
-<pre><code>  Number of observations =   10,349</code></pre>
-<p>Number of covariate patterns = 10,349 Pearson chi2(10339) = 10025.54 Prob &gt; chi2 = 0.9860</p>
-<p>. estat gof, group(20) note: obs collapsed on 20 quantiles of estimated probabilities.</p>
-<p>Goodness-of-fit test after logistic model Variable: diabetes</p>
-<p>Number of observations = 10,349 Number of groups = 20 Hosmer–Lemeshow chi2(18) = 15.92 Prob &gt; chi2 = 0.5983</p>
-<p>. lroc</p>
-<p>Logistic model for diabetes</p>
-<p>Number of observations = 10349 Area under ROC curve = 0.7665</p>
-<pre><code>
-&lt;img src="Graph22.svg" &gt;
-
-We cannot reject the model fit (even once we switch to the proper Hosmer-Lemeshow test, which used 20 instead of 10 because we have 10 predictors). The ROC and AUC look decent but not great.
-
-2)
-</code></pre>
-<p>. margins race, pwcompare(pv)</p>
-<p>Pairwise comparisons of predictive margins Number of obs = 10,349 Model VCE: OIM</p>
-<p>Expression: Pr(diabetes), predict()</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">| Delta-method Unadjusted</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">| Contrast std. err. z P&gt;|z|</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">—————-+—————————————</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">race |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Black vs White | .0301076 .0081584 3.69 0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Other vs White | .0197925 .0204751 0.97 0.334</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Other vs Black | -.0103152 .0220354 -0.47 0.640</td>
-</tr>
-</tbody>
-</table>
-<p>. margins region, pwcompare(pv)</p>
-<p>Pairwise comparisons of predictive margins Number of obs = 10,349 Model VCE: OIM</p>
-<p>Expression: Pr(diabetes), predict()</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">| Delta-method Unadjusted</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">| Contrast std. err. z P&gt;|z|</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">————-+—————————————</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">region |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">MW vs NE | -.0011484 .0061371 -0.19 0.852</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">S vs NE | .0045414 .0062131 0.73 0.465</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">W vs NE | -.0041309 .0061392 -0.67 0.501</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">S vs MW | .0056899 .0056911 1.00 0.317</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">W vs MW | -.0029825 .0056876 -0.52 0.600</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">W vs S | -.0086724 .0057535 -1.51 0.132</td>
-</tr>
-</tbody>
-</table>
-<pre><code>
-Blacks are more likely to have diabetes than whites or others. Age and weight are positive predictors whereas height is a negative predictor for some
-reason. There is no effect of gender or region.
-
-^#^^#^ Exercise 6
-</code></pre>
-<p>. webuse chicken, clear</p>
-<p>. melogit complain grade i.race i.gender tenure age income /// &gt; nworkers i.genderm || restaurant:</p>
-<p>Fitting fixed-effects model:</p>
-<p>Iteration 0: Log likelihood = -1341.7541<br>
-Iteration 1: Log likelihood = -1337.7735<br>
-Iteration 2: Log likelihood = -1337.7659<br>
-Iteration 3: Log likelihood = -1337.7659</p>
-<p>Refining starting values:</p>
-<p>Grid node 0: Log likelihood = -1331.542</p>
-<p>Fitting full model:</p>
-<p>Iteration 0: Log likelihood = -1331.542<br>
-Iteration 1: Log likelihood = -1323.2469<br>
-Iteration 2: Log likelihood = -1321.7555<br>
-Iteration 3: Log likelihood = -1321.7325<br>
-Iteration 4: Log likelihood = -1321.7325</p>
-<p>Mixed-effects logistic regression Number of obs = 2,763 Group variable: restaurant Number of groups = 500</p>
-<pre><code>                                            Obs per group:
-                                                          min =          3
-                                                          avg =        5.5
-                                                          max =          8</code></pre>
-<p>Integration method: mvaghermite Integration pts. = 7</p>
-<pre><code>                                            Wald chi2(9)      =     117.56</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> race, <span class="fu">mi</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>       Race |      Freq.     Percent        Cum.</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>------------+-----------------------------------</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      White |      9,065       87.58       87.58</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      Black |      1,086       10.49       98.07</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      Other |        200        1.93      100.00</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>------------+-----------------------------------</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      Total |     10,351      100.00</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>No missing data.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> diabetes, <span class="fu">mi</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    Diabetes |</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      status |      Freq.     Percent        Cum.</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>-------------+-----------------------------------</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Not diabetic |      9,850       95.16       95.16</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    Diabetic |        499        4.82       99.98</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>           . |          2        0.02      100.00</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>-------------+-----------------------------------</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>       Total |     10,351      100.00</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Two missing values.</p>
+<p><code>lead</code> is continuous, so a table isn’t the most effective.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">codebook</span> lead</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>lead                                                              Lead (mcg/dL)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                  Type: Numeric (<span class="kw">byte</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                 Range: [2,80]                        Units: 1</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>         Unique <span class="kw">values</span>: 53                        Missing .: 5,403/10,351</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                  Mean: 14.3203</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>             Std. <span class="kw">dev</span>.: 6.16647</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>           Percentiles:     10%       25%       50%       75%       90%</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                              8        10        13        17        22</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There’s a lot of missingness.</p>
+<ol start="4" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">pwcorr</span> height <span class="kw">weight</span> bp*</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>             |   height   <span class="kw">weight</span> bpsystol  bpdiast</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>      height |   1.0000 </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |   0.4775   1.0000 </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    bpsystol |  -0.0364   0.2861   1.0000 </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>     bpdiast |   0.0675   0.3799   0.6831   1.0000 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Blood pressure is highly correlated, more-so than height and weight. Weight is also correlated with both forms of BP. Height looks to be completely independent of boood pressure.</p>
 </section>
-<section id="log-likelihood--1321.7325-prob-chi2-0.0000" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="log-likelihood--1321.7325-prob-chi2-0.0000"><span class="header-section-number">8.3</span> Log likelihood = -1321.7325 Prob &gt; chi2 = 0.0000</h2>
-<pre><code>complain | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]</code></pre>
-<p>————-+—————————————————————- grade | .0616416 .0463355 1.33 0.183 -.0291742 .1524574 | race | 2 | .5512152 .140432 3.93 0.000 .2759736 .8264568 3 | 1.180759 .137298 8.60 0.000 .9116599 1.449858 | 1.gender | .5866638 .1059402 5.54 0.000 .3790247 .7943029 tenure | -.0699963 .1727861 -0.41 0.685 -.4086509 .2686582 age | -.0748883 .0230589 -3.25 0.001 -.1200828 -.0296938 income | -.0034531 .0016933 -2.04 0.041 -.006772 -.0001343 nworkers | -.0303442 .0391781 -0.77 0.439 -.1071318 .0464435 1.genderm | .0795912 .1245047 0.64 0.523 -.1644336 .3236159 _cons | .3910687 1.103955 0.35 0.723 -1.772644 2.554781 ————-+—————————————————————- restaurant | var(_cons)| .5755458 .1417722 .3551455 .9327247 —————————————————————————— LR test vs.&nbsp;logistic model: chibar2(01) = 32.07 Prob &gt;= chibar2 = 0.0000</p>
-<pre><code>
-1)
-
-We can't look at fit statistics, but the ^$^\chi^2^$^ is significant, so we're doing better than chance.
-
-2)
-</code></pre>
-<p>. margins race, pwcompare(pv)</p>
-<p>Pairwise comparisons of predictive margins Number of obs = 2,763 Model VCE: OIM</p>
-<p>Expression: Marginal predicted mean, predict()</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">| Delta-method Unadjusted</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">| Contrast std. err. z P&gt;|z|</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">————-+—————————————</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">race |</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">2 vs 1 | .0665377 .0166607 3.99 0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">3 vs 1 | .1685295 .0185599 9.08 0.000</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">3 vs 2 | .1019918 .019303 5.28 0.000</td>
-</tr>
-</tbody>
-</table>
-<p>~~~~</p>
+<section id="exercise-2" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">8.2</span> Exercise 2</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> nhanes2, <span class="kw">clear</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> bpdiast bpsystol <span class="kw">if</span> sex == 1, mcolor(<span class="bn">blue</span>)) <span class="co">///</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">scatter</span> bpdiast bpsystol <span class="kw">if</span> sex == 2, mcolor(<span class="bn">pink</span>)) <span class="co">///</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> bpdiast bpsystol <span class="kw">if</span> sex == 1, lcolor(<span class="bn">blue</span>)) <span class="co">///</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> bpdiast bpsystol <span class="kw">if</span> sex == 2, lcolor(<span class="bn">pink</span>)), <span class="co">///</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>&gt;         <span class="bn">legend</span>(<span class="kw">label</span>(1 <span class="st">"Men"</span>) <span class="kw">label</span>(2 <span class="st">"Women"</span>) <span class="kw">order</span>(1 2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph41.svg"></p>
+<p>We can see the correlation between blood pressure measures, with a bit stronger of a relationship for men.</p>
+</section>
+<section id="exercise-3" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">8.3</span> Exercise 3</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> nhanes2, <span class="kw">clear</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li></li>
+</ol>
+<p>The sample size is massive, so the central limit theorem suffices.</p>
+<ol start="2" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">ttest</span> height == 176 <span class="kw">if</span> sex == 1</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>One-<span class="kw">sample</span> t <span class="kw">test</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Variable |     Obs        Mean    Std. err.   Std. <span class="kw">dev</span>.   [95% conf. interval]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  height |   4,915    174.7421    .1026447    7.196115    174.5408    174.9433</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mean</span> = <span class="kw">mean</span>(height)                                           t = -12.2553</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>H0: <span class="kw">mean</span> = 176                                   Degrees <span class="kw">of</span> freedom =     4914</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>   Ha: <span class="kw">mean</span> &lt; 176               Ha: <span class="kw">mean</span> != 176               Ha: <span class="kw">mean</span> &gt; 176</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a> Pr(T &lt; t) = 0.0000         Pr(|T| &gt; |t|) = 0.0000          Pr(T &gt; t) = 1.0000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The test rejects; the average height of men in the sample is lower than the national average.</p>
+<ol start="3" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">ttest</span> age, <span class="kw">by</span>(sex)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Two-<span class="kw">sample</span> t <span class="kw">test</span> with equal variances</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>   Group |     Obs        Mean    Std. err.   Std. <span class="kw">dev</span>.   [95% conf. interval]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    Male |   4,915     47.4238    .2448869     17.1683    46.94372    47.90389</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  Female |   5,436    47.72057    .2340613    17.25716    47.26171    48.17942</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>Combined |  10,351    47.57965    .1692044    17.21483    47.24798    47.91133</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">diff</span> |           -.2967619     .338842               -.9609578    .3674339</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">diff</span> = <span class="kw">mean</span>(Male) - <span class="kw">mean</span>(Female)                              t =  -0.8758</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>H0: <span class="fu">diff</span> = 0                                     Degrees <span class="kw">of</span> freedom =    10349</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    Ha: <span class="fu">diff</span> &lt; 0                 Ha: <span class="fu">diff</span> != 0                 Ha: <span class="fu">diff</span> &gt; 0</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a> Pr(T &lt; t) = 0.1906         Pr(|T| &gt; |t|) = 0.3812          Pr(T &gt; t) = 0.8094</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We fail to reject; there is no difference that the average age differs by gender.</p>
+<ol start="4" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> race diabetes</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>           |    Diabetes status</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>      Race | Not diabe   Diabetic |     Total</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>     White |     8,659        404 |     9,063 </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>     Black |     1,000         86 |     1,086 </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>     Other |       191          9 |       200 </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>     Total |     9,850        499 |    10,349 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Given the different scales per race, it’s hard to draw a comparison. We can look at the rowwise percents. (If you ran <code>tab diabetes race</code>, you’d need the columnwise percents.)</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> race diabetes, <span class="ot">row</span> <span class="fu">chi2</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>+----------------+</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>| Key            |</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>|----------------|</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>|   <span class="kw">frequency</span>    |</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>| <span class="ot">row</span> percentage |</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>+----------------+</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>           |    Diabetes status</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>      Race | Not diabe   Diabetic |     Total</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>     White |     8,659        404 |     9,063 </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>           |     95.54       4.46 |    100.00 </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>     Black |     1,000         86 |     1,086 </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>           |     92.08       7.92 |    100.00 </span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>     Other |       191          9 |       200 </span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>           |     95.50       4.50 |    100.00 </span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>     Total |     9,850        499 |    10,349 </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>           |     95.18       4.82 |    100.00 </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>          Pearson <span class="fu">chi2</span>(2) =  25.3630   Pr = 0.000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nearly double the percent of blacks have diabetes and the <sup><span class="math inline">\(^\chi^2^\)</span></sup> test confirms the difference is statistically significant.</p>
+</section>
+<section id="exercise-4" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">8.4</span> Exercise 4</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> nhanes2, <span class="kw">clear</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">regress</span> lead i.sex i.race c.age c.<span class="kw">weight</span> c.height i.region</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>      Source |       SS           df       MS      Number <span class="kw">of</span> <span class="kw">obs</span>   =     4,948</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   <span class="fu">F</span>(9, 4938)      =    129.98</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>       Model |   36027.945         9    4003.105   Prob &gt; <span class="fu">F</span>        =    0.0000</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    Residual |   152083.33     4,938  30.7985682   R-squared       =    0.1915</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   Adj R-squared   =    0.1901</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>       Total |  188111.275     4,947  38.0253234   Root MSE        =    5.5496</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        lead | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>         sex |</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>     Female  |   -5.26415   .2259894   -23.29   0.000     -5.70719    -4.82111</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        race |</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>      Black  |   2.937124   .2671182    11.00   0.000     2.413454    3.460794</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>      Other  |  -.5521668   .5617011    -0.98   0.326    -1.653351     .549017</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>         age |   .0196081   .0048918     4.01   0.000     .0100181    .0291981</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |  -.0012435   .0059001    -0.21   0.833    -.0128103    .0103233</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>      height |  -.0275532   .0127149    -2.17   0.030      -.05248   -.0026264</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>      region |</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>         MW  |  -.1099025    .233614    -0.47   0.638    -.5678897    .3480848</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>          S  |  -1.858491   .2346487    -7.92   0.000    -2.318507   -1.398476</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>          W  |  -.2854048   .2380554    -1.20   0.231    -.7520992    .1812897</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   21.16891   2.199034     9.63   0.000     16.85783       25.48</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li></li>
+</ol>
+<p>The F-test rejects so the model is informative. The <sup><span class="math inline">\(^R^2^\)</span></sup> is low, so there is a lot of variability we’re not capturing in this model.</p>
+<ol start="2" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">rvfplot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph42.svg"></p>
+<p>This doesn’t look great. We don’t see any signs of nonnormality, but we do see a lot of very large positive residuals. If you look at a histogram for <code>lead</code>,</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">hist</span> lead</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(<span class="bn">bin</span>=36, <span class="bn">start</span>=2, <span class="kw">width</span>=2.1666667)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph43.svg"></p>
+<p>We see right skew. The maintainers of this data noticed the same concern, as they include a <code>loglead</code> variable in the data to attempt to address this.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">desc</span> loglead</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Variable      Storage   Display    Value</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="bn">name</span>         <span class="dv">type</span>    <span class="kw">format</span>    <span class="kw">label</span>      Variable <span class="kw">label</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>loglead         <span class="kw">float</span>   %9.0g                 <span class="fu">log</span>(lead)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Perhaps we should have run the model with <code>loglead</code> as the output instead.</p>
+<ol start="3" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb17"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estat</span> <span class="kw">vif</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    Variable |       VIF       1/VIF  </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>-------------+----------------------</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       2.sex |      2.05    0.488262</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        race |</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>          2  |      1.05    0.950220</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>          3  |      1.06    0.941064</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>         age |      1.13    0.885331</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |      1.33    0.749151</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>      height |      2.44    0.410091</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>      region |</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>          2  |      1.71    0.583352</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>          3  |      1.77    0.566163</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>          4  |      1.73    0.576881</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>-------------+----------------------</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    Mean VIF |      1.59</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Nothing of concern here. The only moderately high VIF’s are on sex and it’s interaction, which does not concern us (of course a main effect and interaction are collinear.).</p>
+<ol start="4" type="1">
+<li></li>
+</ol>
+<p>The coffecient on “Female” is -5 and is statistically significant, so there is evidence that males have higher average lead levels.</p>
+<ol start="5" type="1">
+<li></li>
+</ol>
+<p>The p-value is very small, so it is statistically significant. However, if we look at lead levels:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>. summ lead</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        lead |      4,948    14.32033    6.166468          2         80</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We see that lead levels range from 2 to 80. The coefficient on age is about .02, so age would need to increase by about 50 years to see a higher value for the lead score. Unlikely to be clinically interesting! This is a side effect of the massive sample size.</p>
+<ol start="6" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb19"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>. margins region</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>Predictive margins                                       Number <span class="kw">of</span> <span class="kw">obs</span> = 4,948</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>Model <span class="kw">VCE</span>: OLS</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>Expression: Linear prediction, <span class="kw">predict</span>()</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>             |            Delta-method</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>             |     Margin   <span class="fu">std</span>. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>      region |</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>         NE  |   14.93498    .176734    84.51   0.000      14.5885    15.28145</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>         MW  |   14.82507   .1532375    96.75   0.000     14.52466    15.12549</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>          S  |   13.07649   .1525888    85.70   0.000     12.77734    13.37563</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>          W  |   14.64957   .1588465    92.22   0.000     14.33816    14.96098</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>. margins region, pwcompare(pv)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>Pairwise comparisons <span class="kw">of</span> predictive margins               Number <span class="kw">of</span> <span class="kw">obs</span> = 4,948</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>Model <span class="kw">VCE</span>: OLS</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>Expression: Linear prediction, <span class="kw">predict</span>()</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>             |            Delta-method    Unadjusted</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>             |   Contrast   <span class="fu">std</span>. err.      t    P&gt;|t|</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>      region |</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>   MW vs NE  |  -.1099025    .233614    -0.47   0.638</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    S vs NE  |  -1.858491   .2346487    -7.92   0.000</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>    W vs NE  |  -.2854048   .2380554    -1.20   0.231</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>    S vs MW  |  -1.748589   .2161764    -8.09   0.000</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>    W vs MW  |  -.1755023   .2216647    -0.79   0.429</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>     W vs S  |   1.573087   .2227974     7.06   0.000</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It looks like South is significantly lower levels of lead than the other regions, which show no difference between them.</p>
+<ol start="7" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb20"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">regress</span> lead i.sex##c.age i.race c.<span class="kw">weight</span> c.height i.region</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>      Source |       SS           df       MS      Number <span class="kw">of</span> <span class="kw">obs</span>   =     4,948</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   <span class="fu">F</span>(10, 4937)     =    123.65</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>       Model |  37676.3642        10  3767.63642   Prob &gt; <span class="fu">F</span>        =    0.0000</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    Residual |   150434.91     4,937  30.4709156   R-squared       =    0.2003</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   Adj R-squared   =    0.1987</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>       Total |  188111.275     4,947  38.0253234   Root MSE        =      5.52</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        lead | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>         sex |</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>     Female  |  -8.485856   .4923314   -17.24   0.000    -9.451044   -7.520667</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>         age |  -.0150619   .0067745    -2.22   0.026    -.0283429   -.0017809</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>   sex#c.age |</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>     Female  |   .0676205   .0091936     7.36   0.000     .0495969    .0856441</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        race |</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>      Black  |   2.985719   .2657756    11.23   0.000     2.464681    3.506758</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>      Other  |  -.5307013   .5587129    -0.95   0.342    -1.626027    .5646243</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |  -.0044452   .0058847    -0.76   0.450    -.0159819    .0070915</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>      height |  -.0266069   .0126477    -2.10   0.035    -.0514021   -.0018118</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>      region |</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>         MW  |  -.1417546   .2324084    -0.61   0.542    -.5973783    .3138691</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>          S  |  -1.897967   .2334589    -8.13   0.000     -2.35565   -1.440284</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>          W  |  -.2945939   .2367891    -1.24   0.214    -.7588057     .169618</span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   22.89998   2.199931    10.41   0.000     18.58714    27.21282</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>. margins sex, <span class="kw">dydx</span>(age)</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>Average marginal <span class="kw">effects</span>                                 Number <span class="kw">of</span> <span class="kw">obs</span> = 4,948</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>Model <span class="kw">VCE</span>: OLS</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>Expression: Linear prediction, <span class="kw">predict</span>()</span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>dy/dx wrt:  age</span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>             |            Delta-method</span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>             |      dy/dx   <span class="fu">std</span>. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>age          |</span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>         sex |</span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>       Male  |  -.0150619   .0067745    -2.22   0.026    -.0283429   -.0017809</span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>     Female  |   .0525586    .006614     7.95   0.000     .0395923    .0655249</span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a>. <span class="kw">quietly</span> margins sex, <span class="fu">at</span>(age = (20 45 70))</span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>. marginsplot</span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a>Variables that uniquely identify margins: age sex</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph44.svg"></p>
+<p>We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again, rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly 1 unit every 20 years). The marginal plot helps us to visualize this. For men, from age 20 to 70, the average lead decreases barely half a point. For women, we see nearly a 3 point average increase.</p>
+</section>
+<section id="exercise-5" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">8.5</span> Exercise 5</h2>
+<div class="sourceCode" id="cb21"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> nhanes2, <span class="kw">clear</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> diabetes i.sex i.race c.age <span class="kw">weight</span> height i.region</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>Iteration 0:  Log likelihood = -1999.7591  </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>Iteration 1:  Log likelihood = -1819.9899  </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>Iteration 2:  Log likelihood = -1777.7462  </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>Iteration 3:  Log likelihood = -1776.9939  </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>Iteration 4:  Log likelihood = -1776.9935  </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>Iteration 5:  Log likelihood = -1776.9935  </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>Logistic regression                                     Number <span class="kw">of</span> <span class="kw">obs</span> = 10,349</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>                                                        LR <span class="fu">chi2</span>(9)    = 445.53</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>                                                        Prob &gt; <span class="fu">chi2</span>   = 0.0000</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>Log likelihood = -1776.9935                             Pseudo R2     = 0.1114</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    diabetes | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>         sex |</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>     Female  |   .0934803    .137068     0.68   0.495     -.175168    .3621286</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>        race |</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>      Black  |   .5781259   .1326244     4.36   0.000     .3181869    .8380648</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>      Other  |    .408093   .3623376     1.13   0.260    -.3020757    1.118262</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>         age |    .058799   .0039646    14.83   0.000     .0510286    .0665695</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |   .0268805   .0031111     8.64   0.000     .0207829    .0329782</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>      height |  -.0220928   .0076659    -2.88   0.004    -.0371175    -.007068</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>      region |</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>         MW  |  -.0265833   .1418506    -0.19   0.851    -.3046054    .2514388</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>          S  |   .0998071   .1375642     0.73   0.468    -.1698138    .3694281</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>          W  |  -.0984779   .1457444    -0.68   0.499    -.3841316    .1871758</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |  -4.645124     1.3496    -3.44   0.001    -7.290292   -1.999956</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb22"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estat</span> gof</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Goodness-<span class="kw">of</span>-<span class="kw">fit</span> <span class="kw">test</span> after <span class="kw">logistic</span> <span class="kw">model</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>Variable: diabetes</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>      Number <span class="kw">of</span> observations =   10,349</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>Number <span class="kw">of</span> covariate <span class="kw">patterns</span> =   10,349</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>         Pearson <span class="fu">chi2</span>(10339) = 10025.54</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                 Prob &gt; <span class="fu">chi2</span> =   0.9860</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estat</span> gof, <span class="fu">group</span>(20)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="kw">note</span>: <span class="kw">obs</span> collapsed <span class="kw">on</span> 20 quantiles <span class="kw">of</span> estimated probabilities.</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>Goodness-<span class="kw">of</span>-<span class="kw">fit</span> <span class="kw">test</span> after <span class="kw">logistic</span> <span class="kw">model</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>Variable: diabetes</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  Number <span class="kw">of</span> observations = 10,349</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>        Number <span class="kw">of</span> groups =     20</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>Hosmer–Lemeshow <span class="fu">chi2</span>(18) =  15.92</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>             Prob &gt; <span class="fu">chi2</span> = 0.5983</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>. <span class="kw">lroc</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>Logistic <span class="kw">model</span> <span class="kw">for</span> diabetes</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>Number <span class="kw">of</span> observations =    10349</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>Area under ROC curve   =   0.7665</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph45.svg"></p>
+<p>We cannot reject the model fit (even once we switch to the proper Hosmer-Lemeshow test, which used 20 instead of 10 because we have 10 predictors). The ROC and AUC look decent but not great.</p>
+<ol start="2" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb23"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>. margins race, pwcompare(pv)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>Pairwise comparisons <span class="kw">of</span> predictive margins              Number <span class="kw">of</span> <span class="kw">obs</span> = 10,349</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>Model <span class="kw">VCE</span>: OIM</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>Expression: Pr(diabetes), <span class="kw">predict</span>()</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>                |            Delta-method    Unadjusted</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>                |   Contrast   <span class="fu">std</span>. err.      z    P&gt;|z|</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>----------------+---------------------------------------</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>           race |</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>Black vs White  |   .0301076   .0081584     3.69   0.000</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>Other vs White  |   .0197925   .0204751     0.97   0.334</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>Other vs Black  |  -.0103152   .0220354    -0.47   0.640</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>. margins region, pwcompare(pv)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>Pairwise comparisons <span class="kw">of</span> predictive margins              Number <span class="kw">of</span> <span class="kw">obs</span> = 10,349</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>Model <span class="kw">VCE</span>: OIM</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>Expression: Pr(diabetes), <span class="kw">predict</span>()</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>             |            Delta-method    Unadjusted</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>             |   Contrast   <span class="fu">std</span>. err.      z    P&gt;|z|</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>      region |</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>   MW vs NE  |  -.0011484   .0061371    -0.19   0.852</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    S vs NE  |   .0045414   .0062131     0.73   0.465</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>    W vs NE  |  -.0041309   .0061392    -0.67   0.501</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>    S vs MW  |   .0056899   .0056911     1.00   0.317</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>    W vs MW  |  -.0029825   .0056876    -0.52   0.600</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>     W vs S  |  -.0086724   .0057535    -1.51   0.132</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Blacks are more likely to have diabetes than whites or others. Age and weight are positive predictors whereas height is a negative predictor for some reason. There is no effect of gender or region.</p>
+</section>
+<section id="exercise-6" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">8.6</span> Exercise 6</h2>
+<div class="sourceCode" id="cb24"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> chicken, <span class="kw">clear</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>. melogit complain grade i.race i.gender tenure age income <span class="co">///</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>&gt;     nworkers i.genderm || restaurant:</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>Fitting fixed-<span class="kw">effects</span> <span class="kw">model</span>:</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>Iteration 0:  Log likelihood = -1341.7541  </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>Iteration 1:  Log likelihood = -1337.7735  </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>Iteration 2:  Log likelihood = -1337.7659  </span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>Iteration 3:  Log likelihood = -1337.7659  </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>Refining starting <span class="kw">values</span>:</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>Grid node 0:  Log likelihood =  -1331.542</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>Fitting full <span class="kw">model</span>:</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>Iteration 0:  Log likelihood =  -1331.542  </span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>Iteration 1:  Log likelihood = -1323.2469  </span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>Iteration 2:  Log likelihood = -1321.7555  </span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>Iteration 3:  Log likelihood = -1321.7325  </span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>Iteration 4:  Log likelihood = -1321.7325  </span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>Mixed-<span class="kw">effects</span> <span class="kw">logistic</span> regression               Number <span class="kw">of</span> <span class="kw">obs</span>     =      2,763</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>Group <span class="kw">variable</span>: restaurant                      Number <span class="kw">of</span> groups  =        500</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>                                                Obs per <span class="fu">group</span>:</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>                                                              <span class="fu">min</span> =          3</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>                                                              avg =        5.5</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>                                                              <span class="fu">max</span> =          8</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>Integration method: mvaghermite                 Integration pts.  =          7</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>                                                Wald <span class="fu">chi2</span>(9)      =     117.56</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>Log likelihood = -1321.7325                     Prob &gt; <span class="fu">chi2</span>       =     0.0000</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>    complain | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>       grade |   .0616416   .0463355     1.33   0.183    -.0291742    .1524574</span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>        race |</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>          2  |   .5512152    .140432     3.93   0.000     .2759736    .8264568</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>          3  |   1.180759    .137298     8.60   0.000     .9116599    1.449858</span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>    1.gender |   .5866638   .1059402     5.54   0.000     .3790247    .7943029</span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>      tenure |  -.0699963   .1727861    -0.41   0.685    -.4086509    .2686582</span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>         age |  -.0748883   .0230589    -3.25   0.001    -.1200828   -.0296938</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>      income |  -.0034531   .0016933    -2.04   0.041     -.006772   -.0001343</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>    nworkers |  -.0303442   .0391781    -0.77   0.439    -.1071318    .0464435</span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>   1.genderm |   .0795912   .1245047     0.64   0.523    -.1644336    .3236159</span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   .3910687   1.103955     0.35   0.723    -1.772644    2.554781</span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>restaurant   |</span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a>   <span class="kw">var</span>(<span class="dt">_cons</span>)|   .5755458   .1417722                      .3551455    .9327247</span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>LR <span class="kw">test</span> vs. <span class="kw">logistic</span> <span class="kw">model</span>: chibar2(01) = 32.07       Prob &gt;= chibar2 = 0.0000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li></li>
+</ol>
+<p>We can’t look at fit statistics, but the <sup><span class="math inline">\(^\chi^2^\)</span></sup> is significant, so we’re doing better than chance.</p>
+<ol start="2" type="1">
+<li></li>
+</ol>
+<div class="sourceCode" id="cb25"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>. margins race, pwcompare(pv)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>Pairwise comparisons <span class="kw">of</span> predictive margins               Number <span class="kw">of</span> <span class="kw">obs</span> = 2,763</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>Model <span class="kw">VCE</span>: OIM</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>Expression: Marginal predicted <span class="kw">mean</span>, <span class="kw">predict</span>()</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>             |            Delta-method    Unadjusted</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>             |   Contrast   <span class="fu">std</span>. err.      z    P&gt;|z|</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        race |</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>     2 vs 1  |   .0665377   .0166607     3.99   0.000</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>     3 vs 1  |   .1685295   .0185599     9.08   0.000</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>     3 vs 2  |   .1019918    .019303     5.28   0.000</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Unfortunately, this data is poorly labeled so we can’t talk in specifics about things, but generally</p>
 <ul>
 <li>Race 1, 2 and 3 have increasing odds of a complaint.</li>
@@ -1116,7 +1034,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./07-multiple-imputation.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

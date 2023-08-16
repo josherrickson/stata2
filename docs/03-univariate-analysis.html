@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intermediate Stata (Statistical Modeling) - 3&nbsp; One-sample t test</title>
+<title>Intermediate Stata (Statistical Modeling) - 3&nbsp; Univariate (and some Bivariate) Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-univariate-analysis.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-univariate-analysis.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -110,49 +144,49 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-summarizing-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-univariate-analysis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-survey-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multiple-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></span></a>
   </div>
 </li>
     </ul>
@@ -161,14 +195,32 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#one-sample-t-test" id="toc-one-sample-t-test" class="nav-link active" data-scroll-target="#one-sample-t-test"><span class="header-section-number">3.1</span> One-sample t-test</a></li>
+  <li><a href="#two-sample-t-test" id="toc-two-sample-t-test" class="nav-link" data-scroll-target="#two-sample-t-test"><span class="header-section-number">3.2</span> Two-sample t-test</a>
+  <ul class="collapse">
+  <li><a href="#independent" id="toc-independent" class="nav-link" data-scroll-target="#independent"><span class="header-section-number">3.2.1</span> Independent</a></li>
+  <li><a href="#paired" id="toc-paired" class="nav-link" data-scroll-target="#paired"><span class="header-section-number">3.2.2</span> Paired</a></li>
+  <li><a href="#comparing-proportions" id="toc-comparing-proportions" class="nav-link" data-scroll-target="#comparing-proportions"><span class="header-section-number">3.2.3</span> Comparing Proportions</a></li>
+  </ul></li>
+  <li><a href="#chi-square-test" id="toc-chi-square-test" class="nav-link" data-scroll-target="#chi-square-test"><span class="header-section-number">3.3</span> Chi-square test</a>
+  <ul class="collapse">
+  <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test"><span class="header-section-number">3.3.1</span> Fisher’s Exact Test</a></li>
+  </ul></li>
+  <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">3.4</span> Exercise 3</a></li>
+  <li><a href="#citations" id="toc-citations" class="nav-link" data-scroll-target="#citations"><span class="header-section-number">3.5</span> Citations</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></h1>
 </div>
 
 
@@ -183,7 +235,6 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><sup>#</sup> Univariate (and some Bivariate) Analysis</p>
 <p>We start with analyzing single variables at a time, and then quickly discuss a chi-squared test which is a bivariate analysis. While these tests form the basis of many other methods, by themselves they are of limited us. All the tests we discuss here come with two very strong assumptions:</p>
 <ol type="1">
 <li>No other measured or unmeasured variables play a role in any relationship.</li>
@@ -198,10 +249,10 @@ ul.task-list li input[type="checkbox"] {
 <li>In randomized controlled experiments (such as in a lab): In these situations, you truly can ensure that both those assumptions are met. Just randomization is not sufficient, as the benefit of randomization is only guaranteed <em>theoretically</em> for <em>infinitely large samples</em>. Randomization helps a lot, but it’s not perfect!</li>
 </ol>
 <p>Reload the auto data set</p>
-<pre><code>. sysuse auto, clear
-(1978 automobile data)
-</code></pre>
-<p><sup>##</sup> One-sample t-test</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">sysuse</span> auto, <span class="kw">clear</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(1978 automobile <span class="kw">data</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="one-sample-t-test" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="one-sample-t-test"><span class="header-section-number">3.1</span> One-sample t-test</h2>
 <p>A one-sample t-test tests whether the mean of a variable is equal to some constant. It is not needed a lot of the time (if we hypothesize that the average test score is 70, and every students get above an 80, why would we need to test this?), but we introduce it here just as a basis of further methods.</p>
 <p>There are several assumptions necessary for a one-sample t-test, most of which are trivial/not that important. The two relatively important ones are</p>
 <ol type="1">
@@ -211,29 +262,28 @@ ul.task-list li input[type="checkbox"] {
 <p>There is no way to test the independence assumption, you must determine this based upon your knowledge of the data.</p>
 <p>We can try and determine whether the normal distribution is valid for the data, but note that failing to find this does not imply the normality of the mean assumption is violated. This can be checked with a histogram or a qq-plot.</p>
 <p>Let’s test whether the average mileage in the data is different from 20.</p>
-<pre><code>. hist mpg, normal
-(bin=8, start=12, width=3.625)
-</code></pre>
-<p><img src="Graph11.svg"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">hist</span> mpg, <span class="fu">normal</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>(<span class="bn">bin</span>=8, <span class="bn">start</span>=12, <span class="kw">width</span>=3.625)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph34.svg"></p>
 <p>In a histogram, we are looking for violations from the bell-shape of a normal curve. We added the normal curve to the plot by the <code>normal</code> option. We can see that while the data is not perfectly normal, it also is not too far off. We can look at a qq-plot for further details.</p>
-<pre><code>. qnorm mpg
-</code></pre>
-<p><img src="Graph12.svg"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">qnorm</span> mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph35.svg"></p>
 <p>With a qq-plot, we are looking for the points to roughly fall in a straight line, alone the 45-degree line. Here we see some mild violations of those, especially at either end.</p>
 <p>Put together, this indicates that normality is not perfect, but its also not a terrible violation.</p>
 <p>However, we don’t really care! The sample size is large enough that that assumption is valid. We can therefore perform our test using the <code>ttest</code> command.</p>
-<pre><code>. ttest mpg == 20
-
-Variable |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
----------+--------------------------------------------------------------------
-     mpg |      74     21.2973    .6725511    5.785503     19.9569    22.63769
-------------------------------------------------------------------------------
-    mean = mean(mpg)                                              t =   1.9289
-H0: mean = 20                                    Degrees of freedom =       73
-
-    Ha: mean &lt; 20               Ha: mean != 20                 Ha: mean &gt; 20
- Pr(T &lt; t) = 0.9712         Pr(|T| &gt; |t|) = 0.0576          Pr(T &gt; t) = 0.0288
-</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">ttest</span> mpg == 20</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>One-<span class="kw">sample</span> t <span class="kw">test</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Variable |     Obs        Mean    Std. err.   Std. <span class="kw">dev</span>.   [95% conf. interval]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>     mpg |      74     21.2973    .6725511    5.785503     19.9569    22.63769</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mean</span> = <span class="kw">mean</span>(mpg)                                              t =   1.9289</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>H0: <span class="kw">mean</span> = 20                                    Degrees <span class="kw">of</span> freedom =       73</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    Ha: <span class="kw">mean</span> &lt; 20               Ha: <span class="kw">mean</span> != 20                 Ha: <span class="kw">mean</span> &gt; 20</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a> Pr(T &lt; t) = 0.9712         Pr(|T| &gt; |t|) = 0.0576          Pr(T &gt; t) = 0.0288</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Our null hypothesis, the claim we are trying to see whether we have the evidence to reject, is that the average <code>mpg</code> in the population represented by this data is 20. We sometimes also just call 20, the value the null hypothesis is testing, the null hypothesis (e.g.&nbsp;“We are testing against the null hypothesis of 20.”).</p>
 <p>Looking at the analysis, we see that we get some summary statistics. The 95% confidence interval represents the range which, if we were to draw repeated samples of the same size (74) from the population of all cars, we would expect 95% of the estimated means to fall in that range.</p>
 <p>Below that, we see some details of the test being run. The important detail is that the null Hypothesis (<code>Ho</code>) is what you meant for it to be.</p>
@@ -246,358 +296,277 @@ H0: mean = 20                                    Degrees of freedom =       73
 <p>The last interpretation (corresponding to <code>Ha: mean != 20</code> from the output) is known as the two-sided p-value, and should be your default. The other two, known as one-sided p-values, can be used if a priori you decide that you’re only interested in one direction.</p>
 <p>The typical threshold used is p = .05, so we would fail to reject the null hypothesis (since .0576 &gt; .05), although this is extremely close to significant!</p>
 <p>(Of course that first p-value &amp; interpretation is unnecessary - the observed test statistic is greater than 20, so there’s no chance we’d be able to make the argument that the true mean is less than 20!)</p>
-<p><sup>##</sup> Two-sample t-test</p>
+</section>
+<section id="two-sample-t-test" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="two-sample-t-test"><span class="header-section-number">3.2</span> Two-sample t-test</h2>
 <p>While the one-sided t-test isn’t used very often, the two-sample version is. There are two different variations of it.</p>
-<p><sup>###</sup> Independent</p>
+<section id="independent" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="independent"><span class="header-section-number">3.2.1</span> Independent</h3>
 <p>The independent two-sample t-test arises when you have two independent groups which have the same measurement, and you wish to test whether the mean of the two groups is equivalent. The same basic assumptions, independence (although here it’s both within group [each observation is independent from each other] and between groups [the two groups are independent, e.g.&nbsp;these are not repeated measures on the same person]) and normality of the mean.</p>
 <p>For example in our data, we can test whether foreign and American cars have the same average mileage. We will again use the <code>ttest</code> command, though slightly differently.</p>
-<pre><code>. ttest mpg, by(foreign)
-
-Two-sample t test with equal variances
-------------------------------------------------------------------------------
-   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
----------+--------------------------------------------------------------------
-Domestic |      52    19.82692     .657777    4.743297    18.50638    21.14747
- Foreign |      22    24.77273     1.40951    6.611187    21.84149    27.70396
----------+--------------------------------------------------------------------
-Combined |      74     21.2973    .6725511    5.785503     19.9569    22.63769
----------+--------------------------------------------------------------------
-    diff |           -4.945804    1.362162               -7.661225   -2.230384
-------------------------------------------------------------------------------
-    diff = mean(Domestic) - mean(Foreign)                         t =  -3.6308
-H0: diff = 0                                     Degrees of freedom =       72
-
-    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff &gt; 0
- Pr(T &lt; t) = 0.0003         Pr(|T| &gt; |t|) = 0.0005          Pr(T &gt; t) = 0.9997
-</code></pre>
-<p>The output is very similar to <a href="solutions.html#one-sample-t-test">above</a>. We get some descriptives by group, and combined, as well as a confidence interval for the difference. Notice that the null hypothesis (<code>Ho</code>) is simply 0 because we are testing whether the difference between the groups is statistically significant, regardless of the actual values of the means.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">ttest</span> mpg, <span class="kw">by</span>(foreign)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Two-<span class="kw">sample</span> t <span class="kw">test</span> with equal variances</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>   Group |     Obs        Mean    Std. err.   Std. <span class="kw">dev</span>.   [95% conf. interval]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>Domestic |      52    19.82692     .657777    4.743297    18.50638    21.14747</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a> Foreign |      22    24.77273     1.40951    6.611187    21.84149    27.70396</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>Combined |      74     21.2973    .6725511    5.785503     19.9569    22.63769</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">diff</span> |           -4.945804    1.362162               -7.661225   -2.230384</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">diff</span> = <span class="kw">mean</span>(Domestic) - <span class="kw">mean</span>(Foreign)                         t =  -3.6308</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>H0: <span class="fu">diff</span> = 0                                     Degrees <span class="kw">of</span> freedom =       72</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    Ha: <span class="fu">diff</span> &lt; 0                 Ha: <span class="fu">diff</span> != 0                 Ha: <span class="fu">diff</span> &gt; 0</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a> Pr(T &lt; t) = 0.0003         Pr(|T| &gt; |t|) = 0.0005          Pr(T &gt; t) = 0.9997</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The output is very similar to <a href="#one-sample-t-test">above</a>. We get some descriptives by group, and combined, as well as a confidence interval for the difference. Notice that the null hypothesis (<code>Ho</code>) is simply 0 because we are testing whether the difference between the groups is statistically significant, regardless of the actual values of the means.</p>
 <p>The p-values have the same interpretation, though in terms of the difference of means rather than just the means. More-so than even in the one-sided test, you should use the two-sided p-value, so our p-value is 0.0005. Just as a note, do not report this p-value as 0 if you round! Instead, report that the p-value is less than .01 or less than .001.</p>
 <p>“There is less than a .1% chance that, if the average mileage was equivalent in domestic and foreign cars, we would observe a difference in the average mileage of 4.945804 or more.” Note that the sign of the difference doesn’t matter here because we’re looking at the two-sided version; the sign tells us that foreign cars in the sample have higher average mileage than domestic cars.</p>
 <p>However, there is an additional assumption here that we neglected; namely that the variances of the two groups are equivalent. If you make this assumption, then the above analysis is sufficient. However, if you don’t make this assumption, you can instead run the two-sample t-test with unequal variances by adding the <code>unequal</code> option.</p>
-<pre><code>. ttest mpg, by(foreign) unequal
-
-Two-sample t test with unequal variances
-------------------------------------------------------------------------------
-   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
----------+--------------------------------------------------------------------
-Domestic |      52    19.82692     .657777    4.743297    18.50638    21.14747
- Foreign |      22    24.77273     1.40951    6.611187    21.84149    27.70396
----------+--------------------------------------------------------------------
-Combined |      74     21.2973    .6725511    5.785503     19.9569    22.63769
----------+--------------------------------------------------------------------
-    diff |           -4.945804    1.555438               -8.120053   -1.771556
-------------------------------------------------------------------------------
-    diff = mean(Domestic) - mean(Foreign)                         t =  -3.1797
-H0: diff = 0                     Satterthwaite's degrees of freedom =  30.5463
-
-    Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff &gt; 0
- Pr(T &lt; t) = 0.0017         Pr(|T| &gt; |t|) = 0.0034          Pr(T &gt; t) = 0.9983
-</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">ttest</span> mpg, <span class="kw">by</span>(foreign) unequal</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Two-<span class="kw">sample</span> t <span class="kw">test</span> with unequal variances</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>   Group |     Obs        Mean    Std. err.   Std. <span class="kw">dev</span>.   [95% conf. interval]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Domestic |      52    19.82692     .657777    4.743297    18.50638    21.14747</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a> Foreign |      22    24.77273     1.40951    6.611187    21.84149    27.70396</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>Combined |      74     21.2973    .6725511    5.785503     19.9569    22.63769</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">diff</span> |           -4.945804    1.555438               -8.120053   -1.771556</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">diff</span> = <span class="kw">mean</span>(Domestic) - <span class="kw">mean</span>(Foreign)                         t =  -3.1797</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>H0: <span class="fu">diff</span> = 0                     Satterthwaite's degrees <span class="kw">of</span> freedom =  30.5463</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    Ha: <span class="fu">diff</span> &lt; 0                 Ha: <span class="fu">diff</span> != 0                 Ha: <span class="fu">diff</span> &gt; 0</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a> Pr(T &lt; t) = 0.0017         Pr(|T| &gt; |t|) = 0.0034          Pr(T &gt; t) = 0.9983</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The unequal test is slightly more conservative, but there has been some work (e.g.&nbsp;<a href="#citations">Delacre et al 2017</a>, <a href="#citations">Ruxton 2006</a>) showing that you should always use the unequal version.</p>
 <p>The equal variance version (the first one we ran) is known as Student’s<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> t-test, and the unequal variance version (with the <code>unequal</code> option) is known as Welch’s t-test.</p>
 <p>If you want to test whether the variance between the two groups is equal, you can use <code>sdtest</code> in a similar fashion to <code>ttest</code> (<code>sdtest mpg, by(foreign)</code>).</p>
-<p><sup>###</sup> Paired</p>
+</section>
+<section id="paired" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="paired"><span class="header-section-number">3.2.2</span> Paired</h3>
 <p>We noted in the assumptions above that we need the two groups to be independent. What if they aren’t? An example of paired data would include before-and-after measures or measures from two family members. In both cases, it is reasonable to assume the two measures from the same person or family are more similar than a measure from one person against a measure from another person.</p>
 <p>The auto data set does not have a good example of paired data, so lets use the “bpwide” data instead.</p>
-<pre><code>. sysuse bpwide, clear
-(Fictional blood-pressure data)
-
-. list in 1/5
-
-     +-----------------------------------------------+
-     | patient    sex   agegrp   bp_bef~e   bp_after |
-     |-----------------------------------------------|
-  1. |       1   Male    30-45        143        153 |
-  2. |       2   Male    30-45        163        170 |
-  3. |       3   Male    30-45        153        168 |
-  4. |       4   Male    30-45        153        142 |
-  5. |       5   Male    30-45        146        141 |
-     +-----------------------------------------------+
-</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">sysuse</span> bpwide, <span class="kw">clear</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>(Fictional blood-pressure <span class="kw">data</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>. <span class="ot">list</span> <span class="kw">in</span> 1/5</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>     +-----------------------------------------------+</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>     | patient    sex   agegrp   bp_bef~<span class="fu">e</span>   bp_after |</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>     |-----------------------------------------------|</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  1. |       1   Male    30-45        143        153 |</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  2. |       2   Male    30-45        163        170 |</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  3. |       3   Male    30-45        153        168 |</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  4. |       4   Male    30-45        153        142 |</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  5. |       5   Male    30-45        146        141 |</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>     +-----------------------------------------------+</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We have measures from different patients, including a before and after measure of the blood pressure. We again use <code>ttest</code> to perform the test:</p>
-<pre><code>. ttest bp_after == bp_before
-
-Paired t test
-------------------------------------------------------------------------------
-Variable |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
----------+--------------------------------------------------------------------
-bp_after |     120    151.3583    1.294234    14.17762    148.7956     153.921
-bp_bef~e |     120      156.45    1.039746    11.38985    154.3912    158.5088
----------+--------------------------------------------------------------------
-    diff |     120   -5.091667    1.525736     16.7136   -8.112776   -2.070557
-------------------------------------------------------------------------------
-     mean(diff) = mean(bp_after - bp_before)                      t =  -3.3372
- H0: mean(diff) = 0                              Degrees of freedom =      119
-
- Ha: mean(diff) &lt; 0           Ha: mean(diff) != 0           Ha: mean(diff) &gt; 0
- Pr(T &lt; t) = 0.0006         Pr(|T| &gt; |t|) = 0.0011          Pr(T &gt; t) = 0.9994
-</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">ttest</span> bp_after == bp_before</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Paired t <span class="kw">test</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Variable |     Obs        Mean    Std. err.   Std. <span class="kw">dev</span>.   [95% conf. interval]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>bp_after |     120    151.3583    1.294234    14.17762    148.7956     153.921</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>bp_bef~<span class="fu">e</span> |     120      156.45    1.039746    11.38985    154.3912    158.5088</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">diff</span> |     120   -5.091667    1.525736     16.7136   -8.112776   -2.070557</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>     <span class="kw">mean</span>(<span class="fu">diff</span>) = <span class="kw">mean</span>(bp_after - bp_before)                      t =  -3.3372</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a> H0: <span class="kw">mean</span>(<span class="fu">diff</span>) = 0                              Degrees <span class="kw">of</span> freedom =      119</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a> Ha: <span class="kw">mean</span>(<span class="fu">diff</span>) &lt; 0           Ha: <span class="kw">mean</span>(<span class="fu">diff</span>) != 0           Ha: <span class="kw">mean</span>(<span class="fu">diff</span>) &gt; 0</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a> Pr(T &lt; t) = 0.0006         Pr(|T| &gt; |t|) = 0.0011          Pr(T &gt; t) = 0.9994</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We see that the blood pressure after is slightly lower (151 vs 156), and the two-sided p-value is statistically significant!</p>
-<p>While we technically used the paired t-test for this, behind the scenes, this is identical to generating a difference variable (e.g.&nbsp;post score - pre score) and performing the <a href="solutions.html#one-sample-t-test">one-sample t-test</a>:</p>
-<pre><code>. gen bp_change = bp_after - bp_before
-
-. ttest bp_change == 0
-
-One-sample t test
-------------------------------------------------------------------------------
-Variable |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
----------+--------------------------------------------------------------------
-bp_cha~e |     120   -5.091667    1.525736     16.7136   -8.112776   -2.070557
-------------------------------------------------------------------------------
-    mean = mean(bp_change)                                        t =  -3.3372
-H0: mean = 0                                     Degrees of freedom =      119
-
-    Ha: mean &lt; 0                 Ha: mean != 0                 Ha: mean &gt; 0
- Pr(T &lt; t) = 0.0006         Pr(|T| &gt; |t|) = 0.0011          Pr(T &gt; t) = 0.9994
-</code></pre>
-<p><sup>###</sup> Comparing Proportions</p>
+<p>While we technically used the paired t-test for this, behind the scenes, this is identical to generating a difference variable (e.g.&nbsp;post score - pre score) and performing the <a href="#one-sample-t-test">one-sample t-test</a>:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> bp_change = bp_after - bp_before</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">ttest</span> bp_change == 0</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>One-<span class="kw">sample</span> t <span class="kw">test</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>Variable |     Obs        Mean    Std. err.   Std. <span class="kw">dev</span>.   [95% conf. interval]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>---------+--------------------------------------------------------------------</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>bp_cha~<span class="fu">e</span> |     120   -5.091667    1.525736     16.7136   -8.112776   -2.070557</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">mean</span> = <span class="kw">mean</span>(bp_change)                                        t =  -3.3372</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>H0: <span class="kw">mean</span> = 0                                     Degrees <span class="kw">of</span> freedom =      119</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    Ha: <span class="kw">mean</span> &lt; 0                 Ha: <span class="kw">mean</span> != 0                 Ha: <span class="kw">mean</span> &gt; 0</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a> Pr(T &lt; t) = 0.0006         Pr(|T| &gt; |t|) = 0.0011          Pr(T &gt; t) = 0.9994</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="comparing-proportions" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="comparing-proportions"><span class="header-section-number">3.2.3</span> Comparing Proportions</h3>
 <p>If you have a ordinal variable (a categorical variable that has an ordering to it), a t-test is often still appropriate<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. However, for binary variables, we should not use a regular t-test. Instead we use a Z-test<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
 <p>The command in stata is <code>prtest</code> and it functions identically to <code>ttest</code>:</p>
-<p>One-sample: ~~~~ . webuse pneumoniacrt, clear (Bacterial pneumonia episodes data from CRT (Hayes and Moulton 2009))</p>
-<p>. prtest pneumonia = .25</p>
-<p>One-sample test of proportion Number of obs = 449</p>
-<table class="table">
-<colgroup>
-<col style="width: 100%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: right;">Variable | Mean Std. err. [95% conf. interval] ————-+—————————————————————- pneumonia | .1959911 .0187338 .1592736 .2327086</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">p = proportion(pneumonia) z = -2.6429 H0: p = 0.25</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">Ha: p &lt; 0.25 Ha: p != 0.25 Ha: p &gt; 0.25 Pr(Z &lt; z) = 0.0041 Pr(|Z| &gt; |z|) = 0.0082 Pr(Z &gt; z) = 0.9959</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">~~~~</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">Independent two-sample: ~~~~ . prtest pneumonia, by(vaccine)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">Two-sample test of proportions MnCC: Number of obs = 238 PnCRM7: Number of obs = 211</td>
-</tr>
-</tbody>
-</table>
-<pre><code>   Group |       Mean   Std. err.      z    P&gt;|z|     [95% conf. interval]</code></pre>
-<p>————-+—————————————————————- MnCC | .2226891 .0269686 .1698316 .2755466 PnCRM7 | .1658768 .0256075 .1156871 .2160665 ————-+—————————————————————- diff | .0568123 .0371894 -.0160775 .1297021 | under H0: .0375355 1.51 0.130 —————————————————————————— diff = prop(MnCC) - prop(PnCRM7) z = 1.5136 H0: diff = 0</p>
-<pre><code>Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff &gt; 0</code></pre>
-<p>Pr(Z &lt; z) = 0.9349 Pr(|Z| &gt; |z|) = 0.1301 Pr(Z &gt; z) = 0.0651</p>
-<pre><code>
-Paired two-sample</code></pre>
-<p>. sysuse bpwide, clear (Fictional blood-pressure data)</p>
-<p>. gen bp_beforehigh = bp_before &gt; 160</p>
-<p>. gen bp_afterhigh = bp_after &gt; 160</p>
-<p>. list *high in 1/5</p>
-<pre><code> +---------------------+
- | bp_bef~h   bp_aft~h |
- |---------------------|</code></pre>
-<ol type="1">
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 0 |</p></li>
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 1 |</p></li>
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 1 |</p></li>
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 0 |</p></li>
-<li><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0 0 |</p>
-+———————+</li>
-</ol>
-<p>. prtest bp_afterhigh = bp_beforehigh</p>
-<p>Two-sample test of proportions bp_afterhigh: Number of obs = 120 bp_beforehig: Number of obs = 120 —————————————————————————— Variable | Mean Std. err. z P&gt;|z| [95% conf. interval] ————-+—————————————————————- bp_afterhigh | .2583333 .039958 .180017 .3366496 bp_beforehig | .35 .0435412 .2646609 .4353391 ————-+—————————————————————- diff | -.0916667 .0590972 -.207495 .0241617 | under H0: .0593927 -1.54 0.123 —————————————————————————— diff = prop(bp_afterhigh) - prop(bp_beforehig) z = -1.5434 H0: diff = 0</p>
-<pre><code>Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff &gt; 0</code></pre>
-<p>Pr(Z &lt; z) = 0.0614 Pr(|Z| &gt; |z|) = 0.1227 Pr(Z &gt; z) = 0.9386</p>
-<pre><code>
-
-
-^#^^#^ Chi-square test
-
-We've seen how to handle continuous and binary variables, and even some ordinal variables. However, if we want to look at a categorical variable which
-is not binary and we cannot treat as continuous, we can instead use a ^$^\chi^2^$^ test (^$^\chi^$^ is a Greek letter which is spelled "chi" in
-English, and rhymes with "why"). There are a few variations on the ^$^\chi^2^$^ test, the version we talk of here is a test of association, where we
-are testing the null hypothesis that the distribution of one variable is the same at every level of another variable. Let's return to the auto data
-set, and compare `rep78` (Repair Record 1978) and `foreign`. We'll start by looking at a crosstab.
-</code></pre>
-<p>. sysuse auto, clear (1978 automobile data)</p>
-<p>. tab foreign rep78</p>
-<pre><code>       |                   Repair record 1978</code></pre>
-<table class="table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 72%">
-<col style="width: 13%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Car origin</th>
-<th>1 2 3 4 5</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Domestic</td>
-<td>2 8 27 9 2</td>
-<td>48</td>
-</tr>
-<tr class="even">
-<td>Foreign</td>
-<td>0 0 3 9 9</td>
-<td>21</td>
-</tr>
-</tbody>
-</table>
-<p>———–+——————————————————-+———- Total | 2 8 30 18 11 | 69</p>
-<pre><code>
-If you're not familiar with crosstabs, each cell represents the number of observations which fall into the category - for example, there are 8 cars
-which are both Domestic and have a Repair Record of 2.
-
-We can think of testing whether the association between these two variables exists from either direction - we can either ask "Is the probability of a
-car having a specific repair record the same among domestic cars as among foreign cars", or "Is the probability of a car being foreign or domestic the
-same across all levels of repair record". We test it by adding the `chi2` option to `tab`:
-</code></pre>
-<p>. tab foreign rep78, chi2</p>
-<pre><code>       |                   Repair record 1978</code></pre>
-<table class="table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 72%">
-<col style="width: 13%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Car origin</th>
-<th>1 2 3 4 5</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Domestic</td>
-<td>2 8 27 9 2</td>
-<td>48</td>
-</tr>
-<tr class="even">
-<td>Foreign</td>
-<td>0 0 3 9 9</td>
-<td>21</td>
-</tr>
-</tbody>
-</table>
-<p>———–+——————————————————-+———- Total | 2 8 30 18 11 | 69</p>
-<pre><code>      Pearson chi2(4) =  27.2640   Pr = 0.000</code></pre>
-<pre><code>
-Here we can see that the p-value (`pr`) associated with the ^$^\chi^2\^$^ test is very low (less than .001, p-values are never 0^[Unless you're in a
-pathological setting, i.e. you're testing whether the average height of a population is less than 6 feet, and somehow you get an average height of -20
-feet....]!), so we can reject the null hypothesis and claim there is evidence of a statistically significant association between `foreign` and
-`rep78`.
-
-Note that the ^$^\chi^2\^$^ test ignores scale - if we had 4,800 Domestic cars instead of 48, and the percentage at each Repair Record were the same
-(e.g. instead of 8 Domestic cars with Repair Record of 2, we had 800), we would get the same test result.
-
-Finally, the critiques [above](univariate-and-some-bivariate-analysis.html) about the lack of usefulness of t-tests extends to ^$^\chi^2^$^ tests as
-well.
-
-^#^^#^^#^ Fisher's Exact Test
-
-However, we probably should not have performed a ^$^\chi^2^$^ test here. One important assumption of the ^$^\chi^2^$^ test is that the *expected*
-count in each cell is at least 5. The expected count is the row total times the column total divided by the total number. For example, we looked at
-the 8 vehicles that were domestic which a Repair Record of 2. The row total is the number of domestic cars (48) and the column total is the number of
-cars with Repair Record of 2 (8), with a total of 69 cars overall (`rep78` has 5 missing values). Therefore, the expected count is
-
-^$$^
+<p>One-sample:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> pneumoniacrt, <span class="kw">clear</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>(Bacterial pneumonia episodes <span class="kw">data</span> from CRT (Hayes and Moulton 2009))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">prtest</span> pneumonia = .25</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>One-<span class="kw">sample</span> <span class="kw">test</span> <span class="kw">of</span> <span class="kw">proportion</span>                   Number <span class="kw">of</span> <span class="kw">obs</span>      =       449</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    Variable |       Mean   Std. err.                     [95% conf. interval]</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>   pneumonia |   .1959911   .0187338                      .1592736    .2327086</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">p</span> = <span class="kw">proportion</span>(pneumonia)                                     z =  -2.6429</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>H0: <span class="kw">p</span> = 0.25</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    Ha: <span class="kw">p</span> &lt; 0.25                 Ha: <span class="kw">p</span> != 0.25                 Ha: <span class="kw">p</span> &gt; 0.25</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a> Pr(Z &lt; z) = 0.0041         Pr(|Z| &gt; |z|) = 0.0082          Pr(Z &gt; z) = 0.9959</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Independent two-sample:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">prtest</span> pneumonia, <span class="kw">by</span>(vaccine)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Two-<span class="kw">sample</span> <span class="kw">test</span> <span class="kw">of</span> proportions                  MnCC: Number <span class="kw">of</span> <span class="kw">obs</span> =      238</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                                              PnCRM7: Number <span class="kw">of</span> <span class="kw">obs</span> =      211</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>       Group |       Mean   Std. err.      z    P&gt;|z|     [95% conf. interval]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        MnCC |   .2226891   .0269686                      .1698316    .2755466</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      PnCRM7 |   .1658768   .0256075                      .1156871    .2160665</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">diff</span> |   .0568123   .0371894                     -.0160775    .1297021</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>             |  under H0:   .0375355     1.51   0.130</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">diff</span> = <span class="kw">prop</span>(MnCC) - <span class="kw">prop</span>(PnCRM7)                          z =   1.5136</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    H0: <span class="fu">diff</span> = 0</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    Ha: <span class="fu">diff</span> &lt; 0                 Ha: <span class="fu">diff</span> != 0                 Ha: <span class="fu">diff</span> &gt; 0</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a> Pr(Z &lt; z) = 0.9349         Pr(|Z| &gt; |z|) = 0.1301          Pr(Z &gt; z) = 0.0651</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Paired two-sample</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">sysuse</span> bpwide, <span class="kw">clear</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>(Fictional blood-pressure <span class="kw">data</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> bp_beforehigh = bp_before &gt; 160</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> bp_afterhigh = bp_after &gt; 160</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>. <span class="ot">list</span> *high <span class="kw">in</span> 1/5</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>     +---------------------+</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>     | bp_bef~<span class="kw">h</span>   bp_aft~<span class="kw">h</span> |</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>     |---------------------|</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  1. |        0          0 |</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  2. |        1          1 |</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  3. |        0          1 |</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  4. |        0          0 |</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  5. |        0          0 |</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>     +---------------------+</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>. <span class="kw">prtest</span> bp_afterhigh = bp_beforehigh</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>Two-<span class="kw">sample</span> <span class="kw">test</span> <span class="kw">of</span> proportions          bp_afterhigh: Number <span class="kw">of</span> <span class="kw">obs</span> =      120</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>                                        bp_beforehig: Number <span class="kw">of</span> <span class="kw">obs</span> =      120</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    Variable |       Mean   Std. err.      z    P&gt;|z|     [95% conf. interval]</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>bp_afterhigh |   .2583333    .039958                       .180017    .3366496</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>bp_beforehig |        .35   .0435412                      .2646609    .4353391</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>        <span class="fu">diff</span> |  -.0916667   .0590972                      -.207495    .0241617</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>             |  under H0:   .0593927    -1.54   0.123</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>        <span class="fu">diff</span> = <span class="kw">prop</span>(bp_afterhigh) - <span class="kw">prop</span>(bp_beforehig)            z =  -1.5434</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    H0: <span class="fu">diff</span> = 0</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    Ha: <span class="fu">diff</span> &lt; 0                 Ha: <span class="fu">diff</span> != 0                 Ha: <span class="fu">diff</span> &gt; 0</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a> Pr(Z &lt; z) = 0.0614         Pr(|Z| &gt; |z|) = 0.1227          Pr(Z &gt; z) = 0.9386</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="chi-square-test" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="chi-square-test"><span class="header-section-number">3.3</span> Chi-square test</h2>
+<p>We’ve seen how to handle continuous and binary variables, and even some ordinal variables. However, if we want to look at a categorical variable which is not binary and we cannot treat as continuous, we can instead use a <sup><span class="math inline">\(^\chi^2^\)</span></sup> test (<sup><span class="math inline">\(^\chi^\)</span></sup> is a Greek letter which is spelled “chi” in English, and rhymes with “why”). There are a few variations on the <sup><span class="math inline">\(^\chi^2^\)</span></sup> test, the version we talk of here is a test of association, where we are testing the null hypothesis that the distribution of one variable is the same at every level of another variable. Let’s return to the auto data set, and compare <code>rep78</code> (Repair Record 1978) and <code>foreign</code>. We’ll start by looking at a crosstab.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">sysuse</span> auto, <span class="kw">clear</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>(1978 automobile <span class="kw">data</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> foreign rep78</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>           |                   Repair record 1978</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>Car origin |         1          2          3          4          5 |     Total</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>-----------+-------------------------------------------------------+----------</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  Domestic |         2          8         27          9          2 |        48 </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>   Foreign |         0          0          3          9          9 |        21 </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>-----------+-------------------------------------------------------+----------</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>     Total |         2          8         30         18         11 |        69 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you’re not familiar with crosstabs, each cell represents the number of observations which fall into the category - for example, there are 8 cars which are both Domestic and have a Repair Record of 2.</p>
+<p>We can think of testing whether the association between these two variables exists from either direction - we can either ask “Is the probability of a car having a specific repair record the same among domestic cars as among foreign cars”, or “Is the probability of a car being foreign or domestic the same across all levels of repair record”. We test it by adding the <code>chi2</code> option to <code>tab</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> foreign rep78, <span class="fu">chi2</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>           |                   Repair record 1978</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>Car origin |         1          2          3          4          5 |     Total</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>-----------+-------------------------------------------------------+----------</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  Domestic |         2          8         27          9          2 |        48 </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>   Foreign |         0          0          3          9          9 |        21 </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>-----------+-------------------------------------------------------+----------</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>     Total |         2          8         30         18         11 |        69 </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>          Pearson <span class="fu">chi2</span>(4) =  27.2640   Pr = 0.000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here we can see that the p-value (<code>pr</code>) associated with the <sup><span class="math inline">\(^\chi^2\^\)</span></sup> test is very low (less than .001, p-values are never 0<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>!), so we can reject the null hypothesis and claim there is evidence of a statistically significant association between <code>foreign</code> and <code>rep78</code>.</p>
+<p>Note that the <sup><span class="math inline">\(^\chi^2\^\)</span></sup> test ignores scale - if we had 4,800 Domestic cars instead of 48, and the percentage at each Repair Record were the same (e.g.&nbsp;instead of 8 Domestic cars with Repair Record of 2, we had 800), we would get the same test result.</p>
+<p>Finally, the critiques <a href="univariate-and-some-bivariate-analysis.html">above</a> about the lack of usefulness of t-tests extends to <sup><span class="math inline">\(^\chi^2^\)</span></sup> tests as well.</p>
+<section id="fishers-exact-test" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="fishers-exact-test"><span class="header-section-number">3.3.1</span> Fisher’s Exact Test</h3>
+<p>However, we probably should not have performed a <sup><span class="math inline">\(^\chi^2^\)</span></sup> test here. One important assumption of the <sup><span class="math inline">\(^\chi^2^\)</span></sup> test is that the <em>expected</em> count in each cell is at least 5. The expected count is the row total times the column total divided by the total number. For example, we looked at the 8 vehicles that were domestic which a Repair Record of 2. The row total is the number of domestic cars (48) and the column total is the number of cars with Repair Record of 2 (8), with a total of 69 cars overall (<code>rep78</code> has 5 missing values). Therefore, the expected count is</p>
+<p><sup><span class="math display">\[^
     \frac{48*8}{69} = 5.565
-^$$^
-
-This passes the assumption. To emphasize - this passed because the *expected count* is above 5. The fact that the observed count (8) is above 5 plays
-no role in this assumption.
-
-Rather than manually calculating this for each entry, the `expected` option tells Stata to do it for us.
-</code></pre>
-<p>. tab foreign rep78, expected</p>
-<table class="table">
-<colgroup>
-<col style="width: 29%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><h2 id="key" data-number="3.1" class="anchored"><span class="header-section-number">3.1</span> Key</h2>
-<pre><code> frequency</code></pre>
-<p>expected frequency</p></td>
-</tr>
-</tbody>
-</table>
-<pre><code>       |                   Repair record 1978</code></pre>
-<table class="table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 72%">
-<col style="width: 13%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Car origin</th>
-<th>1 2 3 4 5</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Domestic</td>
-<td>2 8 27 9 2</td>
-<td>48</td>
-</tr>
-<tr class="even">
-<td>1.4 5.6 20.9 12.5 7.7</td>
-<td>48.0</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>———–+——————————————————-+———- Foreign | 0 0 3 9 9 | 21 | 0.6 2.4 9.1 5.5 3.3 | 21.0 ———–+——————————————————-+———- Total | 2 8 30 18 11 | 69 | 2.0 8.0 30.0 18.0 11.0 | 69.0</p>
-<pre><code>
-We see that the assumption fails in a number of cells.
-
-There are several possible solutions. One is to perform instead of a ^$^\chi^2^$^ test, use a Fisher's Exact test. Originally designed for 2x2 designs
-(two binary variables), it can be carried out for any arbitrarily large crosstab - in theory. In practice, the calculation is simply too demanding for
-large tables. This 2x5 table is fine, but for example, a 9x9 table would fail.
-</code></pre>
-<p>. tab foreign rep78, exact</p>
-<p>Enumerating sample-space combinations: stage 5: enumerations = 1 stage 4: enumerations = 3 stage 3: enumerations = 24 stage 2: enumerations = 203 stage 1: enumerations = 0</p>
-<pre><code>       |                   Repair record 1978</code></pre>
-<table class="table">
-<colgroup>
-<col style="width: 14%">
-<col style="width: 72%">
-<col style="width: 13%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Car origin</th>
-<th>1 2 3 4 5</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Domestic</td>
-<td>2 8 27 9 2</td>
-<td>48</td>
-</tr>
-<tr class="even">
-<td>Foreign</td>
-<td>0 0 3 9 9</td>
-<td>21</td>
-</tr>
-</tbody>
-</table>
-<p>———–+——————————————————-+———- Total | 2 8 30 18 11 | 69</p>
-<pre><code>       Fisher's exact =                 0.000</code></pre>
-<p>~~~~</p>
+^\]</span></sup></p>
+<p>This passes the assumption. To emphasize - this passed because the <em>expected count</em> is above 5. The fact that the observed count (8) is above 5 plays no role in this assumption.</p>
+<p>Rather than manually calculating this for each entry, the <code>expected</code> option tells Stata to do it for us.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> foreign rep78, expected</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>+--------------------+</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>| Key                |</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>|--------------------|</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>|     <span class="kw">frequency</span>      |</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>| expected <span class="kw">frequency</span> |</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>+--------------------+</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>           |                   Repair record 1978</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>Car origin |         1          2          3          4          5 |     Total</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>-----------+-------------------------------------------------------+----------</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  Domestic |         2          8         27          9          2 |        48 </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>           |       1.4        5.6       20.9       12.5        7.7 |      48.0 </span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>-----------+-------------------------------------------------------+----------</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>   Foreign |         0          0          3          9          9 |        21 </span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>           |       0.6        2.4        9.1        5.5        3.3 |      21.0 </span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>-----------+-------------------------------------------------------+----------</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>     Total |         2          8         30         18         11 |        69 </span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>           |       2.0        8.0       30.0       18.0       11.0 |      69.0 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We see that the assumption fails in a number of cells.</p>
+<p>There are several possible solutions. One is to perform instead of a <sup><span class="math inline">\(^\chi^2^\)</span></sup> test, use a Fisher’s Exact test. Originally designed for 2x2 designs (two binary variables), it can be carried out for any arbitrarily large crosstab - in theory. In practice, the calculation is simply too demanding for large tables. This 2x5 table is fine, but for example, a 9x9 table would fail.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> foreign rep78, exact</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Enumerating <span class="kw">sample</span>-space combinations:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>stage 5:  enumerations = 1</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>stage 4:  enumerations = 3</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>stage 3:  enumerations = 24</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>stage 2:  enumerations = 203</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>stage 1:  enumerations = 0</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>           |                   Repair record 1978</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>Car origin |         1          2          3          4          5 |     Total</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>-----------+-------------------------------------------------------+----------</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  Domestic |         2          8         27          9          2 |        48 </span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>   Foreign |         0          0          3          9          9 |        21 </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>-----------+-------------------------------------------------------+----------</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>     Total |         2          8         30         18         11 |        69 </span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>           Fisher's exact =                 0.000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We obtain the same conclusion.</p>
 <p>If your crosstab is too large for the exact test, you may need to consider rebinning or an entirely different analysis method such as some sort of regression such as <a href="regression.html#logistic-regression">logistic regression</a> if one of the variables was binary, or multinomial or ordinal regression if neither are binary. (Multinomial and ordinal regression will not be covered in this workshop.)</p>
-<p><sup>##</sup> Exercise 3</p>
+</section>
+</section>
+<section id="exercise-3" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="exercise-3"><span class="header-section-number">3.4</span> Exercise 3</h2>
 <p>Load up the NHANES data.</p>
 <pre><code>sysuse nhanes2, clear</code></pre>
 <ol type="1">
@@ -606,13 +575,16 @@ large tables. This 2x5 table is fine, but for example, a 9x9 table would fail.
 <li>We would expect height and weight to differ by gender. Is there any evidence that age does?</li>
 <li>Take a look at a crosstab of <code>race</code> and <code>diabetes</code>. Does it look like the percentage of diabetics is the same across race? The <code>col</code> or <code>row</code> option might help here. Test this with a <sup><span class="math inline">\(^\chi^2^\)</span></sup> test.</li>
 </ol>
-<p><sup>##</sup> Citations</p>
+</section>
+<section id="citations" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="citations"><span class="header-section-number">3.5</span> Citations</h2>
 <ul>
 <li>Delacre, Marie, Daniël Lakens, and Christophe Leys. “Why Psychologists Should by Default Use Welch’s t-test Instead of Student’s t-test.” International Review of Social Psychology 30.1 (2017).</li>
 <li>Ruxton, Graeme D. “The unequal variance t-test is an underused alternative to Student’s t-test and the Mann–Whitney U test.” Behavioral Ecology 17.4 (2006): 688-690.</li>
 </ul>
 
 
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
@@ -620,6 +592,7 @@ large tables. This 2x5 table is fine, but for example, a 9x9 table would fail.
 <li id="fn2"><p>Named not for students in a class, but the pseudonym for statistician <a href="https://en.wikipedia.org/wiki/William_Sealy_Gosset">William Sealy Gosset</a>. Gosset worked at the Guinness brewery when he was performing some of his seminal work and wasn’t allowed to publish under his own name, so he used the pseudonym Student.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>This requires the assumption that the ordinal variable can be well approximated by a continuous variable. This assumption is fine if each level of the ordinal variable is “equally” spaced (e.g.&nbsp;the amount of “effort” to go from level 1 to level 2 is the same as from level 4 to level 5).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>The statistical reasoning is that when we’re dealing with proportions, the variance is determined directly by the mean. A t-test assumes we need to estimate the variance as well. A Z-test assumes we know the variance, which will be more efficient.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Unless you’re in a pathological setting, i.e.&nbsp;you’re testing whether the average height of a population is less than 6 feet, and somehow you get an average height of -20 feet….<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -860,12 +833,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./02-visualization.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./04-regression.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

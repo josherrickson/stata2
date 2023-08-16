@@ -1,4 +1,4 @@
-^#^ Mixed models
+# Mixed models
 
 Let's violate another regression assumption, [independence](#independence). While this is usually thought of in the repeated measurements setting, it
 is not exclusive to that. For example,
@@ -18,16 +18,16 @@ door-to-door example] to have its own intercept which we *do not estimate*.
 For this chapter, we'll turn away from the "auto" data set and instead use a sample of
 the ["National Longitudinal Survey"](https://en.wikipedia.org/wiki/National_Longitudinal_Surveys) contained in Stata:
 
-~~~~
+````stata
 . webuse nlswork, clear
 (National Longitudinal Survey of Young Women, 14-24 years old in 1968)
 
-~~~~
+````
 
 This data is a survey taken from 1968-1988, and this specific sample of the data is salary information for women. We have repeated measures in the
 sense that we have yearly data for women, so each woman can have up to 20 data points.
 
-^#^^#^ Terminology
+## Terminology
 
 There are several different names for mixed models which you might encounter, that all fit essentially the same model:
 
@@ -50,7 +50,7 @@ This is taking it a bit far; it's rare to see more than 3 levels, but in theory,
 For this workshop, we will only briefly discuss this from hierarchical point of view, preferring the mixed models view (with the reminder again that
 they are the same!).
 
-^#^^#^^#^ Econometric terminology
+### Econometric terminology
 
 To make the terminology a bit more complicated, in econometrics, some of the terms we will use here are overloaded. When you are discussing mixed
 models with someone with econometric or economics training, it's important to differentiate between the statistical terms of "fixed effects" and
@@ -60,7 +60,7 @@ effects regression" and "random effects regression".
 Without going into the full details of the econometric world, what econometricians called "random effects regression" is essentially what
 statisticians called "mixed models", what we're talking about here. The Stata command `xtreg` handles those econometric models.
 
-^#^^#^ Wide vs Long data, Time-varying vs Time-invariant
+## Wide vs Long data, Time-varying vs Time-invariant
 
 Before you begin your analysis, you need to ensure that the data is in the proper format. Let's consider the NLS data, where we have measures of
 women's salary over 20 years.
@@ -80,7 +80,7 @@ or baseline characteristics.
 
 When data is long, time-invariant variables need to be constant per person.
 
-^#^^#^ Linear Mixed Model
+## Linear Mixed Model
 
 The most basic mixed model is the linear mixed model, which extends the [linear regression](#linear-regression) model. A model is called "mixed"
 because it contains a mixture of *fixed effects* and *random effects*.
@@ -95,7 +95,7 @@ Let's fit a model using the `mixed` command. It works similar to `regress` with 
 information is very right-skewed, and a log transformation makes the data closer to normal.] using work experience, race and age. The variable
 `idcode` identifies individuals.
 
-~~~~
+````stata
 . mixed ln_w ttl_exp i.race age || idcode:
 
 Performing EM optimization ...
@@ -138,7 +138,7 @@ idcode: Identity             |
 ------------------------------------------------------------------------------
 LR test vs. linear model: chibar2(01) = 11678.16      Prob >= chibar2 = 0.0000
 
-~~~~
+````
 
 The fixed part of the equation, `ln_w ttl_exp i.race age` is the same as with linear regression, `ln_w` is the outcome and the rest are predictors,
 with `race` being categorical. The new part is `|| idcode:`. The `||` separates the fixed on the left from the random effects on the right. `idcode`
@@ -171,7 +171,7 @@ students nested in classroom situation), Stata refers to as "groups" in much of 
   regression](regression.html#linear-regression) model without the random effects. We reject the null that the models are equivalent, so it is
   appropriate to include the random effects.
 
-^#^^#^ Assumptions
+## Assumptions
 
 The [linear additivity](regression.html#relationship-is-linear-and-additive) remains necessary. `rvfplot` will not work following a `mixed` command,
 but you can [generate the residuals vs fitted plot manually](regression.html#obtaining-predicted-values-and-residuals).
@@ -183,7 +183,7 @@ examine this.
 Again, the [independence](regression.html#independence) assumption is violated by design, but observations between groups (e.g. between individuals)
 should be independent.
 
-^#^^#^ Miscellaneous
+## Miscellaneous
 
 As we've discussed before, [collinearity](regression.html#multicollinearity), [overfitting](regression.html#overfitting), and [model
 selection](regression.html#model-selection-is-bad) remain concerns.
@@ -198,7 +198,7 @@ the produce are averaged across all individuals.
 As with [linear regression](regression.html#robust-standard-errors) and [logistic regression](regression#logit-miscellaneous), `mixed` supports
 `vce(robust)` to enable robust standard errors.
 
-^#^^#^ Convergence issues
+## Convergence issues
 
 As with [logistic regression](regression.html#separation), the solution is arrived at iteratively, which means it can fail to converge for a number of
 reasons. Separation isn't an issue here (though it will be in [logistic mixed models](#convergence-issues)), but there can be other causes of a
@@ -220,7 +220,7 @@ Generally, failure to converge will be due to an issue with the data. Things to 
       could at least gain insight into the direction and approximate magnitude of the effect.
 - You can try use the "reml" optimizer, by passing the `reml` option. This optimizer can be a bit easier to converge.
 
-^#^^#^ Logistic Mixed Model
+## Logistic Mixed Model
 
 Similar to [logistic regression](regression.html#logistic-regression) being an extension to [linear regression](regression#linear-regression),
 logistic mixed models are an extension to [linear mixed models](#linear-mixed-model) when the outcome variable is binary.
@@ -231,12 +231,12 @@ goodness of fit must be measured solely on the ^$^\chi^2^$^ test and perhaps a m
 
 By default the log-odds are reported, give the `or` option to report the odds ratios.
 
-^#^^#^^#^ `meqrlogit`
+### `meqrlogit`
 
 There is a different solver that can be used based upon QR-decomposition. This is run with the command `meqrlogit`. It functions identically to
 `melogit`. If `melogit` has convergence issues, try using `meqrlogit` instead.
 
-^#^^#^ Exercise 6
+## Exercise 6
 
 Load up the "chicken" data set from Stata's website:
 

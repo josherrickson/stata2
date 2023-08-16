@@ -1,4 +1,4 @@
-^#^ Multiple Imputation
+# Multiple Imputation
 
 Multiple imputation is a common approach to addressing missing data issues. When there is missing data, the default results are often obtained with
 complete case analysis (using only observations with complete data) can produce biased results [though not always](#missing-at-random). Additionally,
@@ -22,7 +22,7 @@ There are various pros and cons to each approach, but in general, none are as po
 Thankfully, for simple analyses (e.g. most regression models), Stata will perform all three steps for you automatically. We will briefly discuss later
 how to [perform MI if Stata doesn't support it](#manual-mi).
 
-^#^^#^ Missing at random
+## Missing at random
 
 There can be many causes of missing data. We can classify the reason data is missing into one of three categories:
 
@@ -41,33 +41,33 @@ This is important because most imputation methods (including MI) require MCAR or
 do. Generally if you believe the data is MNAR, you can assume MAR but discuss that a severe limitation of your analysis is the MAR assumption is
 likely invalid.
 
-^#^^#^ `mi`
+## `mi`
 
 The `mi` set of commands in Stata perform the steps of multiple imputation. There are three steps, with a preliminary step to examine the
 missingness. We'll be using the "mheart5" data from Stata's website which has some missing data.
 
-~~~~
+````stata
 <<dd_do>>
 webuse mheart5, clear
 describe, short
 summarize
 <</dd_do>>
-~~~~
+````
 
 We see from the summary that both `age` and `bmi` have some missing data.
 
-^#^^#^^#^ Setting up data
+### Setting up data
 
 We need to tell Stata how we're going to be doing the imputations. First, use the `mi set` command to determine how the multiple data sets will be
 stored. Really which option you choose is up to you, I prefer to "`flong`" option, where each imputed data set is stacked on top of each other. If you
 have very large data, you might prefer "`wide`", "`mlong`" or "`mlongsep`", the last of which stores each imputed data set in a separate file. See
 `help mi styles` for more details. (Ultimately the decision is not that important, as you can switch later using `mi convert <new style>`.)
 
-~~~~
+````stata
 <<dd_do>>
 mi set flong
 <</dd_do>>
-~~~~
+````
 
 Next, we need to tell Stata what each variable will be used for. The options are
 
@@ -77,24 +77,24 @@ Next, we need to tell Stata what each variable will be used for. The options are
 Technically we only need specify the imputed variables, as anything unspecified is assumed to be regular. We saw [above](#mi) that `age` and `bmi`
 have missing values:
 
-~~~~
+````stata
 <<dd_do>>
 mi register imputed age bmi
 <</dd_do>>
-~~~~
+````
 
 We can examine our setup with `mi describe`:
 
-~~~~
+````stata
 <<dd_do>>
 mi describe
 <</dd_do>>
-~~~~
+````
 
 We see 126 complete observations with 28 incomplete, the two variables to be imputed, and the 4 unregistered variables which will automatically be
 registered as regular.
 
-^#^^#^^#^^#^ Imputing transformations
+#### Imputing transformations
 
 What happens if you had a transform of a variable? Say you had a variable for salary, and wanted to use a log transformation?
 
@@ -104,7 +104,7 @@ current statistical literature is to **transform first, impute second**.([Hippel
 Stata technically supports the other option via `mi register passive`, but we don't recommend it's usage. Instead, transform your original data, then
 flag both the variable and its transformations as "imputed"
 
-^#^^#^^#^ Performing the imputation
+### Performing the imputation
 
 Now that we've got the MI set up, we can perform the actual procedure. There are a very wide number of variations on how this imputation can be done
 (including defining your own!). You can see these as the options to `mi impute`. We'll just be focusing on the "chained" approach, which is a good
@@ -127,11 +127,11 @@ The `add( )` option specifies how many imputed data sets to generate, we'll disc
 
 Continuing with our example might make this more clear. To perform our imputation, we would use
 
-~~~~
+````stata
 <<dd_do>>
 mi impute chained (regress) bmi age = attack smokes female hsgrad, add(5)
 <</dd_do>>
-~~~~
+````
 
 Since both `bmi` and `age` are continuous variables, we use method `regress`. Imagine if we were also imputing `smokes`, a binary variable. Then the
 imputation (after running `mi register imputed smokes`) would be:
@@ -142,7 +142,7 @@ mi impute chained (regress) bmi age (logit) smokes = attack female hsgrad, add(5
 
 Here, `regress` was used for `bmi` and `age`, and `logit` was used for `smokes`.
 
-^#^^#^^#^^#^ Choosing the number of imputations
+#### Choosing the number of imputations
 
 Classic literature has suggested you need only 5 imputations to obtain valid results. This will address the efficiency of point estimates, but not
 standard errors. More modern literature increases this number, with a good starting point being 200 imputations. ([Graham 2007](#citations), [White et
@@ -158,7 +158,7 @@ ssc install how_many_imputations
 help how_many_imputations
 ```
 
-^#^^#^^#^^#^ `_mi_` variables
+#### `_mi_` variables
 
 After you've performed your imputation^[Technically this happens as soon as you run `mi set`, but they're not interesting until after `mi impute`.],
 three new variables are added to your data, and your data gets ^$^M^$^ additional copies of itself. In the example
@@ -169,7 +169,7 @@ and 5 copies with imputed values. The new variables added are:
 - `_mi_miss` flags whether the row had missing data originally.
 - `_mi_m` is which data-set we're looking at. 0 represents the unimputed data, 1 represents the first imputation, 2 the second, etc.
 
-^#^^#^^#^ Analyzing `mi` data
+### Analyzing `mi` data
 
 Now that we've got the data set up for multiple imputations, and done the imputation, most of the hard part is over. Analyzing MI data is
 straightforward, usually. (When it isn't, you can do this [manually](#manual-mi).)
@@ -183,11 +183,11 @@ logit attack smokes age bmi female hsgrad
 
 So to run it with multiple imputations:
 
-~~~~
+````stata
 <<dd_do>>
 mi estimate: logit attack smokes age bmi female hsgrad
 <</dd_do>>
-~~~~
+````
 
 We see a single model, even though 5 models (one for each imputation) were run in the background. The results from these models were pooled using
 something called "Rubin's rules" to produce a single model output.
@@ -197,12 +197,12 @@ interpretations](regression.html#fitting-the-logistic-model) hold. Note that an 
 hypothesis that all coefficients are identically zero. Among the coefficients, we see that smokers have significantly higher odds of having a heart
 attack, and there's some weak evidence that age plays a role.
 
-^#^^#^^#^^#^ MI Postestimation
+#### MI Postestimation
 
 In general, most postestimation commands will not work after MI. The general approach is to do the MI [manually](#manual-mi) and run the
 postestimation for each imputation. One exception is that `mi predict` works how `predict` does.
 
-^#^^#^ Manual MI
+## Manual MI
 
 Since we set the data as [`flong`](#setting-up-data), each imputed data set lives in the data with a separate
 [`_mi_m`](multiple-imputation.html#mi-variables) value. You can conditionally run analyses on each, e.g.
@@ -217,21 +217,21 @@ to run the model on only the original data.
 It is tedious to do this over all imputed data, so instead we can run `mi xeq:` as a prefix to run a command on each separate data set. This is
 similar to `mi estimate:` except without the pooling.
 
-~~~~
+````stata
 <<dd_do>>
 mi xeq: summ age
 <</dd_do>>
-~~~~
+````
 
 This can also be useful if the analysis you want to execute is not supported by `mi estimate` yet.
 
-^#^^#^^#^ Rubin's rules
+### Rubin's rules
 
 If you wanted to pool the results yourself, you can obtain an estimate for the pooled parameter by simple average across imputations. The formula for
 variance is slightly more complicated so we don't produce it here, however it can be found in the "Methods and formulas" section of the MI manual (run
 `help mi estimate`, click on "[MI] mi estimate" at the top of the file to open the manual.
 
-^#^^#^ Removing the MI data
+## Removing the MI data
 
 Ideally, you should save the data (or `preserve` it) prior to imputing, so you can easily recover the unimputed data if you wish. If you wanted to
 return to the original data, the following should work:
@@ -247,7 +247,7 @@ generated.
 
 This only works for `mi set flong`; if you use another method, you can tweak the above or use `mi convert flong` to switch to "flong" first.
 
-^#^^#^ Survey and multiple imputation
+## Survey and multiple imputation
 
 Just a quick note, if you want to utilize by complex survey design and multiple imputation simultaneously, proper ordering needs to be given. Note
 that only weights play a role in multiple imputation.
@@ -266,7 +266,7 @@ that order.</del>
 
 The above paragraph is no longer accurate. See [Reist and Larsen 2012](#citations). Survey weights must be used in mulitple imputations.
 
-^#^^#^ Citations
+## Citations
 
 - Little, RJ, and S Vartivarian. 2003. On weighting the rates in non-response weights. Stat Med 22, no. 9: 1589-1599.
 - Von Hippel, Paul T. "How to impute interactions, squares, and other transformed variables." Sociological Methodology 39.1 (2009): 265-291.

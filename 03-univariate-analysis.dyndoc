@@ -1,4 +1,4 @@
-^#^ Univariate (and some Bivariate) Analysis
+# Univariate (and some Bivariate) Analysis
 
 We start with analyzing single variables at a time, and then quickly discuss a chi-squared test which is a bivariate analysis. While these tests form
 the basis of many other methods, by themselves they are of limited us. All the tests we discuss here come with two very strong assumptions:
@@ -25,13 +25,13 @@ That said, there are a few situations where these tests are useful as stand-alon
 
 Reload the auto data set
 
-~~~~
+````stata
 <<dd_do>>
 sysuse auto, clear
 <</dd_do>>
-~~~~
+````
 
-^#^^#^ One-sample t-test
+## One-sample t-test
 
 A one-sample t-test tests whether the mean of a variable is equal to some constant. It is not needed a lot of the time (if we hypothesize that the
 average test score is 70, and every students get above an 80, why would we need to test this?), but we introduce it here just as a basis of further
@@ -53,22 +53,22 @@ mean assumption is violated. This can be checked with a histogram or a qq-plot.
 
 Let's test whether the average mileage in the data is different from 20.
 
-~~~~
+````stata
 <<dd_do>>
 hist mpg, normal
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
 In a histogram, we are looking for violations from the bell-shape of a normal curve. We added the normal curve to the plot by the `normal` option. We
 can see that while the data is not perfectly normal, it also is not too far off. We can look at a qq-plot for further details.
 
-~~~~
+````stata
 <<dd_do>>
 qnorm mpg
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
@@ -79,11 +79,11 @@ Put together, this indicates that normality is not perfect, but its also not a t
 
 However, we don't really care! The sample size is large enough that that assumption is valid. We can therefore perform our test using the `ttest` command.
 
-~~~~
+````stata
 <<dd_do>>
 ttest mpg == 20
 <</dd_do>>
-~~~~
+````
 
 Our null hypothesis, the claim we are trying to see whether we have the evidence to reject, is that the average `mpg` in the population represented by
 this data is 20. We sometimes also just call 20, the value the null hypothesis is testing, the null hypothesis (e.g. "We are testing against the null
@@ -112,11 +112,11 @@ significant!
 (Of course that first p-value \& interpretation is unnecessary - the observed test statistic is greater than 20, so there's no chance we'd be able to
 make the argument that the true mean is less than 20!)
 
-^#^^#^ Two-sample t-test
+## Two-sample t-test
 
 While the one-sided t-test isn't used very often, the two-sample version is. There are two different variations of it.
 
-^#^^#^^#^ Independent
+### Independent
 
 The independent two-sample t-test arises when you have two independent groups which have the same measurement, and you wish to test whether the mean
 of the two groups is equivalent. The same basic assumptions, independence (although here it's both within group [each observation is independent from
@@ -125,11 +125,11 @@ each other] and between groups [the two groups are independent, e.g. these are n
 For example in our data, we can test whether foreign and American cars have the same average mileage. We will again use the `ttest` command, though
 slightly differently.
 
-~~~~
+````stata
 <<dd_do>>
 ttest mpg, by(foreign)
 <</dd_do>>
-~~~~
+````
 
 The output is very similar to [above](#one-sample-t-test). We get some descriptives by group, and combined, as well as a confidence interval for the
 difference. Notice that the null hypothesis (`Ho`) is simply 0 because we are testing whether the difference between the groups is statistically
@@ -147,11 +147,11 @@ However, there is an additional assumption here that we neglected; namely that t
 assumption, then the above analysis is sufficient. However, if you don't make this assumption, you can instead run the two-sample t-test with unequal
 variances by adding the `unequal` option.
 
-~~~~
+````stata
 <<dd_do>>
 ttest mpg, by(foreign) unequal
 <</dd_do>>
-~~~~
+````
 
 The unequal test is slightly more conservative, but there has been some work (e.g. [Delacre et al 2017](#citations), [Ruxton 2006](#citations))
 showing that you should always use the unequal version.
@@ -164,7 +164,7 @@ seminal work and wasn't allowed to publish under his own name, so he used the ps
 If you want to test whether the variance between the two groups is equal, you can use `sdtest` in a similar fashion to `ttest` (`sdtest mpg,
 by(foreign)`).
 
-^#^^#^^#^ Paired
+### Paired
 
 We noted in the assumptions above that we need the two groups to be independent. What if they aren't? An example of paired data would include
 before-and-after measures or measures from two family members. In both cases, it is reasonable to assume the two measures from the same person or
@@ -172,34 +172,34 @@ family are more similar than a measure from one person against a measure from an
 
 The auto data set does not have a good example of paired data, so lets use the "bpwide" data instead.
 
-~~~~
+````stata
 <<dd_do>>
 sysuse bpwide, clear
 list in 1/5
 <</dd_do>>
-~~~~
+````
 
 We have measures from different patients, including a before and after measure of the blood pressure. We again use `ttest` to perform the test:
 
-~~~~
+````stata
 <<dd_do>>
 ttest bp_after == bp_before
 <</dd_do>>
-~~~~
+````
 
 We see that the blood pressure after is slightly lower (151 vs 156), and the two-sided p-value is statistically significant!
 
 While we technically used the paired t-test for this, behind the scenes, this is identical to generating a difference variable (e.g. post score - pre
 score) and performing the [one-sample t-test](#one-sample-t-test):
 
-~~~~
+````stata
 <<dd_do>>
 gen bp_change = bp_after - bp_before
 ttest bp_change == 0
 <</dd_do>>
-~~~~
+````
 
-^#^^#^^#^ Comparing Proportions
+### Comparing Proportions
 
 If you have a ordinal variable (a categorical variable that has an ordering to it), a t-test is often still appropriate^[This requires the assumption
 that the ordinal variable can be well approximated by a continuous variable. This assumption is fine if each level of the ordinal variable is
@@ -211,22 +211,22 @@ efficient.].
 The command in stata is `prtest` and it functions identically to `ttest`:
 
 One-sample:
-~~~~
+````stata
 <<dd_do>>
 webuse pneumoniacrt, clear
 prtest pneumonia = .25
 <</dd_do>>
-~~~~
+````
 
 Independent two-sample:
-~~~~
+````stata
 <<dd_do>>
 prtest pneumonia, by(vaccine)
 <</dd_do>>
-~~~~
+````
 
 Paired two-sample
-~~~~
+````stata
 <<dd_do>>
 sysuse bpwide, clear
 gen bp_beforehigh = bp_before > 160
@@ -234,11 +234,11 @@ gen bp_afterhigh = bp_after > 160
 list *high in 1/5
 prtest bp_afterhigh = bp_beforehigh
 <</dd_do>>
-~~~~
+````
 
 
 
-^#^^#^ Chi-square test
+## Chi-square test
 
 We've seen how to handle continuous and binary variables, and even some ordinal variables. However, if we want to look at a categorical variable which
 is not binary and we cannot treat as continuous, we can instead use a ^$^\chi^2^$^ test (^$^\chi^$^ is a Greek letter which is spelled "chi" in
@@ -246,12 +246,12 @@ English, and rhymes with "why"). There are a few variations on the ^$^\chi^2^$^ 
 are testing the null hypothesis that the distribution of one variable is the same at every level of another variable. Let's return to the auto data
 set, and compare `rep78` (Repair Record 1978) and `foreign`. We'll start by looking at a crosstab.
 
-~~~~
+````stata
 <<dd_do>>
 sysuse auto, clear
 tab foreign rep78
 <</dd_do>>
-~~~~
+````
 
 If you're not familiar with crosstabs, each cell represents the number of observations which fall into the category - for example, there are 8 cars
 which are both Domestic and have a Repair Record of 2.
@@ -260,11 +260,11 @@ We can think of testing whether the association between these two variables exis
 car having a specific repair record the same among domestic cars as among foreign cars", or "Is the probability of a car being foreign or domestic the
 same across all levels of repair record". We test it by adding the `chi2` option to `tab`:
 
-~~~~
+````stata
 <<dd_do>>
 tab foreign rep78, chi2
 <</dd_do>>
-~~~~
+````
 
 Here we can see that the p-value (`pr`) associated with the ^$^\chi^2\^$^ test is very low (less than .001, p-values are never 0^[Unless you're in a
 pathological setting, i.e. you're testing whether the average height of a population is less than 6 feet, and somehow you get an average height of -20
@@ -277,7 +277,7 @@ Note that the ^$^\chi^2\^$^ test ignores scale - if we had 4,800 Domestic cars i
 Finally, the critiques [above](univariate-and-some-bivariate-analysis.html) about the lack of usefulness of t-tests extends to ^$^\chi^2^$^ tests as
 well.
 
-^#^^#^^#^ Fisher's Exact Test
+### Fisher's Exact Test
 
 However, we probably should not have performed a ^$^\chi^2^$^ test here. One important assumption of the ^$^\chi^2^$^ test is that the *expected*
 count in each cell is at least 5. The expected count is the row total times the column total divided by the total number. For example, we looked at
@@ -293,11 +293,11 @@ no role in this assumption.
 
 Rather than manually calculating this for each entry, the `expected` option tells Stata to do it for us.
 
-~~~~
+````stata
 <<dd_do>>
 tab foreign rep78, expected
 <</dd_do>>
-~~~~
+````
 
 We see that the assumption fails in a number of cells.
 
@@ -305,11 +305,11 @@ There are several possible solutions. One is to perform instead of a ^$^\chi^2^$
 (two binary variables), it can be carried out for any arbitrarily large crosstab - in theory. In practice, the calculation is simply too demanding for
 large tables. This 2x5 table is fine, but for example, a 9x9 table would fail.
 
-~~~~
+````stata
 <<dd_do>>
 tab foreign rep78, exact
 <</dd_do>>
-~~~~
+````
 
 We obtain the same conclusion.
 
@@ -317,7 +317,7 @@ If your crosstab is too large for the exact test, you may need to consider rebin
 regression such as [logistic regression](regression.html#logistic-regression) if one of the variables was binary, or multinomial or ordinal regression
 if neither are binary. (Multinomial and ordinal regression will not be covered in this workshop.)
 
-^#^^#^ Exercise 3
+## Exercise 3
 
 Load up the NHANES data.
 
@@ -331,7 +331,7 @@ sysuse nhanes2, clear
 4. Take a look at a crosstab of `race` and `diabetes`. Does it look like the percentage of diabetics is the same across race? The `col` or `row`
    option might help here. Test this with a ^$^\chi^2^$^ test.
 
-^#^^#^ Citations
+## Citations
 
 - Delacre, Marie, Daniël Lakens, and Christophe Leys. "Why Psychologists Should by Default Use Welch’s t-test Instead of Student’s t-test."
   International Review of Social Psychology 30.1 (2017).

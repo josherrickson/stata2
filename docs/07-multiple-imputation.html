@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intermediate Stata (Statistical Modeling) - 7&nbsp; age | 142 12 12 | 154</title>
+<title>Intermediate Stata (Statistical Modeling) - 7&nbsp; Multiple Imputation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-multiple-imputation.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age |        142           12        12 |       154</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-multiple-imputation.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -110,49 +144,49 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-summarizing-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-univariate-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-survey-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multiple-imputation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></span></a>
   </div>
 </li>
     </ul>
@@ -161,14 +195,33 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#missing-at-random" id="toc-missing-at-random" class="nav-link active" data-scroll-target="#missing-at-random"><span class="header-section-number">7.1</span> Missing at random</a></li>
+  <li><a href="#mi" id="toc-mi" class="nav-link" data-scroll-target="#mi"><span class="header-section-number">7.2</span> <code>mi</code></a>
+  <ul class="collapse">
+  <li><a href="#setting-up-data" id="toc-setting-up-data" class="nav-link" data-scroll-target="#setting-up-data"><span class="header-section-number">7.2.1</span> Setting up data</a></li>
+  <li><a href="#performing-the-imputation" id="toc-performing-the-imputation" class="nav-link" data-scroll-target="#performing-the-imputation"><span class="header-section-number">7.2.2</span> Performing the imputation</a></li>
+  <li><a href="#analyzing-mi-data" id="toc-analyzing-mi-data" class="nav-link" data-scroll-target="#analyzing-mi-data"><span class="header-section-number">7.2.3</span> Analyzing <code>mi</code> data</a></li>
+  </ul></li>
+  <li><a href="#manual-mi" id="toc-manual-mi" class="nav-link" data-scroll-target="#manual-mi"><span class="header-section-number">7.3</span> Manual MI</a>
+  <ul class="collapse">
+  <li><a href="#rubins-rules" id="toc-rubins-rules" class="nav-link" data-scroll-target="#rubins-rules"><span class="header-section-number">7.3.1</span> Rubin’s rules</a></li>
+  </ul></li>
+  <li><a href="#removing-the-mi-data" id="toc-removing-the-mi-data" class="nav-link" data-scroll-target="#removing-the-mi-data"><span class="header-section-number">7.4</span> Removing the MI data</a></li>
+  <li><a href="#survey-and-multiple-imputation" id="toc-survey-and-multiple-imputation" class="nav-link" data-scroll-target="#survey-and-multiple-imputation"><span class="header-section-number">7.5</span> Survey and multiple imputation</a></li>
+  <li><a href="#citations" id="toc-citations" class="nav-link" data-scroll-target="#citations"><span class="header-section-number">7.6</span> Citations</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></h1>
 </div>
 
 
@@ -183,7 +236,6 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><sup>#</sup> Multiple Imputation</p>
 <p>Multiple imputation is a common approach to addressing missing data issues. When there is missing data, the default results are often obtained with complete case analysis (using only observations with complete data) can produce biased results <a href="#missing-at-random">though not always</a>. Additionally, complete case analysis can have a severe negative effect on the power by greatly reducing the sample size.</p>
 <p>Imputation in general is the idea of filling in missing values to simulate having complete data. Some simpler forms of imputation include:</p>
 <ul>
@@ -198,7 +250,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Pool your results together in a specific fashion to account for the uncertainty in imputations.</li>
 </ol>
 <p>Thankfully, for simple analyses (e.g.&nbsp;most regression models), Stata will perform all three steps for you automatically. We will briefly discuss later how to <a href="#manual-mi">perform MI if Stata doesn’t support it</a>.</p>
-<p><sup>##</sup> Missing at random</p>
+<section id="missing-at-random" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="missing-at-random"><span class="header-section-number">7.1</span> Missing at random</h2>
 <p>There can be many causes of missing data. We can classify the reason data is missing into one of three categories:</p>
 <ol type="1">
 <li><strong>Missing completely at random (MCAR)</strong>: This is missingness that is truly random - there is no cause of the missingness, it’s just due to chance. For example, you’re entering paper surveys into a spreadsheet and spill coffee on them, obscuring a few answers.</li>
@@ -207,73 +260,76 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <p>There is no statistical test<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to distinguish between these categories; instead you must use your knowledge of the data and its collection to argue which category it falls under.</p>
 <p>This is important because most imputation methods (including MI) require MCAR or MAR for the data. If the data is MNAR, there is very little you can do. Generally if you believe the data is MNAR, you can assume MAR but discuss that a severe limitation of your analysis is the MAR assumption is likely invalid.</p>
-<p><sup>##</sup> <code>mi</code></p>
+</section>
+<section id="mi" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="mi"><span class="header-section-number">7.2</span> <code>mi</code></h2>
 <p>The <code>mi</code> set of commands in Stata perform the steps of multiple imputation. There are three steps, with a preliminary step to examine the missingness. We’ll be using the “mheart5” data from Stata’s website which has some missing data.</p>
-<pre><code>. webuse mheart5, clear
-(Fictional heart attack data)
-
-. describe, short
-
-Contains data from https://www.stata-press.com/data/r18/mheart5.dta
- Observations:           154                  Fictional heart attack data
-    Variables:             6                  19 Jun 2022 10:50
-Sorted by: 
-
-. summarize
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-      attack |        154    .4480519    .4989166          0          1
-      smokes |        154    .4155844    .4944304          0          1
-         age |        142    56.43324    11.59131   20.73613   83.78423
-         bmi |        126    25.23523    4.029325   17.22643   38.24214
-      female |        154    .2467532    .4325285          0          1
--------------+---------------------------------------------------------
-      hsgrad |        154    .7532468    .4325285          0          1
-</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> mheart5, <span class="kw">clear</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(Fictional heart attack <span class="kw">data</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">describe</span>, <span class="kw">short</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Contains <span class="kw">data</span> from https:<span class="co">//www.stata-press.com/data/r18/mheart5.dta</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a> Observations:           154                  Fictional heart attack <span class="kw">data</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    Variables:             6                  19 Jun 2022 10:50</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>Sorted <span class="kw">by</span>: </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>. <span class="kw">summarize</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      attack |        154    .4480519    .4989166          0          1</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      smokes |        154    .4155844    .4944304          0          1</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>         age |        142    56.43324    11.59131   20.73613   83.78423</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>         bmi |        126    25.23523    4.029325   17.22643   38.24214</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      female |        154    .2467532    .4325285          0          1</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      hsgrad |        154    .7532468    .4325285          0          1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We see from the summary that both <code>age</code> and <code>bmi</code> have some missing data.</p>
-<p><sup>###</sup> Setting up data</p>
+<section id="setting-up-data" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="setting-up-data"><span class="header-section-number">7.2.1</span> Setting up data</h3>
 <p>We need to tell Stata how we’re going to be doing the imputations. First, use the <code>mi set</code> command to determine how the multiple data sets will be stored. Really which option you choose is up to you, I prefer to “<code>flong</code>” option, where each imputed data set is stacked on top of each other. If you have very large data, you might prefer “<code>wide</code>”, “<code>mlong</code>” or “<code>mlongsep</code>”, the last of which stores each imputed data set in a separate file. See <code>help mi styles</code> for more details. (Ultimately the decision is not that important, as you can switch later using <code>mi convert &lt;new style&gt;</code>.)</p>
-<pre><code>. mi set flong
-</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> <span class="kw">set</span> flong</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Next, we need to tell Stata what each variable will be used for. The options are</p>
 <ul>
 <li>imputed: A variable with missing data that needs to be imputed.</li>
 <li>regular: Any variable that is complete or does not need imputation.</li>
 </ul>
 <p>Technically we only need specify the imputed variables, as anything unspecified is assumed to be regular. We saw <a href="#mi">above</a> that <code>age</code> and <code>bmi</code> have missing values:</p>
-<pre><code>. mi register imputed age bmi
-(28 m=0 obs now marked as incomplete)
-</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> register imputed age bmi</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(28 <span class="fu">m</span>=0 <span class="kw">obs</span> now marked <span class="kw">as</span> incomplete)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can examine our setup with <code>mi describe</code>:</p>
-<pre><code>. mi describe
-
-Style: flong
-       last mi update 16aug2023 15:22:16, 0 seconds ago
-
-Observations:
-   Complete          126
-   Incomplete         28  (M = 0 imputations)
-   ---------------------
-   Total             154
-
-Variables:
-   Imputed: 2; age(12) bmi(28)
-
-   Passive: 0
-
-   Regular: 0
-
-   System:  3; _mi_m _mi_id _mi_miss
-
-   (there are 4 unregistered variables; attack smokes female hsgrad)
-</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> <span class="kw">describe</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Style: flong</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">last</span> <span class="fu">mi</span> update 16aug2023 16:54:24, 0 seconds ago</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Observations:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   Complete          126</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>   Incomplete         28  (M = 0 imputations)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>   ---------------------</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>   Total             154</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>Variables:</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>   Imputed: 2; age(12) bmi(28)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>   Passive: 0</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>   Regular: 0</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>   System:  3; _mi_m _mi_id _mi_miss</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>   (there are 4 unregistered variables; attack smokes female hsgrad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We see 126 complete observations with 28 incomplete, the two variables to be imputed, and the 4 unregistered variables which will automatically be registered as regular.</p>
-<p><sup>####</sup> Imputing transformations</p>
+<section id="imputing-transformations" class="level4" data-number="7.2.1.1">
+<h4 data-number="7.2.1.1" class="anchored" data-anchor-id="imputing-transformations"><span class="header-section-number">7.2.1.1</span> Imputing transformations</h4>
 <p>What happens if you had a transform of a variable? Say you had a variable for salary, and wanted to use a log transformation?</p>
 <p>You can find literature suggesting either transforming first and then imputing, or imputing first and then transforming. Our suggestion, following current statistical literature is to <strong>transform first, impute second</strong>.(<a href="#citations">Hippel 2009</a>)</p>
 <p>Stata technically supports the other option via <code>mi register passive</code>, but we don’t recommend it’s usage. Instead, transform your original data, then flag both the variable and its transformations as “imputed”</p>
-<p><sup>###</sup> Performing the imputation</p>
+</section>
+</section>
+<section id="performing-the-imputation" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="performing-the-imputation"><span class="header-section-number">7.2.2</span> Performing the imputation</h3>
 <p>Now that we’ve got the MI set up, we can perform the actual procedure. There are a very wide number of variations on how this imputation can be done (including defining your own!). You can see these as the options to <code>mi impute</code>. We’ll just be focusing on the “chained” approach, which is a good approach to start with.</p>
 <p>The syntax for this is a bit complicated, but straightforward once you understand it.</p>
 <pre><code>mi impute chained (&lt;method 1&gt;) &lt;variables to impute with method 1&gt; ///
@@ -282,141 +338,157 @@ Variables:
 <p>The <code>&lt;methods&gt;</code> are essentially what type of model you would use to predict the outcome. For example, for continuous data, use <code>regress</code>. For binary data use <code>logit</code>. It also supports <code>ologit</code> (ordinal logistic regression, multiple categories with ordering), <code>mlogit</code> (multinomial logistic regression, multiple categories without ordering), <code>poisson</code> or <code>nbreg</code> (poisson regression or negative binomial regression, for count data), as well as some others. See <code>help mi impute chained</code> under “uvmethod” for the full list.</p>
 <p>The <code>add( )</code> option specifies how many imputed data sets to generate, we’ll discuss <a href="#choosing-the-number-of-imputations">below</a> how to choose this.</p>
 <p>Continuing with our example might make this more clear. To perform our imputation, we would use</p>
-<pre><code>. mi impute chained (regress) bmi age = attack smokes female hsgrad, add(5)
-note: missing-value pattern is monotone; no iteration performed.
-
-Conditional models (monotone):
-               age: regress age attack smokes female hsgrad
-               bmi: regress bmi age attack smokes female hsgrad
-
-Performing chained iterations ...
-
-Multivariate imputation                     Imputations =        5
-Chained equations                                 added =        5
-Imputed: m=1 through m=5                        updated =        0
-
-Initialization: monotone                     Iterations =        0
-                                                burn-in =        0
-
-               bmi: linear regression
-               age: linear regression
-
-------------------------------------------------------------------
-                   |               Observations per m             
-                   |----------------------------------------------
-          Variable |   Complete   Incomplete   Imputed |     Total
--------------------+-----------------------------------+----------
-               bmi |        126           28        28 |       154
-(Complete + Incomplete = Total; Imputed is the minimum across m
- of the number of filled-in observations.)
-</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> <span class="kw">impute</span> chained (<span class="kw">regress</span>) bmi age = attack smokes female hsgrad, add(5)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">note</span>: <span class="fu">missing</span>-<span class="ot">value</span> pattern is monotone; no iteration performed.</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Conditional models (monotone):</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>               age: <span class="kw">regress</span> age attack smokes female hsgrad</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>               bmi: <span class="kw">regress</span> bmi age attack smokes female hsgrad</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>Performing chained iterations ...</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>Multivariate imputation                     Imputations =        5</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>Chained equations                                 added =        5</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>Imputed: <span class="fu">m</span>=1 through <span class="fu">m</span>=5                        updated =        0</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>Initialization: monotone                     Iterations =        0</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                                                burn-<span class="kw">in</span> =        0</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>               bmi: linear regression</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>               age: linear regression</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                   |               Observations per <span class="fu">m</span>             </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                   |----------------------------------------------</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>          Variable |   Complete   Incomplete   Imputed |     Total</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>-------------------+-----------------------------------+----------</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>               bmi |        126           28        28 |       154</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>               age |        142           12        12 |       154</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>(Complete + Incomplete = Total; Imputed is the minimum across <span class="fu">m</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a> <span class="kw">of</span> the number <span class="kw">of</span> filled-<span class="kw">in</span> observations.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Since both <code>bmi</code> and <code>age</code> are continuous variables, we use method <code>regress</code>. Imagine if we were also imputing <code>smokes</code>, a binary variable. Then the imputation (after running <code>mi register imputed smokes</code>) would be:</p>
 <pre><code>mi impute chained (regress) bmi age (logit) smokes = attack female hsgrad, add(5)</code></pre>
 <p>Here, <code>regress</code> was used for <code>bmi</code> and <code>age</code>, and <code>logit</code> was used for <code>smokes</code>.</p>
-<p><sup>####</sup> Choosing the number of imputations</p>
+<section id="choosing-the-number-of-imputations" class="level4" data-number="7.2.2.1">
+<h4 data-number="7.2.2.1" class="anchored" data-anchor-id="choosing-the-number-of-imputations"><span class="header-section-number">7.2.2.1</span> Choosing the number of imputations</h4>
 <p>Classic literature has suggested you need only 5 imputations to obtain valid results. This will address the efficiency of point estimates, but not standard errors. More modern literature increases this number, with a good starting point being 200 imputations. (<a href="#citations">Graham 2007</a>, <a href="#citations">White et al 2011</a>)</p>
 <p>If your data set is large and the imputation is slow, a recent paper (<a href="#citations">Von Hippel 2018</a>) gives a two-stage procedure to estimate the required number of imputations. This two-stage procedure first performs a small number of imputations and carries out the analysis. It then using the results of that analysis to inform a better estimate of the required sample size. You can install the user command <code>how_many_imputations</code> for details and examples</p>
 <pre><code>ssc install how_many_imputations
 help how_many_imputations</code></pre>
-<p><sup>####</sup> <code>_mi_</code> variables</p>
+</section>
+<section id="mi_-variables" class="level4" data-number="7.2.2.2">
+<h4 data-number="7.2.2.2" class="anchored" data-anchor-id="mi_-variables"><span class="header-section-number">7.2.2.2</span> <code>_mi_</code> variables</h4>
 <p>After you’ve performed your imputation<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, three new variables are added to your data, and your data gets <sup><span class="math inline">\(^M^\)</span></sup> additional copies of itself. In the example <a href="#performing-the-imputation">above</a>, we added 5 imputations, so there are a total of 6 copies of the data - the raw data (with the missing values), and 5 copies with imputed values. The new variables added are:</p>
 <ul>
 <li><code>_mi_id</code> is the ID number of each row corresponding to its position in the original data</li>
 <li><code>_mi_miss</code> flags whether the row had missing data originally.</li>
 <li><code>_mi_m</code> is which data-set we’re looking at. 0 represents the unimputed data, 1 represents the first imputation, 2 the second, etc.</li>
 </ul>
-<p><sup>###</sup> Analyzing <code>mi</code> data</p>
+</section>
+</section>
+<section id="analyzing-mi-data" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="analyzing-mi-data"><span class="header-section-number">7.2.3</span> Analyzing <code>mi</code> data</h3>
 <p>Now that we’ve got the data set up for multiple imputations, and done the imputation, most of the hard part is over. Analyzing MI data is straightforward, usually. (When it isn’t, you can do this <a href="#manual-mi">manually</a>.)</p>
 <p>Basically, take any analysis command you would normally run, e.g.&nbsp;<code>regress y x</code>, and preface it by <code>mi estimate:</code>. Let’s try to predict the odds of a heart attack based upon other characteristics in the data. We would run a <a href="regression.html#logistic-regression">logistic regression model</a>,</p>
 <pre><code>logit attack smokes age bmi female hsgrad</code></pre>
 <p>So to run it with multiple imputations:</p>
-<pre><code>. mi estimate: logit attack smokes age bmi female hsgrad
-
-Multiple-imputation estimates                   Imputations       =          5
-Logistic regression                             Number of obs     =        154
-                                                Average RVI       =     0.0966
-                                                Largest FMI       =     0.2750
-DF adjustment:   Large sample                   DF:     min       =      62.83
-                                                        avg       =  53,215.09
-                                                        max       = 146,351.98
-Model F test:       Equal FMI                   F(   5, 1243.8)   =       2.90
-Within VCE type:          OIM                   Prob &gt; F          =     0.0130
-
-------------------------------------------------------------------------------
-      attack | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-      smokes |   1.163433    .352684     3.30   0.001       .47217    1.854695
-         age |   .0284627   .0164787     1.73   0.086    -.0040684    .0609938
-         bmi |   .0800942   .0491285     1.63   0.108    -.0180864    .1782749
-      female |  -.0970499   .4091373    -0.24   0.812    -.8989527    .7048528
-      hsgrad |     .10968   .3991282     0.27   0.783    -.6726034    .8919634
-       _cons |  -4.390356   1.598513    -2.75   0.006    -7.531833   -1.248878
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> estimate: <span class="kw">logit</span> attack smokes age bmi female hsgrad</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>Multiple-imputation <span class="kw">estimates</span>                   Imputations       =          5</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>Logistic regression                             Number <span class="kw">of</span> <span class="kw">obs</span>     =        154</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                                Average RVI       =     0.0966</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                                                Largest FMI       =     0.2750</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>DF adjustment:   Large <span class="kw">sample</span>                   DF:     <span class="fu">min</span>       =      62.83</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                                                        avg       =  53,215.09</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                                                        <span class="fu">max</span>       = 146,351.98</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>Model <span class="fu">F</span> <span class="kw">test</span>:       Equal FMI                   <span class="fu">F</span>(   5, 1243.8)   =       2.90</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>Within <span class="kw">VCE</span> <span class="dv">type</span>:          OIM                   Prob &gt; <span class="fu">F</span>          =     0.0130</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>      attack | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      smokes |   1.163433    .352684     3.30   0.001       .47217    1.854695</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>         age |   .0284627   .0164787     1.73   0.086    -.0040684    .0609938</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>         bmi |   .0800942   .0491285     1.63   0.108    -.0180864    .1782749</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>      female |  -.0970499   .4091373    -0.24   0.812    -.8989527    .7048528</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>      hsgrad |     .10968   .3991282     0.27   0.783    -.6726034    .8919634</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |  -4.390356   1.598513    -2.75   0.006    -7.531833   -1.248878</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We see a single model, even though 5 models (one for each imputation) were run in the background. The results from these models were pooled using something called “Rubin’s rules” to produce a single model output.</p>
 <p>We see a few additional fit summaries about the multiple imputation that aren’t super relevant; but otherwise all the <a href="regression.html#fitting-the-logistic-model">existing interpretations</a> hold. Note that an F-test instead of <sup><span class="math inline">\(^\chi^2^\)</span></sup> test is run, but still tests the same hypothesis that all coefficients are identically zero. Among the coefficients, we see that smokers have significantly higher odds of having a heart attack, and there’s some weak evidence that age plays a role.</p>
-<p><sup>####</sup> MI Postestimation</p>
+<section id="mi-postestimation" class="level4" data-number="7.2.3.1">
+<h4 data-number="7.2.3.1" class="anchored" data-anchor-id="mi-postestimation"><span class="header-section-number">7.2.3.1</span> MI Postestimation</h4>
 <p>In general, most postestimation commands will not work after MI. The general approach is to do the MI <a href="#manual-mi">manually</a> and run the postestimation for each imputation. One exception is that <code>mi predict</code> works how <code>predict</code> does.</p>
-<p><sup>##</sup> Manual MI</p>
+</section>
+</section>
+</section>
+<section id="manual-mi" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="manual-mi"><span class="header-section-number">7.3</span> Manual MI</h2>
 <p>Since we set the data as <a href="#setting-up-data"><code>flong</code></a>, each imputed data set lives in the data with a separate <a href="multiple-imputation.html#mi-variables"><code>_mi_m</code></a> value. You can conditionally run analyses on each, e.g.</p>
 <pre><code>logit attack smokes age bmi female hsgrad if _mi_m == 0</code></pre>
 <p>to run the model on only the original data.</p>
 <p>It is tedious to do this over all imputed data, so instead we can run <code>mi xeq:</code> as a prefix to run a command on each separate data set. This is similar to <code>mi estimate:</code> except without the pooling.</p>
-<pre><code>. mi xeq: summ age
-
-m=0 data:
--&gt; summ age
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-         age |        142    56.43324    11.59131   20.73613   83.78423
-
-m=1 data:
--&gt; summ age
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-         age |        154    56.20732    11.61166   20.73613   83.78423
-
-m=2 data:
--&gt; summ age
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-         age |        154    55.79566    11.88629    16.9347   83.78423
-
-m=3 data:
--&gt; summ age
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-         age |        154    56.35074    11.50551   20.73613   83.78423
-
-m=4 data:
--&gt; summ age
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-         age |        154    56.35633     11.8424   20.73613   86.11715
-
-m=5 data:
--&gt; summ age
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-         age |        154    56.40651    11.44234   20.73613   83.78423
-</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> xeq: summ age</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">m</span>=0 <span class="kw">data</span>:</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>-&gt; summ age</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>         age |        142    56.43324    11.59131   20.73613   83.78423</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">m</span>=1 <span class="kw">data</span>:</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>-&gt; summ age</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>         age |        154    56.20732    11.61166   20.73613   83.78423</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="fu">m</span>=2 <span class="kw">data</span>:</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>-&gt; summ age</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>         age |        154    55.79566    11.88629    16.9347   83.78423</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="fu">m</span>=3 <span class="kw">data</span>:</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>-&gt; summ age</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>         age |        154    56.35074    11.50551   20.73613   83.78423</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="fu">m</span>=4 <span class="kw">data</span>:</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>-&gt; summ age</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>         age |        154    56.35633     11.8424   20.73613   86.11715</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="fu">m</span>=5 <span class="kw">data</span>:</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>-&gt; summ age</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>         age |        154    56.40651    11.44234   20.73613   83.78423</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This can also be useful if the analysis you want to execute is not supported by <code>mi estimate</code> yet.</p>
-<p><sup>###</sup> Rubin’s rules</p>
+<section id="rubins-rules" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="rubins-rules"><span class="header-section-number">7.3.1</span> Rubin’s rules</h3>
 <p>If you wanted to pool the results yourself, you can obtain an estimate for the pooled parameter by simple average across imputations. The formula for variance is slightly more complicated so we don’t produce it here, however it can be found in the “Methods and formulas” section of the MI manual (run <code>help mi estimate</code>, click on “[MI] mi estimate” at the top of the file to open the manual.</p>
-<p><sup>##</sup> Removing the MI data</p>
+</section>
+</section>
+<section id="removing-the-mi-data" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="removing-the-mi-data"><span class="header-section-number">7.4</span> Removing the MI data</h2>
 <p>Ideally, you should save the data (or <code>preserve</code> it) prior to imputing, so you can easily recover the unimputed data if you wish. If you wanted to return to the original data, the following should work:</p>
 <pre><code>mi unset
 drop if mi_m != 0
 drop mi_*</code></pre>
 <p>The first tells Stata not to treat it as imputed anymore; the second drops all imputed data sets; the third removes the MI variables that were generated.</p>
 <p>This only works for <code>mi set flong</code>; if you use another method, you can tweak the above or use <code>mi convert flong</code> to switch to “flong” first.</p>
-<p><sup>##</sup> Survey and multiple imputation</p>
+</section>
+<section id="survey-and-multiple-imputation" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="survey-and-multiple-imputation"><span class="header-section-number">7.5</span> Survey and multiple imputation</h2>
 <p>Just a quick note, if you want to utilize by complex survey design and multiple imputation simultaneously, proper ordering needs to be given. Note that only weights play a role in multiple imputation.</p>
 <pre><code>mi set ...
 mi svyset ...
@@ -426,7 +498,9 @@ mi estimate: svy: regress ...</code></pre>
 There has been some discussion that imputation should not take into account any complex survey design features (because you want the imputation to reflect the sample, not necessarily the population). See for example <a href="#citations">Little and Vartivarian 2003</a>. If you follow this advice, simply exclude the <code>[pweight = ...]</code> part of the <code>mi impute</code> command. In either case, estimation commands still need both the <code>mi estimate: svy:</code> prefixes in that order.
 </del>
 <p>The above paragraph is no longer accurate. See <a href="#citations">Reist and Larsen 2012</a>. Survey weights must be used in mulitple imputations.</p>
-<p><sup>##</sup> Citations</p>
+</section>
+<section id="citations" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="citations"><span class="header-section-number">7.6</span> Citations</h2>
 <ul>
 <li>Little, RJ, and S Vartivarian. 2003. On weighting the rates in non-response weights. Stat Med 22, no. 9: 1589-1599.</li>
 <li>Von Hippel, Paul T. “How to impute interactions, squares, and other transformed variables.” Sociological Methodology 39.1 (2009): 265-291.</li>
@@ -436,6 +510,7 @@ There has been some discussion that imputation should not take into account any 
 </ul>
 
 
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
@@ -681,12 +756,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./06-survey-data.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./solutions.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

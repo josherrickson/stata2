@@ -1,4 +1,4 @@
-^#^ Regression
+# Regression
 
 One notable exclusion from the [previous chapter](univariate-and-some-bivariate-analysis.html) was comparing the mean of a continuous variables across
 three or more groups. Two-sample t-tests compare the means across two groups, and ^$^\chi^2^$^ tests can compare two categorical variables with
@@ -14,7 +14,7 @@ Regression is a set of techniques where we attempt to fit a model to a data set 
 different types of response variables, or address different concerns when fitting the model. In this chapter and [the next](mixed-models.html), we
 will discuss a few variations.
 
-^#^^#^ Terminology
+## Terminology
 
 When discussing any form of regression, we think of predicting the value of one variable^[There are variations of regression with multiple outcomes,
 but they are for very specialized circumstances and can generally be fit as several basic regression models instead.] based upon several other
@@ -24,7 +24,7 @@ The variable we are predicting can be called the "outcome", the "response" or th
 
 The variables upon which we are predicting can be called "predictors", "covariates", or "independent variables".
 
-^#^^#^ Linear Regression
+## Linear Regression
 
 Linear regression (also known as Ordinary Least Squares (OLS) regression) is the most basic form of regression, where the response variable is
 continuous. Technically the response variable can also be binary or categorical but there are better regression models for those types of
@@ -54,12 +54,12 @@ of the main benefits of regression, controlling for other predictors (to be disc
 
 We will now fit a model, discussing assumptions afterwards, because almost all assumption checks can only occur once the model is fit!
 
-^#^^#^^#^ Fitting the model
+### Fitting the model
 
 Stata's `regress` command fit the linear regression model. It is followed by a varlist where the first variable is the outcome variable and all others
 are predictors. For this example, let's use the auto data and fit a relatively simple model, predicting `mpg` based on `gear_ratio` and `headroom`.
 
-~~~~
+````stata
 . sysuse auto, clear
 (1978 automobile data)
 
@@ -80,7 +80,7 @@ are predictors. For this example, let's use the auto data and fit a relatively s
        _cons |   5.113759   4.889846     1.05   0.299    -4.636317    14.86384
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 There is a lot of important output here, so we will step through each piece.
 
@@ -131,7 +131,7 @@ is no practical significance (aka clinical significance, a difference that isn't
 size; with a large sample even very small effects can have small p-values. Alternatively, a large practical significance with a low statistical
 significance can occur with very noisy data or a small sample size, which might indicate further study with a larger sample is needed.
 
-^#^^#^^#^ Including categorical predictors
+### Including categorical predictors
 
 Let's say we want to add `rep78`, a categorical variable with 5 levels, to the model. Regression can't actually handle categorical variables; instead
 it creates [dummy variables](summarizing-data.html#generating-dummy-variables). A dummy variable is needed for all *but one* of the levels of the
@@ -140,7 +140,7 @@ the last is automatically determined so adds no new information.].
 
 Naively, let's simply add the categorical `rep78` to the model:
 
-~~~~
+````stata
 . regress mpg gear_ratio headroom rep78
 
       Source |       SS           df       MS      Number of obs   =        69
@@ -159,7 +159,7 @@ Naively, let's simply add the categorical `rep78` to the model:
        _cons |   1.802318   4.849991     0.37   0.711    -7.883782    11.48842
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 We only get a single coefficient. Stata is treating `rep78` as continuous.
 
@@ -167,7 +167,7 @@ The issue is that Stata doesn't know we want to treat `rep78` as categorical^[It
 [`codebook`](summarizing-data.html#describe-summarize-codebook) for `rep78`, Stata correctly surmises that it is categorical. However, when it comes
 to modeling, Stata is not willing to make that assumption.]. If we prefix the variable name with `i.`, Stata will know it is categorical.
 
-~~~~
+````stata
 . regress mpg gear_ratio headroom i.rep78
 
       Source |       SS           df       MS      Number of obs   =        69
@@ -192,7 +192,7 @@ to modeling, Stata is not willing to make that assumption.]. If we prefix the va
        _cons |   2.809121   5.272816     0.53   0.596    -7.731087    13.34933
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 First, note that `headroom` no longer has a significant coefficient! This implies that `rep78` and `headroom` are correlated, and in the first model
 where we did not include `rep78`, all of `rep78`'s effect was coming through `headroom`. Once we control for `rep78`, headroom is no longer
@@ -208,7 +208,7 @@ not statistically significant).
 What about the other comparison? (Does 2 differ from 4?) Let's use the `margins` command. First, we'll get the marginal means at each level - if
 *every* car in the data set had a `rep78` level of ^$^i^$^, what is the average mileage?
 
-~~~~
+````stata
 . margins rep78
 
 Predictive margins                                          Number of obs = 69
@@ -228,7 +228,7 @@ Expression: Linear prediction, predict()
           5  |   24.83105   1.341573    18.51   0.000     22.14929    27.51282
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 Note that the difference in the marginal means corresponds to the coefficients above. E.g. the marginal means at repair record 1 and 2 are 20.42972
 and 21.63332 respectively, for a difference of 1.2036 - which is exactly (with rounding) the coefficient we saw on `rep78 = 2` above!
@@ -237,7 +237,7 @@ The t-tests here are simply testing whether the marginal means are different tha
 
 Now, we can look at all pairwise comparisons by adding the `pwcompare(pv)` option to margins:
 
-~~~~
+````stata
 . margins rep78, pwcompare(pv)
 
 Pairwise comparisons of predictive margins                  Number of obs = 69
@@ -262,7 +262,7 @@ Expression: Linear prediction, predict()
      5 vs 4  |   4.402354   1.642697     2.68   0.009
 -----------------------------------------------------
 
-~~~~
+````
 
 This result is similar to a post-hoc test from ANOVA if you are familiar with it. The only statistical significance we find is 5 vs 3 and 5 vs 4,
 suggesting that 5 is dissimilar from 3 and 4. (Confusingly, 3 and 4 are not dissimilar from 1 or 2, but 5 is similar to 1 and 2! These sort of things
@@ -270,7 +270,7 @@ can happen; its best to focus only on the comparisons that are of theoretical in
 
 By default, using `i.` makes the first level (lowest numerical value) as the reference category. You can adjust this by using `ib#.` instead, such as:
 
-~~~~
+````stata
 . regress mpg headroom gear_ratio ib3.rep78
 
       Source |       SS           df       MS      Number of obs   =        69
@@ -295,12 +295,12 @@ By default, using `i.` makes the first level (lowest numerical value) as the ref
        _cons |   2.853261   4.978251     0.57   0.569    -7.098121    12.80464
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 **This does not fit a different model.** Both models (with `i.rep78` and `ib3.rep78`) are identical, we're just adjusting what is reported. If the
 models do change (especially the model fit numbers in the top right), something has gone wrong!
 
-^#^^#^^#^ Interactions
+### Interactions
 
 Each coefficient we've look at so far is only testing whether there is a relationship between the predictor and response when the other predictors are
 held constant. What if we think the relationship changes based on the value of other predictors? For example, we might be interested in whether the
@@ -338,7 +338,7 @@ better mileage (better engineering). However, sportier cars (higher gear ratio) 
 performance. By including an interactino between price and gear ratio, we can test whether the relationship between price and mileage depends on the
 sportiness of the car.
 
-~~~~
+````stata
 . regress mpg c.price##c.gear_ratio
 
       Source |       SS           df       MS      Number of obs   =        74
@@ -360,7 +360,7 @@ c.gear_ratio |   -.001145    .000342    -3.35   0.001    -.0018271   -.0004629
        _cons |  -16.67042   7.509179    -2.22   0.030      -31.647   -1.693832
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 Note that we used `c.`, similar to `i.`. `c.` forces Stata to treat it as continuous. Stata assumes anything in an interaction is categorical, so we
 need `c.` here! This can get pretty confusing, but it's never wrong to include `i.` or `c.` when specifying a regression.
@@ -372,7 +372,7 @@ output, so we'll look at `margins` again instead. We'll want to look at the rela
 forget to [save the results](summarizing-data.html#storing-and-restoring-estimation-commands) or re-run the `regress` command to gain access to the
 [postestimation commands](summarizing-data.html#postestimation-commands) again), so let's look at the relationship at those extremes and at 3:
 
-~~~~
+````stata
 . margins, dydx(price) at(gear_ratio = (2.25 2.75 3.25 3.75))
 
 Average marginal effects                                    Number of obs = 74
@@ -397,7 +397,7 @@ price        |
           4  |  -.0017578   .0003847    -4.57   0.000     -.002525   -.0009906
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 This tells an interesting story. Notice the "dy/dx" column. All the values are negative and getting more negative. As the gear ratio increases, the
 relationship between price and mileage gets more negative. This effect is significant at all levels except with the lowest gear ratio. In the
@@ -407,14 +407,14 @@ ratio is never 0! We are extrapolating.
 
 To better understand the pattern we're seeing, let's visualize this:
 
-~~~~
+````stata
 . marginsplot
 
 Variables that uniquely identify margins: gear_ratio
 
-~~~~
+````
 
-<img src="Graph13.svg" >
+<img src="Graph36.svg" >
 
 With low gear_ratio, there is no relationship between price and mileage - increasing the cost of a low gear ratio car is predicted to have no effect on
 milage, on average. As the gear ratio increases, the relationship becomes significant and negative - among sporty cars (higher gear ratio), the more
@@ -422,7 +422,7 @@ expensive the car is the worse it's mileage!
 
 We can create a rather complicated looking plot to examine this.
 
-~~~~
+````stata
 . twoway (scatter mpg price if gear_ratio < 2.5, ///
 >          msymbol(circle) mcolor(red)) ///
 >        (lfit mpg price if gear_ratio < 2.5, ///
@@ -444,9 +444,9 @@ We can create a rather complicated looking plot to examine this.
 >                    order(1 3 5 7)) ///
 >             ytitle("mpg")
 
-~~~~
+````
 
-<img src="Graph14.svg" >
+<img src="Graph37.svg" >
 
 Each color represents a selection of cars with the given gear ratios. The cars with the lowest `gear_ratio`, in red, show no relationship between
 price and mileage. The green and purple cars with mid-range gear ratio, show negative relationships. The strongest negative relationship is among the
@@ -476,7 +476,7 @@ margins cat1#cat2
 
 Often discovering which variety of these you want may require some trial and error!
 
-^#^^#^^#^^#^ Centering
+#### Centering
 
 Some sources suggest centering continuous predictors before including them in an interaction. This can help slightly with interpretation (the main
 effects are the relationship when the other variable involved in the interaction are at their mean, rather than at zero) but doesn't actually affect
@@ -484,7 +484,7 @@ model fit.
 
 To center, use the following:
 
-~~~~
+````stata
 . summ gear_ratio
 
     Variable |        Obs        Mean    Std. dev.       Min        Max
@@ -530,7 +530,7 @@ To center, use the following:
        _cons |   20.82048   .4881841    42.65   0.000     19.84683    21.79413
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 If you compare fit characteristics and the interaction coefficient (and other coefficients), you'll notice nothing has changed save the coefficients
 for `pricec` and `gear_ratioc`. Now the interpretation the price main effect (which before was nonsense because gear ratio was never 0) is -.0009161,
@@ -539,7 +539,7 @@ which corresponds to the relationship between price and mileage when `gear_ratio
 If we were to re-run the `margins` commands from before, we'd see the same results (albeit with different scaling both in the `at( )` option and in
 the axes of the response.)
 
-^#^^#^^#^ Robust standard errors
+### Robust standard errors
 
 The standard error associated with each coefficient are determined with the assumption that the model is "true" and that, were we given an infinite
 sample size, the estimates ^$^\hat{\beta}^$^ would converge to the true ^$^\beta^$^. In many situations, this is clearly untrue.
@@ -547,7 +547,7 @@ sample size, the estimates ^$^\hat{\beta}^$^ would converge to the true ^$^\beta
 If you believe this is untrue, the estimates will be unaffected, but their standard errors will be incorrect. We can adjust for this by using "robust"
 standard errors, also known as Sandwich estimators or Huber-White estimators, with the `vce(robust)` option to `regress`.
 
-~~~~
+````stata
 . regress mpg c.price##c.gear_ratio, vce(robust)
 
 Linear regression                               Number of obs     =         74
@@ -569,7 +569,7 @@ c.gear_ratio |   -.001145   .0003043    -3.76   0.000    -.0017519   -.0005381
        _cons |  -16.67042   7.455919    -2.24   0.029    -31.54078   -1.800056
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 Notice that compared to the [previous model](#interactions), the Coef estimates are the same but the standard errors (and corresponding t-statistic,
 p-value and confidence interval) are slightly different.
@@ -581,11 +581,11 @@ not often happen (generally the higher residuals occur in observations that coul
 There has been some argument that robust standard errors should always be used, because if the model is correctly specified, the robust standard
 errors and regular standard errors should be almost identical, so there is no harm in using them.
 
-^#^^#^^#^ Assumptions
+### Assumptions
 
 There are three main assumptions when running a linear regression. Some we can test, some we cannot (and need to rely on our knowledge of the data).
 
-^#^^#^^#^^#^ Relationship is linear and additive
+#### Relationship is linear and additive
 
 Recall the linear regression model:
 
@@ -596,12 +596,12 @@ Recall the linear regression model:
 This very explicitly assumes that the relationship is linear (as opposed to something non-linear, such as quadratic or exponential) and additive (as
 opposed to multiplicative). We can examine this assumption by looking at plots of the residuals (estimated errors):
 
-~~~~
+````stata
 . rvfplot
 
-~~~~
+````
 
-<img src="Graph15.svg" >
+<img src="Graph38.svg" >
 
 What we're seeing here is a scatterplot between the fitted values (the predicted values for each individual) and their errors (the difference between
 the predicted values and observed values). If you can see a pattern in the scatterplot, that is evidence that this assumption is
@@ -615,7 +615,7 @@ a pattern (the third). (We will discuss the second plot [below](#errors-are-homo
 
 If this assumption is violated, you will need to reconsider the structure in your model, perhaps by adding a squared term (e.g. `reg y c.x c.x#c.x`).
 
-^#^^#^^#^^#^^#^ Obtaining predicted values and residuals
+##### Obtaining predicted values and residuals
 
 In the [`rvfplot`](#relationship-is-linear-and-additive), we plotted residuals versus predicted values - neither of which we have in the data. If
 there is some analysis beyond what `rvfplot` produces that you're interested in, the `predict` command can obtain these. The general syntax for
@@ -632,20 +632,20 @@ There are quite a few options for the "statistic", but the two most commonly use
 
 In other words, we can replicate the above `rvfplot` via:
 
-~~~~
+````stata
 . predict linearpredictor, xb
 
 . predict resids, residuals
 
 . twoway scatter resids linearpredictor
 
-~~~~
+````
 
-<img src="Graph16.svg" >
+<img src="Graph39.svg" >
 
 Of course we can clean this plot up with the [typical options](visualization.html#the-graph-command).
 
-^#^^#^^#^^#^ Errors are homogeneous
+#### Errors are homogeneous
 
 "Homogeneity" is a fancy term for "uniform in distribution", whereas "heterogeneity" represents "not uniform in distribution". If we were to take a
 truly random sample of all individuals in Michigan, the distribution of their heights would be homogeneous - it is reasonable to assume there is only
@@ -662,16 +662,16 @@ middle plot. As the fitted values increase, the error spreads out.
 If this assumption is violated, you may consider restructuring your model as above, or transforming either your response or predictors using log
 transforms.
 
-^#^^#^^#^^#^ Independence
+#### Independence
 
 This last assumption is that each row of your data is independent. If you have repeated measures, this is violated. If you have subjects drawn from
 groups (i.e. students in classrooms), this is violated. There is no way to test for this, it requires knowing the data set.
 
 If this assumption is violated, consider fitting a [mixed model](mixed-models.html) instead.
 
-^#^^#^^#^ Miscellaneous concerns
+### Miscellaneous concerns
 
-^#^^#^^#^^#^ Multicollinearity
+#### Multicollinearity
 
 Multicollinearity is an issue when 2 or more predictors are correlated. If only two are correlated, looking at their correlation (with `pwcorr` or
 `correlate`) may provide some indication, but you can have many-way multicollinearity where each pairwise correlation is low. You can use the variance
@@ -680,7 +680,7 @@ inflation factor to try and identify if this is an issue.
 
 Let's fit a model with a bunch of main effects. We use `quietly` to suppress the output to save space.
 
-~~~~
+````stata
 . quietly regress mpg headroom trunk weight length turn displacement
 
 . estat vif
@@ -696,7 +696,7 @@ displacement |      5.17    0.193585
 -------------+----------------------
     Mean VIF |      6.93
 
-~~~~
+````
 
 The rule of thumb is VIF > 10 or 1/VIF (called the tolerance) < .1 suggests that the variable is involved in multicollinearity and more exploration
 may be needed.
@@ -729,13 +729,13 @@ but let's assume without loss of generality that ^$^a=1^$^ and ^$^b=0^$^.] Now, 
 
 This is an extreme example, but in practice we can be close to this situation.
 
-^#^^#^^#^^#^ Overfitting
+#### Overfitting
 
 Overfitting occurs when a model includes so many predictors that you can no longer generalize to the population. The rule of thumb is that you should
 have no more than one predictor for every 10-20 observations. The smaller your sample size, the more conservative you should be. For example, a sample
 size of 100 should use no more than 5-10 predictors. Recall that a categorical predictor with ^$^k^$^ different levels adds ^$^k-1^$^ predictors!
 
-^#^^#^^#^^#^ Model Selection is bad
+#### Model Selection is bad
 
 There is a literature on the idea of model selection, that is, an automated (or sometimes manual) way of testing many versions of a model with a
 different subset of the predictors in an attempt to find the model that fits best. These are sometimes called "stepwise" procedures.
@@ -753,7 +753,7 @@ outcome. Then you can fit a single model including all of this. The "subset" can
 Note that adjustments to fix assumptions (e.g. transformations) or multicollinearity would not fall into the category of model selection and are fine
 to use.
 
-^#^^#^ Exercise 4
+## Exercise 4
 
 Reload the NHANES data.
 
@@ -773,7 +773,7 @@ additional commands.
 6. Looking at all the differences between regions, what conclusion can you draw?
 7. Add an [interaction](#interactions) between gender and age. What is the interpretation here?
 
-^#^^#^ Logistic Regression
+## Logistic Regression
 
 Let's violate one of the [assumptions](#relationship-is-linear-and-additive). Instead of the relationship being linear, we can generalize to allow the
 relationship to be any functional form. These types of models are called "Generalized Linear Models" or "GLMs", mainly because we can transform the
@@ -794,12 +794,12 @@ crucial to understanding the model, but there are two quirks that need to be not
    predictors. Unlike linear regression where we are explicitly predicting the outcome, a logistic model is instead trying to predict everyone's
    probability of a positive outcome.
 
-^#^^#^^#^ Fitting the logistic model
+### Fitting the logistic model
 
 We can fit this using the `logit` command in State. It works very similarly to `regress`. Let's predict whether a car is foreign based on headroom and
 gear ratio again.
 
-~~~~
+````stata
 . logit foreign gear_ratio headroom
 
 Iteration 0:  Log likelihood =  -45.03321  
@@ -822,7 +822,7 @@ Log likelihood = -21.905069                             Pseudo R2     = 0.5136
        _cons |   -18.2719   4.565065    -4.00   0.000    -27.21926   -9.324539
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 When you try this yourself, you may notice that its not quite as fast as `regress`. That is because for linear regression we have a "closed form
 solution" - we just do some quick math and reach an answer. However, almost every other type of regression lacks a closed form solution, so instead we
@@ -844,7 +844,7 @@ the probability of a car being foreign increases."
 To add any interpretability to these coefficients, we should instead look at the odds ratios (these coefficients are known as the log-odds). We can
 obtain this with the `or` options.
 
-~~~~
+````stata
 . logit, or
 
 Logistic regression                                     Number of obs =     74
@@ -861,7 +861,7 @@ Log likelihood = -21.905069                             Pseudo R2     = 0.5136
 ------------------------------------------------------------------------------
 Note: _cons estimates baseline odds.
 
-~~~~
+````
 
 Notice that the "LR chi2(2)", "Pseudo R2", "z" and "P>|z|" do not change - we're fitting the same model! We're just changing how the coefficients are
 represented, similar to [changing the baseline of a categorical variable](#including-categorical-predictors).
@@ -872,7 +872,7 @@ Odds ratios null hypothesis is at 1, not at 0. Odds ratios are always positive. 
 foreign! This is massive! But keep in mind, `gear_ratio` had a very narrow range - an increase of 1 is very large. Let's rescale gear_ratio and try
 again.
 
-~~~~
+````stata
 . gen gear_ratio2 = gear_ratio*10
 
 . logit foreign gear_ratio2 headroom, or
@@ -898,7 +898,7 @@ Log likelihood = -21.905071                             Pseudo R2     = 0.5136
 ------------------------------------------------------------------------------
 Note: _cons estimates baseline odds.
 
-~~~~
+````
 
 Note once again that the model fit characteristics haven't changed; we've fit the same model, just with different units. Now the interpretation is
 more reasonable, for every .1 increase in `gear_ratio` (which corresponds to a 1 increase in `gear_ratio2`), we predict an increase in the odds of a
@@ -908,7 +908,7 @@ The odds ratio on headroom is not distinguishable from 1, however, if it were, t
 predicted to decrease the odds of a car being foreign by about      21.7% on average (1 -
     0.783).
 
-^#^^#^^#^ Categorical Variables and Interactions
+### Categorical Variables and Interactions
 
 Both [categorical variables](#including-categorical predictors) and [interactions](#interactions) can be included as they were in linear regression,
 with the appropriate interpretation of coefficients/odds ratios. The `margins` command also works the same.
@@ -916,7 +916,7 @@ with the appropriate interpretation of coefficients/odds ratios. The `margins` c
 The `predict` command adds a new [statistic](#obtaining-predicted-values-and-residuals). `xb` now is the linear predictor, which is often not
 useful. Instead, the `pr` statistic returns the estimated probability of a positive outcome.
 
-^#^^#^^#^ Logistic regression assumptions
+### Logistic regression assumptions
 
 The assumptions for logistic regression are simpler than linear. The outcome measure must be binary with a 0 for a negative response and 1 for a
 positive. (Technically they don't have to be positive/negative. We could think of predicting male/female and code male = 0 and female = 1. However,
@@ -925,14 +925,14 @@ errors in a logistic regression model are fairly contained (you can't be wrong t
 [independence](#independence) assumption is still here and still important, again, a mixed model (specifically a [logistic mixed
 model](mixed-models.html#logistic-mixed-model)) may be appropriate if the data is not independent.
 
-^#^^#^^#^ Logistic goodness of fit
+### Logistic goodness of fit
 
 As we mentioned earlier, there are various issues with the Pseudo ^$^R^2^$^ reported by `logit`, so use it carefully. There are two alternate
 approaches.
 
 The first is to look at the ROC curve:
 
-~~~~
+````stata
 . lroc
 
 Logistic model for foreign
@@ -940,9 +940,9 @@ Logistic model for foreign
 Number of observations =       74
 Area under ROC curve   =   0.9384
 
-~~~~
+````
 
-<img src="Graph17.svg" >
+<img src="Graph40.svg" >
 
 The ROC curve is a bit complicated to explain, but basically over a range of thresholds, it classifies each observation as predicting a 0 or 1. E.g.,
 with a threshold of .2, any observation whose predicted probability is below .2 is classified as a "0", any observation whose predicted probability is
@@ -959,7 +959,7 @@ The second is a more formal test. There are two variants, a Pearson ^$^\chi^2^$^
 command. Both are testing the hypothesis that the observed positive responses match predicted positive responses in subgroups of the
 population. Therefore we do *not* want to reject these tests, and a large p-value is desired.
 
-~~~~
+````stata
 . estat gof
 
 Goodness-of-fit test after logistic model
@@ -970,7 +970,7 @@ Number of covariate patterns =     58
             Pearson chi2(55) =  42.92
                  Prob > chi2 = 0.8817
 
-~~~~
+````
 
 We see here a p-value of     0.882, failing to reject the null, so there is no evidence that the model
 does not fit well.
@@ -979,7 +979,7 @@ There is some concern that when the "number of covariate patterns" is close to t
 we see that        58 is indeed "close" to        74. Instead, we can use the Hosmer-Lemeshow by passing the
 `group(#)` option:
 
-~~~~
+````stata
 . estat gof, group(10)
 note: obs collapsed on 10 quantiles of estimated probabilities.
 
@@ -991,7 +991,7 @@ Variable: foreign
 Hosmer–Lemeshow chi2(8) =   9.89
             Prob > chi2 = 0.2727
 
-~~~~
+````
 
 The p-value remains insignificant at     0.273, still no evidence of poor model fit.
 
@@ -1001,7 +1001,7 @@ number of groups is greater than the number of predictors (including the interce
 
 There are some limitations to Hosmer-Lemeshow, and there are more modern alternatives. However, Stata has not implemented any yet that I'm aware of.
 
-^#^^#^^#^ Separation
+### Separation
 
 Since the logistic regression model is solved [iteratively](regression.html#fitting-the-logistic-model), this can fail for a number of reasons. Before
 you begin interpreting the model, you'll want to glance at the iteration steps and make sure that no errors were printed. The most common failure is
@@ -1022,7 +1022,7 @@ need a model to inform you of that.
 You can examine separation by looking at a table. Imagine we wanted to restructure `rep78` as a binary variable, with low repairs (repair record below
 3) and high repairs (repair records 3 and above).
 
-~~~~
+````stata
 . gen repair_binary = rep78 >= 3
 
 . replace repair_binary = . if rep78 >= .
@@ -1042,11 +1042,11 @@ High repairs |         59       85.51      100.00
 -------------+-----------------------------------
        Total |         69      100.00
 
-~~~~
+````
 
 Let's try fitting the model:
 
-~~~~
+````stata
 . logit foreign repair_binary
 
 note: repair_binary != 1 predicts failure perfectly;
@@ -1067,11 +1067,11 @@ repair_bin~y |          0  (omitted)
        _cons |  -.5930637   .2719096    -2.18   0.029    -1.125997   -.0601307
 ------------------------------------------------------------------------------
 
-~~~~
+````
 
 Notice the note at the top of the model, and notice that nothing is estimated for `repair_binary`. We have partial separation:
 
-~~~~
+````stata
 . tab foreign repair_binary
 
            |     repair_binary
@@ -1082,11 +1082,11 @@ Car origin | Low repai  High repa |     Total
 -----------+----------------------+----------
      Total |        10         59 |        69 
 
-~~~~
+````
 
 Since we have a zero in one of the cells, that's partial separation. Complete separation would be zero in both off-diagonal cells.
 
-^#^^#^^#^ `logit` Miscellaneous
+### `logit` Miscellaneous
 
 The `logit` model supports the margins command just like `regress` does. It does not support `estat vif` because variance inflation factors are not
 defined for logistic models.
@@ -1095,12 +1095,12 @@ Collinearity, overfitting, and model selection remain concerns in the logistic m
 
 Robust standard errors via `vce(robust)` are supported.
 
-^#^^#^^#^ `logit` vs `logistic`
+### `logit` vs `logistic`
 
 Instead of `logit`, we could run the `logistic` command. The only difference is that `logistic` reports the odds ratio by default whereas `logit`
 reports the log odds. My personal preference is `logit`, but there's no need to use one over the other.
 
-^#^^#^ Other regression models
+## Other regression models
 
 There are several other models which we will not cover, but function similarly to the above.
 
@@ -1117,7 +1117,7 @@ There are several other models which we will not cover, but function similarly t
   multinomial logistic regression. It essentially fits a model predicting membership in each group versus all other, with some restrictions across the
   models.
 
-^#^^#^ Exercise 5
+## Exercise 5
 
 Reload the NHANES data.
 

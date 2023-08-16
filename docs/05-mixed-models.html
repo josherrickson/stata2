@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intermediate Stata (Statistical Modeling) - 5&nbsp; _cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</title>
+<title>Intermediate Stata (Statistical Modeling) - 5&nbsp; Mixed models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-mixed-models.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons |   1.644184   .0161148   102.03   0.000     1.612599    1.675768</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05-mixed-models.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -110,49 +144,49 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-summarizing-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-univariate-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-mixed-models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-survey-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multiple-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></span></a>
   </div>
 </li>
     </ul>
@@ -161,14 +195,33 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#terminology" id="toc-terminology" class="nav-link active" data-scroll-target="#terminology"><span class="header-section-number">5.1</span> Terminology</a>
+  <ul class="collapse">
+  <li><a href="#econometric-terminology" id="toc-econometric-terminology" class="nav-link" data-scroll-target="#econometric-terminology"><span class="header-section-number">5.1.1</span> Econometric terminology</a></li>
+  </ul></li>
+  <li><a href="#wide-vs-long-data-time-varying-vs-time-invariant" id="toc-wide-vs-long-data-time-varying-vs-time-invariant" class="nav-link" data-scroll-target="#wide-vs-long-data-time-varying-vs-time-invariant"><span class="header-section-number">5.2</span> Wide vs Long data, Time-varying vs Time-invariant</a></li>
+  <li><a href="#linear-mixed-model" id="toc-linear-mixed-model" class="nav-link" data-scroll-target="#linear-mixed-model"><span class="header-section-number">5.3</span> Linear Mixed Model</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">5.4</span> Assumptions</a></li>
+  <li><a href="#miscellaneous" id="toc-miscellaneous" class="nav-link" data-scroll-target="#miscellaneous"><span class="header-section-number">5.5</span> Miscellaneous</a></li>
+  <li><a href="#convergence-issues" id="toc-convergence-issues" class="nav-link" data-scroll-target="#convergence-issues"><span class="header-section-number">5.6</span> Convergence issues</a></li>
+  <li><a href="#logistic-mixed-model" id="toc-logistic-mixed-model" class="nav-link" data-scroll-target="#logistic-mixed-model"><span class="header-section-number">5.7</span> Logistic Mixed Model</a>
+  <ul class="collapse">
+  <li><a href="#meqrlogit" id="toc-meqrlogit" class="nav-link" data-scroll-target="#meqrlogit"><span class="header-section-number">5.7.1</span> <code>meqrlogit</code></a></li>
+  </ul></li>
+  <li><a href="#exercise-6" id="toc-exercise-6" class="nav-link" data-scroll-target="#exercise-6"><span class="header-section-number">5.8</span> Exercise 6</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></h1>
 </div>
 
 
@@ -183,19 +236,18 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><sup>#</sup> Mixed models</p>
-<p>Let’s violate another regression assumption, <a href="#independence">independence</a>. While this is usually thought of in the repeated measurements setting, it is not exclusive to that. For example,</p>
+<p>Let’s violate another regression assumption, <a href="04-regression.html#independence">independence</a>. While this is usually thought of in the repeated measurements setting, it is not exclusive to that. For example,</p>
 <ul>
 <li>Repeated measures: You’re conducting a trial on individuals who undergo an intervention. You generate a survey, and have the participants fill out a copy when the intervention begins, 30 days into the intervention, and 1 year after the intervention. If we have a single outcome measure of interest from this survey, we have three measurements for person. These values are not independent; it’s reasonable to think that your measurements are more related to each other than any of mine.</li>
 <li>Non-repeated measures: You conduct door-to-door sampling of individuals in households, asking about food habits. You collect information on each individual in the house, and want to use individuals as the unit of analysis. It’s likely that two individuals in the same house will have similar food patterns, as opposed to two individuals from different houses.</li>
 </ul>
 <p>To address the lack of dependence, we will move from normal regression (linear or otherwise) into a mixed models framework, which accounts for this dependence structure. It does this (at the most basic level) by allowing each [individual from the intervention example, household from the door-to-door example] to have its own intercept which we <em>do not estimate</em>.</p>
 <p>For this chapter, we’ll turn away from the “auto” data set and instead use a sample of the <a href="https://en.wikipedia.org/wiki/National_Longitudinal_Surveys">“National Longitudinal Survey”</a> contained in Stata:</p>
-<pre><code>. webuse nlswork, clear
-(National Longitudinal Survey of Young Women, 14-24 years old in 1968)
-</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> nlswork, <span class="kw">clear</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(National Longitudinal Survey <span class="kw">of</span> Young Women, 14-24 years old <span class="kw">in</span> 1968)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This data is a survey taken from 1968-1988, and this specific sample of the data is salary information for women. We have repeated measures in the sense that we have yearly data for women, so each woman can have up to 20 data points.</p>
-<p><sup>##</sup> Terminology</p>
+<section id="terminology" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="terminology"><span class="header-section-number">5.1</span> Terminology</h2>
 <p>There are several different names for mixed models which you might encounter, that all fit essentially the same model:</p>
 <ul>
 <li>Mixed model</li>
@@ -213,67 +265,74 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>This is taking it a bit far; it’s rare to see more than 3 levels, but in theory, any number can exist.</p>
 <p>For this workshop, we will only briefly discuss this from hierarchical point of view, preferring the mixed models view (with the reminder again that they are the same!).</p>
-<p><sup>###</sup> Econometric terminology</p>
+<section id="econometric-terminology" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="econometric-terminology"><span class="header-section-number">5.1.1</span> Econometric terminology</h3>
 <p>To make the terminology a bit more complicated, in econometrics, some of the terms we will use here are overloaded. When you are discussing mixed models with someone with econometric or economics training, it’s important to differentiate between the statistical terms of “fixed effects” and “random effects” which are the two components of a mixed model that we <a href="#linear_mixed_model">discuss below</a>, and what econometricians called “fixed effects regression” and “random effects regression”.</p>
 <p>Without going into the full details of the econometric world, what econometricians called “random effects regression” is essentially what statisticians called “mixed models”, what we’re talking about here. The Stata command <code>xtreg</code> handles those econometric models.</p>
-<p><sup>##</sup> Wide vs Long data, Time-varying vs Time-invariant</p>
+</section>
+</section>
+<section id="wide-vs-long-data-time-varying-vs-time-invariant" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="wide-vs-long-data-time-varying-vs-time-invariant"><span class="header-section-number">5.2</span> Wide vs Long data, Time-varying vs Time-invariant</h2>
 <p>Before you begin your analysis, you need to ensure that the data is in the proper format. Let’s consider the NLS data, where we have measures of women’s salary over 20 years.</p>
 <p>Wide format of the data would have row represent a woman, and she would have 20 columns worth of salary information<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> (plus additional demographics).</p>
 <p>Long format of the data would have each row represent a woman and a year, so that each woman can have up to 20 rows (if a woman wasn’t measured in a given year, that row &amp; year is missing).</p>
 <p>To fit a mixed model, we need the data in long format. We can use the <code>reshape</code> command to transform wide data to long. This is covered in the <a href="https://errickson.net/stata1/data-manipulation.html#reshaping-files">Stata I</a> set of notes.</p>
 <p>Additionally, there is the concept of time-varying vs time-invariant variables. Time-varying variables are those which can be different for each entry within the same individual. Examples include weight or salary. Time-invariant are those which are the same across all entries. Examples include race or baseline characteristics.</p>
 <p>When data is long, time-invariant variables need to be constant per person.</p>
-<p><sup>##</sup> Linear Mixed Model</p>
-<p>The most basic mixed model is the linear mixed model, which extends the <a href="#linear-regression">linear regression</a> model. A model is called “mixed” because it contains a mixture of <em>fixed effects</em> and <em>random effects</em>.</p>
+</section>
+<section id="linear-mixed-model" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="linear-mixed-model"><span class="header-section-number">5.3</span> Linear Mixed Model</h2>
+<p>The most basic mixed model is the linear mixed model, which extends the <a href="04-regression.html#linear-regression">linear regression</a> model. A model is called “mixed” because it contains a mixture of <em>fixed effects</em> and <em>random effects</em>.</p>
 <ul>
 <li>Fixed effects: These are the predictors that are present in regular linear regression. We will obtain coefficients for these predictors and be able to test and interpret them. Technically, an OLS linear model is a mixed model with only fixed effects.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 <li>Random effects: These are the “grouping” variables, and must be categorical (Stata will force every variable used to produce random effects as if it were prefaced by <code>i.</code>). These are essentially just predictors as well, however, we do not obtain coefficients to test or interpret. We do get a measure of the variability across groups, and a test of whether the random effect is benefiting the model.</li>
 </ul>
 <p>Let’s fit a model using the <code>mixed</code> command. It works similar to <code>regress</code> with a slight tweak. We’ll try and predict log of wages<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> using work experience, race and age. The variable <code>idcode</code> identifies individuals.</p>
-<pre><code>. mixed ln_w ttl_exp i.race age || idcode:
-
-Performing EM optimization ...
-
-Performing gradient-based optimization: 
-Iteration 0:  Log likelihood = -10471.727  
-Iteration 1:  Log likelihood = -10471.727  
-
-Computing standard errors ...
-
-Mixed-effects ML regression                         Number of obs    =  28,510
-Group variable: idcode                              Number of groups =   4,710
-                                                    Obs per group:
-                                                                 min =       1
-                                                                 avg =     6.1
-                                                                 max =      15
-                                                    Wald chi2(4)     = 5246.25
-Log likelihood = -10471.727                         Prob &gt; chi2      =  0.0000
-
-------------------------------------------------------------------------------
-     ln_wage | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
--------------+----------------------------------------------------------------
-     ttl_exp |    .042996   .0010126    42.46   0.000     .0410113    .0449807
-             |
-        race |
-      Black  |  -.1178248   .0115814   -10.17   0.000    -.1405238   -.0951257
-      Other  |   .0995432   .0484246     2.06   0.040     .0046328    .1944536
-             |
-         age |  -.0069699   .0006836   -10.20   0.000    -.0083097   -.0056302
-
-------------------------------------------------------------------------------
-  Random-effects parameters  |   Estimate   Std. err.     [95% conf. interval]
------------------------------+------------------------------------------------
-idcode: Identity             |
-                  var(_cons) |   .1037959   .0026579      .0987151    .1091381
------------------------------+------------------------------------------------
-               var(Residual) |    .089042   .0008183      .0874526    .0906603
-------------------------------------------------------------------------------
-LR test vs. linear model: chibar2(01) = 11678.16      Prob &gt;= chibar2 = 0.0000
-</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. mixed ln_w ttl_exp i.race age || idcode:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Performing EM optimization ...</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Performing <span class="kw">gradient</span>-based optimization: </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Iteration 0:  Log likelihood = -10471.727  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Iteration 1:  Log likelihood = -10471.727  </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Computing standard errors ...</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>Mixed-<span class="kw">effects</span> ML regression                         Number <span class="kw">of</span> <span class="kw">obs</span>    =  28,510</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>Group <span class="kw">variable</span>: idcode                              Number <span class="kw">of</span> groups =   4,710</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                                                    Obs per <span class="fu">group</span>:</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="fu">min</span> =       1</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                                                                 avg =     6.1</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                                                                 <span class="fu">max</span> =      15</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                                                    Wald <span class="fu">chi2</span>(4)     = 5246.25</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>Log likelihood = -10471.727                         Prob &gt; <span class="fu">chi2</span>      =  0.0000</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>     ln_wage | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>     ttl_exp |    .042996   .0010126    42.46   0.000     .0410113    .0449807</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        race |</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>      Black  |  -.1178248   .0115814   -10.17   0.000    -.1405238   -.0951257</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>      Other  |   .0995432   .0484246     2.06   0.040     .0046328    .1944536</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>         age |  -.0069699   .0006836   -10.20   0.000    -.0083097   -.0056302</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   1.644184   .0161148   102.03   0.000     1.612599    1.675768</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  Random-<span class="kw">effects</span> parameters  |   Estimate   Std. err.     [95% conf. interval]</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>-----------------------------+------------------------------------------------</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>idcode: Identity             |</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>                  <span class="kw">var</span>(<span class="dt">_cons</span>) |   .1037959   .0026579      .0987151    .1091381</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>-----------------------------+------------------------------------------------</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>               <span class="kw">var</span>(Residual) |    .089042   .0008183      .0874526    .0906603</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>LR <span class="kw">test</span> vs. linear <span class="kw">model</span>: chibar2(01) = 11678.16      Prob &gt;= chibar2 = 0.0000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The fixed part of the equation, <code>ln_w ttl_exp i.race age</code> is the same as with linear regression, <code>ln_w</code> is the outcome and the rest are predictors, with <code>race</code> being categorical. The new part is <code>|| idcode:</code>. The <code>||</code> separates the fixed on the left from the random effects on the right. <code>idcode</code> identifies individuals. The <code>:</code> is to enable the more complicated feature of random slopes which we won’t cover here; for our purposes the <code>:</code> is just required.</p>
 <p>Let’s walk through the output. Note that what we are calling the random effects (e.g.&nbsp;individuals in a repeated measures situation, classrooms in a students nested in classroom situation), Stata refers to as “groups” in much of the output.</p>
 <ul>
-<li>At the very top, you’ll see that the solution is arrived at iteratively, similar to <a href="#fitting-the-logistic-model">logistic regression</a> (you probably also noticed how slow it is)!</li>
+<li>At the very top, you’ll see that the solution is arrived at iteratively, similar to <a href="04-regression.html#fitting-the-logistic-model">logistic regression</a> (you probably also noticed how slow it is)!</li>
 <li>The log likelihood is how the iteration works; essentially the model “guesses” choices for the coefficients, and finds the set of coefficients that minimize the log likelihood. Of course, the “guess” is much smarter than random. The actual value of the log likelihood is meaningless.</li>
 <li>Since we are dealing with repeated measures of some sort, instead of a single sample size, we record the total number of obs, the number of groups (unique entries in the random effects) and min/mean/max of the groups. As before, just ensure these numbers seem right.</li>
 <li>As with logistic regression, the <sup><span class="math inline">\(^\chi^2^\)</span></sup> test tests the hypothesis that all coefficients are simultaneously 0.
@@ -290,16 +349,22 @@ LR test vs. linear model: chibar2(01) = 11678.16      Prob &gt;= chibar2 = 0.000
 <li>The estimated variance of the residuals is any additional variation between observations. This is akin to the residuals from linear regression.</li>
 <li>The <sup><span class="math inline">\(^\chi^2^\)</span></sup> test at the bottom is a formal test of the inclusion of the random effects versus a <a href="regression.html#linear-regression">linear regression</a> model without the random effects. We reject the null that the models are equivalent, so it is appropriate to include the random effects.</li>
 </ul>
-<p><sup>##</sup> Assumptions</p>
+</section>
+<section id="assumptions" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">5.4</span> Assumptions</h2>
 <p>The <a href="regression.html#relationship-is-linear-and-additive">linear additivity</a> remains necessary. <code>rvfplot</code> will not work following a <code>mixed</code> command, but you can <a href="regression.html#obtaining-predicted-values-and-residuals">generate the residuals vs fitted plot manually</a>.</p>
 <p>The <a href="regression.html#errors-are-homogeneous">homogeneity of residuals</a> assumption is violated by design in a mixed model. However, some forms of heterogeneity, such as increasing variance as fitted values increase, are not supported. Therefore we can still use the residuals vs fitted plot to examine this.</p>
 <p>Again, the <a href="regression.html#independence">independence</a> assumption is violated by design, but observations between groups (e.g.&nbsp;between individuals) should be independent.</p>
-<p><sup>##</sup> Miscellaneous</p>
+</section>
+<section id="miscellaneous" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="miscellaneous"><span class="header-section-number">5.5</span> Miscellaneous</h2>
 <p>As we’ve discussed before, <a href="regression.html#multicollinearity">collinearity</a>, <a href="regression.html#overfitting">overfitting</a>, and <a href="regression.html#model-selection-is-bad">model selection</a> remain concerns.</p>
 <p>Sample size considerations are tricky with mixed models. Typically these are done with simulations. At a rough pass, the rules of thumb from linear regression remain; 10-20 observations per predictor. Adding a new person will improve the power more than adding another observation for an existing group.</p>
 <p>The <code>margins</code> and <code>predict</code> command work similarly to <code>regress</code>, however note that both (by default) <em>ignore the random effects</em>; that is, the results the produce are averaged across all individuals.</p>
 <p>As with <a href="regression.html#robust-standard-errors">linear regression</a> and <a href="regression#logit-miscellaneous">logistic regression</a>, <code>mixed</code> supports <code>vce(robust)</code> to enable robust standard errors.</p>
-<p><sup>##</sup> Convergence issues</p>
+</section>
+<section id="convergence-issues" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="convergence-issues"><span class="header-section-number">5.6</span> Convergence issues</h2>
 <p>As with <a href="regression.html#separation">logistic regression</a>, the solution is arrived at iteratively, which means it can fail to converge for a number of reasons. Separation isn’t an issue here (though it will be in <a href="#convergence-issues">logistic mixed models</a>), but there can be other causes of a failure to converge.</p>
 <p>Generally, failure to converge will be due to an issue with the data. Things to look for include:</p>
 <ul>
@@ -312,13 +377,19 @@ LR test vs. linear model: chibar2(01) = 11678.16      Prob &gt;= chibar2 = 0.000
 </ul></li>
 <li>You can try use the “reml” optimizer, by passing the <code>reml</code> option. This optimizer can be a bit easier to converge.</li>
 </ul>
-<p><sup>##</sup> Logistic Mixed Model</p>
+</section>
+<section id="logistic-mixed-model" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="logistic-mixed-model"><span class="header-section-number">5.7</span> Logistic Mixed Model</h2>
 <p>Similar to <a href="regression.html#logistic-regression">logistic regression</a> being an extension to <a href="regression#linear-regression">linear regression</a>, logistic mixed models are an extension to <a href="#linear-mixed-model">linear mixed models</a> when the outcome variable is binary.</p>
 <p>The command for logistic mixed models is <code>melogit</code>. The rest of the command works very similarly to <code>mixed</code>, and interpretation is the best of logistic regression (for fixed effects) and linear mixed models (for random effects). Unfortunately, neither <code>lroc</code> nor <code>estat gof</code> is supported, so goodness of fit must be measured solely on the <sup><span class="math inline">\(^\chi^2^\)</span></sup> test and perhaps a manual model fit comparison.</p>
 <p>By default the log-odds are reported, give the <code>or</code> option to report the odds ratios.</p>
-<p><sup>###</sup> <code>meqrlogit</code></p>
+<section id="meqrlogit" class="level3" data-number="5.7.1">
+<h3 data-number="5.7.1" class="anchored" data-anchor-id="meqrlogit"><span class="header-section-number">5.7.1</span> <code>meqrlogit</code></h3>
 <p>There is a different solver that can be used based upon QR-decomposition. This is run with the command <code>meqrlogit</code>. It functions identically to <code>melogit</code>. If <code>melogit</code> has convergence issues, try using <code>meqrlogit</code> instead.</p>
-<p><sup>##</sup> Exercise 6</p>
+</section>
+</section>
+<section id="exercise-6" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">5.8</span> Exercise 6</h2>
 <p>Load up the “chicken” data set from Stata’s website:</p>
 <pre><code>webuse chicken, clear</code></pre>
 <p>The data contains order information from a number of restaurants and records whether the order resulted in a complaint. We’d like to see what attributes (if any) of the servers may increase the odds of a complaint. Since we have multiple orders per restaurant, it’s reasonable to assume that certain restaurants just recieve more complaints than others, regardless of the server, so we’ll need to include random effects for those.</p>
@@ -330,6 +401,7 @@ LR test vs. linear model: chibar2(01) = 11678.16      Prob &gt;= chibar2 = 0.000
 </ol>
 
 
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
@@ -576,12 +648,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./04-regression.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./06-survey-data.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

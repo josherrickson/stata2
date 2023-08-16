@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intermediate Stata (Statistical Modeling) - 4&nbsp; _cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</title>
+<title>Intermediate Stata (Statistical Modeling) - 4&nbsp; Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-regression.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons |   5.113759   4.889846     1.05   0.299    -4.636317    14.86384</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-regression.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -110,49 +144,49 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-summarizing-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-univariate-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-regression.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-survey-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multiple-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></span></a>
   </div>
 </li>
     </ul>
@@ -161,14 +195,42 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#terminology" id="toc-terminology" class="nav-link active" data-scroll-target="#terminology"><span class="header-section-number">4.1</span> Terminology</a></li>
+  <li><a href="#linear-regression" id="toc-linear-regression" class="nav-link" data-scroll-target="#linear-regression"><span class="header-section-number">4.2</span> Linear Regression</a>
+  <ul class="collapse">
+  <li><a href="#fitting-the-model" id="toc-fitting-the-model" class="nav-link" data-scroll-target="#fitting-the-model"><span class="header-section-number">4.2.1</span> Fitting the model</a></li>
+  <li><a href="#including-categorical-predictors" id="toc-including-categorical-predictors" class="nav-link" data-scroll-target="#including-categorical-predictors"><span class="header-section-number">4.2.2</span> Including categorical predictors</a></li>
+  <li><a href="#interactions" id="toc-interactions" class="nav-link" data-scroll-target="#interactions"><span class="header-section-number">4.2.3</span> Interactions</a></li>
+  <li><a href="#robust-standard-errors" id="toc-robust-standard-errors" class="nav-link" data-scroll-target="#robust-standard-errors"><span class="header-section-number">4.2.4</span> Robust standard errors</a></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><span class="header-section-number">4.2.5</span> Assumptions</a></li>
+  <li><a href="#miscellaneous-concerns" id="toc-miscellaneous-concerns" class="nav-link" data-scroll-target="#miscellaneous-concerns"><span class="header-section-number">4.2.6</span> Miscellaneous concerns</a></li>
+  </ul></li>
+  <li><a href="#exercise-4" id="toc-exercise-4" class="nav-link" data-scroll-target="#exercise-4"><span class="header-section-number">4.3</span> Exercise 4</a></li>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression"><span class="header-section-number">4.4</span> Logistic Regression</a>
+  <ul class="collapse">
+  <li><a href="#fitting-the-logistic-model" id="toc-fitting-the-logistic-model" class="nav-link" data-scroll-target="#fitting-the-logistic-model"><span class="header-section-number">4.4.1</span> Fitting the logistic model</a></li>
+  <li><a href="#categorical-variables-and-interactions" id="toc-categorical-variables-and-interactions" class="nav-link" data-scroll-target="#categorical-variables-and-interactions"><span class="header-section-number">4.4.2</span> Categorical Variables and Interactions</a></li>
+  <li><a href="#logistic-regression-assumptions" id="toc-logistic-regression-assumptions" class="nav-link" data-scroll-target="#logistic-regression-assumptions"><span class="header-section-number">4.4.3</span> Logistic regression assumptions</a></li>
+  <li><a href="#logistic-goodness-of-fit" id="toc-logistic-goodness-of-fit" class="nav-link" data-scroll-target="#logistic-goodness-of-fit"><span class="header-section-number">4.4.4</span> Logistic goodness of fit</a></li>
+  <li><a href="#separation" id="toc-separation" class="nav-link" data-scroll-target="#separation"><span class="header-section-number">4.4.5</span> Separation</a></li>
+  <li><a href="#logit-miscellaneous" id="toc-logit-miscellaneous" class="nav-link" data-scroll-target="#logit-miscellaneous"><span class="header-section-number">4.4.6</span> <code>logit</code> Miscellaneous</a></li>
+  <li><a href="#logit-vs-logistic" id="toc-logit-vs-logistic" class="nav-link" data-scroll-target="#logit-vs-logistic"><span class="header-section-number">4.4.7</span> <code>logit</code> vs <code>logistic</code></a></li>
+  </ul></li>
+  <li><a href="#other-regression-models" id="toc-other-regression-models" class="nav-link" data-scroll-target="#other-regression-models"><span class="header-section-number">4.5</span> Other regression models</a></li>
+  <li><a href="#exercise-5" id="toc-exercise-5" class="nav-link" data-scroll-target="#exercise-5"><span class="header-section-number">4.6</span> Exercise 5</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></h1>
 </div>
 
 
@@ -183,15 +245,17 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><sup>#</sup> Regression</p>
 <p>One notable exclusion from the <a href="univariate-and-some-bivariate-analysis.html">previous chapter</a> was comparing the mean of a continuous variables across three or more groups. Two-sample t-tests compare the means across two groups, and <sup><span class="math inline">\(^\chi^2^\)</span></sup> tests can compare two categorical variables with arbitrary number of levels, but the traditional test for comparing means across multiple groups is ANOVA (ANalysis Of VAriance). While historically this has been a very useful procedure due to the ease with which it can be performed manually, its modern use has been supplanted by regression, which is mathematically equivalent and easier to extend (the downside of regression is that it is more difficult to calculate, but given that we are no longer doing statistical analyses by hand…). This relationship extends to other variations of ANOVA such as ANCOVA or MANOVA.</p>
 <p>If you still want to fit an ANOVA, it can be done with the <code>oneway</code> command. Otherwise we turn now to regression.</p>
 <p>Regression is a set of techniques where we attempt to fit a model to a data set estimating the relationships between a set of predictor variables (either continuous or categorical in nature) and a response variable of interest. There are many versions of regression which are appropriate for different types of response variables, or address different concerns when fitting the model. In this chapter and <a href="mixed-models.html">the next</a>, we will discuss a few variations.</p>
-<p><sup>##</sup> Terminology</p>
+<section id="terminology" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="terminology"><span class="header-section-number">4.1</span> Terminology</h2>
 <p>When discussing any form of regression, we think of predicting the value of one variable<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> based upon several other variables.</p>
 <p>The variable we are predicting can be called the “outcome”, the “response” or the “dependent variable”.</p>
 <p>The variables upon which we are predicting can be called “predictors”, “covariates”, or “independent variables”.</p>
-<p><sup>##</sup> Linear Regression</p>
+</section>
+<section id="linear-regression" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="linear-regression"><span class="header-section-number">4.2</span> Linear Regression</h2>
 <p>Linear regression (also known as Ordinary Least Squares (OLS) regression) is the most basic form of regression, where the response variable is continuous. Technically the response variable can also be binary or categorical but there are better regression models for those types of outcomes. Linear regression fits this model:</p>
 <p><sup><span class="math display">\[^
   Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \cdots + \beta_pX_p + \epsilon
@@ -206,26 +270,28 @@ ul.task-list li input[type="checkbox"] {
 <p>Linear regression models can be used to predict expected values on the response variable given values on the predictors, and <sup><span class="math inline">\(^\epsilon^\)</span></sup> represents the difference between a prediction based on the model and what the actual value of the response variable is. Stata can be used to estimate the regression coefficients in a model like the one above, and perform statistical tests of the null hypothesis that the coefficients are equal to zero (and thus that predictor variables are not important in explaining the response). Note that the response <sup><span class="math inline">\(^Y^\)</span></sup> is modeled as a linear combination of the predictors and their coefficients.</p>
 <p>Some introductory statistical classes distinguish between simple regression (with only a single predictor) and multiple regression (with more than one predictor). While this is useful for developing the theory of regression, simple regression is not commonly used for real analysis, as it ignores one of the main benefits of regression, controlling for other predictors (to be discussed later).</p>
 <p>We will now fit a model, discussing assumptions afterwards, because almost all assumption checks can only occur once the model is fit!</p>
-<p><sup>###</sup> Fitting the model</p>
+<section id="fitting-the-model" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="fitting-the-model"><span class="header-section-number">4.2.1</span> Fitting the model</h3>
 <p>Stata’s <code>regress</code> command fit the linear regression model. It is followed by a varlist where the first variable is the outcome variable and all others are predictors. For this example, let’s use the auto data and fit a relatively simple model, predicting <code>mpg</code> based on <code>gear_ratio</code> and <code>headroom</code>.</p>
-<pre><code>. sysuse auto, clear
-(1978 automobile data)
-
-. regress mpg gear_ratio headroom
-
-      Source |       SS           df       MS      Number of obs   =        74
--------------+----------------------------------   F(2, 71)        =     25.48
-       Model |   1021.0804         2  510.540202   Prob &gt; F        =    0.0000
-    Residual |  1422.37906        71  20.0335078   R-squared       =    0.4179
--------------+----------------------------------   Adj R-squared   =    0.4015
-       Total |  2443.45946        73  33.4720474   Root MSE        =    4.4759
-
-------------------------------------------------------------------------------
-         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  gear_ratio |   6.801356   1.240026     5.48   0.000     4.328815    9.273898
-    headroom |  -1.443796   .6688077    -2.16   0.034     -2.77736   -.1102312
-</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">sysuse</span> auto, <span class="kw">clear</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(1978 automobile <span class="kw">data</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">regress</span> mpg gear_ratio headroom</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>      Source |       SS           df       MS      Number <span class="kw">of</span> <span class="kw">obs</span>   =        74</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   <span class="fu">F</span>(2, 71)        =     25.48</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>       Model |   1021.0804         2  510.540202   Prob &gt; <span class="fu">F</span>        =    0.0000</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    Residual |  1422.37906        71  20.0335078   R-squared       =    0.4179</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   Adj R-squared   =    0.4015</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>       Total |  2443.45946        73  33.4720474   Root MSE        =    4.4759</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  gear_ratio |   6.801356   1.240026     5.48   0.000     4.328815    9.273898</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    headroom |  -1.443796   .6688077    -2.16   0.034     -2.77736   -.1102312</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   5.113759   4.889846     1.05   0.299    -4.636317    14.86384</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>There is a lot of important output here, so we will step through each piece.</p>
 <p>First, the top left table is the ANOVA table. If you were to fit a regression model with a single <a href="#including-categorical-predictors">categorical predictor</a>, this would be identical to running ANOVA via <code>oneway</code>. In general we don’t need to interpret anything here, as there are further measures of model fit in the regression frameworks.</p>
 <p>Next, the top right part has a series of measures.</p>
@@ -244,130 +310,129 @@ ul.task-list li input[type="checkbox"] {
 <li>“[95% Conf. interval]”: A typically confidence interval for the Coefficient.</li>
 </ul>
 <p>Whenever we look at any model, a distinction needs to be drawn between statistical significance and practical significance. While these two interpretations of significance often align, they are not guaranteed to. We often have statistical significance (a p-value less than .05) when there is no practical significance (aka clinical significance, a difference that isn’t scientifically interesting). This is mostly a function of sample size; with a large sample even very small effects can have small p-values. Alternatively, a large practical significance with a low statistical significance can occur with very noisy data or a small sample size, which might indicate further study with a larger sample is needed.</p>
-<p><sup>###</sup> Including categorical predictors</p>
+</section>
+<section id="including-categorical-predictors" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="including-categorical-predictors"><span class="header-section-number">4.2.2</span> Including categorical predictors</h3>
 <p>Let’s say we want to add <code>rep78</code>, a categorical variable with 5 levels, to the model. Regression can’t actually handle categorical variables; instead it creates <a href="summarizing-data.html#generating-dummy-variables">dummy variables</a>. A dummy variable is needed for all <em>but one</em> of the levels of the categorical, the excluded categorical variable is the baseline that all others are compared to<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
 <p>Naively, let’s simply add the categorical <code>rep78</code> to the model:</p>
-<pre><code>. regress mpg gear_ratio headroom rep78
-
-      Source |       SS           df       MS      Number of obs   =        69
--------------+----------------------------------   F(3, 65)        =     19.94
-       Model |  1121.49787         3  373.832624   Prob &gt; F        =    0.0000
-    Residual |  1218.70503        65  18.7493081   R-squared       =    0.4792
--------------+----------------------------------   Adj R-squared   =    0.4552
-       Total |   2340.2029        68  34.4147485   Root MSE        =      4.33
-
-------------------------------------------------------------------------------
-         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  gear_ratio |   6.631208   1.330095     4.99   0.000     3.974825    9.287591
-    headroom |   -1.22008   .6651028    -1.83   0.071    -2.548382    .1082225
-       rep78 |   .9568854   .5816842     1.65   0.105    -.2048182    2.118589
-       _cons |   1.802318   4.849991     0.37   0.711    -7.883782    11.48842
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">regress</span> mpg gear_ratio headroom rep78</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      Source |       SS           df       MS      Number <span class="kw">of</span> <span class="kw">obs</span>   =        69</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   <span class="fu">F</span>(3, 65)        =     19.94</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>       Model |  1121.49787         3  373.832624   Prob &gt; <span class="fu">F</span>        =    0.0000</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    Residual |  1218.70503        65  18.7493081   R-squared       =    0.4792</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   Adj R-squared   =    0.4552</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>       Total |   2340.2029        68  34.4147485   Root MSE        =      4.33</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  gear_ratio |   6.631208   1.330095     4.99   0.000     3.974825    9.287591</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    headroom |   -1.22008   .6651028    -1.83   0.071    -2.548382    .1082225</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>       rep78 |   .9568854   .5816842     1.65   0.105    -.2048182    2.118589</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   1.802318   4.849991     0.37   0.711    -7.883782    11.48842</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We only get a single coefficient. Stata is treating <code>rep78</code> as continuous.</p>
 <p>The issue is that Stata doesn’t know we want to treat <code>rep78</code> as categorical<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. If we prefix the variable name with <code>i.</code>, Stata will know it is categorical.</p>
-<pre><code>. regress mpg gear_ratio headroom i.rep78
-
-      Source |       SS           df       MS      Number of obs   =        69
--------------+----------------------------------   F(6, 62)        =     11.50
-       Model |  1232.82371         6  205.470619   Prob &gt; F        =    0.0000
-    Residual |  1107.37918        62  17.8609546   R-squared       =    0.5268
--------------+----------------------------------   Adj R-squared   =    0.4810
-       Total |   2340.2029        68  34.4147485   Root MSE        =    4.2262
-
-------------------------------------------------------------------------------
-         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  gear_ratio |   6.847879   1.308106     5.23   0.000     4.233012    9.462745
-    headroom |  -.9726907    .688578    -1.41   0.163    -2.349138    .4037571
-             |
-       rep78 |
-          2  |   1.203595   3.505518     0.34   0.733    -5.803835    8.211025
-          3  |   .0441395   3.232826     0.01   0.989    -6.418187    6.506466
-          4  |  -.0010255   3.309233    -0.00   1.000    -6.616088    6.614037
-          5  |   4.401329   3.363577     1.31   0.196    -2.322367    11.12502
-             |
-       _cons |   2.809121   5.272816     0.53   0.596    -7.731087    13.34933
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">regress</span> mpg gear_ratio headroom i.rep78</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>      Source |       SS           df       MS      Number <span class="kw">of</span> <span class="kw">obs</span>   =        69</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   <span class="fu">F</span>(6, 62)        =     11.50</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>       Model |  1232.82371         6  205.470619   Prob &gt; <span class="fu">F</span>        =    0.0000</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    Residual |  1107.37918        62  17.8609546   R-squared       =    0.5268</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   Adj R-squared   =    0.4810</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>       Total |   2340.2029        68  34.4147485   Root MSE        =    4.2262</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  gear_ratio |   6.847879   1.308106     5.23   0.000     4.233012    9.462745</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    headroom |  -.9726907    .688578    -1.41   0.163    -2.349138    .4037571</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>       rep78 |</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>          2  |   1.203595   3.505518     0.34   0.733    -5.803835    8.211025</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>          3  |   .0441395   3.232826     0.01   0.989    -6.418187    6.506466</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>          4  |  -.0010255   3.309233    -0.00   1.000    -6.616088    6.614037</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>          5  |   4.401329   3.363577     1.31   0.196    -2.322367    11.12502</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   2.809121   5.272816     0.53   0.596    -7.731087    13.34933</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>First, note that <code>headroom</code> no longer has a significant coefficient! This implies that <code>rep78</code> and <code>headroom</code> are correlated, and in the first model where we did not include <code>rep78</code>, all of <code>rep78</code>’s effect was coming through <code>headroom</code>. Once we control for <code>rep78</code>, headroom is no longer significant. We will discuss <a href="#multicollinearity">multicollinearity later</a>, as well as why this is why <a href="#model-selection-is-bad">model selection is bad</a>.</p>
 <p>Now we see 4 rows for <code>rep78</code>, each corresponding to a comparison between response 1 and the row. For example, the first row, 2, is saying that when <code>rep78</code> is 2 compared to when it is 1 (with <code>gear_ratio</code> and <code>headroom</code> held at some fixed level), the average predicted mpg drops by 1.204 (though it is not statistical significant). The last row, 5, is saying that when <code>rep78</code> is 5 compare to when it is 1 (with <code>gear_ratio</code> and <code>headroom</code> held at some fixed level, the average predicted mpg increases by 4.401 (again, not statistically significant).</p>
 <p>What about the other comparison? (Does 2 differ from 4?) Let’s use the <code>margins</code> command. First, we’ll get the marginal means at each level - if <em>every</em> car in the data set had a <code>rep78</code> level of <sup><span class="math inline">\(^i^\)</span></sup>, what is the average mileage?</p>
-<pre><code>. margins rep78
-
-Predictive margins                                          Number of obs = 69
-Model VCE: OLS
-
-Expression: Linear prediction, predict()
-
-------------------------------------------------------------------------------
-             |            Delta-method
-             |     Margin   std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-       rep78 |
-          1  |   20.42972   3.123396     6.54   0.000     14.18614     26.6733
-          2  |   21.63332   1.548599    13.97   0.000     18.53771    24.72892
-          3  |   20.47386   .7900386    25.92   0.000      18.8946    22.05313
-          4  |    20.4287   1.021406    20.00   0.000     18.38694    22.47046
-          5  |   24.83105   1.341573    18.51   0.000     22.14929    27.51282
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. margins rep78</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Predictive margins                                          Number <span class="kw">of</span> <span class="kw">obs</span> = 69</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>Model <span class="kw">VCE</span>: OLS</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Expression: Linear prediction, <span class="kw">predict</span>()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>             |            Delta-method</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>             |     Margin   <span class="fu">std</span>. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>       rep78 |</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>          1  |   20.42972   3.123396     6.54   0.000     14.18614     26.6733</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>          2  |   21.63332   1.548599    13.97   0.000     18.53771    24.72892</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>          3  |   20.47386   .7900386    25.92   0.000      18.8946    22.05313</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>          4  |    20.4287   1.021406    20.00   0.000     18.38694    22.47046</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>          5  |   24.83105   1.341573    18.51   0.000     22.14929    27.51282</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that the difference in the marginal means corresponds to the coefficients above. E.g. the marginal means at repair record 1 and 2 are 20.42972 and 21.63332 respectively, for a difference of 1.2036 - which is exactly (with rounding) the coefficient we saw on <code>rep78 = 2</code> above!</p>
 <p>The t-tests here are simply testing whether the marginal means are different than zero - of no real interest.</p>
 <p>Now, we can look at all pairwise comparisons by adding the <code>pwcompare(pv)</code> option to margins:</p>
-<pre><code>. margins rep78, pwcompare(pv)
-
-Pairwise comparisons of predictive margins                  Number of obs = 69
-Model VCE: OLS
-
-Expression: Linear prediction, predict()
-
------------------------------------------------------
-             |            Delta-method    Unadjusted
-             |   Contrast   std. err.      t    P&gt;|t|
--------------+---------------------------------------
-       rep78 |
-     2 vs 1  |   1.203595   3.505518     0.34   0.733
-     3 vs 1  |   .0441395   3.232826     0.01   0.989
-     4 vs 1  |  -.0010255   3.309233    -0.00   1.000
-     5 vs 1  |   4.401329   3.363577     1.31   0.196
-     3 vs 2  |  -1.159456   1.698355    -0.68   0.497
-     4 vs 2  |  -1.204621   1.896518    -0.64   0.528
-     5 vs 2  |   3.197733   2.129823     1.50   0.138
-     4 vs 3  |  -.0451649   1.315328    -0.03   0.973
-     5 vs 3  |   4.357189   1.601822     2.72   0.008
-     5 vs 4  |   4.402354   1.642697     2.68   0.009
------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>. margins rep78, pwcompare(pv)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Pairwise comparisons <span class="kw">of</span> predictive margins                  Number <span class="kw">of</span> <span class="kw">obs</span> = 69</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>Model <span class="kw">VCE</span>: OLS</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>Expression: Linear prediction, <span class="kw">predict</span>()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>             |            Delta-method    Unadjusted</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>             |   Contrast   <span class="fu">std</span>. err.      t    P&gt;|t|</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>       rep78 |</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>     2 vs 1  |   1.203595   3.505518     0.34   0.733</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>     3 vs 1  |   .0441395   3.232826     0.01   0.989</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>     4 vs 1  |  -.0010255   3.309233    -0.00   1.000</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>     5 vs 1  |   4.401329   3.363577     1.31   0.196</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>     3 vs 2  |  -1.159456   1.698355    -0.68   0.497</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>     4 vs 2  |  -1.204621   1.896518    -0.64   0.528</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>     5 vs 2  |   3.197733   2.129823     1.50   0.138</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>     4 vs 3  |  -.0451649   1.315328    -0.03   0.973</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>     5 vs 3  |   4.357189   1.601822     2.72   0.008</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>     5 vs 4  |   4.402354   1.642697     2.68   0.009</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>-----------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This result is similar to a post-hoc test from ANOVA if you are familiar with it. The only statistical significance we find is 5 vs 3 and 5 vs 4, suggesting that 5 is dissimilar from 3 and 4. (Confusingly, 3 and 4 are not dissimilar from 1 or 2, but 5 is similar to 1 and 2! These sort of things can happen; its best to focus only on the comparisons that are of theoretical interest.)</p>
 <p>By default, using <code>i.</code> makes the first level (lowest numerical value) as the reference category. You can adjust this by using <code>ib#.</code> instead, such as:</p>
-<pre><code>. regress mpg headroom gear_ratio ib3.rep78
-
-      Source |       SS           df       MS      Number of obs   =        69
--------------+----------------------------------   F(6, 62)        =     11.50
-       Model |  1232.82371         6  205.470619   Prob &gt; F        =    0.0000
-    Residual |  1107.37918        62  17.8609546   R-squared       =    0.5268
--------------+----------------------------------   Adj R-squared   =    0.4810
-       Total |   2340.2029        68  34.4147485   Root MSE        =    4.2262
-
-------------------------------------------------------------------------------
-         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-    headroom |  -.9726907    .688578    -1.41   0.163    -2.349138    .4037571
-  gear_ratio |   6.847879   1.308106     5.23   0.000     4.233012    9.462745
-             |
-       rep78 |
-          1  |  -.0441395   3.232826    -0.01   0.989    -6.506466    6.418187
-          2  |   1.159456   1.698355     0.68   0.497    -2.235507    4.554419
-          4  |  -.0451649   1.315328    -0.03   0.973    -2.674469    2.584139
-          5  |   4.357189   1.601822     2.72   0.008     1.155193    7.559185
-             |
-       _cons |   2.853261   4.978251     0.57   0.569    -7.098121    12.80464
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">regress</span> mpg headroom gear_ratio ib3.rep78</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      Source |       SS           df       MS      Number <span class="kw">of</span> <span class="kw">obs</span>   =        69</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   <span class="fu">F</span>(6, 62)        =     11.50</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>       Model |  1232.82371         6  205.470619   Prob &gt; <span class="fu">F</span>        =    0.0000</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    Residual |  1107.37918        62  17.8609546   R-squared       =    0.5268</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   Adj R-squared   =    0.4810</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       Total |   2340.2029        68  34.4147485   Root MSE        =    4.2262</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    headroom |  -.9726907    .688578    -1.41   0.163    -2.349138    .4037571</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  gear_ratio |   6.847879   1.308106     5.23   0.000     4.233012    9.462745</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>       rep78 |</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>          1  |  -.0441395   3.232826    -0.01   0.989    -6.506466    6.418187</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>          2  |   1.159456   1.698355     0.68   0.497    -2.235507    4.554419</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>          4  |  -.0451649   1.315328    -0.03   0.973    -2.674469    2.584139</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>          5  |   4.357189   1.601822     2.72   0.008     1.155193    7.559185</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   2.853261   4.978251     0.57   0.569    -7.098121    12.80464</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>This does not fit a different model.</strong> Both models (with <code>i.rep78</code> and <code>ib3.rep78</code>) are identical, we’re just adjusting what is reported. If the models do change (especially the model fit numbers in the top right), something has gone wrong!</p>
-<p><sup>###</sup> Interactions</p>
+</section>
+<section id="interactions" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="interactions"><span class="header-section-number">4.2.3</span> Interactions</h3>
 <p>Each coefficient we’ve look at so far is only testing whether there is a relationship between the predictor and response when the other predictors are held constant. What if we think the relationship changes based on the value of other predictors? For example, we might be interested in whether the relationship between a car’s headroom and its mileage depends on it’s gear ratio. Perhaps we think that cars with higher gear ratio (a high gear ratio is indicative of a sportier car) won’t be as affected by headroom as a stand-in for size, because sportier cars generally are better made.</p>
 <p>Mathematically an interaction is nothing more than a literal multiplication. For example, if our model has only two predictors,</p>
 <p><sup><span class="math display">\[^
@@ -394,84 +459,80 @@ Expression: Linear prediction, predict()
 <li><code>a b a##b</code>: Same as <code>a##b</code>, except it’ll be uglier because you’re including main effects twice and one will be ignored.</li>
 </ul>
 <p>Let’s change up the model a bit. Let’s predict mileage based upon price and gear ratio. We include mileage to address whether higher price cars have better mileage (better engineering). However, sportier cars (higher gear ratio) are generally expensive and may have worse mileage for the sake of performance. By including an interactino between price and gear ratio, we can test whether the relationship between price and mileage depends on the sportiness of the car.</p>
-<pre><code>. regress mpg c.price##c.gear_ratio
-
-      Source |       SS           df       MS      Number of obs   =        74
--------------+----------------------------------   F(3, 70)        =     27.15
-       Model |  1314.01011         3   438.00337   Prob &gt; F        =    0.0000
-    Residual |  1129.44935        70  16.1349907   R-squared       =    0.5378
--------------+----------------------------------   Adj R-squared   =    0.5180
-       Total |  2443.45946        73  33.4720474   Root MSE        =    4.0168
-
-------------------------------------------------------------------------------
-         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-       price |    .002536   .0009513     2.67   0.010     .0006387    .0044333
-  gear_ratio |   14.30867   2.545822     5.62   0.000     9.231186    19.38615
-             |
-     c.price#|
-c.gear_ratio |   -.001145    .000342    -3.35   0.001    -.0018271   -.0004629
-             |
-       _cons |  -16.67042   7.509179    -2.22   0.030      -31.647   -1.693832
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">regress</span> mpg c.price##c.gear_ratio</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>      Source |       SS           df       MS      Number <span class="kw">of</span> <span class="kw">obs</span>   =        74</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   <span class="fu">F</span>(3, 70)        =     27.15</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>       Model |  1314.01011         3   438.00337   Prob &gt; <span class="fu">F</span>        =    0.0000</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    Residual |  1129.44935        70  16.1349907   R-squared       =    0.5378</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   Adj R-squared   =    0.5180</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       Total |  2443.45946        73  33.4720474   Root MSE        =    4.0168</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>       price |    .002536   .0009513     2.67   0.010     .0006387    .0044333</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  gear_ratio |   14.30867   2.545822     5.62   0.000     9.231186    19.38615</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>     c.price#|</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>c.gear_ratio |   -.001145    .000342    -3.35   0.001    -.0018271   -.0004629</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |  -16.67042   7.509179    -2.22   0.030      -31.647   -1.693832</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note that we used <code>c.</code>, similar to <code>i.</code>. <code>c.</code> forces Stata to treat it as continuous. Stata assumes anything in an interaction is categorical, so we need <code>c.</code> here! This can get pretty confusing, but it’s never wrong to include <code>i.</code> or <code>c.</code> when specifying a regression.</p>
 <p>Lots of significance here, but once we include an interaction, the relationship between the variables included in the interaction and the response are not constant - the relationship depends on the value of the other interacted variables. This can be hard to visualize with the basic regression output, so we’ll look at <code>margins</code> again instead. We’ll want to look at the relationship between <code>mpg</code> and <code>price</code> at a few different values of <code>gear_ratio</code> to get a sense of the pattern. <code>gear_ratio</code> ranges from 2.19 to 3.89 (this can be obtained with <code>summarize</code> or <code>codebook</code>, just don’t forget to <a href="summarizing-data.html#storing-and-restoring-estimation-commands">save the results</a> or re-run the <code>regress</code> command to gain access to the <a href="summarizing-data.html#postestimation-commands">postestimation commands</a> again), so let’s look at the relationship at those extremes and at 3:</p>
-<pre><code>. margins, dydx(price) at(gear_ratio = (2.25 2.75 3.25 3.75))
-
-Average marginal effects                                    Number of obs = 74
-Model VCE: OLS
-
-Expression: Linear prediction, predict()
-dy/dx wrt:  price
-1._at: gear_ratio = 2.25
-2._at: gear_ratio = 2.75
-3._at: gear_ratio = 3.25
-4._at: gear_ratio = 3.75
-
-------------------------------------------------------------------------------
-             |            Delta-method
-             |      dy/dx   std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-price        |
-         _at |
-          1  |  -.0000403   .0002367    -0.17   0.865    -.0005124    .0004318
-          2  |  -.0006128   .0001679    -3.65   0.001    -.0009477   -.0002779
-          3  |  -.0011853   .0002426    -4.89   0.000    -.0016691   -.0007015
-          4  |  -.0017578   .0003847    -4.57   0.000     -.002525   -.0009906
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>. margins, <span class="kw">dydx</span>(price) <span class="fu">at</span>(gear_ratio = (2.25 2.75 3.25 3.75))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Average marginal <span class="kw">effects</span>                                    Number <span class="kw">of</span> <span class="kw">obs</span> = 74</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>Model <span class="kw">VCE</span>: OLS</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Expression: Linear prediction, <span class="kw">predict</span>()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>dy/dx wrt:  price</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>1.<span class="kw">_at</span>: gear_ratio = 2.25</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>2.<span class="kw">_at</span>: gear_ratio = 2.75</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>3.<span class="kw">_at</span>: gear_ratio = 3.25</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>4.<span class="kw">_at</span>: gear_ratio = 3.75</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>             |            Delta-method</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>             |      dy/dx   <span class="fu">std</span>. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>price        |</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>         <span class="kw">_at</span> |</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>          1  |  -.0000403   .0002367    -0.17   0.865    -.0005124    .0004318</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>          2  |  -.0006128   .0001679    -3.65   0.001    -.0009477   -.0002779</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>          3  |  -.0011853   .0002426    -4.89   0.000    -.0016691   -.0007015</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>          4  |  -.0017578   .0003847    -4.57   0.000     -.002525   -.0009906</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This tells an interesting story. Notice the “dy/dx” column. All the values are negative and getting more negative. As the gear ratio increases, the relationship between price and mileage gets more negative. This effect is significant at all levels except with the lowest gear ratio. In the regression model above, the coefficient on price was positve and highly signifcant. How do we explain this seeming contradiction? Remember, the interpretation of the main effects in the presence of interactions is it’s the relationship between price and mileage <em>when gear ratio is 0</em>. Gear ratio is never 0! We are extrapolating.</p>
 <p>To better understand the pattern we’re seeing, let’s visualize this:</p>
-<pre><code>. marginsplot
-
-Variables that uniquely identify margins: gear_ratio
-</code></pre>
-<p><img src="Graph13.svg"></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>. marginsplot</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Variables that uniquely identify margins: gear_ratio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph36.svg"></p>
 <p>With low gear_ratio, there is no relationship between price and mileage - increasing the cost of a low gear ratio car is predicted to have no effect on milage, on average. As the gear ratio increases, the relationship becomes significant and negative - among sporty cars (higher gear ratio), the more expensive the car is the worse it’s mileage!</p>
 <p>We can create a rather complicated looking plot to examine this.</p>
-<pre><code>. twoway (scatter mpg price if gear_ratio &lt; 2.5, ///
-&gt;          msymbol(circle) mcolor(red)) ///
-&gt;        (lfit mpg price if gear_ratio &lt; 2.5, ///
-&gt;           lcolor(red)) ///
-&gt;        (scatter mpg price if gear_ratio &gt;= 2.5 &amp; gear_ratio &lt; 3.0, ///
-&gt;           msymbol(triangle) mcolor(green)) ///
-&gt;        (lfit mpg price if gear_ratio &gt;= 2.5 &amp; gear_ratio &lt; 3.0, ///
-&gt;           lcolor(green)) ///
-&gt;        (scatter mpg price if gear_ratio &gt;= 3.0 &amp; gear_ratio &lt; 3.5, ///
-&gt;           msymbol(square) mcolor(blue)) ///
-&gt;        (lfit mpg price if gear_ratio &gt;= 3.0 &amp; gear_ratio &lt; 3.5, ///
-&gt;           lcolor(blue)) ///
-&gt;        (scatter mpg price if gear_ratio &gt;= 3.5 &amp; gear_ratio &lt; ., ///
-&gt;           msymbol(diamond) mcolor(purple))  ///
-&gt;        (lfit mpg price if gear_ratio &gt;= 3.5 &amp; gear_ratio &lt; ., ///
-&gt;           lcolor(purple)) , ///
-&gt;                 legend(label(1 "&lt; 2.5") label(3 "2.5 - 3.0") ///
-&gt;                    label(5 "3.0 - 3.5") label(7 "&gt; 3.5") ///
-&gt;                    order(1 3 5 7)) ///
-&gt;             ytitle("mpg")
-</code></pre>
-<p><img src="Graph14.svg"></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg price <span class="kw">if</span> gear_ratio &lt; 2.5, <span class="co">///</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>&gt;          <span class="bn">msymbol</span>(<span class="bn">circle</span>) mcolor(<span class="kw">red</span>)) <span class="co">///</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> mpg price <span class="kw">if</span> gear_ratio &lt; 2.5, <span class="co">///</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>&gt;           lcolor(<span class="kw">red</span>)) <span class="co">///</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">scatter</span> mpg price <span class="kw">if</span> gear_ratio &gt;= 2.5 &amp; gear_ratio &lt; 3.0, <span class="co">///</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>&gt;           <span class="bn">msymbol</span>(triangle) mcolor(<span class="kw">green</span>)) <span class="co">///</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> mpg price <span class="kw">if</span> gear_ratio &gt;= 2.5 &amp; gear_ratio &lt; 3.0, <span class="co">///</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>&gt;           lcolor(<span class="kw">green</span>)) <span class="co">///</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">scatter</span> mpg price <span class="kw">if</span> gear_ratio &gt;= 3.0 &amp; gear_ratio &lt; 3.5, <span class="co">///</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>&gt;           <span class="bn">msymbol</span>(square) mcolor(<span class="bn">blue</span>)) <span class="co">///</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> mpg price <span class="kw">if</span> gear_ratio &gt;= 3.0 &amp; gear_ratio &lt; 3.5, <span class="co">///</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>&gt;           lcolor(<span class="bn">blue</span>)) <span class="co">///</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">scatter</span> mpg price <span class="kw">if</span> gear_ratio &gt;= 3.5 &amp; gear_ratio &lt; ., <span class="co">///</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>&gt;           <span class="bn">msymbol</span>(diamond) mcolor(<span class="bn">purple</span>))  <span class="co">///</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> mpg price <span class="kw">if</span> gear_ratio &gt;= 3.5 &amp; gear_ratio &lt; ., <span class="co">///</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>&gt;           lcolor(<span class="bn">purple</span>)) , <span class="co">///</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>&gt;                 <span class="bn">legend</span>(<span class="kw">label</span>(1 <span class="st">"&lt; 2.5"</span>) <span class="kw">label</span>(3 <span class="st">"2.5 - 3.0"</span>) <span class="co">///</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>&gt;                    <span class="kw">label</span>(5 <span class="st">"3.0 - 3.5"</span>) <span class="kw">label</span>(7 <span class="st">"&gt; 3.5"</span>) <span class="co">///</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>&gt;                    <span class="kw">order</span>(1 3 5 7)) <span class="co">///</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>&gt;             <span class="bn">ytitle</span>(<span class="st">"mpg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph37.svg"></p>
 <p>Each color represents a selection of cars with the given gear ratios. The cars with the lowest <code>gear_ratio</code>, in red, show no relationship between price and mileage. The green and purple cars with mid-range gear ratio, show negative relationships. The strongest negative relationship is among the purple cars with the highest gear ratio.</p>
 <p>There are a few variations of the <code>margins</code> call we might want to use. First, we could reverse the roles of <code>price</code> and <code>gear_ratio</code>. We would do this if our hypothesis was that sportier cars decrease mileage, and the more expensive the car is, the stronger this effect.</p>
 <pre><code>margins, dydx(gear_ratio) at(price = (5000 10000 15000))</code></pre>
@@ -483,99 +544,104 @@ margins, dydx(continuous) at(categorical = (1 2 3))</code></pre>
 <pre><code>regress i.cat1##i.cat2
 margins cat1#cat2</code></pre>
 <p>Often discovering which variety of these you want may require some trial and error!</p>
-<p><sup>####</sup> Centering</p>
+<section id="centering" class="level4" data-number="4.2.3.1">
+<h4 data-number="4.2.3.1" class="anchored" data-anchor-id="centering"><span class="header-section-number">4.2.3.1</span> Centering</h4>
 <p>Some sources suggest centering continuous predictors before including them in an interaction. This can help slightly with interpretation (the main effects are the relationship when the other variable involved in the interaction are at their mean, rather than at zero) but doesn’t actually affect model fit.</p>
 <p>To center, use the following:</p>
-<pre><code>. summ gear_ratio
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-  gear_ratio |         74    3.014865    .4562871       2.19       3.89
-
-. gen gear_ratioc = gear_ratio - `r(mean)'
-
-. summ price
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
-       price |         74    6165.257    2949.496       3291      15906
-
-. gen pricec = price - `r(mean)'
-
-. summ gear_ratioc pricec
-
-    Variable |        Obs        Mean    Std. dev.       Min        Max
--------------+---------------------------------------------------------
- gear_ratioc |         74    2.92e-09    .4562871  -.8248648   .8751352
-      pricec |         74   -.0000154    2949.496  -2874.257   9740.743
-
-. regress mpg c.pricec##c.gear_ratioc
-
-      Source |       SS           df       MS      Number of obs   =        74
--------------+----------------------------------   F(3, 70)        =     27.15
-       Model |  1314.01011         3  438.003371   Prob &gt; F        =    0.0000
-    Residual |  1129.44935        70  16.1349907   R-squared       =    0.5378
--------------+----------------------------------   Adj R-squared   =    0.5180
-       Total |  2443.45946        73  33.4720474   Root MSE        =    4.0168
-
-------------------------------------------------------------------------------
-         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-      pricec |  -.0009161   .0001927    -4.75   0.000    -.0013005   -.0005317
- gear_ratioc |   7.249342   1.102393     6.58   0.000     5.050688    9.447996
-             |
-    c.pricec#|
-          c. |
- gear_ratioc |   -.001145    .000342    -3.35   0.001    -.0018271   -.0004629
-             |
-       _cons |   20.82048   .4881841    42.65   0.000     19.84683    21.79413
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>. summ gear_ratio</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  gear_ratio |         74    3.014865    .4562871       2.19       3.89</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> gear_ratioc = gear_ratio - <span class="ot">`r(mean)'</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>. summ price</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>       price |         74    6165.257    2949.496       3291      15906</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> pricec = price - <span class="ot">`r(mean)'</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>. summ gear_ratioc pricec</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    Variable |        Obs        Mean    Std. <span class="kw">dev</span>.       Min        Max</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a> gear_ratioc |         74    2.92e-09    .4562871  -.8248648   .8751352</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>      pricec |         74   -.0000154    2949.496  -2874.257   9740.743</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>. <span class="kw">regress</span> mpg c.pricec##c.gear_ratioc</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>      Source |       SS           df       MS      Number <span class="kw">of</span> <span class="kw">obs</span>   =        74</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   <span class="fu">F</span>(3, 70)        =     27.15</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>       Model |  1314.01011         3  438.003371   Prob &gt; <span class="fu">F</span>        =    0.0000</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    Residual |  1129.44935        70  16.1349907   R-squared       =    0.5378</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------   Adj R-squared   =    0.5180</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>       Total |  2443.45946        73  33.4720474   Root MSE        =    4.0168</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>         mpg | Coefficient  Std. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>      pricec |  -.0009161   .0001927    -4.75   0.000    -.0013005   -.0005317</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a> gear_ratioc |   7.249342   1.102393     6.58   0.000     5.050688    9.447996</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>    c.pricec#|</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>          c. |</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a> gear_ratioc |   -.001145    .000342    -3.35   0.001    -.0018271   -.0004629</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   20.82048   .4881841    42.65   0.000     19.84683    21.79413</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you compare fit characteristics and the interaction coefficient (and other coefficients), you’ll notice nothing has changed save the coefficients for <code>pricec</code> and <code>gear_ratioc</code>. Now the interpretation the price main effect (which before was nonsense because gear ratio was never 0) is -.0009161, which corresponds to the relationship between price and mileage when <code>gear_ratio</code> is 3.014865.</p>
 <p>If we were to re-run the <code>margins</code> commands from before, we’d see the same results (albeit with different scaling both in the <code>at( )</code> option and in the axes of the response.)</p>
-<p><sup>###</sup> Robust standard errors</p>
+</section>
+</section>
+<section id="robust-standard-errors" class="level3" data-number="4.2.4">
+<h3 data-number="4.2.4" class="anchored" data-anchor-id="robust-standard-errors"><span class="header-section-number">4.2.4</span> Robust standard errors</h3>
 <p>The standard error associated with each coefficient are determined with the assumption that the model is “true” and that, were we given an infinite sample size, the estimates <sup><span class="math inline">\(^\hat{\beta}^\)</span></sup> would converge to the true <sup><span class="math inline">\(^\beta^\)</span></sup>. In many situations, this is clearly untrue.</p>
 <p>If you believe this is untrue, the estimates will be unaffected, but their standard errors will be incorrect. We can adjust for this by using “robust” standard errors, also known as Sandwich estimators or Huber-White estimators, with the <code>vce(robust)</code> option to <code>regress</code>.</p>
-<pre><code>. regress mpg c.price##c.gear_ratio, vce(robust)
-
-Linear regression                               Number of obs     =         74
-                                                F(3, 70)          =      25.72
-                                                Prob &gt; F          =     0.0000
-                                                R-squared         =     0.5378
-                                                Root MSE          =     4.0168
-
-------------------------------------------------------------------------------
-             |               Robust
-         mpg | Coefficient  std. err.      t    P&gt;|t|     [95% conf. interval]
--------------+----------------------------------------------------------------
-       price |    .002536   .0008763     2.89   0.005     .0007883    .0042837
-  gear_ratio |   14.30867    2.55241     5.61   0.000     9.218048    19.39929
-             |
-     c.price#|
-c.gear_ratio |   -.001145   .0003043    -3.76   0.000    -.0017519   -.0005381
-             |
-       _cons |  -16.67042   7.455919    -2.24   0.029    -31.54078   -1.800056
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">regress</span> mpg c.price##c.gear_ratio, <span class="kw">vce</span>(<span class="kw">robust</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>Linear regression                               Number <span class="kw">of</span> <span class="kw">obs</span>     =         74</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                                                <span class="fu">F</span>(3, 70)          =      25.72</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                                                Prob &gt; <span class="fu">F</span>          =     0.0000</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                                                R-squared         =     0.5378</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                                                Root MSE          =     4.0168</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>             |               Robust</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>         mpg | Coefficient  <span class="fu">std</span>. err.      t    P&gt;|t|     [95% conf. interval]</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>       price |    .002536   .0008763     2.89   0.005     .0007883    .0042837</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  gear_ratio |   14.30867    2.55241     5.61   0.000     9.218048    19.39929</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>     c.price#|</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>c.gear_ratio |   -.001145   .0003043    -3.76   0.000    -.0017519   -.0005381</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>             |</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |  -16.67042   7.455919    -2.24   0.029    -31.54078   -1.800056</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Notice that compared to the <a href="#interactions">previous model</a>, the Coef estimates are the same but the standard errors (and corresponding t-statistic, p-value and confidence interval) are slightly different.</p>
 <p>Typically, the robust standard errors should be slightly larger than the non-robust standard errors, but not always. The only common situation where the robust standard errors will decrease is when the error variance is highest for observations near the average value of the predictors. This does not often happen (generally the higher residuals occur in observations that could be considered outliers).</p>
 <p>There has been some argument that robust standard errors should always be used, because if the model is correctly specified, the robust standard errors and regular standard errors should be almost identical, so there is no harm in using them.</p>
-<p><sup>###</sup> Assumptions</p>
+</section>
+<section id="assumptions" class="level3" data-number="4.2.5">
+<h3 data-number="4.2.5" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">4.2.5</span> Assumptions</h3>
 <p>There are three main assumptions when running a linear regression. Some we can test, some we cannot (and need to rely on our knowledge of the data).</p>
-<p><sup>####</sup> Relationship is linear and additive</p>
+<section id="relationship-is-linear-and-additive" class="level4" data-number="4.2.5.1">
+<h4 data-number="4.2.5.1" class="anchored" data-anchor-id="relationship-is-linear-and-additive"><span class="header-section-number">4.2.5.1</span> Relationship is linear and additive</h4>
 <p>Recall the linear regression model:</p>
 <p><sup><span class="math display">\[^
   Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \cdots + \beta_pX_p + \epsilon
 ^\]</span></sup></p>
 <p>This very explicitly assumes that the relationship is linear (as opposed to something non-linear, such as quadratic or exponential) and additive (as opposed to multiplicative). We can examine this assumption by looking at plots of the residuals (estimated errors):</p>
-<pre><code>. rvfplot
-</code></pre>
-<p><img src="Graph15.svg"></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">rvfplot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph38.svg"></p>
 <p>What we’re seeing here is a scatterplot between the fitted values (the predicted values for each individual) and their errors (the difference between the predicted values and observed values). If you can see a pattern in the scatterplot, that is evidence that this assumption is violated. <strong>Importantly</strong>, not seeing any pattern is <strong>not</strong> evidence that the assumption is valid! You’ll still need to cover this assumption with theory and knowledge of the data.</p>
 <p>This image, from Julian Faraway’s <a href="http://www.maths.bath.ac.uk/~jjf23/LMR/">Linear Models with R</a> book, demonstrates a lack of pattern (the first) and a pattern (the third). (We will discuss the second plot <a href="#errors-are-homogeneous">below</a>).</p>
 <p><img src="https://i.stack.imgur.com/rtn7e.png" class="img-fluid"></p>
 <p>If this assumption is violated, you will need to reconsider the structure in your model, perhaps by adding a squared term (e.g.&nbsp;<code>reg y c.x c.x#c.x</code>).</p>
-<p><sup>#####</sup> Obtaining predicted values and residuals</p>
+<section id="obtaining-predicted-values-and-residuals" class="level5" data-number="4.2.5.1.1">
+<h5 data-number="4.2.5.1.1" class="anchored" data-anchor-id="obtaining-predicted-values-and-residuals"><span class="header-section-number">4.2.5.1.1</span> Obtaining predicted values and residuals</h5>
 <p>In the <a href="#relationship-is-linear-and-additive"><code>rvfplot</code></a>, we plotted residuals versus predicted values - neither of which we have in the data. If there is some analysis beyond what <code>rvfplot</code> produces that you’re interested in, the <code>predict</code> command can obtain these. The general syntax for <code>predict</code> is:</p>
 <pre><code>predict &lt;new var name&gt;, &lt;statistic&gt;</code></pre>
 <p>There are quite a few options for the “statistic”, but the two most commonly used ones are:</p>
@@ -584,41 +650,48 @@ c.gear_ratio |   -.001145   .0003043    -3.76   0.000    -.0017519   -.0005381
 <li><code>residuals</code>: The residuals. The difference between the predicted value and observed value.</li>
 </ul>
 <p>In other words, we can replicate the above <code>rvfplot</code> via:</p>
-<pre><code>. predict linearpredictor, xb
-
-. predict resids, residuals
-
-. twoway scatter resids linearpredictor
-</code></pre>
-<p><img src="Graph16.svg"></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> linearpredictor, <span class="kw">xb</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">predict</span> resids, residuals</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> <span class="kw">scatter</span> resids linearpredictor</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph39.svg"></p>
 <p>Of course we can clean this plot up with the <a href="visualization.html#the-graph-command">typical options</a>.</p>
-<p><sup>####</sup> Errors are homogeneous</p>
+</section>
+</section>
+<section id="errors-are-homogeneous" class="level4" data-number="4.2.5.2">
+<h4 data-number="4.2.5.2" class="anchored" data-anchor-id="errors-are-homogeneous"><span class="header-section-number">4.2.5.2</span> Errors are homogeneous</h4>
 <p>“Homogeneity” is a fancy term for “uniform in distribution”, whereas “heterogeneity” represents “not uniform in distribution”. If we were to take a truly random sample of all individuals in Michigan, the distribution of their heights would be homogeneous - it is reasonable to assume there is only a single distribution at work there. If on the other hand, we took a random sample of basketball players and school children, this would definitely be heterogeneous. The basketball players have a markedly difference distribution of heights that school children!</p>
 <p>In linear regression, the homogeneity assumption is that the distribution of the errors is uniform. Violations would include errors changing as the predictor increased, or several groups having very different noise in their measurements.</p>
 <p>This is an assumption we can examine, again with the residuals vs fitted plot. We’re looking for either a blatant deviation from a mean of 0, or an increasing/decreasing variability on the y-axis over time. Refer back to the <a href="#relationship-is-linear-and-additive">image above</a>, looking at the middle plot. As the fitted values increase, the error spreads out.</p>
 <p>If this assumption is violated, you may consider restructuring your model as above, or transforming either your response or predictors using log transforms.</p>
-<p><sup>####</sup> Independence</p>
+</section>
+<section id="independence" class="level4" data-number="4.2.5.3">
+<h4 data-number="4.2.5.3" class="anchored" data-anchor-id="independence"><span class="header-section-number">4.2.5.3</span> Independence</h4>
 <p>This last assumption is that each row of your data is independent. If you have repeated measures, this is violated. If you have subjects drawn from groups (i.e.&nbsp;students in classrooms), this is violated. There is no way to test for this, it requires knowing the data set.</p>
 <p>If this assumption is violated, consider fitting a <a href="mixed-models.html">mixed model</a> instead.</p>
-<p><sup>###</sup> Miscellaneous concerns</p>
-<p><sup>####</sup> Multicollinearity</p>
+</section>
+</section>
+<section id="miscellaneous-concerns" class="level3" data-number="4.2.6">
+<h3 data-number="4.2.6" class="anchored" data-anchor-id="miscellaneous-concerns"><span class="header-section-number">4.2.6</span> Miscellaneous concerns</h3>
+<section id="multicollinearity" class="level4" data-number="4.2.6.1">
+<h4 data-number="4.2.6.1" class="anchored" data-anchor-id="multicollinearity"><span class="header-section-number">4.2.6.1</span> Multicollinearity</h4>
 <p>Multicollinearity is an issue when 2 or more predictors are correlated. If only two are correlated, looking at their correlation (with <code>pwcorr</code> or <code>correlate</code>) may provide some indication, but you can have many-way multicollinearity where each pairwise correlation is low. You can use the variance inflation factor to try and identify if this is an issue.</p>
 <p>Let’s fit a model with a bunch of main effects. We use <code>quietly</code> to suppress the output to save space.</p>
-<pre><code>. quietly regress mpg headroom trunk weight length turn displacement
-
-. estat vif
-
-    Variable |       VIF       1/VIF  
--------------+----------------------
-      weight |     15.06    0.066412
-      length |     12.53    0.079833
-displacement |      5.17    0.193585
-        turn |      4.25    0.235511
-       trunk |      2.80    0.357428
-    headroom |      1.81    0.551207
--------------+----------------------
-    Mean VIF |      6.93
-</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">quietly</span> <span class="kw">regress</span> mpg headroom trunk <span class="kw">weight</span> <span class="fu">length</span> turn displacement</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estat</span> <span class="kw">vif</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    Variable |       VIF       1/VIF  </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>-------------+----------------------</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |     15.06    0.066412</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span> |     12.53    0.079833</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>displacement |      5.17    0.193585</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        turn |      4.25    0.235511</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>       trunk |      2.80    0.357428</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    headroom |      1.81    0.551207</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>-------------+----------------------</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    Mean VIF |      6.93</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The rule of thumb is VIF &gt; 10 or 1/VIF (called the tolerance) &lt; .1 suggests that the variable is involved in multicollinearity and more exploration may be needed.</p>
 <p>Shockingly, we see that <code>weight</code> and <code>length</code> have high VIF’s - not surprisingly these are related!</p>
 <p>Note that generally, a high VIF on an interaction or a main effect in the presence of an interaction is not a concern (of course an interaction is collinear with its main effects!).</p>
@@ -632,9 +705,13 @@ displacement |      5.17    0.193585
 ^\]</span></sup></p>
 <p>since with perfect correlation, <sup><span class="math inline">\(^X_1^\)</span></sup> and <sup><span class="math inline">\(^X_2^\)</span></sup> are identical.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a> Now, when we fit the model, we would have estimates of <sup><span class="math inline">\(^\beta_1^\)</span></sup> and <sup><span class="math inline">\(^\beta_2^\)</span></sup> which sum to the “truth”, but the individual level of each of <sup><span class="math inline">\(^\beta_1^\)</span></sup> and <sup><span class="math inline">\(^\beta_2^\)</span></sup> could be anything. For example, if the “true” <sup><span class="math inline">\(^\beta_1^\)</span></sup> and <sup><span class="math inline">\(^\beta_2^\)</span></sup> are 1 and 3, they sum to 4. We could get estimated coefficients of 1 and 3, or 3 and 1, or -20 and 24!</p>
 <p>This is an extreme example, but in practice we can be close to this situation.</p>
-<p><sup>####</sup> Overfitting</p>
+</section>
+<section id="overfitting" class="level4" data-number="4.2.6.2">
+<h4 data-number="4.2.6.2" class="anchored" data-anchor-id="overfitting"><span class="header-section-number">4.2.6.2</span> Overfitting</h4>
 <p>Overfitting occurs when a model includes so many predictors that you can no longer generalize to the population. The rule of thumb is that you should have no more than one predictor for every 10-20 observations. The smaller your sample size, the more conservative you should be. For example, a sample size of 100 should use no more than 5-10 predictors. Recall that a categorical predictor with <sup><span class="math inline">\(^k^\)</span></sup> different levels adds <sup><span class="math inline">\(^k-1^\)</span></sup> predictors!</p>
-<p><sup>####</sup> Model Selection is bad</p>
+</section>
+<section id="model-selection-is-bad" class="level4" data-number="4.2.6.3">
+<h4 data-number="4.2.6.3" class="anchored" data-anchor-id="model-selection-is-bad"><span class="header-section-number">4.2.6.3</span> Model Selection is bad</h4>
 <p>There is a literature on the idea of model selection, that is, an automated (or sometimes manual) way of testing many versions of a model with a different subset of the predictors in an attempt to find the model that fits best. These are sometimes called “stepwise” procedures.</p>
 <p>This method has a number of flaws, including</p>
 <ul>
@@ -644,7 +721,11 @@ displacement |      5.17    0.193585
 </ul>
 <p>Instead of doing model selection, you should use your knowledge of the data to select a subset of the variables which are either a) of importance to you, b) theoretically influential on the outcome (e.g.&nbsp;demographic variables) or c) what others (reviewers) would think are influential on the outcome. Then you can fit a single model including all of this. The “subset” can be all predictors if the <a href="#overfitting">sample size</a> is sufficient.</p>
 <p>Note that adjustments to fix assumptions (e.g.&nbsp;transformations) or multicollinearity would not fall into the category of model selection and are fine to use.</p>
-<p><sup>##</sup> Exercise 4</p>
+</section>
+</section>
+</section>
+<section id="exercise-4" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">4.3</span> Exercise 4</h2>
 <p>Reload the NHANES data.</p>
 <pre><code>webuse nhanes2, clear</code></pre>
 <p><a href="#fitting-the-model">Fit a linear regression model</a> predicting <code>lead</code> based upon <code>sex</code>, <code>race</code>, <code>age</code>, <code>weight</code>, <code>height</code>, and <code>region</code>. Make sure to handle <a href="#including-categorical-predictors">categorical variables</a> appropriately! Answer the following questions which may or may not require running additional commands.</p>
@@ -657,7 +738,9 @@ displacement |      5.17    0.193585
 <li>Looking at all the differences between regions, what conclusion can you draw?</li>
 <li>Add an <a href="#interactions">interaction</a> between gender and age. What is the interpretation here?</li>
 </ol>
-<p><sup>##</sup> Logistic Regression</p>
+</section>
+<section id="logistic-regression" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">4.4</span> Logistic Regression</h2>
 <p>Let’s violate one of the <a href="#relationship-is-linear-and-additive">assumptions</a>. Instead of the relationship being linear, we can generalize to allow the relationship to be any functional form. These types of models are called “Generalized Linear Models” or “GLMs”, mainly because we can transform the model to be linear in some sense. Logistic regression is one specific form of a GLM, others include Poisson and Negative Binomial regression.</p>
 <p>Logistic regression is used when the outcome is dichotomous - either a positive outcome (1) or a negative outcome (0). For example, presence or absence of some disease. The equation for this model is</p>
 <p><sup><span class="math display">\[^
@@ -668,197 +751,206 @@ displacement |      5.17    0.193585
 <li>The relationship between the <sup><span class="math inline">\(^X^\)</span></sup>’s and the outcome is nonlinear.</li>
 <li>Note that the left-hand side of this model is not just <sup><span class="math inline">\(^Y^\)</span></sup>, but rather, the probability of <sup><span class="math inline">\(^Y^\)</span></sup> being 1 (a positive result) given the predictors. Unlike linear regression where we are explicitly predicting the outcome, a logistic model is instead trying to predict everyone’s probability of a positive outcome.</li>
 </ol>
-<p><sup>###</sup> Fitting the logistic model</p>
+<section id="fitting-the-logistic-model" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="fitting-the-logistic-model"><span class="header-section-number">4.4.1</span> Fitting the logistic model</h3>
 <p>We can fit this using the <code>logit</code> command in State. It works very similarly to <code>regress</code>. Let’s predict whether a car is foreign based on headroom and gear ratio again.</p>
-<pre><code>. logit foreign gear_ratio headroom
-
-Iteration 0:  Log likelihood =  -45.03321  
-Iteration 1:  Log likelihood = -24.070574  
-Iteration 2:  Log likelihood = -21.955086  
-Iteration 3:  Log likelihood = -21.905247  
-Iteration 4:  Log likelihood = -21.905069  
-Iteration 5:  Log likelihood = -21.905069  
-
-Logistic regression                                     Number of obs =     74
-                                                        LR chi2(2)    =  46.26
-                                                        Prob &gt; chi2   = 0.0000
-Log likelihood = -21.905069                             Pseudo R2     = 0.5136
-
-------------------------------------------------------------------------------
-     foreign | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  gear_ratio |   5.731199    1.32087     4.34   0.000     3.142342    8.320056
-    headroom |  -.2450151    .453866    -0.54   0.589    -1.134576    .6445459
-       _cons |   -18.2719   4.565065    -4.00   0.000    -27.21926   -9.324539
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> foreign gear_ratio headroom</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>Iteration 0:  Log likelihood =  -45.03321  </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>Iteration 1:  Log likelihood = -24.070574  </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>Iteration 2:  Log likelihood = -21.955086  </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>Iteration 3:  Log likelihood = -21.905247  </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>Iteration 4:  Log likelihood = -21.905069  </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>Iteration 5:  Log likelihood = -21.905069  </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>Logistic regression                                     Number <span class="kw">of</span> <span class="kw">obs</span> =     74</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>                                                        LR <span class="fu">chi2</span>(2)    =  46.26</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>                                                        Prob &gt; <span class="fu">chi2</span>   = 0.0000</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>Log likelihood = -21.905069                             Pseudo R2     = 0.5136</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>     foreign | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  gear_ratio |   5.731199    1.32087     4.34   0.000     3.142342    8.320056</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    headroom |  -.2450151    .453866    -0.54   0.589    -1.134576    .6445459</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   -18.2719   4.565065    -4.00   0.000    -27.21926   -9.324539</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When you try this yourself, you may notice that its not quite as fast as <code>regress</code>. That is because for linear regression we have a “closed form solution” - we just do some quick math and reach an answer. However, almost every other type of regression lacks a closed form solution, so instead we solve it iteratively - Stata guesses at the best coefficients that minimize error<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, and keeps guessing (using the knowledge of the previous guesses) until it stops getting significantly different results.</p>
 <p>From this output, we get the “Number of obs” again. Instead of an ANOVA table with a F-statistic to test model significance, there is instead a <sup><span class="math inline">\(^\chi^2^\)</span></sup> testing whether all coefficients are identically 0.</p>
 <p>When we move away from linear regression, we no longer get an <sup><span class="math inline">\(^R^2^\)</span></sup> measure. There have been various pseudo-<sup><span class="math inline">\(^R^2^\)</span></sup>’s suggested, and Stata reports one here, but be careful assigning too much meaning to it. It is not uncommon to get pseudo-<sup><span class="math inline">\(^R^2^\)</span></sup> values that are negative or above 1. We’ll discuss measuring <a href="#logistic-goodness-of-fit">goodness of fit</a> below.</p>
 <p>The coefficients table is interpreted in almost the same way as with regression. We see that <code>gear_ratio</code> has a significant positive coefficient, and <code>headroom</code>’s coefficient is indistinguishable from 0. We <em>cannot</em> nicely interpret the coefficients. All we can say is that “As gear ratio increases, the probability of a car being foreign increases.”</p>
 <p>To add any interpretability to these coefficients, we should instead look at the odds ratios (these coefficients are known as the log-odds). We can obtain this with the <code>or</code> options.</p>
-<pre><code>. logit, or
-
-Logistic regression                                     Number of obs =     74
-                                                        LR chi2(2)    =  46.26
-                                                        Prob &gt; chi2   = 0.0000
-Log likelihood = -21.905069                             Pseudo R2     = 0.5136
-
-------------------------------------------------------------------------------
-     foreign | Odds ratio   Std. err.      z    P&gt;|z|     [95% conf. interval]
--------------+----------------------------------------------------------------
-  gear_ratio |   308.3386   407.2751     4.34   0.000     23.15803    4105.388
-    headroom |   .7826927   .3552376    -0.54   0.589     .3215584    1.905122
-       _cons |   1.16e-08   5.30e-08    -4.00   0.000     1.51e-12    .0000892
-------------------------------------------------------------------------------
-Note: _cons estimates baseline odds.
-</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span>, <span class="kw">or</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Logistic regression                                     Number <span class="kw">of</span> <span class="kw">obs</span> =     74</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                                                        LR <span class="fu">chi2</span>(2)    =  46.26</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                                                        Prob &gt; <span class="fu">chi2</span>   = 0.0000</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>Log likelihood = -21.905069                             Pseudo R2     = 0.5136</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>     foreign | Odds <span class="kw">ratio</span>   Std. err.      z    P&gt;|z|     [95% conf. interval]</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  gear_ratio |   308.3386   407.2751     4.34   0.000     23.15803    4105.388</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    headroom |   .7826927   .3552376    -0.54   0.589     .3215584    1.905122</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   1.16e-08   5.30e-08    -4.00   0.000     1.51e-12    .0000892</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>Note: <span class="dt">_cons</span> <span class="kw">estimates</span> baseline odds.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Notice that the “LR chi2(2)”, “Pseudo R2”, “z” and “P&gt;|z|” do not change - we’re fitting the same model! We’re just changing how the coefficients are represented, similar to <a href="#including-categorical-predictors">changing the baseline of a categorical variable</a>.</p>
 <p>Odds ratios null hypothesis is at 1, not at 0. Odds ratios are always positive. So a significant odds ratio will be away from 1, rather than away from 0 as in linear regression or the log odds. We can interpret odds ratios as percentage changes in the odds. The odds ratio for <code>gear_ratio</code> is 308.3386, suggesting that a 1 increase in the odds ratio leads to a 30,833% increase in the odds that the car is foreign! This is massive! But keep in mind, <code>gear_ratio</code> had a very narrow range - an increase of 1 is very large. Let’s rescale gear_ratio and try again.</p>
-<pre><code>. gen gear_ratio2 = gear_ratio*10
-
-. logit foreign gear_ratio2 headroom, or
-
-Iteration 0:  Log likelihood =  -45.03321  
-Iteration 1:  Log likelihood = -24.070576  
-Iteration 2:  Log likelihood = -21.955089  
-Iteration 3:  Log likelihood = -21.905249  
-Iteration 4:  Log likelihood = -21.905071  
-Iteration 5:  Log likelihood = -21.905071  
-
-Logistic regression                                     Number of obs =     74
-                                                        LR chi2(2)    =  46.26
-                                                        Prob &gt; chi2   = 0.0000
-Log likelihood = -21.905071                             Pseudo R2     = 0.5136
-
-------------------------------------------------------------------------------
-     foreign | Odds ratio   Std. err.      z    P&gt;|z|     [95% conf. interval]
--------------+----------------------------------------------------------------
- gear_ratio2 |   1.773792   .2342948     4.34   0.000      1.36921    2.297922
-    headroom |   .7826928   .3552376    -0.54   0.589     .3215585    1.905122
-       _cons |   1.16e-08   5.30e-08    -4.00   0.000     1.51e-12    .0000892
-------------------------------------------------------------------------------
-Note: _cons estimates baseline odds.
-</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> gear_ratio2 = gear_ratio*10</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> foreign gear_ratio2 headroom, <span class="kw">or</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>Iteration 0:  Log likelihood =  -45.03321  </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>Iteration 1:  Log likelihood = -24.070576  </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>Iteration 2:  Log likelihood = -21.955089  </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>Iteration 3:  Log likelihood = -21.905249  </span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>Iteration 4:  Log likelihood = -21.905071  </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>Iteration 5:  Log likelihood = -21.905071  </span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>Logistic regression                                     Number <span class="kw">of</span> <span class="kw">obs</span> =     74</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>                                                        LR <span class="fu">chi2</span>(2)    =  46.26</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>                                                        Prob &gt; <span class="fu">chi2</span>   = 0.0000</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>Log likelihood = -21.905071                             Pseudo R2     = 0.5136</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>     foreign | Odds <span class="kw">ratio</span>   Std. err.      z    P&gt;|z|     [95% conf. interval]</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a> gear_ratio2 |   1.773792   .2342948     4.34   0.000      1.36921    2.297922</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    headroom |   .7826928   .3552376    -0.54   0.589     .3215585    1.905122</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |   1.16e-08   5.30e-08    -4.00   0.000     1.51e-12    .0000892</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>Note: <span class="dt">_cons</span> <span class="kw">estimates</span> baseline odds.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Note once again that the model fit characteristics haven’t changed; we’ve fit the same model, just with different units. Now the interpretation is more reasonable, for every .1 increase in <code>gear_ratio</code> (which corresponds to a 1 increase in <code>gear_ratio2</code>), we predict an increase in the odds of a car being foreign by 77.4%.</p>
 <p>The odds ratio on headroom is not distinguishable from 1, however, if it were, the interpretation is that increasing the headroom by 1 inch is predicted to decrease the odds of a car being foreign by about 21.7% on average (1 - 0.783).</p>
-<p><sup>###</sup> Categorical Variables and Interactions</p>
+</section>
+<section id="categorical-variables-and-interactions" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="categorical-variables-and-interactions"><span class="header-section-number">4.4.2</span> Categorical Variables and Interactions</h3>
 <p>Both <a href="#including-categorical%20predictors">categorical variables</a> and <a href="#interactions">interactions</a> can be included as they were in linear regression, with the appropriate interpretation of coefficients/odds ratios. The <code>margins</code> command also works the same.</p>
 <p>The <code>predict</code> command adds a new <a href="#obtaining-predicted-values-and-residuals">statistic</a>. <code>xb</code> now is the linear predictor, which is often not useful. Instead, the <code>pr</code> statistic returns the estimated probability of a positive outcome.</p>
-<p><sup>###</sup> Logistic regression assumptions</p>
+</section>
+<section id="logistic-regression-assumptions" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="logistic-regression-assumptions"><span class="header-section-number">4.4.3</span> Logistic regression assumptions</h3>
 <p>The assumptions for logistic regression are simpler than linear. The outcome measure must be binary with a 0 for a negative response and 1 for a positive. (Technically they don’t have to be positive/negative. We could think of predicting male/female and code male = 0 and female = 1. However, the convention would be to consider the outcome as “The person is female” so a 1 represents a “success” and a 0 a “failure” of that statement.) The errors in a logistic regression model are fairly contained (you can’t be wrong than more than 1!) so there are no real assumptions about them. The <a href="#independence">independence</a> assumption is still here and still important, again, a mixed model (specifically a <a href="mixed-models.html#logistic-mixed-model">logistic mixed model</a>) may be appropriate if the data is not independent.</p>
-<p><sup>###</sup> Logistic goodness of fit</p>
+</section>
+<section id="logistic-goodness-of-fit" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="logistic-goodness-of-fit"><span class="header-section-number">4.4.4</span> Logistic goodness of fit</h3>
 <p>As we mentioned earlier, there are various issues with the Pseudo <sup><span class="math inline">\(^R^2^\)</span></sup> reported by <code>logit</code>, so use it carefully. There are two alternate approaches.</p>
 <p>The first is to look at the ROC curve:</p>
-<pre><code>. lroc
-
-Logistic model for foreign
-
-Number of observations =       74
-Area under ROC curve   =   0.9384
-</code></pre>
-<p><img src="Graph17.svg"></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">lroc</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>Logistic <span class="kw">model</span> <span class="kw">for</span> foreign</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>Number <span class="kw">of</span> observations =       74</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>Area under ROC curve   =   0.9384</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph40.svg"></p>
 <p>The ROC curve is a bit complicated to explain, but basically over a range of thresholds, it classifies each observation as predicting a 0 or 1. E.g., with a threshold of .2, any observation whose predicted probability is below .2 is classified as a “0”, any observation whose predicted probability is above .2 is classified as a “1”. For each such threshold, the specificity (fraction of correctly classified “0”’s) versus the sensitivity(fraction of correctly classified “1”’s) are computed and plotted against each other. If the two fractions are equal, it’s a coin-flip and the model does no better than chance. On the other hand, the higher the ratio of sensitivity/(1 - specificity) is, the better classified we are.</p>
 <p>The bottom left corner of the ROC curve is a threshold of 0 and the top right of 1, both of which would classify every observation the same, so they’re no good. We want to the ROC curve to be as close to “filling” the top area as possible. The Area under the ROC curve (called AUC) is a measure of fit; the fit here is .9384, which is very good. (The AUC ranges from .5 to 1. .5 indicates, as we’ve said, chance, and 1 indicates a perfect fit. An AUC of 1 is actually troublesome as we might be <a href="regression.html#logit-miscellaneous">overfit</a>.)</p>
 <p>The second is a more formal test. There are two variants, a Pearson <sup><span class="math inline">\(^\chi^2^\)</span></sup> test and the Hosmer-Lemeshow test. Both are fit with the <code>estat gof</code> command. Both are testing the hypothesis that the observed positive responses match predicted positive responses in subgroups of the population. Therefore we do <em>not</em> want to reject these tests, and a large p-value is desired.</p>
-<pre><code>. estat gof
-
-Goodness-of-fit test after logistic model
-Variable: foreign
-
-      Number of observations =     74
-Number of covariate patterns =     58
-            Pearson chi2(55) =  42.92
-                 Prob &gt; chi2 = 0.8817
-</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estat</span> gof</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>Goodness-<span class="kw">of</span>-<span class="kw">fit</span> <span class="kw">test</span> after <span class="kw">logistic</span> <span class="kw">model</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>Variable: foreign</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      Number <span class="kw">of</span> observations =     74</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>Number <span class="kw">of</span> covariate <span class="kw">patterns</span> =     58</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>            Pearson <span class="fu">chi2</span>(55) =  42.92</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                 Prob &gt; <span class="fu">chi2</span> = 0.8817</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We see here a p-value of 0.882, failing to reject the null, so there is no evidence that the model does not fit well.</p>
 <p>There is some concern that when the “number of covariate patterns” is close to the number of observations , the Pearson test is invalid. In this data, we see that 58 is indeed “close” to 74. Instead, we can use the Hosmer-Lemeshow by passing the <code>group(#)</code> option:</p>
-<pre><code>. estat gof, group(10)
-note: obs collapsed on 10 quantiles of estimated probabilities.
-
-Goodness-of-fit test after logistic model
-Variable: foreign
-
- Number of observations =     74
-       Number of groups =     10
-Hosmer–Lemeshow chi2(8) =   9.89
-            Prob &gt; chi2 = 0.2727
-</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estat</span> gof, <span class="fu">group</span>(10)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="kw">note</span>: <span class="kw">obs</span> collapsed <span class="kw">on</span> 10 quantiles <span class="kw">of</span> estimated probabilities.</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>Goodness-<span class="kw">of</span>-<span class="kw">fit</span> <span class="kw">test</span> after <span class="kw">logistic</span> <span class="kw">model</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>Variable: foreign</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a> Number <span class="kw">of</span> observations =     74</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>       Number <span class="kw">of</span> groups =     10</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>Hosmer–Lemeshow <span class="fu">chi2</span>(8) =   9.89</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>            Prob &gt; <span class="fu">chi2</span> = 0.2727</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The p-value remains insignificant at 0.273, still no evidence of poor model fit.</p>
 <p>Why did we choose 10 groups? It’s just the standard. The only thing to keep in mind is that the Hosmer-Lemeshow test is only appropriate if the number of groups is greater than the number of predictors (including the intercept). In this model, we had two predictors, so that’s 3 total (including the intercept), so 10 is OK.</p>
 <p>There are some limitations to Hosmer-Lemeshow, and there are more modern alternatives. However, Stata has not implemented any yet that I’m aware of.</p>
-<p><sup>###</sup> Separation</p>
+</section>
+<section id="separation" class="level3" data-number="4.4.5">
+<h3 data-number="4.4.5" class="anchored" data-anchor-id="separation"><span class="header-section-number">4.4.5</span> Separation</h3>
 <p>Since the logistic regression model is solved <a href="regression.html#fitting-the-logistic-model">iteratively</a>, this can fail for a number of reasons. Before you begin interpreting the model, you’ll want to glance at the iteration steps and make sure that no errors were printed. The most common failure is due to separation.</p>
 <p>With a binary outcome instead of a continuous outcome, it is much easier to have a predictor (or set of predictors) that perfectly predict the outcome. Consider trying to predict gender based on height. With a smaller sample, it’s not hard to imagine a scenario where every male is taller than every female. This is called “perfect separation”; using this sample, knowing height gives perfect information about gender</p>
 <p>“Partial separation” can also occur; this is when prediction is perfect only for one limit. Take the height scenario again; say everyone above 5’8” is male, and there are two men and all the women below 5’8”. Here, we will always predict Male for heights above 5’8”.</p>
 <p>Separation (of either type) often produces coefficients to be extreme with large standard errors. Stata will sometimes warn about this, but not always. If you notice these exceptional coefficients or if Stata does warn about separation, you’ll need to investigate and consider excluding certain predictors. It may seem counter-intuitive to exclude extremely highly predictive variables, but if a variable produces perfect separation, you don’t need a model to inform you of that.</p>
 <p>You can examine separation by looking at a table. Imagine we wanted to restructure <code>rep78</code> as a binary variable, with low repairs (repair record below 3) and high repairs (repair records 3 and above).</p>
-<pre><code>. gen repair_binary = rep78 &gt;= 3
-
-. replace repair_binary = . if rep78 &gt;= .
-(5 real changes made, 5 to missing)
-
-. label define repbinlabel 0 "Low repairs" 1 "High repairs"
-
-. label value repair_binary repbinlabel
-
-. tab repair_binary
-
-repair_binar |
-           y |      Freq.     Percent        Cum.
--------------+-----------------------------------
- Low repairs |         10       14.49       14.49
-High repairs |         59       85.51      100.00
--------------+-----------------------------------
-       Total |         69      100.00
-</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">gen</span> repair_binary = rep78 &gt;= 3</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>. <span class="kw">replace</span> repair_binary = . <span class="kw">if</span> rep78 &gt;= .</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>(5 <span class="fu">real</span> changes made, 5 to <span class="fu">missing</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>. <span class="kw">label</span> <span class="kw">define</span> repbinlabel 0 <span class="st">"Low repairs"</span> 1 <span class="st">"High repairs"</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>. <span class="kw">label</span> <span class="ot">value</span> repair_binary repbinlabel</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> repair_binary</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>repair_binar |</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>           <span class="fu">y</span> |      Freq.     Percent        Cum.</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>-------------+-----------------------------------</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a> Low repairs |         10       14.49       14.49</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>High repairs |         59       85.51      100.00</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>-------------+-----------------------------------</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>       Total |         69      100.00</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s try fitting the model:</p>
-<pre><code>. logit foreign repair_binary
-
-note: repair_binary != 1 predicts failure perfectly;
-      repair_binary omitted and 10 obs not used.
-
-Iteration 0:  Log likelihood = -38.411464  
-Iteration 1:  Log likelihood = -38.411464  
-
-Logistic regression                                     Number of obs =     59
-                                                        LR chi2(0)    =   0.00
-                                                        Prob &gt; chi2   =      .
-Log likelihood = -38.411464                             Pseudo R2     = 0.0000
-
-------------------------------------------------------------------------------
-     foreign | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]
--------------+----------------------------------------------------------------
-repair_bin~y |          0  (omitted)
-       _cons |  -.5930637   .2719096    -2.18   0.029    -1.125997   -.0601307
-------------------------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">logit</span> foreign repair_binary</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">note</span>: repair_binary != 1 predicts failure perfectly;</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>      repair_binary omitted and 10 <span class="kw">obs</span> <span class="kw">not</span> used.</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>Iteration 0:  Log likelihood = -38.411464  </span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>Iteration 1:  Log likelihood = -38.411464  </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>Logistic regression                                     Number <span class="kw">of</span> <span class="kw">obs</span> =     59</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>                                                        LR <span class="fu">chi2</span>(0)    =   0.00</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>                                                        Prob &gt; <span class="fu">chi2</span>   =      .</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>Log likelihood = -38.411464                             Pseudo R2     = 0.0000</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>     foreign | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>-------------+----------------------------------------------------------------</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>repair_bin~<span class="fu">y</span> |          0  (omitted)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |  -.5930637   .2719096    -2.18   0.029    -1.125997   -.0601307</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Notice the note at the top of the model, and notice that nothing is estimated for <code>repair_binary</code>. We have partial separation:</p>
-<pre><code>. tab foreign repair_binary
-
-           |     repair_binary
-Car origin | Low repai  High repa |     Total
------------+----------------------+----------
-  Domestic |        10         38 |        48 
-   Foreign |         0         21 |        21 
------------+----------------------+----------
-     Total |        10         59 |        69 
-</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> foreign repair_binary</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>           |     repair_binary</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>Car origin | Low repai  High repa |     Total</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  Domestic |        10         38 |        48 </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>   Foreign |         0         21 |        21 </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>     Total |        10         59 |        69 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Since we have a zero in one of the cells, that’s partial separation. Complete separation would be zero in both off-diagonal cells.</p>
-<p><sup>###</sup> <code>logit</code> Miscellaneous</p>
+</section>
+<section id="logit-miscellaneous" class="level3" data-number="4.4.6">
+<h3 data-number="4.4.6" class="anchored" data-anchor-id="logit-miscellaneous"><span class="header-section-number">4.4.6</span> <code>logit</code> Miscellaneous</h3>
 <p>The <code>logit</code> model supports the margins command just like <code>regress</code> does. It does not support <code>estat vif</code> because variance inflation factors are not defined for logistic models.</p>
 <p>Collinearity, overfitting, and model selection remain concerns in the logistic model.</p>
 <p>Robust standard errors via <code>vce(robust)</code> are supported.</p>
-<p><sup>###</sup> <code>logit</code> vs <code>logistic</code></p>
+</section>
+<section id="logit-vs-logistic" class="level3" data-number="4.4.7">
+<h3 data-number="4.4.7" class="anchored" data-anchor-id="logit-vs-logistic"><span class="header-section-number">4.4.7</span> <code>logit</code> vs <code>logistic</code></h3>
 <p>Instead of <code>logit</code>, we could run the <code>logistic</code> command. The only difference is that <code>logistic</code> reports the odds ratio by default whereas <code>logit</code> reports the log odds. My personal preference is <code>logit</code>, but there’s no need to use one over the other.</p>
-<p><sup>##</sup> Other regression models</p>
+</section>
+</section>
+<section id="other-regression-models" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="other-regression-models"><span class="header-section-number">4.5</span> Other regression models</h2>
 <p>There are several other models which we will not cover, but function similarly to the above.</p>
 <ul>
 <li>Poisson regression is useful when you have count data; i.e.&nbsp;number of visitors or number of thunderstorms in a month. It can be fit with the <code>poisson</code> command, and results are interpreted similar to logistic regression (coefficients vs odds ratios); but instead of predicting a positive outcome, its predicting a larger count. If you have very large counts (such that a histogram appears to show a bell curve), linear regression can be used instead.</li>
 <li>Poisson has the strong assumption that the mean of the outcome is equal to its variance (small average counts have little noise; large average counts have a lot of noise). If this assumption is violated (or you want to check it), negative binomial regression also handles count data, without that assumptions, using <code>nbreg</code>. The output will include a test of “alpha=0”, if this fails to reject, then Poisson regression is sufficient.</li>
 <li>There are two extensions to logistic regression, ordinal logistic and multinomial. Ordinal logistic is used when there are more than 2 outcome categories, and they are ordered (e.g.&nbsp;not sick (0), mildly sick (1), very sick (2)). Using <code>ologit</code>, Stata estimates an underlying continuous distribution and returns the “cut points”, allowing categorization. If there are multiple groups but not ordered, e.g.&nbsp;race, use <code>mlogit</code> for multinomial logistic regression. It essentially fits a model predicting membership in each group versus all other, with some restrictions across the models.</li>
 </ul>
-<p><sup>##</sup> Exercise 5</p>
+</section>
+<section id="exercise-5" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="exercise-5"><span class="header-section-number">4.6</span> Exercise 5</h2>
 <p>Reload the NHANES data.</p>
 <pre><code>webuse nhanes2, clear</code></pre>
 <p>This time we’ll fit a <a href="#logistic-regression">logistic regression model</a>, prediciting diabetes status on <code>sex</code>, <code>race</code>, <code>age</code>, <code>weight</code>, <code>height</code>, and <code>region</code>. As before, be sure to handle <a href="#categorical-variables-and-interactions">categorical variables</a> appropriately.</p>
@@ -868,6 +960,7 @@ Car origin | Low repai  High repa |     Total
 </ol>
 
 
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
@@ -1120,12 +1213,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./03-univariate-analysis.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./05-mixed-models.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intermediate Stata (Statistical Modeling) – visualization</title>
+<title>Intermediate Stata (Statistical Modeling) - 2&nbsp; Visualization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -65,7 +99,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -74,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-visualization.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-visualization.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -108,49 +142,49 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-summarizing-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-visualization.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-univariate-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-survey-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multiple-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></span></a>
   </div>
 </li>
     </ul>
@@ -158,129 +192,127 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-graph-command" id="toc-the-graph-command" class="nav-link active" data-scroll-target="#the-graph-command"><span class="header-section-number">2.1</span> The <code>graph</code> command</a></li>
+  <li><a href="#other-graphs" id="toc-other-graphs" class="nav-link" data-scroll-target="#other-graphs"><span class="header-section-number">2.2</span> Other graphs</a></li>
+  <li><a href="#plotting-by-group" id="toc-plotting-by-group" class="nav-link" data-scroll-target="#plotting-by-group"><span class="header-section-number">2.3</span> Plotting by group</a></li>
+  <li><a href="#getting-help-on-graphs" id="toc-getting-help-on-graphs" class="nav-link" data-scroll-target="#getting-help-on-graphs"><span class="header-section-number">2.4</span> Getting help on Graphs</a></li>
+  <li><a href="#displaying-multiple-graphs-simultaneously" id="toc-displaying-multiple-graphs-simultaneously" class="nav-link" data-scroll-target="#displaying-multiple-graphs-simultaneously"><span class="header-section-number">2.5</span> Displaying multiple graphs simultaneously</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">2.6</span> Exercise 2</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></h1>
+</div>
 
 
-<p><sup>#</sup> Visualization</p>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
 <p>Stata has robust graphing capabilities that can both generate numerous types of plots, as well as modify them as needed. We’ll only cover the basics here, for a reference we would recommend A Visual Guide to Stata Graphics by Michael Mitchell, which lays out step-by-step syntax for the countless graphs that can be generated in Stata.</p>
 <p>Let’s reload the auto dataset to make sure we’re starting on the same page.</p>
-<pre><code>. sysuse auto, clear
-(1978 automobile data)
-</code></pre>
-<p><sup>##</sup> The <code>graph</code> command</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">sysuse</span> auto, <span class="kw">clear</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(1978 automobile <span class="kw">data</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="the-graph-command" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="the-graph-command"><span class="header-section-number">2.1</span> The <code>graph</code> command</h2>
 <p>Most (though not all, see some <a href="#other-graphs">other graphs</a> below) graphs in Stata are created by the <code>graph</code> command. Generally the syntax is</p>
 <pre><code>graph &lt;type&gt; &lt;variable(s)&gt;, &lt;options&gt;</code></pre>
 <p>The “type” is the subcommand.</p>
 <p>For example, to create a bar chart of <code>price</code> by <code>rep78</code>, we could run</p>
-<pre><code>. graph bar price, over(rep78)
-</code></pre>
-<p><img src="Graph.svg"></p>
-<p>For further information, we could instead construct a boxplot. ~~~~ . graph box price, over(rep78)</p>
-<pre><code>
-&lt;img src="Graph1.svg" &gt;
-
-There are a few other infrequently used graphs, see `help graph` for details.
-
-There is a plot subcommand, `twoway`, which takes additional sub-subcommands, and supports a wide range of types.
-
-```
-graph twoway &lt;type&gt; &lt;variable(s)&gt;, &lt;options&gt;
-```
-
-`twoway` creates most of the scatterplot-esque plots. The "types" in `twoway` are subcommands different from the subcommands in non-`twoway` `graph`,
-it takes options such as `scatter` to create a scatterplot:
-</code></pre>
-<p>. graph twoway scatter mpg weight</p>
-<pre><code>
-&lt;img src="Graph2.svg" &gt;
-
-**Note:** For `graph twoway` commands, the `graph` is optional. E.g., these commands are equivalent:
-```
-graph twoway scatter mpg weight
-twoway scatter mpg weight
-```
-This is *not* true of commands like `graph box`.
-
-
-The options in the graphing commands are quite extensive and enable tweaking of many different settings. Rather than a full catalog of the options,
-here's an example:</code></pre>
-<p>. twoway scatter mpg weight, msymbol(s) /// &gt; mcolor(blue) /// &gt; mfcolor(yellow) /// &gt; msize(3) /// &gt; title(“Mileage vs Weight”) /// &gt; xtitle(“Weight (in lbs)”) /// &gt; ytitle(“Mileage”) /// &gt; ylabel(15 “15” 25 “25” 35 “35”)</p>
-<p>. ~~~~</p>
-<p><img src="Graph3.svg"></p>
-<p>Graphs made using <code>twoway</code> have an additional benefit - it is easy to stack them. For example, <code>twoway lfit</code> creates a best-fit line between the points: ~~~~ . twoway lfit mpg weight</p>
-<pre><code>
-&lt;img src="Graph4.svg" &gt;
-
-This isn't really that useful. It would be much better to overlap those two - generate the scatter plot, then add the best fit line. We can easily do
-that by passing multiple plots to `twoway`:
-</code></pre>
-<p>. twoway (scatter mpg weight) (lfit mpg weight)</p>
-<pre><code>
-&lt;img src="Graph5.svg" &gt;
-
-Note that the order of the plots matters - if you can tell, the best-fit line was drawn on top of the scatter plot points. If you reversed the order
-in the command (`twoway (lfit mpg weight) (scatter mpg weight)`), the line would be drawn first and the points on top of it.
-
-Finally, note that options can be passed to each individual plot:
-</code></pre>
-<p>. twoway (scatter mpg weight, msymbol(t)) /// &gt; (lfit mpg weight, lcolor(green))</p>
-<pre><code>
-&lt;img src="Graph6.svg" &gt;
-
-Putting these options "globally", as `twoway (...) (...), msymbol(to)` would NOT work, as `msymbol` is an option specifically for `twoway scatter`
-(and a few others), not for the more general `twoway`. There are options that apply to the `twoway` command, see `help twoway_options` for details.
-
-There is an alternate way to specify the overlaid plots. These two commands are equivalent:
-
-```
-twoway (scatter mpg weight) (lfit mpg weight)
-twoway scatter mpg weight || lfit mpg weight
-```
-
-We prefer the former as it makes it's cleaner to distinguish when you have multiple overlaid plots with their own options, but some authors may chose
-the latter.
-
-^#^^#^ Other graphs
-
-There are a very large number of graphs which do not exist under the `graph` command. Most are very niche, but the most important general example is
-histogram, which has its own command.
-</code></pre>
-<p>. histogram mpg (bin=8, start=12, width=3.625)</p>
-<pre><code>
-&lt;img src="Graph7.svg" &gt;
-
-You can see a full list of the non-graph plots by looking at
-
-```
-help graph other
-```
-
-^#^^#^ Plotting by group
-
-All graph commands accept a `by(&lt;grouping var&gt;)` option which will repeat the graphing command for each level of the grouping variable, and
-display all graphs on the same output. For example,
-</code></pre>
-<p>. twoway (scatter mpg weight) (lfit mpg weight), by(foreign)</p>
-<pre><code>
-&lt;img src="Graph8.svg" &gt;
-
-It often looks better to see the two plots overlaid on each other for a more direct comparison. To do this, rather than using `by(...)`, we'll instead
-add each overlay conditionally:
-</code></pre>
-<p>. twoway (scatter mpg weight if foreign == 0) /// &gt; (scatter mpg weight if foreign == 1) /// &gt; (lfit mpg weight if foreign == 0) /// &gt; (lfit mpg weight if foreign == 1)</p>
-<pre><code>
-&lt;img src="Graph9.svg" &gt;
-
-Notice that Stata automatically made each plot a separate color, but not in a logical fashion. Here's a cleaned up version:
-</code></pre>
-<p>. twoway (scatter mpg weight if foreign == 0, mcolor(orange)) /// &gt; (scatter mpg weight if foreign == 1, mcolor(green)) /// &gt; (lfit mpg weight if foreign == 0, lcolor(orange) lwidth(1.4)) /// &gt; (lfit mpg weight if foreign == 1, lcolor(green) lwidth(1.4)), /// &gt; legend(label(1 “Domestic”) label(2 “Foreign”) order(1 2)) /// &gt; title(“Mileage vs Weight”) xtitle(“Weight (lbs)”) /// &gt; ytitle(“Mileage”)</p>
-<p>~~~~</p>
-<p><img src="Graph10.svg"></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">graph</span> <span class="bn">bar</span> price, <span class="bn">over</span>(rep78)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph23.svg"></p>
+<p>For further information, we could instead construct a boxplot.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">graph</span> box price, <span class="bn">over</span>(rep78)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph24.svg"></p>
+<p>There are a few other infrequently used graphs, see <code>help graph</code> for details.</p>
+<p>There is a plot subcommand, <code>twoway</code>, which takes additional sub-subcommands, and supports a wide range of types.</p>
+<pre><code>graph twoway &lt;type&gt; &lt;variable(s)&gt;, &lt;options&gt;</code></pre>
+<p><code>twoway</code> creates most of the scatterplot-esque plots. The “types” in <code>twoway</code> are subcommands different from the subcommands in non-<code>twoway</code> <code>graph</code>, it takes options such as <code>scatter</code> to create a scatterplot:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">graph</span> <span class="kw">twoway</span> <span class="kw">scatter</span> mpg <span class="kw">weight</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph25.svg"></p>
+<p><strong>Note:</strong> For <code>graph twoway</code> commands, the <code>graph</code> is optional. E.g., these commands are equivalent:</p>
+<pre><code>graph twoway scatter mpg weight
+twoway scatter mpg weight</code></pre>
+<p>This is <em>not</em> true of commands like <code>graph box</code>.</p>
+<p>The options in the graphing commands are quite extensive and enable tweaking of many different settings. Rather than a full catalog of the options, here’s an example:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> <span class="kw">scatter</span> mpg <span class="kw">weight</span>, <span class="bn">msymbol</span>(<span class="fu">s</span>) <span class="co">///</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>&gt;                           mcolor(<span class="bn">blue</span>) <span class="co">///</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>&gt;                           mfcolor(<span class="kw">yellow</span>) <span class="co">///</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>&gt;                           msize(3) <span class="co">///</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>&gt;                           <span class="bn">title</span>(<span class="st">"Mileage vs Weight"</span>) <span class="co">///</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>&gt;                           <span class="bn">xtitle</span>(<span class="st">"Weight (in lbs)"</span>) <span class="co">///</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>&gt;                           <span class="bn">ytitle</span>(<span class="st">"Mileage"</span>) <span class="co">///</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>&gt;                           <span class="kw">ylabel</span>(15 <span class="st">"15"</span> 25 <span class="st">"25"</span> 35 <span class="st">"35"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph26.svg"></p>
+<p>Graphs made using <code>twoway</code> have an additional benefit - it is easy to stack them. For example, <code>twoway lfit</code> creates a best-fit line between the points:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> <span class="kw">lfit</span> mpg <span class="kw">weight</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph27.svg"></p>
+<p>This isn’t really that useful. It would be much better to overlap those two - generate the scatter plot, then add the best fit line. We can easily do that by passing multiple plots to <code>twoway</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span>) (<span class="kw">lfit</span> mpg <span class="kw">weight</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph28.svg"></p>
+<p>Note that the order of the plots matters - if you can tell, the best-fit line was drawn on top of the scatter plot points. If you reversed the order in the command (<code>twoway (lfit mpg weight) (scatter mpg weight)</code>), the line would be drawn first and the points on top of it.</p>
+<p>Finally, note that options can be passed to each individual plot:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span>, <span class="bn">msymbol</span>(t)) <span class="co">///</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>&gt;        (<span class="kw">lfit</span> mpg <span class="kw">weight</span>, lcolor(<span class="kw">green</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph29.svg"></p>
+<p>Putting these options “globally”, as <code>twoway (...) (...), msymbol(to)</code> would NOT work, as <code>msymbol</code> is an option specifically for <code>twoway scatter</code> (and a few others), not for the more general <code>twoway</code>. There are options that apply to the <code>twoway</code> command, see <code>help twoway_options</code> for details.</p>
+<p>There is an alternate way to specify the overlaid plots. These two commands are equivalent:</p>
+<pre><code>twoway (scatter mpg weight) (lfit mpg weight)
+twoway scatter mpg weight || lfit mpg weight</code></pre>
+<p>We prefer the former as it makes it’s cleaner to distinguish when you have multiple overlaid plots with their own options, but some authors may chose the latter.</p>
+</section>
+<section id="other-graphs" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="other-graphs"><span class="header-section-number">2.2</span> Other graphs</h2>
+<p>There are a very large number of graphs which do not exist under the <code>graph</code> command. Most are very niche, but the most important general example is histogram, which has its own command.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">histogram</span> mpg</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>(<span class="bn">bin</span>=8, <span class="bn">start</span>=12, <span class="kw">width</span>=3.625)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph30.svg"></p>
+<p>You can see a full list of the non-graph plots by looking at</p>
+<pre><code>help graph other</code></pre>
+</section>
+<section id="plotting-by-group" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="plotting-by-group"><span class="header-section-number">2.3</span> Plotting by group</h2>
+<p>All graph commands accept a <code>by(&lt;grouping var&gt;)</code> option which will repeat the graphing command for each level of the grouping variable, and display all graphs on the same output. For example,</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span>) (<span class="kw">lfit</span> mpg <span class="kw">weight</span>), <span class="kw">by</span>(foreign)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph31.svg"></p>
+<p>It often looks better to see the two plots overlaid on each other for a more direct comparison. To do this, rather than using <code>by(...)</code>, we’ll instead add each overlay conditionally:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign ==  0) <span class="co">///</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">scatter</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign == 1) <span class="co">///</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">lfit</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign ==  0) <span class="co">///</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">lfit</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign == 1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph32.svg"></p>
+<p>Notice that Stata automatically made each plot a separate color, but not in a logical fashion. Here’s a cleaned up version:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> (<span class="kw">scatter</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign ==  0, mcolor(<span class="bn">orange</span>)) <span class="co">///</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">scatter</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign == 1, mcolor(<span class="kw">green</span>)) <span class="co">///</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">lfit</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign ==  0, lcolor(<span class="bn">orange</span>) lwidth(1.4)) <span class="co">///</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>&gt;          (<span class="kw">lfit</span> mpg <span class="kw">weight</span> <span class="kw">if</span> foreign == 1, lcolor(<span class="kw">green</span>) lwidth(1.4)), <span class="co">///</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>&gt;       <span class="bn">legend</span>(<span class="kw">label</span>(1 <span class="st">"Domestic"</span>) <span class="kw">label</span>(2 <span class="st">"Foreign"</span>) <span class="kw">order</span>(1 2)) <span class="co">///</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>&gt;       <span class="bn">title</span>(<span class="st">"Mileage vs Weight"</span>) <span class="bn">xtitle</span>(<span class="st">"Weight (lbs)"</span>) <span class="co">///</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>&gt;       <span class="bn">ytitle</span>(<span class="st">"Mileage"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="Graph33.svg"></p>
 <p>(Since its not entirely clear from the code, the <code>order(1 2)</code> argument inside <code>legend</code> serves two purposes - first, it “orders” the entries in the legend box, but secondly and more importantly, it does <em>not</em> contain 3 or 4. If you look at the previous plot, it had four entries in the legend for the two <code>scatter</code>s plus two <code>lfit</code>s. By excluding 3 and 4 from <code>order</code> [3 and 4 corresponding to the two <code>lfits</code>], their legend entries are ignored.)</p>
-<p><sup>##</sup> Getting help on Graphs</p>
+</section>
+<section id="getting-help-on-graphs" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="getting-help-on-graphs"><span class="header-section-number">2.4</span> Getting help on Graphs</h2>
 <p>There are a ton of options in all these graphs. Rather than list them all, we instead direct you to some various help pages.</p>
 <p>For general assistance, start with</p>
 <pre><code>help graph</code></pre>
@@ -328,7 +360,9 @@ help histogram</code></pre>
 </tr>
 </tbody>
 </table>
-<p><sup>##</sup> Displaying multiple graphs simultaneously</p>
+</section>
+<section id="displaying-multiple-graphs-simultaneously" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="displaying-multiple-graphs-simultaneously"><span class="header-section-number">2.5</span> Displaying multiple graphs simultaneously</h2>
 <p>You may have noticed that opening a new plot closes the old one. What if you wanted to compare the plots? The behind-the-scenes reason that the old plots are closed is that Stata names each plot and each plot can only be open once. The default name is “Graph”, so with each new plot, the “Graph” plot is overridden. If you closed a plot and wanted to re-open it, you can run the following at any point <em>until you run another graph</em> just like with <a href="summarizing-data.html#estimation-commands">estimation commands</a>.</p>
 <pre><code>graph display Graph</code></pre>
 <p>When we create a new plot with the default name, we lose the last one.</p>
@@ -345,12 +379,15 @@ graph drop _all</code></pre>
 <p>Finally, if you’d rather have all the graphs in one window with tabs instead of separate windows, use</p>
 <pre><code>set autotabgraphs on</code></pre>
 <p>(You can pass the <code>permanently</code> option to not have to do this every time you open Stata.) You still need to name graphs separately.</p>
-<p><sup>##</sup> Exercise 2</p>
+</section>
+<section id="exercise-2" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">2.6</span> Exercise 2</h2>
 <p>Reload the NHANES data if you haven’t:</p>
 <pre><code>webuse nhanes2, clear</code></pre>
 <p>Using <code>twoway scatter</code> and <code>twoway lfit</code>, create a scatter plot of diastolic and systolic blood pressure, by gender. Be sure to color the lines and points consistenly and to clean up the legend.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -589,12 +626,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./01-summarizing-data.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./03-univariate-analysis.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

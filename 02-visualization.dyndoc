@@ -1,4 +1,4 @@
-^#^ Visualization
+# Visualization
 
 Stata has robust graphing capabilities that can both generate numerous types of plots, as well as modify them as needed. We'll only cover the basics
 here, for a reference we would recommend A Visual Guide to Stata Graphics by Michael Mitchell, which lays out step-by-step syntax for the countless
@@ -6,13 +6,13 @@ graphs that can be generated in Stata.
 
 Let's reload the auto dataset to make sure we're starting on the same page.
 
-~~~~
+````stata
 <<dd_do>>
 sysuse auto, clear
 <</dd_do>>
-~~~~
+````
 
-^#^^#^ The `graph` command
+## The `graph` command
 
 Most (though not all, see some [other graphs](#other-graphs) below) graphs in Stata are created by the `graph` command. Generally the syntax is
 
@@ -24,20 +24,20 @@ The "type" is the subcommand.
 
 For example, to create a bar chart of `price` by `rep78`, we could run
 
-~~~~
+````stata
 <<dd_do>>
 graph bar price, over(rep78)
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
 For further information, we could instead construct a boxplot.
-~~~~
+````stata
 <<dd_do>>
 graph box price, over(rep78)
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
@@ -52,11 +52,11 @@ graph twoway <type> <variable(s)>, <options>
 `twoway` creates most of the scatterplot-esque plots. The "types" in `twoway` are subcommands different from the subcommands in non-`twoway` `graph`,
 it takes options such as `scatter` to create a scatterplot:
 
-~~~~
+````stata
 <<dd_do>>
 graph twoway scatter mpg weight
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
@@ -70,7 +70,7 @@ This is *not* true of commands like `graph box`.
 
 The options in the graphing commands are quite extensive and enable tweaking of many different settings. Rather than a full catalog of the options,
 here's an example:
-~~~~
+````stata
 <<dd_do>>
 twoway scatter mpg weight, msymbol(s) ///
                           mcolor(blue) ///
@@ -82,27 +82,27 @@ twoway scatter mpg weight, msymbol(s) ///
                           ylabel(15 "15" 25 "25" 35 "35")
 
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
 Graphs made using `twoway` have an additional benefit - it is easy to stack them. For example, `twoway lfit` creates a best-fit line between the points:
-~~~~
+````stata
 <<dd_do>>
 twoway lfit mpg weight
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
 This isn't really that useful. It would be much better to overlap those two - generate the scatter plot, then add the best fit line. We can easily do
 that by passing multiple plots to `twoway`:
 
-~~~~
+````stata
 <<dd_do>>
 twoway (scatter mpg weight) (lfit mpg weight)
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
@@ -111,12 +111,12 @@ in the command (`twoway (lfit mpg weight) (scatter mpg weight)`), the line would
 
 Finally, note that options can be passed to each individual plot:
 
-~~~~
+````stata
 <<dd_do>>
 twoway (scatter mpg weight, msymbol(t)) ///
        (lfit mpg weight, lcolor(green))
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
@@ -133,16 +133,16 @@ twoway scatter mpg weight || lfit mpg weight
 We prefer the former as it makes it's cleaner to distinguish when you have multiple overlaid plots with their own options, but some authors may chose
 the latter.
 
-^#^^#^ Other graphs
+## Other graphs
 
 There are a very large number of graphs which do not exist under the `graph` command. Most are very niche, but the most important general example is
 histogram, which has its own command.
 
-~~~~
+````stata
 <<dd_do>>
 histogram mpg
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
@@ -152,36 +152,36 @@ You can see a full list of the non-graph plots by looking at
 help graph other
 ```
 
-^#^^#^ Plotting by group
+## Plotting by group
 
 All graph commands accept a `by(<grouping var>)` option which will repeat the graphing command for each level of the grouping variable, and
 display all graphs on the same output. For example,
 
-~~~~
+````stata
 <<dd_do>>
 twoway (scatter mpg weight) (lfit mpg weight), by(foreign)
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
 It often looks better to see the two plots overlaid on each other for a more direct comparison. To do this, rather than using `by(...)`, we'll instead
 add each overlay conditionally:
 
-~~~~
+````stata
 <<dd_do>>
 twoway (scatter mpg weight if foreign ==  0) ///
          (scatter mpg weight if foreign == 1) ///
          (lfit mpg weight if foreign ==  0) ///
          (lfit mpg weight if foreign == 1)
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
 Notice that Stata automatically made each plot a separate color, but not in a logical fashion. Here's a cleaned up version:
 
-~~~~
+````stata
 <<dd_do>>
 twoway (scatter mpg weight if foreign ==  0, mcolor(orange)) ///
          (scatter mpg weight if foreign == 1, mcolor(green)) ///
@@ -191,7 +191,7 @@ twoway (scatter mpg weight if foreign ==  0, mcolor(orange)) ///
       title("Mileage vs Weight") xtitle("Weight (lbs)") ///
       ytitle("Mileage")
 <</dd_do>>
-~~~~
+````
 
 <<dd_graph: replace>>
 
@@ -200,7 +200,7 @@ legend box, but secondly and more importantly, it does *not* contain 3 or 4. If 
 the two `scatter`s plus two `lfit`s. By excluding 3 and 4 from `order` [3 and 4 corresponding to the two `lfits`], their legend entries are ignored.)
 
 
-^#^^#^ Getting help on Graphs
+## Getting help on Graphs
 
 There are a ton of options in all these graphs. Rather than list them all, we instead direct you to some various help pages.
 
@@ -232,7 +232,7 @@ or you can access them directly:
 | Options for any lines (e.g. `lfit`)           | `help cline_options`        |
 
 
-^#^^#^ Displaying multiple graphs simultaneously
+## Displaying multiple graphs simultaneously
 
 You may have noticed that opening a new plot closes the old one. What if you wanted to compare the plots? The behind-the-scenes reason that the old
 plots are closed is that Stata names each plot and each plot can only be open once. The default name is "Graph", so with each new plot, the "Graph"
@@ -277,7 +277,7 @@ set autotabgraphs on
 
 (You can pass the `permanently` option to not have to do this every time you open Stata.)  You still need to name graphs separately.
 
-^#^^#^ Exercise 2
+## Exercise 2
 
 Reload the NHANES data if you haven't:
 

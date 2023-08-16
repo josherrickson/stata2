@@ -1,4 +1,4 @@
-^#^ Summarizing Data
+# Summarizing Data
 
 Before we consider modeling the data in any meaningful way, it is important to explore the data to get some sense of what the data looks like, as
 certain modeling decisions will depend on the structure of the data. This chapter and [the next](visualization.html) will cover how to examine and
@@ -7,25 +7,25 @@ visualize the data.
 We will be using the built-in data set "auto" for a lot of the examples. If you're not familiar with the `sysuse` command, it functions similarly to
 `use`, except only loads one of the several built-in Stata data sets.
 
-~~~~
+````stata
 <<dd_do>>
 sysuse auto, clear
 <</dd_do>>
-~~~~
+````
 
 The "auto" data set contains characteristics on a number of cars from 1978.
 
-^#^^#^ `describe`, `summarize`, `codebook`
+## `describe`, `summarize`, `codebook`
 
 The majority of the Stata modeling commands require all variables to be numeric. String variables can be used in some places, but there are plenty of
 times when you might expect them to work, but they don't. As a result, I recommend converting all categorical variables into numeric. To help with
 this, the `describe` command can tell us what variables are string and which aren't.
 
-~~~~
+````stata
 <<dd_do>>
 describe
 <</dd_do>>
-~~~~
+````
 
 Here we can see that "make" is a string; but make is unique per row (it identifies the make and model of each car) so it's not something we're going
 to use in the model. If you wanted to use string functions (see `help string functions` for details) to extract out the manufacturer of each car
@@ -38,12 +38,12 @@ appropriate value labels).
 Once we've taken a look at the structure of the data, we can start exploring each variable. The `summarize` and `codebook` commands contains almost
 the same information, presented in slightly different ways. It can be useful to look at both. For example,
 
-~~~~
+````stata
 <<dd_do>>
 summ price, detail
 codebook price
 <</dd_do>>
-~~~~
+````
 
 Things to look for here include
 
@@ -59,15 +59,15 @@ Things to look for here include
   data. Perhaps [multiple imputation](multiple-imputation.html) is needed.
 - If the variable is categorical (e.g. race), is the number of unique entries reported in the `codebook` as expected?
 
-^#^^#^ `mean`
+## `mean`
 
 The `mean` command gives summary statistics on the mean of a variable.
 
-~~~~
+````stata
 <<dd_do>>
 mean price
 <</dd_do>>
-~~~~
+````
 
 These are characteristics of the estimated mean of the "price" variable. The standard deviation reported from the `summarize` command above represents
 the variability among individual cars; the standard error reported by `mean` the variability of *means*: if we were to repeatedly draw samples of
@@ -77,7 +77,7 @@ The confidence interval is interpreted as if we were to continue drawing those s
 estimated mean within those bounds. It is *not* that we're 95% confident that the true population mean falls in that range - either it does or it
 doesn't!
 
-^#^^#^ Estimation Commands
+## Estimation Commands
 
 The introduction of `mean` allows us to discuss estimation commands. An estimation command is any command that fits a statistical model - some of
 these are obvious such as `regress` for linear regression, but others such as `mean` which we just ran are also estimation commands because it is
@@ -102,13 +102,13 @@ run, the first is dropped and the new one is saved.
 This allows interesting things such as replaying a command (calling the estimation command again without any `varlist` to re-display it's results)
 even if the data is gone!
 
-~~~~
+````stata
 <<dd_do>>
 clear
 list
 mean
 <</dd_do>>
-~~~~
+````
 
 A larger benefit of this is that if you are fitting a model on one data set and want to get predicted values on another, you could do something like
 this (this is pseudo-code, not real Stata!):
@@ -120,26 +120,26 @@ use newdata, clear
 predict fitted
 ```
 
-^#^^#^^#^ Postestimation commands
+### Postestimation commands
 
 Since the last estimation command is saved, any commands which need to reference it (called postestimation commands) do so inherently, no need to
 specify. For example, let's reload the data and run `mean` on a few variables.
 
-~~~~
+````stata
 <<dd_do>>
 sysuse auto, clear
 mean mpg headroom length
 <</dd_do>>
-~~~~
+````
 
 Let's say we want to obtain the correlation matrix^[We could just run `correlate`, but the postestimation commands following `mean` are fairly
 limited, so bare with me here. Postestimation commands following models are much more interesting!]
 
-~~~~
+````stata
 <<dd_do>>
 estat vce, corr
 <</dd_do>>
-~~~~
+````
 
 Here we see that both `length` and `headroom` are negatively correlated with `mpg`; as the car gets larger, its mileage decreases. Headroom and length
 are positively correlated, so cars aren't just growing in one direction!
@@ -155,7 +155,7 @@ help mean postestimation
 
 There is also a link to the postestimation page in the help for the estimation command.
 
-^#^^#^^#^ Storing and restoring estimation commands
+### Storing and restoring estimation commands
 
 The obvious downside to Stata's approach to saving the most recent estimation command is that you lose all earlier commands. If you have only a
 limited number of commands and each is fast, this isn't a big deal. However, with some
@@ -167,74 +167,74 @@ You have the choice of saving the results temporarily (in memory) or permanently
 approach. For these notes I will focus primarily on storing the results in memory, but I will point out where the commands differ if saving to a
 file. Let's run a fresh `mean` call to work with. The `estimates` command will be used.
 
-~~~~
+````stata
 <<dd_do>>
 mean price mpg
 estimates query
 <</dd_do>>
-~~~~
+````
 
 The `query` subcommand tells us what estimation command was last run, and whether it has already been saved. Here it has not. Let's save these
 results.
 
-~~~~
+````stata
 <<dd_do>>
 estimates store mean1
 <</dd_do>>
-~~~~
+````
 
 To save to a file, use `estimates save` instead. Now let's run a second `mean` commands.
 
-~~~~
+````stata
 <<dd_do>>
 mean mpg headroom length
 est store mean2
 est query
 <</dd_do>>
-~~~~
+````
 
 Now `query` is telling us that the current estimation commands are (obviously) stored as "mean2". Let's use `estimates restore` to jump between the
 two. (If saving to a file, use `estimates use` instead.)
 
-~~~~
+````stata
 <<dd_do>>
 est restore mean1
 estat vce, corr
 est query
 <</dd_do>>
-~~~~
+````
 
 To "replay" an estimation command (re-display the results without re-running the model), you can either restore it and call the blank command again:
 
-~~~~
+````stata
 <<dd_do>>
 est restore mean2
 mean
 <</dd_do>>
-~~~~
+````
 
 or use `estimates replay` directly:
 
-~~~~
+````stata
 <<dd_do>>
 est query
 est replay mean1
 <</dd_do>>
-~~~~
+````
 
 One use of stored estimates that can be useful is creating a table to include all the results.
 
-~~~~
+````stata
 <<dd_do>>
 est table mean1 mean2
 <</dd_do>>
-~~~~
+````
 
 If you are familiar with regression, you should be able to see how useful this might be!
 
 Finally, we can see all saved estimates with `dir`, drop a specific estimation command with `drop`, or remove all with `clear`:
 
-~~~~
+````stata
 <<dd_do>>
 est dir
 est drop mean1
@@ -242,17 +242,17 @@ est dir
 est clear
 est dir
 <</dd_do>>
-~~~~
+````
 
-^#^^#^ `tab`
+## `tab`
 
 Continuing on with exploring the data, categorical variables are not summarized well by the mean. Instead, we'll look at a tabulation.
 
-~~~~
+````stata
 <<dd_do>>
 tabulate rep78
 <</dd_do>>
-~~~~
+````
 
 This gives us the count at each level, the percent at each level, as well as the cumulative percent (e.g. 57.97% of observations have a value of 3 or
 below). The cumulative percentage is only informative for an ordinal variable (a categorical variable that has an ordering too it), and not an
@@ -261,29 +261,29 @@ unordered categorical variable such as race.
 Note that it is counting a total of 69 observations to total 100\% of the data. However, you may have noticed earlier that we have 74 rows of data. By
 default, `tabulate` does *not* include any information about missing values. The `missing` option corrects that.
 
-~~~~
+````stata
 <<dd_do>>
 tab rep78, missing
 <</dd_do>>
-~~~~
+````
 
 It's important to keep in mind the difference between the percentages of the two outputs. For example, 11.59% of *non-missing* values of `rep78` are
 2, whereas only 10.81% of *all* values are 2.
 
 There are a few other options related to how the results are visualized which we will not cover.
 
-^#^^#^^#^ Two-way tables
+### Two-way tables
 
 We will cover two-way tables (also known as "crosstabs") later in [univariate analysis](univariate-and-some-bivariate-analysis.html#chi-square-test),
 but there is a peculiarity to `tab` related to it. If you pass two variables to `tab`, it creates the crosstab:
 
-~~~~
+````stata
 <<dd_do>>
 tab rep78 foreign, missing
 <</dd_do>>
-~~~~
+````
 
-^#^^#^^#^ Generating dummy variables
+### Generating dummy variables
 
 Although Stata has excellent categorical variable handling capabilities, you may occasionally have the situation where you want the dummy variables
 instead of a category. For an example of the difference, consider a "campus" variable with three options, "central", "north" and "medical". Imagine
@@ -304,13 +304,13 @@ As mentioned, we will most of the time use categorical variables such as `campus
 actual model, but Stata creates them for you behind the scenes so you don't need to worry about them), but if necessary, you can create the dummy
 variables using `tab`:
 
-~~~~
+````stata
 <<dd_do>>
 list rep* in 1/5
 tab rep78, gen(reps)
 list rep* in 1/5
 <</dd_do>>
-~~~~
+````
 
 If you are not familiar with the `list` command, it prints out data. Giving it a variable (or multiple) restricts it to those (here we restricted it
 to `rep\*`, which is any variable that starts with "rep" - the \* is a wildcard), and the `in` statement restricts to the first 5 observations (we
@@ -318,7 +318,7 @@ just want a quick visualization, not to print everything).
 
 Take note of how the missing value is propogated when creating the dummies.
 
-^#^^#^ `correlate`
+## `correlate`
 
 With the use of `tab` for crosstabs, we've left univariate summaries and moved to joint summaries. For continuous variables, we can use the
 correlation to examine how similar two continuous variables are. The most common version of correlation is Pearson's correlation, which ranges from -1
@@ -333,32 +333,32 @@ correlation; the two variables differ by only a transformation, e.g. your height
 
 We can calculate the Pearson's correlation with `correlate`.
 
-~~~~
+````stata
 <<dd_do>>
 correlate weight length
 <</dd_do>>
-~~~~
+````
 
 This produces whats known as the correlation matrix. The diagonal entries are both 1, because clearly each variable is perfectly correlated with
 itself! The off-diagonal entries are identical since correlation is a symmetric operation. The value of .95 is extremely close to one, as we would
 expect - longer cars are heavier and perhaps vice-versa. Another way to think of it is that once we know `weight`, learning `length` does not add much
 information. On the other hand,
 
-~~~~
+````stata
 <<dd_do>>
 corr price turn
 <</dd_do>>
-~~~~
+````
 
 with a correlation of .31, learning `turn` when you already know `price` does add a lot of information.
 
 We can look at multiple correlations at once as well.
 
-~~~~
+````stata
 <<dd_do>>
 corr mpg weight length
 <</dd_do>>
-~~~~
+````
 
 We see the .9460 we saw earlier, but notice also that `mpg` is negatively correlated with both `weight` and `length` - a larger car gets worse mileage
 and low mileage cars tend to be large. A few notes:
@@ -377,7 +377,7 @@ option. However, p-values for correlations are extremely dependent on sample siz
 often the case that large sample sizes can provide small p-values for scientifically insignificant effects. However, correlation is especially
 susceptible to this issue.] The magnitude of the correlation is much more important than it's significance.
 
-^#^^#^^#^ varlists in Stata
+### varlists in Stata
 
 Consider if we wanted to look at all the continuous variables in the data. We could write `corr price mpg ...` and make a very long command. The
 collection of all variables would be a "varlist". Stata has several ways of short cutting this.
@@ -389,35 +389,35 @@ wildcard, "?", represents just a single variable, so "this\*var" would match onl
 Secondly, we can match a subset of variables that are next to each other using "-". All variable, starting with the one to the left of the - and
 ending with the one to the right of the - are included. For example,
 
-~~~~
+````stata
 <<dd_do>>
 desc, simple
 desc trunk-turn
 <</dd_do>>
-~~~~
+````
 
 We can combine those two, as well as specifying individual variables.
 
-~~~~
+````stata
 <<dd_do>>
 corr price-rep78 t* displacement
 <</dd_do>>
-~~~~
+````
 
 `price`, `mpg` and `rep78` are included as part of `price-rep78`, `t\*` matches `trunk` and `turn`, and `displacement` is included by itself.
 
 Finally, there is the special variable list `\_all`, which is shorthand for all variables (e.g. `firstvar-lastvar`). It is accepted in most but not
 all places that take in variables.
 
-~~~~
+````stata
 <<dd_do>>
 corr _all
 <</dd_do>>
-~~~~
+````
 
 Notice that it automatically ignored the string variable `make`. Not all commands will work this well, so `\_all` may occasionally fail unexpectedly.
 
-^#^^#^^#^ Pairwise completion vs complete case
+### Pairwise completion vs complete case
 
 You may have noticed that the `cor` command reports the number of observations it used, for example, the first few correlations all used 74
 observations, but the `\_all` version used on 69. `correlate` uses what's known as complete cases analysis - any observation missing *any* value used
@@ -426,12 +426,12 @@ in the command is excluded. `rep78` is missing 5 observations (run the `misstabl
 On the other hand, pairwise completion only excludes missing values from the relevant comparisons. If a given correlation doesn't involve `rep78`, it
 will use all the data. We can obtain this with `pwcorr`.
 
-~~~~
+````stata
 <<dd_do>>
 corr rep78 price trunk
 pwcorr rep78 price trunk
 <</dd_do>>
-~~~~
+````
 
 Notice the two correlations involving `rep78` are identical - the same set of observations are dropped in both. However, the correlation between
 `price` and `trunk` differs - in `correlate`, it is only using 69 observations, whereas in `pwcorr` it uses all 74.
@@ -440,7 +440,7 @@ It may seem that `pwcorr` is always superior (and, in isolation it is). However,
 complete cases analysis, so in those cases, if you are exploring your data, it does not make sense to do pairwise comparison. Ultimately, the choice
 remains up to you. If the results from `correlate` and `pwcorr` do differ drastically, that is a sign of something else going on!
 
-^#^^#^^#^ Spearman correlation
+### Spearman correlation
 
 One limitation of Pearson's correlation is that it is detecting linear relationships only. A famous example of this is Anscombe's quartet:
 
@@ -453,21 +453,21 @@ the single outlier is driving the relationship.
 Spearman correlation is an alternative to Pearson correlation. It works by ranking each variable and then performing Pearson's correlation. The
 command in Stata is `spearman`.
 
-~~~~
+````stata
 <<dd_do>>
 corr price trunk
 spearman price trunk, matrix
 <</dd_do>>
-~~~~
+````
 
 The `matrix` option forces output to mirror `correlate`, otherwise it produces a slightly different output when given only two variables. `spearman`
 uses [complete cases](#Pairwise-completion-vs-complete-case); to use pairwise complete instead, pass the option `pw`:
 
-~~~~
+````stata
 <<dd_do>>
 spearman mpg-headroom, pw
 <</dd_do>>
-~~~~
+````
 
 How does Spearman's correlation compare to Pearson's for Anscombe's quartet?
 
@@ -480,7 +480,7 @@ How does Spearman's correlation compare to Pearson's for Anscombe's quartet?
 
 The second correlation diminishes, the third drastically increases, and the fourth decreases as well.
 
-^#^^#^ Exercise 1
+## Exercise 1
 
 For these exercises, we'll be using data from NHANES, the National Health And Nutrition Examination Survey. The data is on Stata's website, and you
 can load it via

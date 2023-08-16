@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Intermediate Stata (Statistical Modeling) - 1&nbsp; (_dta has notes)</title>
+<title>Intermediate Stata (Statistical Modeling) - 1&nbsp; Summarizing Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -76,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-summarizing-data.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-summarizing-data.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -110,49 +144,49 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01-summarizing-data.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03-univariate-analysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Univariate (and some Bivariate) Analysis</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./04-regression.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Regression</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05-mixed-models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Mixed models</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./06-survey-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-multiple-imputation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Multiple Imputation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Exercise solutions</span></span></a>
   </div>
 </li>
     </ul>
@@ -161,14 +195,38 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#describe-summarize-codebook" id="toc-describe-summarize-codebook" class="nav-link active" data-scroll-target="#describe-summarize-codebook"><span class="header-section-number">1.1</span> <code>describe</code>, <code>summarize</code>, <code>codebook</code></a></li>
+  <li><a href="#mean" id="toc-mean" class="nav-link" data-scroll-target="#mean"><span class="header-section-number">1.2</span> <code>mean</code></a></li>
+  <li><a href="#estimation-commands" id="toc-estimation-commands" class="nav-link" data-scroll-target="#estimation-commands"><span class="header-section-number">1.3</span> Estimation Commands</a>
+  <ul class="collapse">
+  <li><a href="#postestimation-commands" id="toc-postestimation-commands" class="nav-link" data-scroll-target="#postestimation-commands"><span class="header-section-number">1.3.1</span> Postestimation commands</a></li>
+  <li><a href="#storing-and-restoring-estimation-commands" id="toc-storing-and-restoring-estimation-commands" class="nav-link" data-scroll-target="#storing-and-restoring-estimation-commands"><span class="header-section-number">1.3.2</span> Storing and restoring estimation commands</a></li>
+  </ul></li>
+  <li><a href="#tab" id="toc-tab" class="nav-link" data-scroll-target="#tab"><span class="header-section-number">1.4</span> <code>tab</code></a>
+  <ul class="collapse">
+  <li><a href="#two-way-tables" id="toc-two-way-tables" class="nav-link" data-scroll-target="#two-way-tables"><span class="header-section-number">1.4.1</span> Two-way tables</a></li>
+  <li><a href="#generating-dummy-variables" id="toc-generating-dummy-variables" class="nav-link" data-scroll-target="#generating-dummy-variables"><span class="header-section-number">1.4.2</span> Generating dummy variables</a></li>
+  </ul></li>
+  <li><a href="#correlate" id="toc-correlate" class="nav-link" data-scroll-target="#correlate"><span class="header-section-number">1.5</span> <code>correlate</code></a>
+  <ul class="collapse">
+  <li><a href="#varlists-in-stata" id="toc-varlists-in-stata" class="nav-link" data-scroll-target="#varlists-in-stata"><span class="header-section-number">1.5.1</span> varlists in Stata</a></li>
+  <li><a href="#pairwise-completion-vs-complete-case" id="toc-pairwise-completion-vs-complete-case" class="nav-link" data-scroll-target="#pairwise-completion-vs-complete-case"><span class="header-section-number">1.5.2</span> Pairwise completion vs complete case</a></li>
+  <li><a href="#spearman-correlation" id="toc-spearman-correlation" class="nav-link" data-scroll-target="#spearman-correlation"><span class="header-section-number">1.5.3</span> Spearman correlation</a></li>
+  </ul></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">1.6</span> Exercise 1</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Summarizing Data</span></h1>
 </div>
 
 
@@ -183,75 +241,74 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><sup>#</sup> Summarizing Data</p>
 <p>Before we consider modeling the data in any meaningful way, it is important to explore the data to get some sense of what the data looks like, as certain modeling decisions will depend on the structure of the data. This chapter and <a href="visualization.html">the next</a> will cover how to examine and visualize the data.</p>
 <p>We will be using the built-in data set “auto” for a lot of the examples. If you’re not familiar with the <code>sysuse</code> command, it functions similarly to <code>use</code>, except only loads one of the several built-in Stata data sets.</p>
-<pre><code>. sysuse auto, clear
-(1978 automobile data)
-</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">sysuse</span> auto, <span class="kw">clear</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(1978 automobile <span class="kw">data</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The “auto” data set contains characteristics on a number of cars from 1978.</p>
-<p><sup>##</sup> <code>describe</code>, <code>summarize</code>, <code>codebook</code></p>
+<section id="describe-summarize-codebook" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="describe-summarize-codebook"><span class="header-section-number">1.1</span> <code>describe</code>, <code>summarize</code>, <code>codebook</code></h2>
 <p>The majority of the Stata modeling commands require all variables to be numeric. String variables can be used in some places, but there are plenty of times when you might expect them to work, but they don’t. As a result, I recommend converting all categorical variables into numeric. To help with this, the <code>describe</code> command can tell us what variables are string and which aren’t.</p>
-<pre><code>. describe
-
-Contains data from /Applications/Stata/ado/base/a/auto.dta
- Observations:            74                  1978 automobile data
-    Variables:            12                  13 Apr 2022 17:45
-Variable      Storage   Display    Value
-    name         type    format    label      Variable label
--------------------------------------------------------------------------------
-make            str18   %-18s                 Make and model
-price           int     %8.0gc                Price
-mpg             int     %8.0g                 Mileage (mpg)
-rep78           int     %8.0g                 Repair record 1978
-headroom        float   %6.1f                 Headroom (in.)
-trunk           int     %8.0g                 Trunk space (cu. ft.)
-weight          int     %8.0gc                Weight (lbs.)
-length          int     %8.0g                 Length (in.)
-turn            int     %8.0g                 Turn circle (ft.)
-displacement    int     %8.0g                 Displacement (cu. in.)
-gear_ratio      float   %6.2f                 Gear ratio
-foreign         byte    %8.0g      origin     Car origin
--------------------------------------------------------------------------------
-Sorted by: foreign
-</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">describe</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Contains <span class="kw">data</span> from /Applications/Stata/ado/base/a/auto.dta</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> Observations:            74                  1978 automobile <span class="kw">data</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    Variables:            12                  13 Apr 2022 17:45</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                                              (<span class="dt">_dta</span> has <span class="kw">notes</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Variable      Storage   Display    Value</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="bn">name</span>         <span class="dv">type</span>    <span class="kw">format</span>    <span class="kw">label</span>      Variable <span class="kw">label</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>make            str18   %-18s                 Make and <span class="kw">model</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>price           <span class="kw">int</span>     %8.0gc                Price</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>mpg             <span class="kw">int</span>     %8.0g                 Mileage (mpg)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>rep78           <span class="kw">int</span>     %8.0g                 Repair record 1978</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>headroom        <span class="kw">float</span>   %6.1f                 Headroom (<span class="kw">in</span>.)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>trunk           <span class="kw">int</span>     %8.0g                 Trunk space (cu. ft.)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">weight</span>          <span class="kw">int</span>     %8.0gc                Weight (lbs.)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>          <span class="kw">int</span>     %8.0g                 Length (<span class="kw">in</span>.)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>turn            <span class="kw">int</span>     %8.0g                 Turn <span class="bn">circle</span> (ft.)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>displacement    <span class="kw">int</span>     %8.0g                 Displacement (cu. <span class="kw">in</span>.)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>gear_ratio      <span class="kw">float</span>   %6.2f                 Gear <span class="kw">ratio</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>foreign         <span class="kw">byte</span>    %8.0g      origin     Car origin</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>Sorted <span class="kw">by</span>: foreign</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Here we can see that “make” is a string; but make is unique per row (it identifies the make and model of each car) so it’s not something we’re going to use in the model. If you wanted to use string functions (see <code>help string functions</code> for details) to extract out the manufacturer of each car (e.g.&nbsp;there are 7 Buicks in the data), that resultant “manufacturer” variable would be something we’d need to convert to a numeric. The main tools you’d need would be <code>destring</code> (which converts numeric values saved as strings into numbers) and <code>encode</code> (which converts strings to numerics with appropriate value labels).</p>
 <p><code>describe</code> is also useful to get a sense of the size of your data.</p>
 <p>Once we’ve taken a look at the structure of the data, we can start exploring each variable. The <code>summarize</code> and <code>codebook</code> commands contains almost the same information, presented in slightly different ways. It can be useful to look at both. For example,</p>
-<pre><code>. summ price, detail
-
-                            Price
--------------------------------------------------------------
-      Percentiles      Smallest
- 1%         3291           3291
- 5%         3748           3299
-10%         3895           3667       Obs                  74
-25%         4195           3748       Sum of wgt.          74
-
-50%       5006.5                      Mean           6165.257
-                        Largest       Std. dev.      2949.496
-75%         6342          13466
-90%        11385          13594       Variance        8699526
-95%        13466          14500       Skewness       1.653434
-99%        15906          15906       Kurtosis       4.819188
-
-. codebook price
-
--------------------------------------------------------------------------------
-price                                                                     Price
--------------------------------------------------------------------------------
-
-                  Type: Numeric (int)
-
-                 Range: [3291,15906]                  Units: 1
-         Unique values: 74                        Missing .: 0/74
-
-                  Mean: 6165.26
-             Std. dev.:  2949.5
-
-           Percentiles:     10%       25%       50%       75%       90%
-                           3895      4195    5006.5      6342     11385
-</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. summ price, <span class="kw">detail</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                            Price</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      Percentiles      Smallest</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a> 1%         3291           3291</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> 5%         3748           3299</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>10%         3895           3667       Obs                  74</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>25%         4195           3748       Sum <span class="kw">of</span> wgt.          74</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>50%       5006.5                      Mean           6165.257</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                        Largest       Std. <span class="kw">dev</span>.      2949.496</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>75%         6342          13466</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>90%        11385          13594       Variance        8699526</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>95%        13466          14500       Skewness       1.653434</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>99%        15906          15906       Kurtosis       4.819188</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>. <span class="kw">codebook</span> price</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>price                                                                     Price</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                  Type: Numeric (<span class="kw">int</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                 Range: [3291,15906]                  Units: 1</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>         Unique <span class="kw">values</span>: 74                        Missing .: 0/74</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>                  Mean: 6165.26</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>             Std. <span class="kw">dev</span>.:  2949.5</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>           Percentiles:     10%       25%       50%       75%       90%</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>                           3895      4195    5006.5      6342     11385</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Things to look for here include</p>
 <ul>
 <li>Values which are outside of expected values. The <code>summarize</code> commands gives the 1st and 99th percentiles (1% and 99% of values are below those thresholds, respectively) and <code>codebook</code> gives the range. If, for example, we saw a minimum value of -203 or a maximum value of 145200 (keep in mind these are 1978 dollars!), that’s an indication that there is an issue with the data, likely a mistake.</li>
@@ -260,258 +317,256 @@ price                                                                     Price
 <li>The <code>codebook</code> reports the number of missing; if you have missing data, double check that it is not an error in the data. Perhaps <a href="multiple-imputation.html">multiple imputation</a> is needed.</li>
 <li>If the variable is categorical (e.g.&nbsp;race), is the number of unique entries reported in the <code>codebook</code> as expected?</li>
 </ul>
-<p><sup>##</sup> <code>mean</code></p>
+</section>
+<section id="mean" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="mean"><span class="header-section-number">1.2</span> <code>mean</code></h2>
 <p>The <code>mean</code> command gives summary statistics on the mean of a variable.</p>
-<pre><code>. mean price
-
-Mean estimation                             Number of obs = 74
-
---------------------------------------------------------------
-             |       Mean   Std. err.     [95% conf. interval]
--------------+------------------------------------------------
-       price |   6165.257   342.8719      5481.914      6848.6
---------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">mean</span> price</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Mean estimation                             Number <span class="kw">of</span> <span class="kw">obs</span> = 74</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>             |       Mean   Std. err.     [95% conf. interval]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>       price |   6165.257   342.8719      5481.914      6848.6</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>These are characteristics of the estimated mean of the “price” variable. The standard deviation reported from the <code>summarize</code> command above represents the variability among individual cars; the standard error reported by <code>mean</code> the variability of <em>means</em>: if we were to repeatedly draw samples of size 74, the standard error is a measure of the variability of the means from all those samples.</p>
 <p>The confidence interval is interpreted as if we were to continue drawing those samples of size 74, we would expect 95% of those samples to have an estimated mean within those bounds. It is <em>not</em> that we’re 95% confident that the true population mean falls in that range - either it does or it doesn’t!</p>
-<p><sup>##</sup> Estimation Commands</p>
+</section>
+<section id="estimation-commands" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="estimation-commands"><span class="header-section-number">1.3</span> Estimation Commands</h2>
 <p>The introduction of <code>mean</code> allows us to discuss estimation commands. An estimation command is any command that fits a statistical model - some of these are obvious such as <code>regress</code> for linear regression, but others such as <code>mean</code> which we just ran are also estimation commands because it is estimating a confidence interval. <code>summarize</code> is not because it only provides statistics about the current sample instead of making inference into the population.</p>
 <p>Almost all estimation commands have the same general syntax:</p>
 <pre><code>command varlist [if] [in] [weight] [,options]</code></pre>
 <p>The sections inside <code>[</code> and <code>]</code> are optional. The <code>command</code> can sometimes consist of a main command and one or more subcommands. The <code>varlist</code> can be empty, have a single entry, or have multiple entries (the order of which is sometimes of importance - generally the first is some outcome or dependent variable and the rest are predictors or independent variables).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Estimation commands are stored after they are run, and persist regardless of how many other non-estimation commands are run in between them. These non-estimation commands include data manipulation and <a href="#postestimation-commands">postestimation commands</a>. As soon as another estimation command is run, the first is dropped and the new one is saved.</p>
 <p>This allows interesting things such as replaying a command (calling the estimation command again without any <code>varlist</code> to re-display it’s results) even if the data is gone!</p>
-<pre><code>. clear
-
-. list
-
-. mean
-
-Mean estimation                             Number of obs = 74
-
---------------------------------------------------------------
-             |       Mean   Std. err.     [95% conf. interval]
--------------+------------------------------------------------
-       price |   6165.257   342.8719      5481.914      6848.6
---------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">clear</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>. <span class="ot">list</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>. <span class="kw">mean</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Mean estimation                             Number <span class="kw">of</span> <span class="kw">obs</span> = 74</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>             |       Mean   Std. err.     [95% conf. interval]</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>       price |   6165.257   342.8719      5481.914      6848.6</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>A larger benefit of this is that if you are fitting a model on one data set and want to get predicted values on another, you could do something like this (this is pseudo-code, not real Stata!):</p>
 <pre><code>use fitting_data
 model y x1 x2
 use newdata, clear
 predict fitted</code></pre>
-<p><sup>###</sup> Postestimation commands</p>
+<section id="postestimation-commands" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="postestimation-commands"><span class="header-section-number">1.3.1</span> Postestimation commands</h3>
 <p>Since the last estimation command is saved, any commands which need to reference it (called postestimation commands) do so inherently, no need to specify. For example, let’s reload the data and run <code>mean</code> on a few variables.</p>
-<pre><code>. sysuse auto, clear
-(1978 automobile data)
-
-. mean mpg headroom length
-
-Mean estimation                             Number of obs = 74
-
---------------------------------------------------------------
-             |       Mean   Std. err.     [95% conf. interval]
--------------+------------------------------------------------
-         mpg |    21.2973   .6725511       19.9569    22.63769
-    headroom |   2.993243   .0983449      2.797242    3.189244
-      length |   187.9324   2.588409      182.7737    193.0911
---------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">sysuse</span> auto, <span class="kw">clear</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>(1978 automobile <span class="kw">data</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">mean</span> mpg headroom <span class="fu">length</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>Mean estimation                             Number <span class="kw">of</span> <span class="kw">obs</span> = 74</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>             |       Mean   Std. err.     [95% conf. interval]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>         mpg |    21.2973   .6725511       19.9569    22.63769</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    headroom |   2.993243   .0983449      2.797242    3.189244</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span> |   187.9324   2.588409      182.7737    193.0911</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s say we want to obtain the correlation matrix<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<pre><code>. estat vce, corr
-
-Correlation matrix of coefficients of mean model
-
-        e(V) |      mpg  headroom    length 
--------------+-----------------------------
-         mpg |   1.0000                     
-    headroom |  -0.4138    1.0000           
-      length |  -0.7958    0.5163    1.0000 
-</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estat</span> <span class="kw">vce</span>, <span class="fu">corr</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Correlation <span class="fu">matrix</span> <span class="kw">of</span> coefficients <span class="kw">of</span> <span class="kw">mean</span> <span class="kw">model</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">e</span>(<span class="kw">V</span>) |      mpg  headroom    <span class="fu">length</span> </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>-------------+-----------------------------</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>         mpg |   1.0000                     </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    headroom |  -0.4138    1.0000           </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span> |  -0.7958    0.5163    1.0000 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Here we see that both <code>length</code> and <code>headroom</code> are negatively correlated with <code>mpg</code>; as the car gets larger, its mileage decreases. Headroom and length are positively correlated, so cars aren’t just growing in one direction!</p>
 <p>The <code>estat</code> command is somewhat generic, we will see other uses of it later.</p>
 <p>Similar to how you can get help with any command with help, e.g.&nbsp;<code>help mean</code>, you can get a list of all postestimation commands that a given estimation command supports:</p>
 <pre><code>help mean postestimation</code></pre>
 <p>There is also a link to the postestimation page in the help for the estimation command.</p>
-<p><sup>###</sup> Storing and restoring estimation commands</p>
+</section>
+<section id="storing-and-restoring-estimation-commands" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="storing-and-restoring-estimation-commands"><span class="header-section-number">1.3.2</span> Storing and restoring estimation commands</h3>
 <p>The obvious downside to Stata’s approach to saving the most recent estimation command is that you lose all earlier commands. If you have only a limited number of commands and each is fast, this isn’t a big deal. However, with some more <a href="mixed-models.html">advanced</a> <a href="multiple-imputation.html">approaches</a>, modeling can become very slow, so you may not want to lose the results. Stata has a solution for this, allowing us to store and recall estimation commands without having to re-run them. This has an obvious parallel to the <code>preserve</code>/<code>restore</code> commands that affect the data.</p>
 <p>You have the choice of saving the results temporarily (in memory) or permanently (to a file). There are the obvious pro’s and con’s to each approach. For these notes I will focus primarily on storing the results in memory, but I will point out where the commands differ if saving to a file. Let’s run a fresh <code>mean</code> call to work with. The <code>estimates</code> command will be used.</p>
-<pre><code>. mean price mpg
-
-Mean estimation                             Number of obs = 74
-
---------------------------------------------------------------
-             |       Mean   Std. err.     [95% conf. interval]
--------------+------------------------------------------------
-       price |   6165.257   342.8719      5481.914      6848.6
-         mpg |    21.2973   .6725511       19.9569    22.63769
---------------------------------------------------------------
-
-. estimates query
-(active results produced by mean; not yet stored)
-</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">mean</span> price mpg</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Mean estimation                             Number <span class="kw">of</span> <span class="kw">obs</span> = 74</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>             |       Mean   Std. err.     [95% conf. interval]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>       price |   6165.257   342.8719      5481.914      6848.6</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>         mpg |    21.2973   .6725511       19.9569    22.63769</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estimates</span> <span class="kw">query</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>(active results produced <span class="kw">by</span> <span class="kw">mean</span>; <span class="kw">not</span> yet stored)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>query</code> subcommand tells us what estimation command was last run, and whether it has already been saved. Here it has not. Let’s save these results.</p>
-<pre><code>. estimates store mean1
-</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estimates</span> <span class="kw">store</span> mean1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To save to a file, use <code>estimates save</code> instead. Now let’s run a second <code>mean</code> commands.</p>
-<pre><code>. mean mpg headroom length
-
-Mean estimation                             Number of obs = 74
-
---------------------------------------------------------------
-             |       Mean   Std. err.     [95% conf. interval]
--------------+------------------------------------------------
-         mpg |    21.2973   .6725511       19.9569    22.63769
-    headroom |   2.993243   .0983449      2.797242    3.189244
-      length |   187.9324   2.588409      182.7737    193.0911
---------------------------------------------------------------
-
-. est store mean2
-
-. est query
-(active results produced by mean; also stored as mean2)
-</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">mean</span> mpg headroom <span class="fu">length</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>Mean estimation                             Number <span class="kw">of</span> <span class="kw">obs</span> = 74</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>             |       Mean   Std. err.     [95% conf. interval]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>         mpg |    21.2973   .6725511       19.9569    22.63769</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    headroom |   2.993243   .0983449      2.797242    3.189244</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span> |   187.9324   2.588409      182.7737    193.0911</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="kw">store</span> mean2</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="kw">query</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>(active results produced <span class="kw">by</span> <span class="kw">mean</span>; also stored <span class="kw">as</span> mean2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now <code>query</code> is telling us that the current estimation commands are (obviously) stored as “mean2”. Let’s use <code>estimates restore</code> to jump between the two. (If saving to a file, use <code>estimates use</code> instead.)</p>
-<pre><code>. est restore mean1
-(results mean1 are active now)
-
-. estat vce, corr
-
-Correlation matrix of coefficients of mean model
-
-        e(V) |    price       mpg 
--------------+-------------------
-       price |   1.0000           
-         mpg |  -0.4686    1.0000 
-
-. est query
-(active results produced by mean; also stored as mean1)
-</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="kw">restore</span> mean1</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>(results mean1 are active now)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">estat</span> <span class="kw">vce</span>, <span class="fu">corr</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>Correlation <span class="fu">matrix</span> <span class="kw">of</span> coefficients <span class="kw">of</span> <span class="kw">mean</span> <span class="kw">model</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">e</span>(<span class="kw">V</span>) |    price       mpg </span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>-------------+-------------------</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>       price |   1.0000           </span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>         mpg |  -0.4686    1.0000 </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="kw">query</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>(active results produced <span class="kw">by</span> <span class="kw">mean</span>; also stored <span class="kw">as</span> mean1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>To “replay” an estimation command (re-display the results without re-running the model), you can either restore it and call the blank command again:</p>
-<pre><code>. est restore mean2
-(results mean2 are active now)
-
-. mean
-
-Mean estimation                             Number of obs = 74
-
---------------------------------------------------------------
-             |       Mean   Std. err.     [95% conf. interval]
--------------+------------------------------------------------
-         mpg |    21.2973   .6725511       19.9569    22.63769
-    headroom |   2.993243   .0983449      2.797242    3.189244
-      length |   187.9324   2.588409      182.7737    193.0911
---------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="kw">restore</span> mean2</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(results mean2 are active now)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">mean</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>Mean estimation                             Number <span class="kw">of</span> <span class="kw">obs</span> = 74</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>             |       Mean   Std. err.     [95% conf. interval]</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>         mpg |    21.2973   .6725511       19.9569    22.63769</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    headroom |   2.993243   .0983449      2.797242    3.189244</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span> |   187.9324   2.588409      182.7737    193.0911</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>or use <code>estimates replay</code> directly:</p>
-<pre><code>. est query
-(active results produced by mean; also stored as mean2)
-
-. est replay mean1
-
--------------------------------------------------------------------------------
-Model mean1
--------------------------------------------------------------------------------
-
-Mean estimation                             Number of obs = 74
-
---------------------------------------------------------------
-             |       Mean   Std. err.     [95% conf. interval]
--------------+------------------------------------------------
-       price |   6165.257   342.8719      5481.914      6848.6
-         mpg |    21.2973   .6725511       19.9569    22.63769
---------------------------------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="kw">query</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>(active results produced <span class="kw">by</span> <span class="kw">mean</span>; also stored <span class="kw">as</span> mean2)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="fu">replay</span> mean1</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>Model mean1</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>Mean estimation                             Number <span class="kw">of</span> <span class="kw">obs</span> = 74</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>             |       Mean   Std. err.     [95% conf. interval]</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>       price |   6165.257   342.8719      5481.914      6848.6</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>         mpg |    21.2973   .6725511       19.9569    22.63769</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>One use of stored estimates that can be useful is creating a table to include all the results.</p>
-<pre><code>. est table mean1 mean2
-
-----------------------------------------
-    Variable |   mean1        mean2     
--------------+--------------------------
-       price |  6165.2568               
-         mpg |  21.297297    21.297297  
-    headroom |               2.9932432  
-      length |               187.93243  
-----------------------------------------
-</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="kw">table</span> mean1 mean2</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>----------------------------------------</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    Variable |   mean1        mean2     </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>-------------+--------------------------</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>       price |  6165.2568               </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>         mpg |  21.297297    21.297297  </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    headroom |               2.9932432  </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span> |               187.93243  </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>----------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you are familiar with regression, you should be able to see how useful this might be!</p>
 <p>Finally, we can see all saved estimates with <code>dir</code>, drop a specific estimation command with <code>drop</code>, or remove all with <code>clear</code>:</p>
-<pre><code>. est dir
-
---------------------------------------------------------------
-             |           Dependent  Number of        
-        Name | Command    variable     param.  Title 
--------------+------------------------------------------------
-       mean1 | mean           Mean          2  Mean estimation
-       mean2 | mean           Mean          3  Mean estimation
---------------------------------------------------------------
-
-. est drop mean1
-
-. est dir
-
---------------------------------------------------------------
-             |           Dependent  Number of        
-        Name | Command    variable     param.  Title 
--------------+------------------------------------------------
-       mean2 | mean           Mean          3  Mean estimation
---------------------------------------------------------------
-
-. est clear
-
-. est dir
-</code></pre>
-<p><sup>##</sup> <code>tab</code></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="ot">dir</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>             |           Dependent  Number <span class="kw">of</span>        </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        Name | Command    <span class="kw">variable</span>     param.  Title </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>       mean1 | <span class="kw">mean</span>           Mean          2  Mean estimation</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>       mean2 | <span class="kw">mean</span>           Mean          3  Mean estimation</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="kw">drop</span> mean1</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="ot">dir</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>             |           Dependent  Number <span class="kw">of</span>        </span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        Name | Command    <span class="kw">variable</span>     param.  Title </span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>       mean2 | <span class="kw">mean</span>           Mean          3  Mean estimation</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>--------------------------------------------------------------</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="kw">clear</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>. <span class="kw">est</span> <span class="ot">dir</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="tab" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="tab"><span class="header-section-number">1.4</span> <code>tab</code></h2>
 <p>Continuing on with exploring the data, categorical variables are not summarized well by the mean. Instead, we’ll look at a tabulation.</p>
-<pre><code>. tabulate rep78
-
-     Repair |
-record 1978 |      Freq.     Percent        Cum.
-------------+-----------------------------------
-          1 |          2        2.90        2.90
-          2 |          8       11.59       14.49
-          3 |         30       43.48       57.97
-          4 |         18       26.09       84.06
-          5 |         11       15.94      100.00
-------------+-----------------------------------
-      Total |         69      100.00
-</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tabulate</span> rep78</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     Repair |</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>record 1978 |      Freq.     Percent        Cum.</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>------------+-----------------------------------</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>          1 |          2        2.90        2.90</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>          2 |          8       11.59       14.49</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>          3 |         30       43.48       57.97</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>          4 |         18       26.09       84.06</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>          5 |         11       15.94      100.00</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>------------+-----------------------------------</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>      Total |         69      100.00</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This gives us the count at each level, the percent at each level, as well as the cumulative percent (e.g.&nbsp;57.97% of observations have a value of 3 or below). The cumulative percentage is only informative for an ordinal variable (a categorical variable that has an ordering too it), and not an unordered categorical variable such as race.</p>
 <p>Note that it is counting a total of 69 observations to total 100% of the data. However, you may have noticed earlier that we have 74 rows of data. By default, <code>tabulate</code> does <em>not</em> include any information about missing values. The <code>missing</code> option corrects that.</p>
-<pre><code>. tab rep78, missing
-
-     Repair |
-record 1978 |      Freq.     Percent        Cum.
-------------+-----------------------------------
-          1 |          2        2.70        2.70
-          2 |          8       10.81       13.51
-          3 |         30       40.54       54.05
-          4 |         18       24.32       78.38
-          5 |         11       14.86       93.24
-          . |          5        6.76      100.00
-------------+-----------------------------------
-      Total |         74      100.00
-</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> rep78, <span class="fu">missing</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>     Repair |</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>record 1978 |      Freq.     Percent        Cum.</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>------------+-----------------------------------</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>          1 |          2        2.70        2.70</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>          2 |          8       10.81       13.51</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>          3 |         30       40.54       54.05</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>          4 |         18       24.32       78.38</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>          5 |         11       14.86       93.24</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>          . |          5        6.76      100.00</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>------------+-----------------------------------</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>      Total |         74      100.00</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>It’s important to keep in mind the difference between the percentages of the two outputs. For example, 11.59% of <em>non-missing</em> values of <code>rep78</code> are 2, whereas only 10.81% of <em>all</em> values are 2.</p>
 <p>There are a few other options related to how the results are visualized which we will not cover.</p>
-<p><sup>###</sup> Two-way tables</p>
+<section id="two-way-tables" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="two-way-tables"><span class="header-section-number">1.4.1</span> Two-way tables</h3>
 <p>We will cover two-way tables (also known as “crosstabs”) later in <a href="univariate-and-some-bivariate-analysis.html#chi-square-test">univariate analysis</a>, but there is a peculiarity to <code>tab</code> related to it. If you pass two variables to <code>tab</code>, it creates the crosstab:</p>
-<pre><code>. tab rep78 foreign, missing
-
-    Repair |
-    record |      Car origin
-      1978 |  Domestic    Foreign |     Total
------------+----------------------+----------
-         1 |         2          0 |         2 
-         2 |         8          0 |         8 
-         3 |        27          3 |        30 
-         4 |         9          9 |        18 
-         5 |         2          9 |        11 
-         . |         4          1 |         5 
------------+----------------------+----------
-     Total |        52         22 |        74 
-</code></pre>
-<p><sup>###</sup> Generating dummy variables</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> rep78 foreign, <span class="fu">missing</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    Repair |</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    record |      Car origin</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>      1978 |  Domestic    Foreign |     Total</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>         1 |         2          0 |         2 </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>         2 |         8          0 |         8 </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>         3 |        27          3 |        30 </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>         4 |         9          9 |        18 </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>         5 |         2          9 |        11 </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>         . |         4          1 |         5 </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>     Total |        52         22 |        74 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="generating-dummy-variables" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="generating-dummy-variables"><span class="header-section-number">1.4.2</span> Generating dummy variables</h3>
 <p>Although Stata has excellent categorical variable handling capabilities, you may occasionally have the situation where you want the dummy variables instead of a category. For an example of the difference, consider a “campus” variable with three options, “central”, “north” and “medical”. Imagine our data looks like:</p>
 <table class="table">
 <thead>
@@ -563,46 +618,48 @@ record 1978 |      Freq.     Percent        Cum.
 </table>
 <p>Notice that the information in <code>campus</code> and the information encoded in <code>campuscentral</code>, <code>campusnorth</code>, and <code>campusmedical</code> are identical. A 1 in the <code>campus____</code> variables represents “True” and 0 represents “False”, and only a single 1 is allowed per row.</p>
 <p>As mentioned, we will most of the time use categorical variables such as <code>campus</code> over dummy variables like <code>campus_____</code> (these are used in the actual model, but Stata creates them for you behind the scenes so you don’t need to worry about them), but if necessary, you can create the dummy variables using <code>tab</code>:</p>
-<pre><code>. list rep* in 1/5
-
-     +-------+
-     | rep78 |
-     |-------|
-  1. |     3 |
-  2. |     3 |
-  3. |     . |
-  4. |     3 |
-  5. |     4 |
-     +-------+
-
-. tab rep78, gen(reps)
-
-     Repair |
-record 1978 |      Freq.     Percent        Cum.
-------------+-----------------------------------
-          1 |          2        2.90        2.90
-          2 |          8       11.59       14.49
-          3 |         30       43.48       57.97
-          4 |         18       26.09       84.06
-          5 |         11       15.94      100.00
-------------+-----------------------------------
-      Total |         69      100.00
-
-. list rep* in 1/5
-
-     +-----------------------------------------------+
-     | rep78   reps1   reps2   reps3   reps4   reps5 |
-     |-----------------------------------------------|
-  1. |     3       0       0       1       0       0 |
-  2. |     3       0       0       1       0       0 |
-  3. |     .       .       .       .       .       . |
-  4. |     3       0       0       1       0       0 |
-  5. |     4       0       0       0       1       0 |
-     +-----------------------------------------------+
-</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>. <span class="ot">list</span> rep* <span class="kw">in</span> 1/5</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>     +-------+</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>     | rep78 |</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>     |-------|</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  1. |     3 |</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  2. |     3 |</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  3. |     . |</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  4. |     3 |</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  5. |     4 |</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>     +-------+</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> rep78, <span class="kw">gen</span>(reps)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>     Repair |</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>record 1978 |      Freq.     Percent        Cum.</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>------------+-----------------------------------</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>          1 |          2        2.90        2.90</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>          2 |          8       11.59       14.49</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>          3 |         30       43.48       57.97</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>          4 |         18       26.09       84.06</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>          5 |         11       15.94      100.00</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>------------+-----------------------------------</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>      Total |         69      100.00</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>. <span class="ot">list</span> rep* <span class="kw">in</span> 1/5</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>     +-----------------------------------------------+</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>     | rep78   reps1   reps2   reps3   reps4   reps5 |</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>     |-----------------------------------------------|</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  1. |     3       0       0       1       0       0 |</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>  2. |     3       0       0       1       0       0 |</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>  3. |     .       .       .       .       .       . |</span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>  4. |     3       0       0       1       0       0 |</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>  5. |     4       0       0       0       1       0 |</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>     +-----------------------------------------------+</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you are not familiar with the <code>list</code> command, it prints out data. Giving it a variable (or multiple) restricts it to those (here we restricted it to <code>rep\*</code>, which is any variable that starts with “rep” - the * is a wildcard), and the <code>in</code> statement restricts to the first 5 observations (we just want a quick visualization, not to print everything).</p>
 <p>Take note of how the missing value is propogated when creating the dummies.</p>
-<p><sup>##</sup> <code>correlate</code></p>
+</section>
+</section>
+<section id="correlate" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="correlate"><span class="header-section-number">1.5</span> <code>correlate</code></h2>
 <p>With the use of <code>tab</code> for crosstabs, we’ve left univariate summaries and moved to joint summaries. For continuous variables, we can use the correlation to examine how similar two continuous variables are. The most common version of correlation is Pearson’s correlation, which ranges from -1 to 1.</p>
 <ul>
 <li>A value of 0 represents no correlation; having information about one variable provides no insight into the other.</li>
@@ -610,37 +667,34 @@ record 1978 |      Freq.     Percent        Cum.
 <li>A value towards -1 represents negative correlation; as one value increases, the other tends to decreases (and vice-versa). A correlation of -1 would be perfect negative correlation, e.g.&nbsp;during a road trip, your distance travel is perfectly negatively correlated with your distance to you destination (ignoring detours).</li>
 </ul>
 <p>We can calculate the Pearson’s correlation with <code>correlate</code>.</p>
-<pre><code>. correlate weight length
-(obs=74)
-
-             |   weight   length
--------------+------------------
-      weight |   1.0000
-      length |   0.9460   1.0000
-
-</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>. correlate <span class="kw">weight</span> <span class="fu">length</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">obs</span>=74)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>             |   <span class="kw">weight</span>   <span class="fu">length</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>-------------+------------------</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |   1.0000</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span> |   0.9460   1.0000</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This produces whats known as the correlation matrix. The diagonal entries are both 1, because clearly each variable is perfectly correlated with itself! The off-diagonal entries are identical since correlation is a symmetric operation. The value of .95 is extremely close to one, as we would expect - longer cars are heavier and perhaps vice-versa. Another way to think of it is that once we know <code>weight</code>, learning <code>length</code> does not add much information. On the other hand,</p>
-<pre><code>. corr price turn
-(obs=74)
-
-             |    price     turn
--------------+------------------
-       price |   1.0000
-        turn |   0.3096   1.0000
-
-</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">corr</span> price turn</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">obs</span>=74)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>             |    price     turn</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>-------------+------------------</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>       price |   1.0000</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        turn |   0.3096   1.0000</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>with a correlation of .31, learning <code>turn</code> when you already know <code>price</code> does add a lot of information.</p>
 <p>We can look at multiple correlations at once as well.</p>
-<pre><code>. corr mpg weight length
-(obs=74)
-
-             |      mpg   weight   length
--------------+---------------------------
-         mpg |   1.0000
-      weight |  -0.8072   1.0000
-      length |  -0.7958   0.9460   1.0000
-
-</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">corr</span> mpg <span class="kw">weight</span> <span class="fu">length</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">obs</span>=74)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>             |      mpg   <span class="kw">weight</span>   <span class="fu">length</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>         mpg |   1.0000</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |  -0.8072   1.0000</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span> |  -0.7958   0.9460   1.0000</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We see the .9460 we saw earlier, but notice also that <code>mpg</code> is negatively correlated with both <code>weight</code> and <code>length</code> - a larger car gets worse mileage and low mileage cars tend to be large. A few notes:</p>
 <ul>
 <li>The amount of information contained is irrespective of the sign; knowing the <code>mpg</code> of a car, adding information about its <code>weight</code> doesn’t add much information.</li>
@@ -648,144 +702,143 @@ record 1978 |      Freq.     Percent        Cum.
 </ul>
 <p>What are thresholds for a “low” or “high” correlation? This will depend greatly on your field and setting, a common metric is that .3 is a low correlation, .6 is a moderate correlation, and .8 is a strong correlation.</p>
 <p>It is possible to obtain p-values testing whether each of those correlations are significantly distinguishable from 0 by passing the <code>sig</code> option. However, p-values for correlations are extremely dependent on sample size and should not be trusted.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> The magnitude of the correlation is much more important than it’s significance.</p>
-<p><sup>###</sup> varlists in Stata</p>
+<section id="varlists-in-stata" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="varlists-in-stata"><span class="header-section-number">1.5.1</span> varlists in Stata</h3>
 <p>Consider if we wanted to look at all the continuous variables in the data. We could write <code>corr price mpg ...</code> and make a very long command. The collection of all variables would be a “varlist”. Stata has several ways of short cutting this.</p>
 <p>The first we’ve already seen when we used the wildcard “\*” <a href="#Generating-dummy-variables">above</a>. We can use * anywhere in the variable name to denote any number of additional characters. E.g. “this*var” matches “thisvar”, “thisnewvar”, “this-var”, “thisHFJHDJSHFKDHFKSHvar”, etc. A second wildcard, “?”, represents just a single variable, so “this*var” would match only “this-var” from that list, as well as “thisAvar”, “thisJvar”, etc.</p>
 <p>Secondly, we can match a subset of variables that are next to each other using “-”. All variable, starting with the one to the left of the - and ending with the one to the right of the - are included. For example,</p>
-<pre><code>. desc, simple
-make          headroom      turn          reps1         reps5
-price         trunk         displacement  reps2
-mpg           weight        gear_ratio    reps3
-rep78         length        foreign       reps4
-
-. desc trunk-turn
-
-Variable      Storage   Display    Value
-    name         type    format    label      Variable label
--------------------------------------------------------------------------------
-trunk           int     %8.0g                 Trunk space (cu. ft.)
-weight          int     %8.0gc                Weight (lbs.)
-length          int     %8.0g                 Length (in.)
-turn            int     %8.0g                 Turn circle (ft.)
-</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">desc</span>, simple</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>make          headroom      turn          reps1         reps5</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>price         trunk         displacement  reps2</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>mpg           <span class="kw">weight</span>        gear_ratio    reps3</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>rep78         <span class="fu">length</span>        foreign       reps4</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>. <span class="kw">desc</span> trunk-turn</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>Variable      Storage   Display    Value</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="bn">name</span>         <span class="dv">type</span>    <span class="kw">format</span>    <span class="kw">label</span>      Variable <span class="kw">label</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>-------------------------------------------------------------------------------</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>trunk           <span class="kw">int</span>     %8.0g                 Trunk space (cu. ft.)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="kw">weight</span>          <span class="kw">int</span>     %8.0gc                Weight (lbs.)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>          <span class="kw">int</span>     %8.0g                 Length (<span class="kw">in</span>.)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>turn            <span class="kw">int</span>     %8.0g                 Turn <span class="bn">circle</span> (ft.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can combine those two, as well as specifying individual variables.</p>
-<pre><code>. corr price-rep78 t* displacement
-(obs=69)
-
-             |    price      mpg    rep78    trunk     turn displa~t
--------------+------------------------------------------------------
-       price |   1.0000
-         mpg |  -0.4559   1.0000
-       rep78 |   0.0066   0.4023   1.0000
-       trunk |   0.3232  -0.5798  -0.1572   1.0000
-        turn |   0.3302  -0.7355  -0.4961   0.6008   1.0000
-displacement |   0.5479  -0.7434  -0.4119   0.6287   0.8124   1.0000
-
-</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">corr</span> price-rep78 t* displacement</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">obs</span>=69)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>             |    price      mpg    rep78    trunk     turn displa~t</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>-------------+------------------------------------------------------</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>       price |   1.0000</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>         mpg |  -0.4559   1.0000</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>       rep78 |   0.0066   0.4023   1.0000</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>       trunk |   0.3232  -0.5798  -0.1572   1.0000</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        turn |   0.3302  -0.7355  -0.4961   0.6008   1.0000</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>displacement |   0.5479  -0.7434  -0.4119   0.6287   0.8124   1.0000</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>price</code>, <code>mpg</code> and <code>rep78</code> are included as part of <code>price-rep78</code>, <code>t\*</code> matches <code>trunk</code> and <code>turn</code>, and <code>displacement</code> is included by itself.</p>
 <p>Finally, there is the special variable list <code>\_all</code>, which is shorthand for all variables (e.g.&nbsp;<code>firstvar-lastvar</code>). It is accepted in most but not all places that take in variables.</p>
-<pre><code>. corr _all
-(make ignored because string variable)
-(obs=69)
-
-             |    price      mpg    rep78 headroom    trunk   weight   length
--------------+---------------------------------------------------------------
-       price |   1.0000
-         mpg |  -0.4559   1.0000
-       rep78 |   0.0066   0.4023   1.0000
-    headroom |   0.1112  -0.3996  -0.1480   1.0000
-       trunk |   0.3232  -0.5798  -0.1572   0.6608   1.0000
-      weight |   0.5478  -0.8055  -0.4003   0.4795   0.6691   1.0000
-      length |   0.4425  -0.8037  -0.3606   0.5240   0.7326   0.9478   1.0000
-        turn |   0.3302  -0.7355  -0.4961   0.4347   0.6008   0.8610   0.8631
-displacement |   0.5479  -0.7434  -0.4119   0.4763   0.6287   0.9316   0.8621
-  gear_ratio |  -0.3802   0.6565   0.4103  -0.3790  -0.5107  -0.7906  -0.7232
-     foreign |  -0.0174   0.4538   0.5922  -0.3347  -0.4053  -0.6460  -0.6110
-       reps1 |  -0.0945  -0.0086  -0.4230  -0.2550  -0.2175   0.0149   0.0054
-       reps2 |  -0.0223  -0.1346  -0.5180   0.1603   0.0586   0.1480   0.1778
-       reps3 |   0.0859  -0.2796  -0.3622   0.1726   0.2724   0.2975   0.2218
-       reps4 |  -0.0153   0.0384   0.3592  -0.0195  -0.0589  -0.1223  -0.0909
-       reps5 |  -0.0351   0.4542   0.7065  -0.2337  -0.2498  -0.3925  -0.3492
-
-             |     turn displa~t gear_r~o  foreign    reps1    reps2    reps3
--------------+---------------------------------------------------------------
-        turn |   1.0000
-displacement |   0.8124   1.0000
-  gear_ratio |  -0.7005  -0.8381   1.0000
-     foreign |  -0.6768  -0.6383   0.7266   1.0000
-       reps1 |   0.0471  -0.0131  -0.0355  -0.1143   1.0000
-       reps2 |   0.2939   0.1733  -0.2468  -0.2395  -0.0626   1.0000
-       reps3 |   0.2526   0.3038  -0.2449  -0.3895  -0.1515  -0.3176   1.0000
-       reps4 |  -0.1748  -0.1231   0.2287   0.2526  -0.1026  -0.2151  -0.5211
-       reps5 |  -0.4110  -0.4093   0.2894   0.4863  -0.0752  -0.1577  -0.3820
-
-             |    reps4    reps5
--------------+------------------
-       reps4 |   1.0000
-       reps5 |  -0.2587   1.0000
-
-</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">corr</span> <span class="dt">_all</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>(make ignored because <span class="fu">string</span> <span class="kw">variable</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">obs</span>=69)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>             |    price      mpg    rep78 headroom    trunk   <span class="kw">weight</span>   <span class="fu">length</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------------</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>       price |   1.0000</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>         mpg |  -0.4559   1.0000</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>       rep78 |   0.0066   0.4023   1.0000</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    headroom |   0.1112  -0.3996  -0.1480   1.0000</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>       trunk |   0.3232  -0.5798  -0.1572   0.6608   1.0000</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |   0.5478  -0.8055  -0.4003   0.4795   0.6691   1.0000</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">length</span> |   0.4425  -0.8037  -0.3606   0.5240   0.7326   0.9478   1.0000</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>        turn |   0.3302  -0.7355  -0.4961   0.4347   0.6008   0.8610   0.8631</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>displacement |   0.5479  -0.7434  -0.4119   0.4763   0.6287   0.9316   0.8621</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>  gear_ratio |  -0.3802   0.6565   0.4103  -0.3790  -0.5107  -0.7906  -0.7232</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>     foreign |  -0.0174   0.4538   0.5922  -0.3347  -0.4053  -0.6460  -0.6110</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>       reps1 |  -0.0945  -0.0086  -0.4230  -0.2550  -0.2175   0.0149   0.0054</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>       reps2 |  -0.0223  -0.1346  -0.5180   0.1603   0.0586   0.1480   0.1778</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>       reps3 |   0.0859  -0.2796  -0.3622   0.1726   0.2724   0.2975   0.2218</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>       reps4 |  -0.0153   0.0384   0.3592  -0.0195  -0.0589  -0.1223  -0.0909</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>       reps5 |  -0.0351   0.4542   0.7065  -0.2337  -0.2498  -0.3925  -0.3492</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>             |     turn displa~t gear_r~o  foreign    reps1    reps2    reps3</span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------------------------------------------</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>        turn |   1.0000</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>displacement |   0.8124   1.0000</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>  gear_ratio |  -0.7005  -0.8381   1.0000</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>     foreign |  -0.6768  -0.6383   0.7266   1.0000</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>       reps1 |   0.0471  -0.0131  -0.0355  -0.1143   1.0000</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>       reps2 |   0.2939   0.1733  -0.2468  -0.2395  -0.0626   1.0000</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>       reps3 |   0.2526   0.3038  -0.2449  -0.3895  -0.1515  -0.3176   1.0000</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>       reps4 |  -0.1748  -0.1231   0.2287   0.2526  -0.1026  -0.2151  -0.5211</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>       reps5 |  -0.4110  -0.4093   0.2894   0.4863  -0.0752  -0.1577  -0.3820</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>             |    reps4    reps5</span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>-------------+------------------</span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>       reps4 |   1.0000</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>       reps5 |  -0.2587   1.0000</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Notice that it automatically ignored the string variable <code>make</code>. Not all commands will work this well, so <code>\_all</code> may occasionally fail unexpectedly.</p>
-<p><sup>###</sup> Pairwise completion vs complete case</p>
+</section>
+<section id="pairwise-completion-vs-complete-case" class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="pairwise-completion-vs-complete-case"><span class="header-section-number">1.5.2</span> Pairwise completion vs complete case</h3>
 <p>You may have noticed that the <code>cor</code> command reports the number of observations it used, for example, the first few correlations all used 74 observations, but the <code>\_all</code> version used on 69. <code>correlate</code> uses what’s known as complete cases analysis - any observation missing <em>any</em> value used in the command is excluded. <code>rep78</code> is missing 5 observations (run the <code>misstable summarize</code> command to see this).</p>
 <p>On the other hand, pairwise completion only excludes missing values from the relevant comparisons. If a given correlation doesn’t involve <code>rep78</code>, it will use all the data. We can obtain this with <code>pwcorr</code>.</p>
-<pre><code>. corr rep78 price trunk
-(obs=69)
-
-             |    rep78    price    trunk
--------------+---------------------------
-       rep78 |   1.0000
-       price |   0.0066   1.0000
-       trunk |  -0.1572   0.3232   1.0000
-
-
-. pwcorr rep78 price trunk
-
-             |    rep78    price    trunk
--------------+---------------------------
-       rep78 |   1.0000 
-       price |   0.0066   1.0000 
-       trunk |  -0.1572   0.3143   1.0000 
-</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">corr</span> rep78 price trunk</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">obs</span>=69)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>             |    rep78    price    trunk</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>       rep78 |   1.0000</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>       price |   0.0066   1.0000</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>       trunk |  -0.1572   0.3232   1.0000</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>. <span class="kw">pwcorr</span> rep78 price trunk</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>             |    rep78    price    trunk</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>       rep78 |   1.0000 </span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>       price |   0.0066   1.0000 </span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>       trunk |  -0.1572   0.3143   1.0000 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Notice the two correlations involving <code>rep78</code> are identical - the same set of observations are dropped in both. However, the correlation between <code>price</code> and <code>trunk</code> differs - in <code>correlate</code>, it is only using 69 observations, whereas in <code>pwcorr</code> it uses all 74.</p>
 <p>It may seem that <code>pwcorr</code> is always superior (and, in isolation it is). However, most models such as <a href="regression.html">regression</a> only support complete cases analysis, so in those cases, if you are exploring your data, it does not make sense to do pairwise comparison. Ultimately, the choice remains up to you. If the results from <code>correlate</code> and <code>pwcorr</code> do differ drastically, that is a sign of something else going on!</p>
-<p><sup>###</sup> Spearman correlation</p>
+</section>
+<section id="spearman-correlation" class="level3" data-number="1.5.3">
+<h3 data-number="1.5.3" class="anchored" data-anchor-id="spearman-correlation"><span class="header-section-number">1.5.3</span> Spearman correlation</h3>
 <p>One limitation of Pearson’s correlation is that it is detecting linear relationships only. A famous example of this is Anscombe’s quartet:</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Anscombe%27s_quartet_3.svg" class="img-fluid"></p>
 <p>In each pair, the Pearson correlation is an identical .8162! In the first, that’s what we want. In the second, the relationship is strong but non-linear. In the third, only one value is not perfectly correlated, so the Pearsons correlation is diminished. In the fourth, only the existence of the single outlier is driving the relationship.</p>
 <p>Spearman correlation is an alternative to Pearson correlation. It works by ranking each variable and then performing Pearson’s correlation. The command in Stata is <code>spearman</code>.</p>
-<pre><code>. corr price trunk
-(obs=74)
-
-             |    price    trunk
--------------+------------------
-       price |   1.0000
-       trunk |   0.3143   1.0000
-
-
-. spearman price trunk, matrix
-
-Number of observations = 74
-
-             |    price    trunk
--------------+------------------
-       price |   1.0000 
-       trunk |   0.3996   1.0000 
-</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">corr</span> price trunk</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">obs</span>=74)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>             |    price    trunk</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>-------------+------------------</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>       price |   1.0000</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>       trunk |   0.3143   1.0000</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>. <span class="kw">spearman</span> price trunk, <span class="fu">matrix</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>Number <span class="kw">of</span> observations = 74</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>             |    price    trunk</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>-------------+------------------</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>       price |   1.0000 </span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>       trunk |   0.3996   1.0000 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>matrix</code> option forces output to mirror <code>correlate</code>, otherwise it produces a slightly different output when given only two variables. <code>spearman</code> uses <a href="#Pairwise-completion-vs-complete-case">complete cases</a>; to use pairwise complete instead, pass the option <code>pw</code>:</p>
-<pre><code>. spearman mpg-headroom, pw
-
-Number of observations:
-                      min = 69
-                      avg = 71
-                      max = 74
-
-             |      mpg    rep78 headroom
--------------+---------------------------
-         mpg |   1.0000 
-       rep78 |   0.3098   1.0000 
-    headroom |  -0.4866  -0.1583   1.0000 
-</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">spearman</span> mpg-headroom, pw</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>Number <span class="kw">of</span> observations:</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">min</span> = 69</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                      avg = 71</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">max</span> = 74</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>             |      mpg    rep78 headroom</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>-------------+---------------------------</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>         mpg |   1.0000 </span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>       rep78 |   0.3098   1.0000 </span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    headroom |  -0.4866  -0.1583   1.0000 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>How does Spearman’s correlation compare to Pearson’s for Anscombe’s quartet?</p>
 <table class="table">
 <thead>
@@ -819,7 +872,10 @@ Number of observations:
 </tbody>
 </table>
 <p>The second correlation diminishes, the third drastically increases, and the fourth decreases as well.</p>
-<p><sup>##</sup> Exercise 1</p>
+</section>
+</section>
+<section id="exercise-1" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">1.6</span> Exercise 1</h2>
 <p>For these exercises, we’ll be using data from NHANES, the National Health And Nutrition Examination Survey. The data is on Stata’s website, and you can load it via</p>
 <pre><code>webuse nhanes2, clear</code></pre>
 <ol type="1">
@@ -836,6 +892,7 @@ Number of observations:
 </ol>
 
 
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
@@ -1087,7 +1144,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./02-visualization.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualization</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
