@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Intermediate Stata (Statistical Modeling) - 8&nbsp; lead Lead (mcg/dL)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-multiple-imputation.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./solutions.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead                                                              Lead (mcg/dL)</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Intermediate Stata</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-summarizing-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-univariate-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-survey-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-multiple-imputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./solutions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#one-sample-t-test" id="toc-one-sample-t-test" class="nav-link active" data-scroll-target="#one-sample-t-test"><span class="header-section-number">8.1</span> One-sample t test</a></li>
+  <li><a href="#log-likelihood--1321.7325-prob-chi2-0.0000" id="toc-log-likelihood--1321.7325-prob-chi2-0.0000" class="nav-link" data-scroll-target="#log-likelihood--1321.7325-prob-chi2-0.0000"><span class="header-section-number">8.3</span> Log likelihood = -1321.7325 Prob &gt; chi2 = 0.0000</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p><sup>#</sup> Exercise solutions</p>
+<p><sup>##</sup> Exercise 1</p>
+<pre><code>. webuse nhanes2, clear
+</code></pre>
+<ol type="1">
+<li></li>
+</ol>
+<pre><code>. describe, short
+
+Contains data from https://www.stata-press.com/data/r18/nhanes2.dta
+ Observations:        10,351                  
+    Variables:            58                  20 Dec 2022 10:07
+Sorted by: 
+</code></pre>
+<p>There are 10,351 observations of 59 variables. The full <code>describe</code> output is suppressed for space, but you should run it.</p>
+<ol start="3" type="1">
+<li></li>
+</ol>
+<pre><code>. tab race, mi
+
+       Race |      Freq.     Percent        Cum.
+------------+-----------------------------------
+      White |      9,065       87.58       87.58
+      Black |      1,086       10.49       98.07
+      Other |        200        1.93      100.00
+------------+-----------------------------------
+      Total |     10,351      100.00
+</code></pre>
+<p>No missing data. ~~~~ . tab diabetes, mi</p>
+<pre><code>Diabetes |
+  status |      Freq.     Percent        Cum.</code></pre>
+<p>————-+———————————– Not diabetic | 9,850 95.16 95.16 Diabetic | 499 4.82 99.98 . | 2 0.02 100.00 ————-+———————————– Total | 10,351 100.00</p>
+<pre><code>Two missing values.
+
+`lead` is continuous, so a table isn't the most effective.</code></pre>
+<p>. codebook lead</p>
+<hr>
+<pre><code>              Type: Numeric (byte)
+
+             Range: [2,80]                        Units: 1
+     Unique values: 53                        Missing .: 5,403/10,351
+
+              Mean: 14.3203
+         Std. dev.: 6.16647
+
+       Percentiles:     10%       25%       50%       75%       90%
+                          8        10        13        17        22</code></pre>
+<pre><code>There's a lot of missingness.
+
+4)</code></pre>
+<p>. pwcorr height weight bp*</p>
+<pre><code>         |   height   weight bpsystol  bpdiast</code></pre>
+<p>————-+———————————— height | 1.0000 weight | 0.4775 1.0000 bpsystol | -0.0364 0.2861 1.0000 bpdiast | 0.0675 0.3799 0.6831 1.0000</p>
+<pre><code>Blood pressure is highly correlated, more-so than height and weight. Weight is also correlated with both forms of BP. Height looks to be completely
+independent of boood pressure.
+
+^#^^#^ Exercise 2
+</code></pre>
+<p>. webuse nhanes2, clear</p>
+<p>. twoway (scatter bpdiast bpsystol if sex == 1, mcolor(blue)) /// &gt; (scatter bpdiast bpsystol if sex == 2, mcolor(pink)) /// &gt; (lfit bpdiast bpsystol if sex == 1, lcolor(blue)) /// &gt; (lfit bpdiast bpsystol if sex == 2, lcolor(pink)), /// &gt; legend(label(1 “Men”) label(2 “Women”) order(1 2))</p>
+<pre><code>
+&lt;img src="Graph18.svg" &gt;
+
+We can see the correlation between blood pressure measures, with a bit stronger of a relationship for men.
+
+^#^^#^ Exercise 3
+</code></pre>
+<p>. webuse nhanes2, clear</p>
+<pre><code>
+1)
+
+The sample size is massive, so the central limit theorem suffices.
+
+2)
+</code></pre>
+<p>. ttest height == 176 if sex == 1</p>
+<section id="one-sample-t-test" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="one-sample-t-test"><span class="header-section-number">8.1</span> One-sample t test</h2>
+<table class="table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Obs Mean Std. err. Std. dev. [95% conf. interval]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>height</td>
+<td>4,915 174.7421 .1026447 7.196115 174.5408 174.9433</td>
+</tr>
+</tbody>
+</table>
+<table class="table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">mean = mean(height) t = -12.2553 H0: mean = 176 Degrees of freedom = 4914</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Group | Obs Mean Std. err. Std. dev. [95% conf. interval] ———+——————————————————————– Male | 4,915 47.4238 .2448869 17.1683 46.94372 47.90389 Female | 5,436 47.72057 .2340613 17.25716 47.26171 48.17942 ———+——————————————————————– Combined | 10,351 47.57965 .1692044 17.21483 47.24798 47.91133 ———+——————————————————————– diff | -.2967619 .338842 -.9609578 .3674339</td>
+</tr>
+</tbody>
+</table>
+<pre><code>diff = mean(Male) - mean(Female)                              t =  -0.8758</code></pre>
+<p>H0: diff = 0 Degrees of freedom = 10349</p>
+<pre><code>Ha: diff &lt; 0                 Ha: diff != 0                 Ha: diff &gt; 0</code></pre>
+<p>Pr(T &lt; t) = 0.1906 Pr(|T| &gt; |t|) = 0.3812 Pr(T &gt; t) = 0.8094</p>
+<pre><code>
+We fail to reject; there is no difference that the average age differs by gender.
+
+4)
+</code></pre>
+<p>. tab race diabetes</p>
+<pre><code>       |    Diabetes status
+  Race | Not diabe   Diabetic |     Total</code></pre>
+<p>———–+———————-+———- White | 8,659 404 | 9,063 Black | 1,000 86 | 1,086 Other | 191 9 | 200 ———–+———————-+———- Total | 9,850 499 | 10,349</p>
+<pre><code>
+Given the different scales per race, it's hard to draw a comparison. We can look at the rowwise percents. (If you ran `tab diabetes race`, you'd need
+the columnwise percents.)
+</code></pre>
+<p>. tab race diabetes, row chi2</p>
+<table class="table">
+<colgroup>
+<col style="width: 23%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><h2 id="key" data-number="8.2" class="anchored"><span class="header-section-number">8.2</span> Key</h2>
+<p>frequency row percentage</p></td>
+</tr>
+</tbody>
+</table>
+<pre><code>       |    Diabetes status
+  Race | Not diabe   Diabetic |     Total</code></pre>
+<p>———–+———————-+———- White | 8,659 404 | 9,063 | 95.54 4.46 | 100.00 ———–+———————-+———- Black | 1,000 86 | 1,086 | 92.08 7.92 | 100.00 ———–+———————-+———- Other | 191 9 | 200 | 95.50 4.50 | 100.00 ———–+———————-+———- Total | 9,850 499 | 10,349 | 95.18 4.82 | 100.00</p>
+<pre><code>      Pearson chi2(2) =  25.3630   Pr = 0.000</code></pre>
+<pre><code>
+Nearly double the percent of blacks have diabetes and the ^$^\chi^2^$^ test confirms the difference is statistically significant.
+
+^#^^#^ Exercise 4
+</code></pre>
+<p>. webuse nhanes2, clear</p>
+<p>. regress lead i.sex i.race c.age c.weight c.height i.region</p>
+<pre><code>  Source |       SS           df       MS      Number of obs   =     4,948</code></pre>
+<p>————-+———————————- F(9, 4938) = 129.98 Model | 36027.945 9 4003.105 Prob &gt; F = 0.0000 Residual | 152083.33 4,938 30.7985682 R-squared = 0.1915 ————-+———————————- Adj R-squared = 0.1901 Total | 188111.275 4,947 38.0253234 Root MSE = 5.5496</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">lead | Coefficient Std. err. t P&gt;|t| [95% conf. interval]</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">————-+—————————————————————-</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">sex |</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Female | -5.26415 .2259894 -23.29 0.000 -5.70719 -4.82111</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">race |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Black | 2.937124 .2671182 11.00 0.000 2.413454 3.460794</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Other | -.5521668 .5617011 -0.98 0.326 -1.653351 .549017</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">age | .0196081 .0048918 4.01 0.000 .0100181 .0291981</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">weight | -.0012435 .0059001 -0.21 0.833 -.0128103 .0103233</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">height | -.0275532 .0127149 -2.17 0.030 -.05248 -.0026264</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">region |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">MW | -.1099025 .233614 -0.47 0.638 -.5678897 .3480848</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">S | -1.858491 .2346487 -7.92 0.000 -2.318507 -1.398476</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">W | -.2854048 .2380554 -1.20 0.231 -.7520992 .1812897</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">_cons | 21.16891 2.199034 9.63 0.000 16.85783 25.48</td>
+</tr>
+</tbody>
+</table>
+<pre><code>
+1)
+
+The F-test rejects so the model is informative. The ^$^R^2^$^ is low, so there is a lot of variability we're not capturing in this model.
+
+2)
+</code></pre>
+<p>. rvfplot</p>
+<pre><code>
+&lt;img src="Graph19.svg" &gt;
+
+This doesn't look great. We don't see any signs of nonnormality, but we do see a lot of very large positive residuals. If you look at a histogram for
+`lead`,
+</code></pre>
+<p>. hist lead (bin=36, start=2, width=2.1666667)</p>
+<pre><code>
+&lt;img src="Graph20.svg" &gt;
+
+We see right skew. The maintainers of this data noticed the same concern, as they include a `loglead` variable in the data to attempt to address this.
+</code></pre>
+<p>. desc loglead</p>
+<p>Variable Storage Display Value name type format label Variable label ——————————————————————————- loglead float %9.0g log(lead)</p>
+<pre><code>
+Perhaps we should have run the model with `loglead` as the output instead.
+
+3)
+</code></pre>
+<p>. estat vif</p>
+<pre><code>Variable |       VIF       1/VIF  </code></pre>
+<p>————-+———————- 2.sex | 2.05 0.488262 race | 2 | 1.05 0.950220 3 | 1.06 0.941064 age | 1.13 0.885331 weight | 1.33 0.749151 height | 2.44 0.410091 region | 2 | 1.71 0.583352 3 | 1.77 0.566163 4 | 1.73 0.576881 ————-+———————- Mean VIF | 1.59</p>
+<pre><code>
+Nothing of concern here. The only moderately high VIF's are on sex and it's interaction, which does not concern us (of course a main effect and
+interaction are collinear.).
+
+4)
+
+The coffecient on "Female" is -5 and is statistically significant, so there is evidence that males have higher average lead levels.
+
+5)
+
+The p-value is very small, so it is statistically significant. However, if we look at lead levels:
+</code></pre>
+<p>. summ lead</p>
+<pre><code>Variable |        Obs        Mean    Std. dev.       Min        Max</code></pre>
+<p>————-+——————————————————— lead | 4,948 14.32033 6.166468 2 80</p>
+<pre><code>
+We see that lead levels range from 2 to 80. The coefficient on age is about .02, so age would need to increase by about 50 years to see a higher value
+for the lead score. Unlikely to be clinically interesting! This is a side effect of the massive sample size.
+
+6)
+</code></pre>
+<p>. margins region</p>
+<p>Predictive margins Number of obs = 4,948 Model VCE: OLS</p>
+<p>Expression: Linear prediction, predict()</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">| Delta-method</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">| Margin std. err. t P&gt;|t| [95% conf. interval]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">————-+—————————————————————-</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">region |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">NE | 14.93498 .176734 84.51 0.000 14.5885 15.28145</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">MW | 14.82507 .1532375 96.75 0.000 14.52466 15.12549</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">S | 13.07649 .1525888 85.70 0.000 12.77734 13.37563</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">W | 14.64957 .1588465 92.22 0.000 14.33816 14.96098</td>
+</tr>
+</tbody>
+</table>
+<p>. margins region, pwcompare(pv)</p>
+<p>Pairwise comparisons of predictive margins Number of obs = 4,948 Model VCE: OLS</p>
+<p>Expression: Linear prediction, predict()</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">| Delta-method Unadjusted</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">| Contrast std. err. t P&gt;|t|</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">————-+—————————————</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">region |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">MW vs NE | -.1099025 .233614 -0.47 0.638</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">S vs NE | -1.858491 .2346487 -7.92 0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">W vs NE | -.2854048 .2380554 -1.20 0.231</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">S vs MW | -1.748589 .2161764 -8.09 0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">W vs MW | -.1755023 .2216647 -0.79 0.429</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">W vs S | 1.573087 .2227974 7.06 0.000</td>
+</tr>
+</tbody>
+</table>
+<pre><code>
+It looks like South is significantly lower levels of lead than the other regions, which show no difference between them.
+
+7)
+</code></pre>
+<p>. regress lead i.sex##c.age i.race c.weight c.height i.region</p>
+<pre><code>  Source |       SS           df       MS      Number of obs   =     4,948</code></pre>
+<p>————-+———————————- F(10, 4937) = 123.65 Model | 37676.3642 10 3767.63642 Prob &gt; F = 0.0000 Residual | 150434.91 4,937 30.4709156 R-squared = 0.2003 ————-+———————————- Adj R-squared = 0.1987 Total | 188111.275 4,947 38.0253234 Root MSE = 5.52</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">lead | Coefficient Std. err. t P&gt;|t| [95% conf. interval]</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">————-+—————————————————————-</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">sex |</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Female | -8.485856 .4923314 -17.24 0.000 -9.451044 -7.520667</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">age | -.0150619 .0067745 -2.22 0.026 -.0283429 -.0017809</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">sex#c.age |</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Female | .0676205 .0091936 7.36 0.000 .0495969 .0856441</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">race |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Black | 2.985719 .2657756 11.23 0.000 2.464681 3.506758</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Other | -.5307013 .5587129 -0.95 0.342 -1.626027 .5646243</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">weight | -.0044452 .0058847 -0.76 0.450 -.0159819 .0070915</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">height | -.0266069 .0126477 -2.10 0.035 -.0514021 -.0018118</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">region |</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">MW | -.1417546 .2324084 -0.61 0.542 -.5973783 .3138691</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">S | -1.897967 .2334589 -8.13 0.000 -2.35565 -1.440284</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">W | -.2945939 .2367891 -1.24 0.214 -.7588057 .169618</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">_cons | 22.89998 2.199931 10.41 0.000 18.58714 27.21282</td>
+</tr>
+</tbody>
+</table>
+<p>. margins sex, dydx(age)</p>
+<p>Average marginal effects Number of obs = 4,948 Model VCE: OLS</p>
+<p>Expression: Linear prediction, predict() dy/dx wrt: age</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">| Delta-method</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">| dy/dx std. err. t P&gt;|t| [95% conf. interval]</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">————-+—————————————————————-</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">age |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">sex |</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Male | -.0150619 .0067745 -2.22 0.026 -.0283429 -.0017809</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Female | .0525586 .006614 7.95 0.000 .0395923 .0655249</td>
+</tr>
+</tbody>
+</table>
+<p>. quietly margins sex, at(age = (20 45 70))</p>
+<p>. marginsplot</p>
+<p>Variables that uniquely identify margins: age sex</p>
+<pre><code>
+&lt;img src="Graph21.svg" &gt;
+
+We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again,
+rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly
+1 unit every 20 years). The marginal plot helps us to visualize this. For men, from age 20 to 70, the average lead decreases barely half a point. For
+women, we see nearly a 3 point average increase.
+
+
+^#^^#^ Exercise 5
+</code></pre>
+<p>. webuse nhanes2, clear</p>
+<p>. logit diabetes i.sex i.race c.age weight height i.region</p>
+<p>Iteration 0: Log likelihood = -1999.7591<br>
+Iteration 1: Log likelihood = -1819.9899<br>
+Iteration 2: Log likelihood = -1777.7462<br>
+Iteration 3: Log likelihood = -1776.9939<br>
+Iteration 4: Log likelihood = -1776.9935<br>
+Iteration 5: Log likelihood = -1776.9935</p>
+<p>Logistic regression Number of obs = 10,349 LR chi2(9) = 445.53 Prob &gt; chi2 = 0.0000 Log likelihood = -1776.9935 Pseudo R2 = 0.1114</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">diabetes | Coefficient Std. err. z P&gt;|z| [95% conf. interval]</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">————-+—————————————————————-</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">sex |</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Female | .0934803 .137068 0.68 0.495 -.175168 .3621286</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">race |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">Black | .5781259 .1326244 4.36 0.000 .3181869 .8380648</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">Other | .408093 .3623376 1.13 0.260 -.3020757 1.118262</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">age | .058799 .0039646 14.83 0.000 .0510286 .0665695</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">weight | .0268805 .0031111 8.64 0.000 .0207829 .0329782</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">height | -.0220928 .0076659 -2.88 0.004 -.0371175 -.007068</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">region |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">MW | -.0265833 .1418506 -0.19 0.851 -.3046054 .2514388</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">S | .0998071 .1375642 0.73 0.468 -.1698138 .3694281</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">W | -.0984779 .1457444 -0.68 0.499 -.3841316 .1871758</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">|</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">_cons | -4.645124 1.3496 -3.44 0.001 -7.290292 -1.999956</td>
+</tr>
+</tbody>
+</table>
+<pre><code>
+1)
+</code></pre>
+<p>. estat gof</p>
+<p>Goodness-of-fit test after logistic model Variable: diabetes</p>
+<pre><code>  Number of observations =   10,349</code></pre>
+<p>Number of covariate patterns = 10,349 Pearson chi2(10339) = 10025.54 Prob &gt; chi2 = 0.9860</p>
+<p>. estat gof, group(20) note: obs collapsed on 20 quantiles of estimated probabilities.</p>
+<p>Goodness-of-fit test after logistic model Variable: diabetes</p>
+<p>Number of observations = 10,349 Number of groups = 20 Hosmer–Lemeshow chi2(18) = 15.92 Prob &gt; chi2 = 0.5983</p>
+<p>. lroc</p>
+<p>Logistic model for diabetes</p>
+<p>Number of observations = 10349 Area under ROC curve = 0.7665</p>
+<pre><code>
+&lt;img src="Graph22.svg" &gt;
+
+We cannot reject the model fit (even once we switch to the proper Hosmer-Lemeshow test, which used 20 instead of 10 because we have 10 predictors). The ROC and AUC look decent but not great.
+
+2)
+</code></pre>
+<p>. margins race, pwcompare(pv)</p>
+<p>Pairwise comparisons of predictive margins Number of obs = 10,349 Model VCE: OIM</p>
+<p>Expression: Pr(diabetes), predict()</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">| Delta-method Unadjusted</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">| Contrast std. err. z P&gt;|z|</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">—————-+—————————————</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">race |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Black vs White | .0301076 .0081584 3.69 0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Other vs White | .0197925 .0204751 0.97 0.334</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Other vs Black | -.0103152 .0220354 -0.47 0.640</td>
+</tr>
+</tbody>
+</table>
+<p>. margins region, pwcompare(pv)</p>
+<p>Pairwise comparisons of predictive margins Number of obs = 10,349 Model VCE: OIM</p>
+<p>Expression: Pr(diabetes), predict()</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">| Delta-method Unadjusted</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">| Contrast std. err. z P&gt;|z|</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">————-+—————————————</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">region |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">MW vs NE | -.0011484 .0061371 -0.19 0.852</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">S vs NE | .0045414 .0062131 0.73 0.465</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">W vs NE | -.0041309 .0061392 -0.67 0.501</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">S vs MW | .0056899 .0056911 1.00 0.317</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">W vs MW | -.0029825 .0056876 -0.52 0.600</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">W vs S | -.0086724 .0057535 -1.51 0.132</td>
+</tr>
+</tbody>
+</table>
+<pre><code>
+Blacks are more likely to have diabetes than whites or others. Age and weight are positive predictors whereas height is a negative predictor for some
+reason. There is no effect of gender or region.
+
+^#^^#^ Exercise 6
+</code></pre>
+<p>. webuse chicken, clear</p>
+<p>. melogit complain grade i.race i.gender tenure age income /// &gt; nworkers i.genderm || restaurant:</p>
+<p>Fitting fixed-effects model:</p>
+<p>Iteration 0: Log likelihood = -1341.7541<br>
+Iteration 1: Log likelihood = -1337.7735<br>
+Iteration 2: Log likelihood = -1337.7659<br>
+Iteration 3: Log likelihood = -1337.7659</p>
+<p>Refining starting values:</p>
+<p>Grid node 0: Log likelihood = -1331.542</p>
+<p>Fitting full model:</p>
+<p>Iteration 0: Log likelihood = -1331.542<br>
+Iteration 1: Log likelihood = -1323.2469<br>
+Iteration 2: Log likelihood = -1321.7555<br>
+Iteration 3: Log likelihood = -1321.7325<br>
+Iteration 4: Log likelihood = -1321.7325</p>
+<p>Mixed-effects logistic regression Number of obs = 2,763 Group variable: restaurant Number of groups = 500</p>
+<pre><code>                                            Obs per group:
+                                                          min =          3
+                                                          avg =        5.5
+                                                          max =          8</code></pre>
+<p>Integration method: mvaghermite Integration pts. = 7</p>
+<pre><code>                                            Wald chi2(9)      =     117.56</code></pre>
+</section>
+<section id="log-likelihood--1321.7325-prob-chi2-0.0000" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="log-likelihood--1321.7325-prob-chi2-0.0000"><span class="header-section-number">8.3</span> Log likelihood = -1321.7325 Prob &gt; chi2 = 0.0000</h2>
+<pre><code>complain | Coefficient  Std. err.      z    P&gt;|z|     [95% conf. interval]</code></pre>
+<p>————-+—————————————————————- grade | .0616416 .0463355 1.33 0.183 -.0291742 .1524574 | race | 2 | .5512152 .140432 3.93 0.000 .2759736 .8264568 3 | 1.180759 .137298 8.60 0.000 .9116599 1.449858 | 1.gender | .5866638 .1059402 5.54 0.000 .3790247 .7943029 tenure | -.0699963 .1727861 -0.41 0.685 -.4086509 .2686582 age | -.0748883 .0230589 -3.25 0.001 -.1200828 -.0296938 income | -.0034531 .0016933 -2.04 0.041 -.006772 -.0001343 nworkers | -.0303442 .0391781 -0.77 0.439 -.1071318 .0464435 1.genderm | .0795912 .1245047 0.64 0.523 -.1644336 .3236159 _cons | .3910687 1.103955 0.35 0.723 -1.772644 2.554781 ————-+—————————————————————- restaurant | var(_cons)| .5755458 .1417722 .3551455 .9327247 —————————————————————————— LR test vs.&nbsp;logistic model: chibar2(01) = 32.07 Prob &gt;= chibar2 = 0.0000</p>
+<pre><code>
+1)
+
+We can't look at fit statistics, but the ^$^\chi^2^$^ is significant, so we're doing better than chance.
+
+2)
+</code></pre>
+<p>. margins race, pwcompare(pv)</p>
+<p>Pairwise comparisons of predictive margins Number of obs = 2,763 Model VCE: OIM</p>
+<p>Expression: Marginal predicted mean, predict()</p>
+<table class="table">
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">| Delta-method Unadjusted</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">| Contrast std. err. z P&gt;|z|</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">————-+—————————————</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">race |</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2 vs 1 | .0665377 .0166607 3.99 0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3 vs 1 | .1685295 .0185599 9.08 0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3 vs 2 | .1019918 .019303 5.28 0.000</td>
+</tr>
+</tbody>
+</table>
+<p>~~~~</p>
+<p>Unfortunately, this data is poorly labeled so we can’t talk in specifics about things, but generally</p>
+<ul>
+<li>Race 1, 2 and 3 have increasing odds of a complaint.</li>
+<li>Gender 1 has significantly higher odds than gender 2.</li>
+<li>Age and income are negatively related to the odds of a complaint (older, more well paid employees are less likely to have complaints).</li>
+<li>Neither restaurant level characteristic is significant once server characteristics are accounted for.</li>
+</ul>
+<ol start="3" type="1">
+<li></li>
+</ol>
+<p>The estimated random variance is non-zero, so yes, the random effects for restaurants are warranted.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./07-multiple-imputation.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

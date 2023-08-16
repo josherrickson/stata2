@@ -1,0 +1,40 @@
+# Preface {.unnumbered}
+
+## How to use this document {.unnumbered}
+
+These notes are published using [Quarto](https://quarto.org). The Stata code is
+first rendered using a Stata [dynamic
+document](https://www.stata.com/manuals/rptdynamicdocumentsintro.pdf). The
+source code for these notes can be found at
+<https://github.com/CSCAR/workshop-stata-intro> for the curious.
+
+All images should link to full-size versions to see detail if needed.
+
+## CSCAR {.unnumbered}
+
+<http://cscar.research.umich.edu/>
+
+CSCAR is available for free consultations with PhD statisticians (email
+deskpeople@umich.edu to request a consultation).
+
+CSCAR also has GSRAs available for more immediate help. Walk-ins to our office
+in Rackham are welcomed Monday-Friday 9am to 5pm (Closed Tuesdays 12-1pm).
+Alternatively, on our website, you can self-schedule into an hour consultation
+with the graduate students, which can be either remote or in-person (these are
+usually available same-day or next-day).
+
+CSCAR operates a email for help with statistical questions, feel free to send
+concise questions to stats-consulting@umich.edu.
+
+The current contact for questions about the notes: Josh Errickson
+(jerrick@umich.edu).
+
+## Acknowledgments {.unnumbered}
+
+These notes have evolved over the years thanks to many CSCAR statisticians,
+including Giselle Kolenic, Brady West, Heidi Reichert, and Lingling Zhang.
+
+This material was created for use in workshops and short courses presented by
+faculty and staff from the Consulting for Statistics, Computing \& Analytics
+Research (CSCAR) at the University of Michigan. No part of this material may be
+used for other purposes, copied, changed, or sold.

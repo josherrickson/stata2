@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Intermediate Stata (Statistical Modeling) - 1&nbsp; (_dta has notes)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-visualization.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-summarizing-data.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Intermediate Stata</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-summarizing-data.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-visualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-univariate-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">One-sample t test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">_cons | 5.113759 4.889846 1.05 0.299 -4.636317 14.86384</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-mixed-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">_cons | 1.644184 .0161148 102.03 0.000 1.612599 1.675768</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-survey-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">name type format label Variable label</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-multiple-imputation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">age | 142 12 12 | 154</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">lead Lead (mcg/dL)</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">(_dta has notes)</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p><sup>#</sup> Summarizing Data</p>
+<p>Before we consider modeling the data in any meaningful way, it is important to explore the data to get some sense of what the data looks like, as certain modeling decisions will depend on the structure of the data. This chapter and <a href="visualization.html">the next</a> will cover how to examine and visualize the data.</p>
+<p>We will be using the built-in data set “auto” for a lot of the examples. If you’re not familiar with the <code>sysuse</code> command, it functions similarly to <code>use</code>, except only loads one of the several built-in Stata data sets.</p>
+<pre><code>. sysuse auto, clear
+(1978 automobile data)
+</code></pre>
+<p>The “auto” data set contains characteristics on a number of cars from 1978.</p>
+<p><sup>##</sup> <code>describe</code>, <code>summarize</code>, <code>codebook</code></p>
+<p>The majority of the Stata modeling commands require all variables to be numeric. String variables can be used in some places, but there are plenty of times when you might expect them to work, but they don’t. As a result, I recommend converting all categorical variables into numeric. To help with this, the <code>describe</code> command can tell us what variables are string and which aren’t.</p>
+<pre><code>. describe
+
+Contains data from /Applications/Stata/ado/base/a/auto.dta
+ Observations:            74                  1978 automobile data
+    Variables:            12                  13 Apr 2022 17:45
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+-------------------------------------------------------------------------------
+make            str18   %-18s                 Make and model
+price           int     %8.0gc                Price
+mpg             int     %8.0g                 Mileage (mpg)
+rep78           int     %8.0g                 Repair record 1978
+headroom        float   %6.1f                 Headroom (in.)
+trunk           int     %8.0g                 Trunk space (cu. ft.)
+weight          int     %8.0gc                Weight (lbs.)
+length          int     %8.0g                 Length (in.)
+turn            int     %8.0g                 Turn circle (ft.)
+displacement    int     %8.0g                 Displacement (cu. in.)
+gear_ratio      float   %6.2f                 Gear ratio
+foreign         byte    %8.0g      origin     Car origin
+-------------------------------------------------------------------------------
+Sorted by: foreign
+</code></pre>
+<p>Here we can see that “make” is a string; but make is unique per row (it identifies the make and model of each car) so it’s not something we’re going to use in the model. If you wanted to use string functions (see <code>help string functions</code> for details) to extract out the manufacturer of each car (e.g.&nbsp;there are 7 Buicks in the data), that resultant “manufacturer” variable would be something we’d need to convert to a numeric. The main tools you’d need would be <code>destring</code> (which converts numeric values saved as strings into numbers) and <code>encode</code> (which converts strings to numerics with appropriate value labels).</p>
+<p><code>describe</code> is also useful to get a sense of the size of your data.</p>
+<p>Once we’ve taken a look at the structure of the data, we can start exploring each variable. The <code>summarize</code> and <code>codebook</code> commands contains almost the same information, presented in slightly different ways. It can be useful to look at both. For example,</p>
+<pre><code>. summ price, detail
+
+                            Price
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%         3291           3291
+ 5%         3748           3299
+10%         3895           3667       Obs                  74
+25%         4195           3748       Sum of wgt.          74
+
+50%       5006.5                      Mean           6165.257
+                        Largest       Std. dev.      2949.496
+75%         6342          13466
+90%        11385          13594       Variance        8699526
+95%        13466          14500       Skewness       1.653434
+99%        15906          15906       Kurtosis       4.819188
+
+. codebook price
+
+-------------------------------------------------------------------------------
+price                                                                     Price
+-------------------------------------------------------------------------------
+
+                  Type: Numeric (int)
+
+                 Range: [3291,15906]                  Units: 1
+         Unique values: 74                        Missing .: 0/74
+
+                  Mean: 6165.26
+             Std. dev.:  2949.5
+
+           Percentiles:     10%       25%       50%       75%       90%
+                           3895      4195    5006.5      6342     11385
+</code></pre>
+<p>Things to look for here include</p>
+<ul>
+<li>Values which are outside of expected values. The <code>summarize</code> commands gives the 1st and 99th percentiles (1% and 99% of values are below those thresholds, respectively) and <code>codebook</code> gives the range. If, for example, we saw a minimum value of -203 or a maximum value of 145200 (keep in mind these are 1978 dollars!), that’s an indication that there is an issue with the data, likely a mistake.</li>
+<li>The mean is as expected. If this is higher or lower than expected, it might be an indication of skew or the existence of outliers. If it is very close to the minimum or maximum value, perhaps you have a point mass (e.g.&nbsp;if you polled 18-21 year old’s on their number of children, there would be a lot of 0’s but a few non-zeros).</li>
+<li>If the standard deviation is very small (relative to the mean), then the variable has very consistent values. A standard deviation of 0 indicates a constant.</li>
+<li>The <code>codebook</code> reports the number of missing; if you have missing data, double check that it is not an error in the data. Perhaps <a href="multiple-imputation.html">multiple imputation</a> is needed.</li>
+<li>If the variable is categorical (e.g.&nbsp;race), is the number of unique entries reported in the <code>codebook</code> as expected?</li>
+</ul>
+<p><sup>##</sup> <code>mean</code></p>
+<p>The <code>mean</code> command gives summary statistics on the mean of a variable.</p>
+<pre><code>. mean price
+
+Mean estimation                             Number of obs = 74
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+       price |   6165.257   342.8719      5481.914      6848.6
+--------------------------------------------------------------
+</code></pre>
+<p>These are characteristics of the estimated mean of the “price” variable. The standard deviation reported from the <code>summarize</code> command above represents the variability among individual cars; the standard error reported by <code>mean</code> the variability of <em>means</em>: if we were to repeatedly draw samples of size 74, the standard error is a measure of the variability of the means from all those samples.</p>
+<p>The confidence interval is interpreted as if we were to continue drawing those samples of size 74, we would expect 95% of those samples to have an estimated mean within those bounds. It is <em>not</em> that we’re 95% confident that the true population mean falls in that range - either it does or it doesn’t!</p>
+<p><sup>##</sup> Estimation Commands</p>
+<p>The introduction of <code>mean</code> allows us to discuss estimation commands. An estimation command is any command that fits a statistical model - some of these are obvious such as <code>regress</code> for linear regression, but others such as <code>mean</code> which we just ran are also estimation commands because it is estimating a confidence interval. <code>summarize</code> is not because it only provides statistics about the current sample instead of making inference into the population.</p>
+<p>Almost all estimation commands have the same general syntax:</p>
+<pre><code>command varlist [if] [in] [weight] [,options]</code></pre>
+<p>The sections inside <code>[</code> and <code>]</code> are optional. The <code>command</code> can sometimes consist of a main command and one or more subcommands. The <code>varlist</code> can be empty, have a single entry, or have multiple entries (the order of which is sometimes of importance - generally the first is some outcome or dependent variable and the rest are predictors or independent variables).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Estimation commands are stored after they are run, and persist regardless of how many other non-estimation commands are run in between them. These non-estimation commands include data manipulation and <a href="#postestimation-commands">postestimation commands</a>. As soon as another estimation command is run, the first is dropped and the new one is saved.</p>
+<p>This allows interesting things such as replaying a command (calling the estimation command again without any <code>varlist</code> to re-display it’s results) even if the data is gone!</p>
+<pre><code>. clear
+
+. list
+
+. mean
+
+Mean estimation                             Number of obs = 74
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+       price |   6165.257   342.8719      5481.914      6848.6
+--------------------------------------------------------------
+</code></pre>
+<p>A larger benefit of this is that if you are fitting a model on one data set and want to get predicted values on another, you could do something like this (this is pseudo-code, not real Stata!):</p>
+<pre><code>use fitting_data
+model y x1 x2
+use newdata, clear
+predict fitted</code></pre>
+<p><sup>###</sup> Postestimation commands</p>
+<p>Since the last estimation command is saved, any commands which need to reference it (called postestimation commands) do so inherently, no need to specify. For example, let’s reload the data and run <code>mean</code> on a few variables.</p>
+<pre><code>. sysuse auto, clear
+(1978 automobile data)
+
+. mean mpg headroom length
+
+Mean estimation                             Number of obs = 74
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         mpg |    21.2973   .6725511       19.9569    22.63769
+    headroom |   2.993243   .0983449      2.797242    3.189244
+      length |   187.9324   2.588409      182.7737    193.0911
+--------------------------------------------------------------
+</code></pre>
+<p>Let’s say we want to obtain the correlation matrix<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<pre><code>. estat vce, corr
+
+Correlation matrix of coefficients of mean model
+
+        e(V) |      mpg  headroom    length 
+-------------+-----------------------------
+         mpg |   1.0000                     
+    headroom |  -0.4138    1.0000           
+      length |  -0.7958    0.5163    1.0000 
+</code></pre>
+<p>Here we see that both <code>length</code> and <code>headroom</code> are negatively correlated with <code>mpg</code>; as the car gets larger, its mileage decreases. Headroom and length are positively correlated, so cars aren’t just growing in one direction!</p>
+<p>The <code>estat</code> command is somewhat generic, we will see other uses of it later.</p>
+<p>Similar to how you can get help with any command with help, e.g.&nbsp;<code>help mean</code>, you can get a list of all postestimation commands that a given estimation command supports:</p>
+<pre><code>help mean postestimation</code></pre>
+<p>There is also a link to the postestimation page in the help for the estimation command.</p>
+<p><sup>###</sup> Storing and restoring estimation commands</p>
+<p>The obvious downside to Stata’s approach to saving the most recent estimation command is that you lose all earlier commands. If you have only a limited number of commands and each is fast, this isn’t a big deal. However, with some more <a href="mixed-models.html">advanced</a> <a href="multiple-imputation.html">approaches</a>, modeling can become very slow, so you may not want to lose the results. Stata has a solution for this, allowing us to store and recall estimation commands without having to re-run them. This has an obvious parallel to the <code>preserve</code>/<code>restore</code> commands that affect the data.</p>
+<p>You have the choice of saving the results temporarily (in memory) or permanently (to a file). There are the obvious pro’s and con’s to each approach. For these notes I will focus primarily on storing the results in memory, but I will point out where the commands differ if saving to a file. Let’s run a fresh <code>mean</code> call to work with. The <code>estimates</code> command will be used.</p>
+<pre><code>. mean price mpg
+
+Mean estimation                             Number of obs = 74
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+       price |   6165.257   342.8719      5481.914      6848.6
+         mpg |    21.2973   .6725511       19.9569    22.63769
+--------------------------------------------------------------
+
+. estimates query
+(active results produced by mean; not yet stored)
+</code></pre>
+<p>The <code>query</code> subcommand tells us what estimation command was last run, and whether it has already been saved. Here it has not. Let’s save these results.</p>
+<pre><code>. estimates store mean1
+</code></pre>
+<p>To save to a file, use <code>estimates save</code> instead. Now let’s run a second <code>mean</code> commands.</p>
+<pre><code>. mean mpg headroom length
+
+Mean estimation                             Number of obs = 74
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         mpg |    21.2973   .6725511       19.9569    22.63769
+    headroom |   2.993243   .0983449      2.797242    3.189244
+      length |   187.9324   2.588409      182.7737    193.0911
+--------------------------------------------------------------
+
+. est store mean2
+
+. est query
+(active results produced by mean; also stored as mean2)
+</code></pre>
+<p>Now <code>query</code> is telling us that the current estimation commands are (obviously) stored as “mean2”. Let’s use <code>estimates restore</code> to jump between the two. (If saving to a file, use <code>estimates use</code> instead.)</p>
+<pre><code>. est restore mean1
+(results mean1 are active now)
+
+. estat vce, corr
+
+Correlation matrix of coefficients of mean model
+
+        e(V) |    price       mpg 
+-------------+-------------------
+       price |   1.0000           
+         mpg |  -0.4686    1.0000 
+
+. est query
+(active results produced by mean; also stored as mean1)
+</code></pre>
+<p>To “replay” an estimation command (re-display the results without re-running the model), you can either restore it and call the blank command again:</p>
+<pre><code>. est restore mean2
+(results mean2 are active now)
+
+. mean
+
+Mean estimation                             Number of obs = 74
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+         mpg |    21.2973   .6725511       19.9569    22.63769
+    headroom |   2.993243   .0983449      2.797242    3.189244
+      length |   187.9324   2.588409      182.7737    193.0911
+--------------------------------------------------------------
+</code></pre>
+<p>or use <code>estimates replay</code> directly:</p>
+<pre><code>. est query
+(active results produced by mean; also stored as mean2)
+
+. est replay mean1
+
+-------------------------------------------------------------------------------
+Model mean1
+-------------------------------------------------------------------------------
+
+Mean estimation                             Number of obs = 74
+
+--------------------------------------------------------------
+             |       Mean   Std. err.     [95% conf. interval]
+-------------+------------------------------------------------
+       price |   6165.257   342.8719      5481.914      6848.6
+         mpg |    21.2973   .6725511       19.9569    22.63769
+--------------------------------------------------------------
+</code></pre>
+<p>One use of stored estimates that can be useful is creating a table to include all the results.</p>
+<pre><code>. est table mean1 mean2
+
+----------------------------------------
+    Variable |   mean1        mean2     
+-------------+--------------------------
+       price |  6165.2568               
+         mpg |  21.297297    21.297297  
+    headroom |               2.9932432  
+      length |               187.93243  
+----------------------------------------
+</code></pre>
+<p>If you are familiar with regression, you should be able to see how useful this might be!</p>
+<p>Finally, we can see all saved estimates with <code>dir</code>, drop a specific estimation command with <code>drop</code>, or remove all with <code>clear</code>:</p>
+<pre><code>. est dir
+
+--------------------------------------------------------------
+             |           Dependent  Number of        
+        Name | Command    variable     param.  Title 
+-------------+------------------------------------------------
+       mean1 | mean           Mean          2  Mean estimation
+       mean2 | mean           Mean          3  Mean estimation
+--------------------------------------------------------------
+
+. est drop mean1
+
+. est dir
+
+--------------------------------------------------------------
+             |           Dependent  Number of        
+        Name | Command    variable     param.  Title 
+-------------+------------------------------------------------
+       mean2 | mean           Mean          3  Mean estimation
+--------------------------------------------------------------
+
+. est clear
+
+. est dir
+</code></pre>
+<p><sup>##</sup> <code>tab</code></p>
+<p>Continuing on with exploring the data, categorical variables are not summarized well by the mean. Instead, we’ll look at a tabulation.</p>
+<pre><code>. tabulate rep78
+
+     Repair |
+record 1978 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |          2        2.90        2.90
+          2 |          8       11.59       14.49
+          3 |         30       43.48       57.97
+          4 |         18       26.09       84.06
+          5 |         11       15.94      100.00
+------------+-----------------------------------
+      Total |         69      100.00
+</code></pre>
+<p>This gives us the count at each level, the percent at each level, as well as the cumulative percent (e.g.&nbsp;57.97% of observations have a value of 3 or below). The cumulative percentage is only informative for an ordinal variable (a categorical variable that has an ordering too it), and not an unordered categorical variable such as race.</p>
+<p>Note that it is counting a total of 69 observations to total 100% of the data. However, you may have noticed earlier that we have 74 rows of data. By default, <code>tabulate</code> does <em>not</em> include any information about missing values. The <code>missing</code> option corrects that.</p>
+<pre><code>. tab rep78, missing
+
+     Repair |
+record 1978 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |          2        2.70        2.70
+          2 |          8       10.81       13.51
+          3 |         30       40.54       54.05
+          4 |         18       24.32       78.38
+          5 |         11       14.86       93.24
+          . |          5        6.76      100.00
+------------+-----------------------------------
+      Total |         74      100.00
+</code></pre>
+<p>It’s important to keep in mind the difference between the percentages of the two outputs. For example, 11.59% of <em>non-missing</em> values of <code>rep78</code> are 2, whereas only 10.81% of <em>all</em> values are 2.</p>
+<p>There are a few other options related to how the results are visualized which we will not cover.</p>
+<p><sup>###</sup> Two-way tables</p>
+<p>We will cover two-way tables (also known as “crosstabs”) later in <a href="univariate-and-some-bivariate-analysis.html#chi-square-test">univariate analysis</a>, but there is a peculiarity to <code>tab</code> related to it. If you pass two variables to <code>tab</code>, it creates the crosstab:</p>
+<pre><code>. tab rep78 foreign, missing
+
+    Repair |
+    record |      Car origin
+      1978 |  Domestic    Foreign |     Total
+-----------+----------------------+----------
+         1 |         2          0 |         2 
+         2 |         8          0 |         8 
+         3 |        27          3 |        30 
+         4 |         9          9 |        18 
+         5 |         2          9 |        11 
+         . |         4          1 |         5 
+-----------+----------------------+----------
+     Total |        52         22 |        74 
+</code></pre>
+<p><sup>###</sup> Generating dummy variables</p>
+<p>Although Stata has excellent categorical variable handling capabilities, you may occasionally have the situation where you want the dummy variables instead of a category. For an example of the difference, consider a “campus” variable with three options, “central”, “north” and “medical”. Imagine our data looks like:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><code>id</code></th>
+<th style="text-align: left;"><code>campus</code></th>
+<th style="text-align: center;"><code>campuscentral</code></th>
+<th style="text-align: center;"><code>campusnorth</code></th>
+<th style="text-align: center;"><code>campusmedical</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">north</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">central</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">north</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">north</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">medical</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that the information in <code>campus</code> and the information encoded in <code>campuscentral</code>, <code>campusnorth</code>, and <code>campusmedical</code> are identical. A 1 in the <code>campus____</code> variables represents “True” and 0 represents “False”, and only a single 1 is allowed per row.</p>
+<p>As mentioned, we will most of the time use categorical variables such as <code>campus</code> over dummy variables like <code>campus_____</code> (these are used in the actual model, but Stata creates them for you behind the scenes so you don’t need to worry about them), but if necessary, you can create the dummy variables using <code>tab</code>:</p>
+<pre><code>. list rep* in 1/5
+
+     +-------+
+     | rep78 |
+     |-------|
+  1. |     3 |
+  2. |     3 |
+  3. |     . |
+  4. |     3 |
+  5. |     4 |
+     +-------+
+
+. tab rep78, gen(reps)
+
+     Repair |
+record 1978 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |          2        2.90        2.90
+          2 |          8       11.59       14.49
+          3 |         30       43.48       57.97
+          4 |         18       26.09       84.06
+          5 |         11       15.94      100.00
+------------+-----------------------------------
+      Total |         69      100.00
+
+. list rep* in 1/5
+
+     +-----------------------------------------------+
+     | rep78   reps1   reps2   reps3   reps4   reps5 |
+     |-----------------------------------------------|
+  1. |     3       0       0       1       0       0 |
+  2. |     3       0       0       1       0       0 |
+  3. |     .       .       .       .       .       . |
+  4. |     3       0       0       1       0       0 |
+  5. |     4       0       0       0       1       0 |
+     +-----------------------------------------------+
+</code></pre>
+<p>If you are not familiar with the <code>list</code> command, it prints out data. Giving it a variable (or multiple) restricts it to those (here we restricted it to <code>rep\*</code>, which is any variable that starts with “rep” - the * is a wildcard), and the <code>in</code> statement restricts to the first 5 observations (we just want a quick visualization, not to print everything).</p>
+<p>Take note of how the missing value is propogated when creating the dummies.</p>
+<p><sup>##</sup> <code>correlate</code></p>
+<p>With the use of <code>tab</code> for crosstabs, we’ve left univariate summaries and moved to joint summaries. For continuous variables, we can use the correlation to examine how similar two continuous variables are. The most common version of correlation is Pearson’s correlation, which ranges from -1 to 1.</p>
+<ul>
+<li>A value of 0 represents no correlation; having information about one variable provides no insight into the other.</li>
+<li>A value towards 1 represents positive correlation; as one value increases, the other tends to increase as well. A correlation of 1 would be perfect correlation; the two variables differ by only a transformation, e.g.&nbsp;your height in inches and centimeters.</li>
+<li>A value towards -1 represents negative correlation; as one value increases, the other tends to decreases (and vice-versa). A correlation of -1 would be perfect negative correlation, e.g.&nbsp;during a road trip, your distance travel is perfectly negatively correlated with your distance to you destination (ignoring detours).</li>
+</ul>
+<p>We can calculate the Pearson’s correlation with <code>correlate</code>.</p>
+<pre><code>. correlate weight length
+(obs=74)
+
+             |   weight   length
+-------------+------------------
+      weight |   1.0000
+      length |   0.9460   1.0000
+
+</code></pre>
+<p>This produces whats known as the correlation matrix. The diagonal entries are both 1, because clearly each variable is perfectly correlated with itself! The off-diagonal entries are identical since correlation is a symmetric operation. The value of .95 is extremely close to one, as we would expect - longer cars are heavier and perhaps vice-versa. Another way to think of it is that once we know <code>weight</code>, learning <code>length</code> does not add much information. On the other hand,</p>
+<pre><code>. corr price turn
+(obs=74)
+
+             |    price     turn
+-------------+------------------
+       price |   1.0000
+        turn |   0.3096   1.0000
+
+</code></pre>
+<p>with a correlation of .31, learning <code>turn</code> when you already know <code>price</code> does add a lot of information.</p>
+<p>We can look at multiple correlations at once as well.</p>
+<pre><code>. corr mpg weight length
+(obs=74)
+
+             |      mpg   weight   length
+-------------+---------------------------
+         mpg |   1.0000
+      weight |  -0.8072   1.0000
+      length |  -0.7958   0.9460   1.0000
+
+</code></pre>
+<p>We see the .9460 we saw earlier, but notice also that <code>mpg</code> is negatively correlated with both <code>weight</code> and <code>length</code> - a larger car gets worse mileage and low mileage cars tend to be large. A few notes:</p>
+<ul>
+<li>The amount of information contained is irrespective of the sign; knowing the <code>mpg</code> of a car, adding information about its <code>weight</code> doesn’t add much information.</li>
+<li>The two correlations with <code>mpg</code> are extremely similar. We might generally expect that, given that <code>weight</code> and <code>length</code> are so strongly correlated. Note that despite that we expect that, it is not a rule - it is entirely possible (though unlikely) that the correlations with <code>mpg</code> could be very dissimilar.</li>
+</ul>
+<p>What are thresholds for a “low” or “high” correlation? This will depend greatly on your field and setting, a common metric is that .3 is a low correlation, .6 is a moderate correlation, and .8 is a strong correlation.</p>
+<p>It is possible to obtain p-values testing whether each of those correlations are significantly distinguishable from 0 by passing the <code>sig</code> option. However, p-values for correlations are extremely dependent on sample size and should not be trusted.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> The magnitude of the correlation is much more important than it’s significance.</p>
+<p><sup>###</sup> varlists in Stata</p>
+<p>Consider if we wanted to look at all the continuous variables in the data. We could write <code>corr price mpg ...</code> and make a very long command. The collection of all variables would be a “varlist”. Stata has several ways of short cutting this.</p>
+<p>The first we’ve already seen when we used the wildcard “\*” <a href="#Generating-dummy-variables">above</a>. We can use * anywhere in the variable name to denote any number of additional characters. E.g. “this*var” matches “thisvar”, “thisnewvar”, “this-var”, “thisHFJHDJSHFKDHFKSHvar”, etc. A second wildcard, “?”, represents just a single variable, so “this*var” would match only “this-var” from that list, as well as “thisAvar”, “thisJvar”, etc.</p>
+<p>Secondly, we can match a subset of variables that are next to each other using “-”. All variable, starting with the one to the left of the - and ending with the one to the right of the - are included. For example,</p>
+<pre><code>. desc, simple
+make          headroom      turn          reps1         reps5
+price         trunk         displacement  reps2
+mpg           weight        gear_ratio    reps3
+rep78         length        foreign       reps4
+
+. desc trunk-turn
+
+Variable      Storage   Display    Value
+    name         type    format    label      Variable label
+-------------------------------------------------------------------------------
+trunk           int     %8.0g                 Trunk space (cu. ft.)
+weight          int     %8.0gc                Weight (lbs.)
+length          int     %8.0g                 Length (in.)
+turn            int     %8.0g                 Turn circle (ft.)
+</code></pre>
+<p>We can combine those two, as well as specifying individual variables.</p>
+<pre><code>. corr price-rep78 t* displacement
+(obs=69)
+
+             |    price      mpg    rep78    trunk     turn displa~t
+-------------+------------------------------------------------------
+       price |   1.0000
+         mpg |  -0.4559   1.0000
+       rep78 |   0.0066   0.4023   1.0000
+       trunk |   0.3232  -0.5798  -0.1572   1.0000
+        turn |   0.3302  -0.7355  -0.4961   0.6008   1.0000
+displacement |   0.5479  -0.7434  -0.4119   0.6287   0.8124   1.0000
+
+</code></pre>
+<p><code>price</code>, <code>mpg</code> and <code>rep78</code> are included as part of <code>price-rep78</code>, <code>t\*</code> matches <code>trunk</code> and <code>turn</code>, and <code>displacement</code> is included by itself.</p>
+<p>Finally, there is the special variable list <code>\_all</code>, which is shorthand for all variables (e.g.&nbsp;<code>firstvar-lastvar</code>). It is accepted in most but not all places that take in variables.</p>
+<pre><code>. corr _all
+(make ignored because string variable)
+(obs=69)
+
+             |    price      mpg    rep78 headroom    trunk   weight   length
+-------------+---------------------------------------------------------------
+       price |   1.0000
+         mpg |  -0.4559   1.0000
+       rep78 |   0.0066   0.4023   1.0000
+    headroom |   0.1112  -0.3996  -0.1480   1.0000
+       trunk |   0.3232  -0.5798  -0.1572   0.6608   1.0000
+      weight |   0.5478  -0.8055  -0.4003   0.4795   0.6691   1.0000
+      length |   0.4425  -0.8037  -0.3606   0.5240   0.7326   0.9478   1.0000
+        turn |   0.3302  -0.7355  -0.4961   0.4347   0.6008   0.8610   0.8631
+displacement |   0.5479  -0.7434  -0.4119   0.4763   0.6287   0.9316   0.8621
+  gear_ratio |  -0.3802   0.6565   0.4103  -0.3790  -0.5107  -0.7906  -0.7232
+     foreign |  -0.0174   0.4538   0.5922  -0.3347  -0.4053  -0.6460  -0.6110
+       reps1 |  -0.0945  -0.0086  -0.4230  -0.2550  -0.2175   0.0149   0.0054
+       reps2 |  -0.0223  -0.1346  -0.5180   0.1603   0.0586   0.1480   0.1778
+       reps3 |   0.0859  -0.2796  -0.3622   0.1726   0.2724   0.2975   0.2218
+       reps4 |  -0.0153   0.0384   0.3592  -0.0195  -0.0589  -0.1223  -0.0909
+       reps5 |  -0.0351   0.4542   0.7065  -0.2337  -0.2498  -0.3925  -0.3492
+
+             |     turn displa~t gear_r~o  foreign    reps1    reps2    reps3
+-------------+---------------------------------------------------------------
+        turn |   1.0000
+displacement |   0.8124   1.0000
+  gear_ratio |  -0.7005  -0.8381   1.0000
+     foreign |  -0.6768  -0.6383   0.7266   1.0000
+       reps1 |   0.0471  -0.0131  -0.0355  -0.1143   1.0000
+       reps2 |   0.2939   0.1733  -0.2468  -0.2395  -0.0626   1.0000
+       reps3 |   0.2526   0.3038  -0.2449  -0.3895  -0.1515  -0.3176   1.0000
+       reps4 |  -0.1748  -0.1231   0.2287   0.2526  -0.1026  -0.2151  -0.5211
+       reps5 |  -0.4110  -0.4093   0.2894   0.4863  -0.0752  -0.1577  -0.3820
+
+             |    reps4    reps5
+-------------+------------------
+       reps4 |   1.0000
+       reps5 |  -0.2587   1.0000
+
+</code></pre>
+<p>Notice that it automatically ignored the string variable <code>make</code>. Not all commands will work this well, so <code>\_all</code> may occasionally fail unexpectedly.</p>
+<p><sup>###</sup> Pairwise completion vs complete case</p>
+<p>You may have noticed that the <code>cor</code> command reports the number of observations it used, for example, the first few correlations all used 74 observations, but the <code>\_all</code> version used on 69. <code>correlate</code> uses what’s known as complete cases analysis - any observation missing <em>any</em> value used in the command is excluded. <code>rep78</code> is missing 5 observations (run the <code>misstable summarize</code> command to see this).</p>
+<p>On the other hand, pairwise completion only excludes missing values from the relevant comparisons. If a given correlation doesn’t involve <code>rep78</code>, it will use all the data. We can obtain this with <code>pwcorr</code>.</p>
+<pre><code>. corr rep78 price trunk
+(obs=69)
+
+             |    rep78    price    trunk
+-------------+---------------------------
+       rep78 |   1.0000
+       price |   0.0066   1.0000
+       trunk |  -0.1572   0.3232   1.0000
+
+
+. pwcorr rep78 price trunk
+
+             |    rep78    price    trunk
+-------------+---------------------------
+       rep78 |   1.0000 
+       price |   0.0066   1.0000 
+       trunk |  -0.1572   0.3143   1.0000 
+</code></pre>
+<p>Notice the two correlations involving <code>rep78</code> are identical - the same set of observations are dropped in both. However, the correlation between <code>price</code> and <code>trunk</code> differs - in <code>correlate</code>, it is only using 69 observations, whereas in <code>pwcorr</code> it uses all 74.</p>
+<p>It may seem that <code>pwcorr</code> is always superior (and, in isolation it is). However, most models such as <a href="regression.html">regression</a> only support complete cases analysis, so in those cases, if you are exploring your data, it does not make sense to do pairwise comparison. Ultimately, the choice remains up to you. If the results from <code>correlate</code> and <code>pwcorr</code> do differ drastically, that is a sign of something else going on!</p>
+<p><sup>###</sup> Spearman correlation</p>
+<p>One limitation of Pearson’s correlation is that it is detecting linear relationships only. A famous example of this is Anscombe’s quartet:</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Anscombe%27s_quartet_3.svg" class="img-fluid"></p>
+<p>In each pair, the Pearson correlation is an identical .8162! In the first, that’s what we want. In the second, the relationship is strong but non-linear. In the third, only one value is not perfectly correlated, so the Pearsons correlation is diminished. In the fourth, only the existence of the single outlier is driving the relationship.</p>
+<p>Spearman correlation is an alternative to Pearson correlation. It works by ranking each variable and then performing Pearson’s correlation. The command in Stata is <code>spearman</code>.</p>
+<pre><code>. corr price trunk
+(obs=74)
+
+             |    price    trunk
+-------------+------------------
+       price |   1.0000
+       trunk |   0.3143   1.0000
+
+
+. spearman price trunk, matrix
+
+Number of observations = 74
+
+             |    price    trunk
+-------------+------------------
+       price |   1.0000 
+       trunk |   0.3996   1.0000 
+</code></pre>
+<p>The <code>matrix</code> option forces output to mirror <code>correlate</code>, otherwise it produces a slightly different output when given only two variables. <code>spearman</code> uses <a href="#Pairwise-completion-vs-complete-case">complete cases</a>; to use pairwise complete instead, pass the option <code>pw</code>:</p>
+<pre><code>. spearman mpg-headroom, pw
+
+Number of observations:
+                      min = 69
+                      avg = 71
+                      max = 74
+
+             |      mpg    rep78 headroom
+-------------+---------------------------
+         mpg |   1.0000 
+       rep78 |   0.3098   1.0000 
+    headroom |  -0.4866  -0.1583   1.0000 
+</code></pre>
+<p>How does Spearman’s correlation compare to Pearson’s for Anscombe’s quartet?</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Comparison</th>
+<th style="text-align: center;">Pearson</th>
+<th style="text-align: center;">Spearman</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><sup><span class="math inline">\(^y_1, x_1^\)</span></sup></td>
+<td style="text-align: center;">.8162</td>
+<td style="text-align: center;">.8182</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><sup><span class="math inline">\(^y_2, x_2^\)</span></sup></td>
+<td style="text-align: center;">.8162</td>
+<td style="text-align: center;">.6909</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><sup><span class="math inline">\(^y_3, x_3^\)</span></sup></td>
+<td style="text-align: center;">.8162</td>
+<td style="text-align: center;">.9909</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><sup><span class="math inline">\(^y_4, x_4^\)</span></sup></td>
+<td style="text-align: center;">.8162</td>
+<td style="text-align: center;">.5000</td>
+</tr>
+</tbody>
+</table>
+<p>The second correlation diminishes, the third drastically increases, and the fourth decreases as well.</p>
+<p><sup>##</sup> Exercise 1</p>
+<p>For these exercises, we’ll be using data from NHANES, the National Health And Nutrition Examination Survey. The data is on Stata’s website, and you can load it via</p>
+<pre><code>webuse nhanes2, clear</code></pre>
+<ol type="1">
+<li>Use <a href="#describe-summarize-codebook"><code>describe</code></a> to get a sense of the data. How many observations? How many variables?</li>
+<li>Use <a href="#tab"><code>tab</code></a>, <a href="#describe-summarize-codebook"><code>summarize</code></a>, <a href="#describe-summarize-codebook"><code>codebook</code></a>, and/or <a href="#mean"><code>mean</code></a> to get an understanding of the some of variables that we’ll be using going forward:
+<ul>
+<li><code>region</code></li>
+<li><code>sex</code></li>
+<li><code>diabetes</code></li>
+<li><code>lead</code></li>
+</ul></li>
+<li>Does <code>race</code> have any missing data? Does <code>diabetes</code>? Does <code>lead</code>?</li>
+<li>What is more highly <a href="#correlate">correlated</a>? A person’s height and weight, or their diastolic and systolic blood pressure?</li>
+</ol>
+
+
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>We won’t cover in this class, but there are multiple-equation estimating commands which have syntax <code>command (varlist) (varlist) ... (varlist) [if] [in] [weight] [,options]</code>. <a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We could just run <code>correlate</code>, but the postestimation commands following <code>mean</code> are fairly limited, so bare with me here. Postestimation commands following models are much more interesting!<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This is true of most p-values - it’s often the case that large sample sizes can provide small p-values for scientifically insignificant effects. However, correlation is especially susceptible to this issue.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02-visualization.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">02-visualization.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
