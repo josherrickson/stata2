@@ -105,7 +105,7 @@ We can examine our setup with `mi describe`:
 . mi describe
 
 Style: flong
-       last mi update 16aug2023 16:54:24, 0 seconds ago
+       last mi update 16aug2023 19:56:14, 0 seconds ago
 
 Observations:
    Complete          126
