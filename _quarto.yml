@@ -1,0 +1,24 @@
+project:
+  type: book
+  pre-render: make quarto-prerender
+  output-dir: docs
+
+book:
+  title: "Intermediate Stata (Statistical Modeling)"
+  sidebar:
+    title: "Intermediate Stata"
+  chapters:
+    - index.qmd
+    - 01-summarizing-data.qmd
+    - 02-visualization.qmd
+    - 03-univariate-analysis.qmd
+    - 04-regression.qmd
+    - 05-mixed-models.qmd
+    - 06-survey-data.qmd
+    - 07-multiple-imputation.qmd
+    - solutions.qmd
+
+format:
+  html:
+    theme: cosmo
+    callout-appearance: simple
