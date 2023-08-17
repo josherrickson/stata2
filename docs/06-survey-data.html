@@ -231,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Variance Estimation</li>
 </ol>
 <p>Incorporation of the weights corrects for biased estimates (representation) and the stratification and clustering produces correct variance estimates.</p>
-<p>Stata is one of the leaders in terms of statistical software that can perform these types of analyses, and offers a wide variety of commands that will perform design-based analyses of data arising from a sample with a complex design. The basic process consists of two steps (similar to <a href="multiple-imputation.html"><code>mi</code></a>), first using <code>svyset</code> to describe the complex survey design, secondly using the <code>svy:</code> prefix to perform analyses.</p>
+<p>Stata is one of the leaders in terms of statistical software that can perform these types of analyses, and offers a wide variety of commands that will perform design-based analyses of data arising from a sample with a complex design. The basic process consists of two steps (similar to <a href="07-multiple-imputation.html"><code>mi</code></a>), first using <code>svyset</code> to describe the complex survey design, secondly using the <code>svy:</code> prefix to perform analyses.</p>
 <section id="definitions" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="definitions"><span class="header-section-number">6.1</span> Definitions</h2>
 <p>Complex survey design is a massive topic which there are entire departments devoted to (Program at Survey Methodology here at Michigan) and which we offer a separate full day workshop (Survey Design). A simple survey design takes a random sample from the population as a whole. There are various reasons why a simple random sample will not work.</p>
@@ -252,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="describing-the-survey" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="describing-the-survey"><span class="header-section-number">6.2</span> Describing the survey</h2>
 <p>The general syntax is</p>
-<pre><code>svyset &lt;psu&gt; [pweight = &lt;weight&gt;], strata(&lt;strata&gt;)</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">svyset</span> &lt;psu&gt; [<span class="kw">pweight</span> = &lt;<span class="kw">weight</span>&gt;], <span class="kw">strata</span>(&lt;<span class="kw">strata</span>&gt;)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>svyset</code> command defines the variables identifying the complex design of the sample to Stata, and only needs to be submitted once in a given Stata session. The <code>&lt;psu&gt;</code> is a variable identifying the primary sampling unit (PSU) that an observation came from. The <code>&lt;weight&gt;</code> is a variable containing sampling weights. Finally, the <code>&lt;strata&gt;</code> is a variable identifying the sampling stratum that an observation came from.</p>
 <p>The NHANES data we’ve been using in our examples is actually from a complex sample design, which we’ve been ignoring. Let’s incorporate the sampling into the analysis.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">webuse</span> nhanes2, <span class="kw">clear</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -444,7 +444,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |  -46.10337          .        .       .            .           .</span>
 <span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
 <span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>Note: Missing standard errors because <span class="kw">of</span> stratum with single sampling unit.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The point estimates and <sup><span class="math inline">\(^R^2^\)</span></sup> are the same, but Stata refuses to even calculate standard errors.</p>
+<p>The point estimates and <span class="math inline">\(R^2\)</span> are the same, but Stata refuses to even calculate standard errors.</p>
 
 
 </section>

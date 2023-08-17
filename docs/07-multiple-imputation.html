@@ -236,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p>Multiple imputation is a common approach to addressing missing data issues. When there is missing data, the default results are often obtained with complete case analysis (using only observations with complete data) can produce biased results <a href="#missing-at-random">though not always</a>. Additionally, complete case analysis can have a severe negative effect on the power by greatly reducing the sample size.</p>
+<p>Multiple imputation is a common approach to addressing missing data issues. When there is missing data, the default results are often obtained with complete case analysis (using only observations with complete data) can produce biased results <a href="07-multiple-imputation.html#missing-at-random">though not always</a>. Additionally, complete case analysis can have a severe negative effect on the power by greatly reducing the sample size.</p>
 <p>Imputation in general is the idea of filling in missing values to simulate having complete data. Some simpler forms of imputation include:</p>
 <ul>
 <li>Mean imputation. Replace each missing value with the mean of the variable for all non-missing observations.</li>
@@ -245,11 +245,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>There are various pros and cons to each approach, but in general, none are as powerful or as commonly used as multiple imputation. Multiple imputation (or MI) is a three step procedure:</p>
 <ol type="1">
-<li>For each missing value, obtain a distribution for it. Sample from these distributions to obtain imputed values that have some randomness built in. Do this repeatedly to create <sup><span class="math inline">\(^M^\)</span></sup> total imputed data sets. Each of these <sup><span class="math inline">\(^M^\)</span></sup> data sets is identical on non-missing values but will (almost certainly) differ on the imputed values.</li>
-<li>Perform your statistical analysis on each of the <sup><span class="math inline">\(^M^\)</span></sup> imputed data sets separately.</li>
+<li>For each missing value, obtain a distribution for it. Sample from these distributions to obtain imputed values that have some randomness built in. Do this repeatedly to create <span class="math inline">\(M\)</span> total imputed data sets. Each of these <span class="math inline">\(M\)</span> data sets is identical on non-missing values but will (almost certainly) differ on the imputed values.</li>
+<li>Perform your statistical analysis on each of the <span class="math inline">\(M\)</span> imputed data sets separately.</li>
 <li>Pool your results together in a specific fashion to account for the uncertainty in imputations.</li>
 </ol>
-<p>Thankfully, for simple analyses (e.g.&nbsp;most regression models), Stata will perform all three steps for you automatically. We will briefly discuss later how to <a href="#manual-mi">perform MI if Stata doesn’t support it</a>.</p>
+<p>Thankfully, for simple analyses (e.g.&nbsp;most regression models), Stata will perform all three steps for you automatically. We will briefly discuss later how to <a href="07-multiple-imputation.html#manual-mi">perform MI if Stata doesn’t support it</a>.</p>
 <section id="missing-at-random" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="missing-at-random"><span class="header-section-number">7.1</span> Missing at random</h2>
 <p>There can be many causes of missing data. We can classify the reason data is missing into one of three categories:</p>
@@ -295,14 +295,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>imputed: A variable with missing data that needs to be imputed.</li>
 <li>regular: Any variable that is complete or does not need imputation.</li>
 </ul>
-<p>Technically we only need specify the imputed variables, as anything unspecified is assumed to be regular. We saw <a href="#mi">above</a> that <code>age</code> and <code>bmi</code> have missing values:</p>
+<p>Technically we only need specify the imputed variables, as anything unspecified is assumed to be regular. We saw <a href="07-multiple-imputation.html#mi">above</a> that <code>age</code> and <code>bmi</code> have missing values:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> register imputed age bmi</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(28 <span class="fu">m</span>=0 <span class="kw">obs</span> now marked <span class="kw">as</span> incomplete)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We can examine our setup with <code>mi describe</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> <span class="kw">describe</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Style: flong</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">last</span> <span class="fu">mi</span> update 16aug2023 19:56:14, 0 seconds ago</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">last</span> <span class="fu">mi</span> update 17aug2023 07:47:22, 0 seconds ago</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Observations:</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   Complete          126</span>
@@ -324,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="imputing-transformations" class="level4" data-number="7.2.1.1">
 <h4 data-number="7.2.1.1" class="anchored" data-anchor-id="imputing-transformations"><span class="header-section-number">7.2.1.1</span> Imputing transformations</h4>
 <p>What happens if you had a transform of a variable? Say you had a variable for salary, and wanted to use a log transformation?</p>
-<p>You can find literature suggesting either transforming first and then imputing, or imputing first and then transforming. Our suggestion, following current statistical literature is to <strong>transform first, impute second</strong>.(<a href="#citations">Hippel 2009</a>)</p>
+<p>You can find literature suggesting either transforming first and then imputing, or imputing first and then transforming. Our suggestion, following current statistical literature is to <strong>transform first, impute second</strong>.(<a href="07-multiple-imputation.html#citations">Hippel 2009</a>)</p>
 <p>Stata technically supports the other option via <code>mi register passive</code>, but we don’t recommend it’s usage. Instead, transform your original data, then flag both the variable and its transformations as “imputed”</p>
 </section>
 </section>
@@ -332,11 +332,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="7.2.2" class="anchored" data-anchor-id="performing-the-imputation"><span class="header-section-number">7.2.2</span> Performing the imputation</h3>
 <p>Now that we’ve got the MI set up, we can perform the actual procedure. There are a very wide number of variations on how this imputation can be done (including defining your own!). You can see these as the options to <code>mi impute</code>. We’ll just be focusing on the “chained” approach, which is a good approach to start with.</p>
 <p>The syntax for this is a bit complicated, but straightforward once you understand it.</p>
-<pre><code>mi impute chained (&lt;method 1&gt;) &lt;variables to impute with method 1&gt; ///
-                  (&lt;method 2&gt;) &lt;variables to impute with method 2&gt; ///
-                  = &lt;all non-imputed variables&gt;, add(&lt;number of imputations&gt;)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mi</span> <span class="kw">impute</span> chained (&lt;method 1&gt;) &lt;variables to <span class="kw">impute</span> with method 1&gt; <span class="co">///</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                  (&lt;method 2&gt;) &lt;variables to <span class="kw">impute</span> with method 2&gt; <span class="co">///</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                  = &lt;<span class="ot">all</span> non-imputed variables&gt;, add(&lt;number <span class="kw">of</span> imputations&gt;)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>&lt;methods&gt;</code> are essentially what type of model you would use to predict the outcome. For example, for continuous data, use <code>regress</code>. For binary data use <code>logit</code>. It also supports <code>ologit</code> (ordinal logistic regression, multiple categories with ordering), <code>mlogit</code> (multinomial logistic regression, multiple categories without ordering), <code>poisson</code> or <code>nbreg</code> (poisson regression or negative binomial regression, for count data), as well as some others. See <code>help mi impute chained</code> under “uvmethod” for the full list.</p>
-<p>The <code>add( )</code> option specifies how many imputed data sets to generate, we’ll discuss <a href="#choosing-the-number-of-imputations">below</a> how to choose this.</p>
+<p>The <code>add( )</code> option specifies how many imputed data sets to generate, we’ll discuss <a href="07-multiple-imputation.html#choosing-the-number-of-imputations">below</a> how to choose this.</p>
 <p>Continuing with our example might make this more clear. To perform our imputation, we would use</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> <span class="kw">impute</span> chained (<span class="kw">regress</span>) bmi age = attack smokes female hsgrad, add(5)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">note</span>: <span class="fu">missing</span>-<span class="ot">value</span> pattern is monotone; no iteration performed.</span>
@@ -368,18 +368,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>(Complete + Incomplete = Total; Imputed is the minimum across <span class="fu">m</span></span>
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a> <span class="kw">of</span> the number <span class="kw">of</span> filled-<span class="kw">in</span> observations.)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Since both <code>bmi</code> and <code>age</code> are continuous variables, we use method <code>regress</code>. Imagine if we were also imputing <code>smokes</code>, a binary variable. Then the imputation (after running <code>mi register imputed smokes</code>) would be:</p>
-<pre><code>mi impute chained (regress) bmi age (logit) smokes = attack female hsgrad, add(5)</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mi</span> <span class="kw">impute</span> chained (<span class="kw">regress</span>) bmi age (<span class="kw">logit</span>) smokes = attack female hsgrad, add(5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Here, <code>regress</code> was used for <code>bmi</code> and <code>age</code>, and <code>logit</code> was used for <code>smokes</code>.</p>
 <section id="choosing-the-number-of-imputations" class="level4" data-number="7.2.2.1">
 <h4 data-number="7.2.2.1" class="anchored" data-anchor-id="choosing-the-number-of-imputations"><span class="header-section-number">7.2.2.1</span> Choosing the number of imputations</h4>
-<p>Classic literature has suggested you need only 5 imputations to obtain valid results. This will address the efficiency of point estimates, but not standard errors. More modern literature increases this number, with a good starting point being 200 imputations. (<a href="#citations">Graham 2007</a>, <a href="#citations">White et al 2011</a>)</p>
-<p>If your data set is large and the imputation is slow, a recent paper (<a href="#citations">Von Hippel 2018</a>) gives a two-stage procedure to estimate the required number of imputations. This two-stage procedure first performs a small number of imputations and carries out the analysis. It then using the results of that analysis to inform a better estimate of the required sample size. You can install the user command <code>how_many_imputations</code> for details and examples</p>
-<pre><code>ssc install how_many_imputations
-help how_many_imputations</code></pre>
+<p>Classic literature has suggested you need only 5 imputations to obtain valid results. This will address the efficiency of point estimates, but not standard errors. More modern literature increases this number, with a good starting point being 200 imputations. (<a href="07-multiple-imputation.html#citations">Graham 2007</a>, <a href="07-multiple-imputation.html#citations">White et al 2011</a>)</p>
+<p>If your data set is large and the imputation is slow, a recent paper (<a href="07-multiple-imputation.html#citations">Von Hippel 2018</a>) gives a two-stage procedure to estimate the required number of imputations. This two-stage procedure first performs a small number of imputations and carries out the analysis. It then using the results of that analysis to inform a better estimate of the required sample size. You can install the user command <code>how_many_imputations</code> for details and examples</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install how_many_imputations</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> how_many_imputations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="mi_-variables" class="level4" data-number="7.2.2.2">
-<h4 data-number="7.2.2.2" class="anchored" data-anchor-id="mi_-variables"><span class="header-section-number">7.2.2.2</span> <code>_mi_</code> variables</h4>
-<p>After you’ve performed your imputation<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, three new variables are added to your data, and your data gets <sup><span class="math inline">\(^M^\)</span></sup> additional copies of itself. In the example <a href="#performing-the-imputation">above</a>, we added 5 imputations, so there are a total of 6 copies of the data - the raw data (with the missing values), and 5 copies with imputed values. The new variables added are:</p>
+<section id="variables-created-by-mi" class="level4" data-number="7.2.2.2">
+<h4 data-number="7.2.2.2" class="anchored" data-anchor-id="variables-created-by-mi"><span class="header-section-number">7.2.2.2</span> Variables created by <code>mi</code></h4>
+<p>After you’ve performed your imputation<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, three new variables are added to your data, and your data gets <span class="math inline">\(M\)</span> additional copies of itself. In the example <a href="07-multiple-imputation.html#performing-the-imputation">above</a>, we added 5 imputations, so there are a total of 6 copies of the data - the raw data (with the missing values), and 5 copies with imputed values. The new variables added are:</p>
 <ul>
 <li><code>_mi_id</code> is the ID number of each row corresponding to its position in the original data</li>
 <li><code>_mi_miss</code> flags whether the row had missing data originally.</li>
@@ -389,9 +389,9 @@ help how_many_imputations</code></pre>
 </section>
 <section id="analyzing-mi-data" class="level3" data-number="7.2.3">
 <h3 data-number="7.2.3" class="anchored" data-anchor-id="analyzing-mi-data"><span class="header-section-number">7.2.3</span> Analyzing <code>mi</code> data</h3>
-<p>Now that we’ve got the data set up for multiple imputations, and done the imputation, most of the hard part is over. Analyzing MI data is straightforward, usually. (When it isn’t, you can do this <a href="#manual-mi">manually</a>.)</p>
-<p>Basically, take any analysis command you would normally run, e.g.&nbsp;<code>regress y x</code>, and preface it by <code>mi estimate:</code>. Let’s try to predict the odds of a heart attack based upon other characteristics in the data. We would run a <a href="regression.html#logistic-regression">logistic regression model</a>,</p>
-<pre><code>logit attack smokes age bmi female hsgrad</code></pre>
+<p>Now that we’ve got the data set up for multiple imputations, and done the imputation, most of the hard part is over. Analyzing MI data is straightforward, usually. (When it isn’t, you can do this <a href="07-multiple-imputation.html#manual-mi">manually</a>.)</p>
+<p>Basically, take any analysis command you would normally run, e.g.&nbsp;<code>regress y x</code>, and preface it by <code>mi estimate:</code>. Let’s try to predict the odds of a heart attack based upon other characteristics in the data. We would run a <a href="04-regression.html#logistic-regression">logistic regression model</a>,</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> attack smokes age bmi female hsgrad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>So to run it with multiple imputations:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> estimate: <span class="kw">logit</span> attack smokes age bmi female hsgrad</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -416,17 +416,17 @@ help how_many_imputations</code></pre>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>       <span class="dt">_cons</span> |  -4.390356   1.598513    -2.75   0.006    -7.531833   -1.248878</span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>We see a single model, even though 5 models (one for each imputation) were run in the background. The results from these models were pooled using something called “Rubin’s rules” to produce a single model output.</p>
-<p>We see a few additional fit summaries about the multiple imputation that aren’t super relevant; but otherwise all the <a href="regression.html#fitting-the-logistic-model">existing interpretations</a> hold. Note that an F-test instead of <sup><span class="math inline">\(^\chi^2^\)</span></sup> test is run, but still tests the same hypothesis that all coefficients are identically zero. Among the coefficients, we see that smokers have significantly higher odds of having a heart attack, and there’s some weak evidence that age plays a role.</p>
+<p>We see a few additional fit summaries about the multiple imputation that aren’t super relevant; but otherwise all the <a href="04-regression.html#fitting-the-logistic-model">existing interpretations</a> hold. Note that an <span class="math inline">\(F\)</span>-test instead of <span class="math inline">\(\chi^2\)</span> test is run, but still tests the same hypothesis that all coefficients are identically zero. Among the coefficients, we see that smokers have significantly higher odds of having a heart attack, and there’s some weak evidence that age plays a role.</p>
 <section id="mi-postestimation" class="level4" data-number="7.2.3.1">
 <h4 data-number="7.2.3.1" class="anchored" data-anchor-id="mi-postestimation"><span class="header-section-number">7.2.3.1</span> MI Postestimation</h4>
-<p>In general, most postestimation commands will not work after MI. The general approach is to do the MI <a href="#manual-mi">manually</a> and run the postestimation for each imputation. One exception is that <code>mi predict</code> works how <code>predict</code> does.</p>
+<p>In general, most postestimation commands will not work after MI. The general approach is to do the MI <a href="07-multiple-imputation.html#manual-mi">manually</a> and run the postestimation for each imputation. One exception is that <code>mi predict</code> works how <code>predict</code> does.</p>
 </section>
 </section>
 </section>
 <section id="manual-mi" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="manual-mi"><span class="header-section-number">7.3</span> Manual MI</h2>
-<p>Since we set the data as <a href="#setting-up-data"><code>flong</code></a>, each imputed data set lives in the data with a separate <a href="multiple-imputation.html#mi-variables"><code>_mi_m</code></a> value. You can conditionally run analyses on each, e.g.</p>
-<pre><code>logit attack smokes age bmi female hsgrad if _mi_m == 0</code></pre>
+<p>Since we set the data as <a href="07-multiple-imputation.html#setting-up-data"><code>flong</code></a>, each imputed data set lives in the data with a separate <a href="07-multiple-imputation.html#variables-created-by-mi"><code>_mi_m</code></a> value. You can conditionally run analyses on each, e.g.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">logit</span> attack smokes age bmi female hsgrad <span class="kw">if</span> _mi_m == 0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>to run the model on only the original data.</p>
 <p>It is tedious to do this over all imputed data, so instead we can run <code>mi xeq:</code> as a prefix to run a command on each separate data set. This is similar to <code>mi estimate:</code> except without the pooling.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> xeq: summ age</span>
@@ -481,23 +481,23 @@ help how_many_imputations</code></pre>
 <section id="removing-the-mi-data" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="removing-the-mi-data"><span class="header-section-number">7.4</span> Removing the MI data</h2>
 <p>Ideally, you should save the data (or <code>preserve</code> it) prior to imputing, so you can easily recover the unimputed data if you wish. If you wanted to return to the original data, the following should work:</p>
-<pre><code>mi unset
-drop if mi_m != 0
-drop mi_*</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mi</span> unset</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> <span class="kw">if</span> mi_m != 0</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">drop</span> mi_*</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The first tells Stata not to treat it as imputed anymore; the second drops all imputed data sets; the third removes the MI variables that were generated.</p>
 <p>This only works for <code>mi set flong</code>; if you use another method, you can tweak the above or use <code>mi convert flong</code> to switch to “flong” first.</p>
 </section>
 <section id="survey-and-multiple-imputation" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="survey-and-multiple-imputation"><span class="header-section-number">7.5</span> Survey and multiple imputation</h2>
 <p>Just a quick note, if you want to utilize by complex survey design and multiple imputation simultaneously, proper ordering needs to be given. Note that only weights play a role in multiple imputation.</p>
-<pre><code>mi set ...
-mi svyset ...
-mi impute ... [pweight = weight]
-mi estimate: svy: regress ...</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mi</span> <span class="kw">set</span> ...</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mi</span> <span class="kw">svyset</span> ...</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mi</span> <span class="kw">impute</span> ... [<span class="kw">pweight</span> = <span class="kw">weight</span>]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mi</span> estimate: <span class="kw">svy</span>: <span class="kw">regress</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <del>
-There has been some discussion that imputation should not take into account any complex survey design features (because you want the imputation to reflect the sample, not necessarily the population). See for example <a href="#citations">Little and Vartivarian 2003</a>. If you follow this advice, simply exclude the <code>[pweight = ...]</code> part of the <code>mi impute</code> command. In either case, estimation commands still need both the <code>mi estimate: svy:</code> prefixes in that order.
+There has been some discussion that imputation should not take into account any complex survey design features (because you want the imputation to reflect the sample, not necessarily the population). See for example <a href="07-multiple-imputation.html#citations">Little and Vartivarian 2003</a>. If you follow this advice, simply exclude the <code>[pweight = ...]</code> part of the <code>mi impute</code> command. In either case, estimation commands still need both the <code>mi estimate: svy:</code> prefixes in that order.
 </del>
-<p>The above paragraph is no longer accurate. See <a href="#citations">Reist and Larsen 2012</a>. Survey weights must be used in mulitple imputations.</p>
+<p>The above paragraph is no longer accurate. See <a href="07-multiple-imputation.html#citations">Reist and Larsen 2012</a>. Survey weights must be used in mulitple imputations.</p>
 </section>
 <section id="citations" class="level2" data-number="7.6">
 <h2 data-number="7.6" class="anchored" data-anchor-id="citations"><span class="header-section-number">7.6</span> Citations</h2>
