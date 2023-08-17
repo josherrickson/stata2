@@ -255,7 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Multilevel regression/model</li>
 <li>Hierarchical regression/model (specifically HLM, hierarchical linear model)</li>
 </ul>
-<p>The hierarchical/multilevel variations require thinking about the levels of the data and involves “nesting”, where one variable only occurs within another, e.g.&nbsp;family members nested in a household. The most canonical example of this is students in classrooms, we could have</p>
+<p>The hierarchical/multilevel variations require thinking about the levels of the data and involves “nesting”, where one variable only occurs within another, e.g. family members nested in a household. The most canonical example of this is students in classrooms, we could have</p>
 <ul>
 <li>Level 1: The lowest level, the students.</li>
 <li>Level 2: Classroom or teacher (this could also be two separate levels of classrooms inside teacher)</li>
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For this workshop, we will only briefly discuss this from hierarchical point of view, preferring the mixed models view (with the reminder again that they are the same!).</p>
 <section id="econometric-terminology" class="level3" data-number="5.1.1">
 <h3 data-number="5.1.1" class="anchored" data-anchor-id="econometric-terminology"><span class="header-section-number">5.1.1</span> Econometric terminology</h3>
-<p>To make the terminology a bit more complicated, in econometrics, some of the terms we will use here are overloaded. When you are discussing mixed models with someone with econometric or economics training, it’s important to differentiate between the statistical terms of “fixed effects” and “random effects” which are the two components of a mixed model that we <a href="#linear_mixed_model">discuss below</a>, and what econometricians called “fixed effects regression” and “random effects regression”.</p>
+<p>To make the terminology a bit more complicated, in econometrics, some of the terms we will use here are overloaded. When you are discussing mixed models with someone with econometric or economics training, it’s important to differentiate between the statistical terms of “fixed effects” and “random effects” which are the two components of a mixed model that we <a href="05-mixed-models.html#linear_mixed_model">discuss below</a>, and what econometricians called “fixed effects regression” and “random effects regression”.</p>
 <p>Without going into the full details of the econometric world, what econometricians called “random effects regression” is essentially what statisticians called “mixed models”, what we’re talking about here. The Stata command <code>xtreg</code> handles those econometric models.</p>
 </section>
 </section>
@@ -276,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Before you begin your analysis, you need to ensure that the data is in the proper format. Let’s consider the NLS data, where we have measures of women’s salary over 20 years.</p>
 <p>Wide format of the data would have row represent a woman, and she would have 20 columns worth of salary information<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> (plus additional demographics).</p>
 <p>Long format of the data would have each row represent a woman and a year, so that each woman can have up to 20 rows (if a woman wasn’t measured in a given year, that row &amp; year is missing).</p>
-<p>To fit a mixed model, we need the data in long format. We can use the <code>reshape</code> command to transform wide data to long. This is covered in the <a href="https://errickson.net/stata1/data-manipulation.html#reshaping-files">Stata I</a> set of notes.</p>
+<p>To fit a mixed model, we need the data in long format. We can use the <code>reshape</code> command to transform wide data to long. This is covered in the <a href="https://cscar.github.io/workshop-stata-intro/04-data-manipulation.html#reshaping-files">Intro to Stata</a> set of notes.</p>
 <p>Additionally, there is the concept of time-varying vs time-invariant variables. Time-varying variables are those which can be different for each entry within the same individual. Examples include weight or salary. Time-invariant are those which are the same across all entries. Examples include race or baseline characteristics.</p>
 <p>When data is long, time-invariant variables need to be constant per person.</p>
 </section>
@@ -284,10 +284,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="5.3" class="anchored" data-anchor-id="linear-mixed-model"><span class="header-section-number">5.3</span> Linear Mixed Model</h2>
 <p>The most basic mixed model is the linear mixed model, which extends the <a href="04-regression.html#linear-regression">linear regression</a> model. A model is called “mixed” because it contains a mixture of <em>fixed effects</em> and <em>random effects</em>.</p>
 <ul>
-<li>Fixed effects: These are the predictors that are present in regular linear regression. We will obtain coefficients for these predictors and be able to test and interpret them. Technically, an OLS linear model is a mixed model with only fixed effects.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
+<li>Fixed effects: These are the predictors that are present in regular linear regression. We will obtain coefficients for these predictors and be able to test and interpret them. Technically, an OLS linear model is a mixed model with only fixed effects.</li>
 <li>Random effects: These are the “grouping” variables, and must be categorical (Stata will force every variable used to produce random effects as if it were prefaced by <code>i.</code>). These are essentially just predictors as well, however, we do not obtain coefficients to test or interpret. We do get a measure of the variability across groups, and a test of whether the random effect is benefiting the model.</li>
 </ul>
-<p>Let’s fit a model using the <code>mixed</code> command. It works similar to <code>regress</code> with a slight tweak. We’ll try and predict log of wages<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> using work experience, race and age. The variable <code>idcode</code> identifies individuals.</p>
+<p>Let’s fit a model using the <code>mixed</code> command. It works similar to <code>regress</code> with a slight tweak. We’ll try and predict log of wages<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> using work experience, race and age. The variable <code>idcode</code> identifies individuals.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>. mixed ln_w ttl_exp i.race age || idcode:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Performing EM optimization ...</span>
@@ -335,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>At the very top, you’ll see that the solution is arrived at iteratively, similar to <a href="04-regression.html#fitting-the-logistic-model">logistic regression</a> (you probably also noticed how slow it is)!</li>
 <li>The log likelihood is how the iteration works; essentially the model “guesses” choices for the coefficients, and finds the set of coefficients that minimize the log likelihood. Of course, the “guess” is much smarter than random. The actual value of the log likelihood is meaningless.</li>
 <li>Since we are dealing with repeated measures of some sort, instead of a single sample size, we record the total number of obs, the number of groups (unique entries in the random effects) and min/mean/max of the groups. As before, just ensure these numbers seem right.</li>
-<li>As with logistic regression, the <sup><span class="math inline">\(^\chi^2^\)</span></sup> test tests the hypothesis that all coefficients are simultaneously 0.
+<li>As with logistic regression, the <span class="math inline">\(\chi^2\)</span> test tests the hypothesis that all coefficients are simultaneously 0.
 <ul>
 <li>We gave a significant p-value, so we continue with the interpretation.</li>
 </ul></li>
@@ -345,30 +345,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>The <code>race</code> baseline is “white”; compared to white, blacks have lower average income and others have higher average income.</li>
 <li>Higher age is associated with lower income.</li>
 </ul></li>
-<li>The second table (“Random-effects parameters”) gives us information about the error structure. The “idcode:” section is examining whether there is variation across individuals above and beyond the differences in characteristics such as age and race. Since the estimate of <code>var(_cons)</code> (the estimated variance of the constant per person - the individual level random effect) is non-zero (and not close to zero), that is evidence that the random effect is beneficial. If the estimate was 0 or close to 0, that would be evidence that the random effect is unnecessary and that any difference between individuals is already accounted for by the covariates.</li>
+<li>The second table (<code>Random-effects parameters</code>) gives us information about the error structure. The “idcode:” section is examining whether there is variation across individuals above and beyond the differences in characteristics such as age and race. Since the estimate of <code>var(_cons)</code> (the estimated variance of the constant per person - the individual level random effect) is non-zero (and not close to zero), that is evidence that the random effect is beneficial. If the estimate was 0 or close to 0, that would be evidence that the random effect is unnecessary and that any difference between individuals is already accounted for by the covariates.</li>
 <li>The estimated variance of the residuals is any additional variation between observations. This is akin to the residuals from linear regression.</li>
-<li>The <sup><span class="math inline">\(^\chi^2^\)</span></sup> test at the bottom is a formal test of the inclusion of the random effects versus a <a href="regression.html#linear-regression">linear regression</a> model without the random effects. We reject the null that the models are equivalent, so it is appropriate to include the random effects.</li>
+<li>The <span class="math inline">\(\chi^2\)</span> test at the bottom is a formal test of the inclusion of the random effects versus a <a href="04-regression.html#linear-regression">linear regression</a> model without the random effects. We reject the null that the models are equivalent, so it is appropriate to include the random effects.</li>
 </ul>
 </section>
 <section id="assumptions" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="assumptions"><span class="header-section-number">5.4</span> Assumptions</h2>
-<p>The <a href="regression.html#relationship-is-linear-and-additive">linear additivity</a> remains necessary. <code>rvfplot</code> will not work following a <code>mixed</code> command, but you can <a href="regression.html#obtaining-predicted-values-and-residuals">generate the residuals vs fitted plot manually</a>.</p>
-<p>The <a href="regression.html#errors-are-homogeneous">homogeneity of residuals</a> assumption is violated by design in a mixed model. However, some forms of heterogeneity, such as increasing variance as fitted values increase, are not supported. Therefore we can still use the residuals vs fitted plot to examine this.</p>
-<p>Again, the <a href="regression.html#independence">independence</a> assumption is violated by design, but observations between groups (e.g.&nbsp;between individuals) should be independent.</p>
+<p>The <a href="04-regression.html#relationship-is-linear-and-additive">linear additivity</a> remains necessary. <code>rvfplot</code> will not work following a <code>mixed</code> command, but you can <a href="04-regression.html#obtaining-predicted-values-and-residuals">generate the residuals vs fitted plot manually</a>.</p>
+<p>The <a href="04-regression.html#errors-are-homogeneous">homogeneity of residuals</a> assumption is violated by design in a mixed model. However, some forms of heterogeneity, such as increasing variance as fitted values increase, are not supported. Therefore we can still use the residuals vs fitted plot to examine this.</p>
+<p>Again, the <a href="04-regression.html#independence">independence</a> assumption is violated by design, but observations between groups (e.g.&nbsp;between individuals) should be independent.</p>
 </section>
 <section id="miscellaneous" class="level2" data-number="5.5">
 <h2 data-number="5.5" class="anchored" data-anchor-id="miscellaneous"><span class="header-section-number">5.5</span> Miscellaneous</h2>
-<p>As we’ve discussed before, <a href="regression.html#multicollinearity">collinearity</a>, <a href="regression.html#overfitting">overfitting</a>, and <a href="regression.html#model-selection-is-bad">model selection</a> remain concerns.</p>
+<p>As we’ve discussed before, <a href="04-regression.html#multicollinearity">collinearity</a>, <a href="04-regression.html#overfitting">overfitting</a>, and <a href="04-regression.html#model-selection-is-bad">model selection</a> remain concerns.</p>
 <p>Sample size considerations are tricky with mixed models. Typically these are done with simulations. At a rough pass, the rules of thumb from linear regression remain; 10-20 observations per predictor. Adding a new person will improve the power more than adding another observation for an existing group.</p>
 <p>The <code>margins</code> and <code>predict</code> command work similarly to <code>regress</code>, however note that both (by default) <em>ignore the random effects</em>; that is, the results the produce are averaged across all individuals.</p>
-<p>As with <a href="regression.html#robust-standard-errors">linear regression</a> and <a href="regression#logit-miscellaneous">logistic regression</a>, <code>mixed</code> supports <code>vce(robust)</code> to enable robust standard errors.</p>
+<p>As with <a href="04-regression.html#robust-standard-errors">linear regression</a> and <a href="04-regression.html#logit-miscellaneous">logistic regression</a>, <code>mixed</code> supports <code>vce(robust)</code> to enable robust standard errors.</p>
 </section>
 <section id="convergence-issues" class="level2" data-number="5.6">
 <h2 data-number="5.6" class="anchored" data-anchor-id="convergence-issues"><span class="header-section-number">5.6</span> Convergence issues</h2>
-<p>As with <a href="regression.html#separation">logistic regression</a>, the solution is arrived at iteratively, which means it can fail to converge for a number of reasons. Separation isn’t an issue here (though it will be in <a href="#convergence-issues">logistic mixed models</a>), but there can be other causes of a failure to converge.</p>
+<p>As with <a href="04-regression.html#separation">logistic regression</a>, the solution is arrived at iteratively, which means it can fail to converge for a number of reasons. Separation isn’t an issue here (though it will be in <a href="05-mixed-models.html#convergence-issues">logistic mixed models</a>), but there can be other causaes of a failure to converge.</p>
 <p>Generally, failure to converge will be due to an issue with the data. Things to look for include:</p>
 <ul>
-<li>Different scales of predictors. For example, salary (in dollars) and number of children. The scales are drastically different which can cause issues. Try re-scaling any variables on extreme scales (you can do this with <code>egen scaledvar = std(origvar)</code>). This will affect interpretation (the estimated coefficient will be the average predicted change with a one standard deviation increase in the predictor) but not the overall model fit.</li>
+<li>Different scales of predictors. For example, salary (in dollars) and number of children. The scales are drastically different which can cause issues. Try re-scaling any variables on extreme scales (you can do this with <code>egen   scaledvar = std(origvar)</code>). This will affect interpretation (the estimated coefficient will be the average predicted change with a one standard deviation increase in the predictor) but not the overall model fit.</li>
 <li>High correlation can cause this. Check correlations (<code>pwcorr</code> or <code>corr</code>) between your predictors (including any categorical variables) and if you find a highly correlated pair, try removing one.</li>
 <li>If the iteration keeps running (as opposed to ending and complaining about lack of convergence), try passing the option <code>emiterate(#)</code> with a few “large” (“large” is relative to sample size) numbers to tell the algorithm to stop after # iterations, regardless of convergence. You’re looking for two things:
 <ul>
@@ -380,8 +380,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="logistic-mixed-model" class="level2" data-number="5.7">
 <h2 data-number="5.7" class="anchored" data-anchor-id="logistic-mixed-model"><span class="header-section-number">5.7</span> Logistic Mixed Model</h2>
-<p>Similar to <a href="regression.html#logistic-regression">logistic regression</a> being an extension to <a href="regression#linear-regression">linear regression</a>, logistic mixed models are an extension to <a href="#linear-mixed-model">linear mixed models</a> when the outcome variable is binary.</p>
-<p>The command for logistic mixed models is <code>melogit</code>. The rest of the command works very similarly to <code>mixed</code>, and interpretation is the best of logistic regression (for fixed effects) and linear mixed models (for random effects). Unfortunately, neither <code>lroc</code> nor <code>estat gof</code> is supported, so goodness of fit must be measured solely on the <sup><span class="math inline">\(^\chi^2^\)</span></sup> test and perhaps a manual model fit comparison.</p>
+<p>Similar to <a href="04-regression.html#logistic-regression">logistic regression</a> being an extension to <a href="04-regression.html#linear-regression">linear regression</a>, logistic mixed models are an extension to <a href="05-mixed-models.html#linear-mixed-model">linear mixed models</a> when the outcome variable is binary.</p>
+<p>The command for logistic mixed models is <code>melogit</code>. The rest of the command works very similarly to <code>mixed</code>, and interpretation is the best of logistic regression (for fixed effects) and linear mixed models (for random effects). Unfortunately, neither <code>lroc</code> nor <code>estat gof</code> is supported, so goodness of fit must be measured solely on the <span class="math inline">\(\chi^2\)</span> test and perhaps a manual model fit comparison.</p>
 <p>By default the log-odds are reported, give the <code>or</code> option to report the odds ratios.</p>
 <section id="meqrlogit" class="level3" data-number="5.7.1">
 <h3 data-number="5.7.1" class="anchored" data-anchor-id="meqrlogit"><span class="header-section-number">5.7.1</span> <code>meqrlogit</code></h3>
@@ -391,7 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercise-6" class="level2" data-number="5.8">
 <h2 data-number="5.8" class="anchored" data-anchor-id="exercise-6"><span class="header-section-number">5.8</span> Exercise 6</h2>
 <p>Load up the “chicken” data set from Stata’s website:</p>
-<pre><code>webuse chicken, clear</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">webuse</span> chicken, <span class="kw">clear</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The data contains order information from a number of restaurants and records whether the order resulted in a complaint. We’d like to see what attributes (if any) of the servers may increase the odds of a complaint. Since we have multiple orders per restaurant, it’s reasonable to assume that certain restaurants just recieve more complaints than others, regardless of the server, so we’ll need to include random effects for those.</p>
 <p>Fit a mixed effects logistic regression model predicting <code>complain</code>, based upon server characteristics (<code>grade</code>, <code>race</code>, <code>gender</code>, <code>tenure</code>, <code>age</code>, <code>income</code>) and a few restaurant characteristics (<code>genderm</code> for gender of manager and <code>nworkers</code> for number of workers). Include a random effect for <code>restaurant</code>.</p>
 <ol type="1">
@@ -406,8 +406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <ol>
 <li id="fn1"><p>She may have salary information for only a subset of those years, but would have missing values in the other years.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Though why called it mixed at that point?<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Typically, salary information is very right-skewed, and a log transformation makes the data closer to normal.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Typically, salary information is very right-skewed, and a log transformation makes the data closer to normal.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
