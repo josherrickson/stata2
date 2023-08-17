@@ -251,7 +251,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>      Black |      1,086       10.49       98.07</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      Other |        200        1.93      100.00</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>------------+-----------------------------------</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      Total |     10,351      100.00</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      Total |     10,351      100.00</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>No missing data.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> diabetes, <span class="fu">mi</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -293,7 +294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="kw">weight</span> |   0.4775   1.0000 </span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    bpsystol |  -0.0364   0.2861   1.0000 </span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>     bpdiast |   0.0675   0.3799   0.6831   1.0000 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Blood pressure is highly correlated, more-so than height and weight. Weight is also correlated with both forms of BP. Height looks to be completely independent of boood pressure.</p>
+<p>Blood pressure is highly correlated, more-so than height and weight. Weight is also correlated with both forms of BP. Height looks to be completely independent of blood pressure.</p>
 </section>
 <section id="exercise-2" class="level2" data-number="8.2">
 <h2 data-number="8.2" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">8.2</span> Exercise 2</h2>
@@ -366,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>     Other |       191          9 |       200 </span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>-----------+----------------------+----------</span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>     Total |     9,850        499 |    10,349 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Given the different scales per race, it’s hard to draw a comparison. We can look at the rowwise percents. (If you ran <code>tab diabetes race</code>, you’d need the columnwise percents.)</p>
+<p>Given the different scales per race, it’s hard to draw a comparison. We can look at the row-wise percents. (If you ran <code>tab diabetes race</code>, you’d need the column-wise percents.)</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">tab</span> race diabetes, <span class="ot">row</span> <span class="fu">chi2</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>+----------------+</span>
@@ -392,7 +393,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>           |     95.18       4.82 |    100.00 </span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>          Pearson <span class="fu">chi2</span>(2) =  25.3630   Pr = 0.000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Nearly double the percent of blacks have diabetes and the <sup><span class="math inline">\(^\chi^2^\)</span></sup> test confirms the difference is statistically significant.</p>
+<p>Nearly double the percent of blacks have diabetes and the <span class="math inline">\(\chi^2\)</span> test confirms the difference is statistically significant.</p>
 </section>
 <section id="exercise-4" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="exercise-4"><span class="header-section-number">8.4</span> Exercise 4</h2>
@@ -431,13 +432,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li></li>
 </ol>
-<p>The F-test rejects so the model is informative. The <sup><span class="math inline">\(^R^2^\)</span></sup> is low, so there is a lot of variability we’re not capturing in this model.</p>
+<p>The F-test rejects so the model is informative. The <span class="math inline">\(R^2\)</span> is low, so there is a lot of variability we’re not capturing in this model.</p>
 <ol start="2" type="1">
 <li></li>
 </ol>
 <div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">rvfplot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img src="images/exercise41.svg" class="img-fluid"></p>
-<p>This doesn’t look great. We don’t see any signs of nonnormality, but we do see a lot of very large positive residuals. If you look at a histogram for <code>lead</code>,</p>
+<p>This doesn’t look great. We don’t see any signs of non-normality, but we do see a lot of very large positive residuals. If you look at a histogram for <code>lead</code>,</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">hist</span> lead</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>(<span class="bn">bin</span>=36, <span class="bn">start</span>=2, <span class="kw">width</span>=2.1666667)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img src="images/exercise42.svg" class="img-fluid"></p>
@@ -473,7 +474,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol start="4" type="1">
 <li></li>
 </ol>
-<p>The coffecient on “Female” is -5 and is statistically significant, so there is evidence that males have higher average lead levels.</p>
+<p>The coefficient on “Female” is -5 and is statistically significant, so there is evidence that males have higher average lead levels.</p>
 <ol start="5" type="1">
 <li></li>
 </ol>
@@ -762,7 +763,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li></li>
 </ol>
-<p>We can’t look at fit statistics, but the <sup><span class="math inline">\(^\chi^2^\)</span></sup> is significant, so we’re doing better than chance.</p>
+<p>We can’t look at fit statistics, but the <span class="math inline">\(\chi^2\)</span> is significant, so we’re doing better than chance.</p>
 <ol start="2" type="1">
 <li></li>
 </ol>

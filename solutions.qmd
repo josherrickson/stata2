@@ -8,6 +8,7 @@
 ````
 
 1)
+
 ````stata
 . describe, short
 
@@ -18,9 +19,11 @@ Sorted by:
 
 ````
 
-There are 10,351 observations of 59 variables. The full `describe` output is suppressed for space, but you should run it.
+There are 10,351 observations of 59 variables. The full `describe` output is
+suppressed for space, but you should run it.
 
 3)
+
 ````stata
 . tab race, mi
 
@@ -32,8 +35,10 @@ There are 10,351 observations of 59 variables. The full `describe` output is sup
 ------------+-----------------------------------
       Total |     10,351      100.00
 
+
 ````
 No missing data.
+
 ````stata
 . tab diabetes, mi
 
@@ -47,9 +52,11 @@ Not diabetic |      9,850       95.16       95.16
        Total |     10,351      100.00
 
 ````
+
 Two missing values.
 
 `lead` is continuous, so a table isn't the most effective.
+
 ````stata
 . codebook lead
 
@@ -69,9 +76,11 @@ lead                                                              Lead (mcg/dL)
                               8        10        13        17        22
 
 ````
+
 There's a lot of missingness.
 
 4)
+
 ````stata
 . pwcorr height weight bp*
 
@@ -83,8 +92,10 @@ There's a lot of missingness.
      bpdiast |   0.0675   0.3799   0.6831   1.0000 
 
 ````
-Blood pressure is highly correlated, more-so than height and weight. Weight is also correlated with both forms of BP. Height looks to be completely
-independent of boood pressure.
+
+Blood pressure is highly correlated, more-so than height and weight. Weight is
+also correlated with both forms of BP. Height looks to be completely independent
+of blood pressure.
 
 ## Exercise 2
 
@@ -101,7 +112,8 @@ independent of boood pressure.
 
 ![](images/exercise2.svg)
 
-We can see the correlation between blood pressure measures, with a bit stronger of a relationship for men.
+We can see the correlation between blood pressure measures, with a bit stronger
+of a relationship for men.
 
 ## Exercise 3
 
@@ -133,7 +145,8 @@ H0: mean = 176                                   Degrees of freedom =     4914
 
 ````
 
-The test rejects; the average height of men in the sample is lower than the national average.
+The test rejects; the average height of men in the sample is lower than the
+national average.
 
 3)
 
@@ -159,7 +172,8 @@ H0: diff = 0                                     Degrees of freedom =    10349
 
 ````
 
-We fail to reject; there is no difference that the average age differs by gender.
+We fail to reject; there is no difference that the average age differs by
+gender.
 
 4)
 
@@ -177,8 +191,9 @@ We fail to reject; there is no difference that the average age differs by gender
 
 ````
 
-Given the different scales per race, it's hard to draw a comparison. We can look at the rowwise percents. (If you ran `tab diabetes race`, you'd need
-the columnwise percents.)
+Given the different scales per race, it's hard to draw a comparison. We can look
+at the row-wise percents. (If you ran `tab diabetes race`, you'd need the
+column-wise percents.)
 
 ````stata
 . tab race diabetes, row chi2
@@ -209,7 +224,8 @@ the columnwise percents.)
 
 ````
 
-Nearly double the percent of blacks have diabetes and the ^$^\chi^2^$^ test confirms the difference is statistically significant.
+Nearly double the percent of blacks have diabetes and the $\chi^2$ test confirms
+the difference is statistically significant.
 
 ## Exercise 4
 
@@ -251,7 +267,8 @@ Nearly double the percent of blacks have diabetes and the ^$^\chi^2^$^ test conf
 
 1)
 
-The F-test rejects so the model is informative. The ^$^R^2^$^ is low, so there is a lot of variability we're not capturing in this model.
+The F-test rejects so the model is informative. The $R^2$ is low, so there is a
+lot of variability we're not capturing in this model.
 
 2)
 
@@ -262,8 +279,8 @@ The F-test rejects so the model is informative. The ^$^R^2^$^ is low, so there i
 
 ![](images/exercise41.svg)
 
-This doesn't look great. We don't see any signs of nonnormality, but we do see a lot of very large positive residuals. If you look at a histogram for
-`lead`,
+This doesn't look great. We don't see any signs of non-normality, but we do see a
+lot of very large positive residuals. If you look at a histogram for `lead`,
 
 ````stata
 . hist lead
@@ -273,7 +290,8 @@ This doesn't look great. We don't see any signs of nonnormality, but we do see a
 
 ![](images/exercise42.svg)
 
-We see right skew. The maintainers of this data noticed the same concern, as they include a `loglead` variable in the data to attempt to address this.
+We see right skew. The maintainers of this data noticed the same concern, as
+they include a `loglead` variable in the data to attempt to address this.
 
 ````stata
 . desc loglead
@@ -310,16 +328,19 @@ Perhaps we should have run the model with `loglead` as the output instead.
 
 ````
 
-Nothing of concern here. The only moderately high VIF's are on sex and it's interaction, which does not concern us (of course a main effect and
-interaction are collinear.).
+Nothing of concern here. The only moderately high VIF's are on sex and it's
+interaction, which does not concern us (of course a main effect and interaction
+are collinear.).
 
 4)
 
-The coffecient on "Female" is -5 and is statistically significant, so there is evidence that males have higher average lead levels.
+The coefficient on "Female" is -5 and is statistically significant, so there is
+evidence that males have higher average lead levels.
 
 5)
 
-The p-value is very small, so it is statistically significant. However, if we look at lead levels:
+The p-value is very small, so it is statistically significant. However, if we
+look at lead levels:
 
 ````stata
 . summ lead
@@ -330,8 +351,10 @@ The p-value is very small, so it is statistically significant. However, if we lo
 
 ````
 
-We see that lead levels range from 2 to 80. The coefficient on age is about .02, so age would need to increase by about 50 years to see a higher value
-for the lead score. Unlikely to be clinically interesting! This is a side effect of the massive sample size.
+We see that lead levels range from 2 to 80. The coefficient on age is about .02,
+so age would need to increase by about 50 years to see a higher value for the
+lead score. Unlikely to be clinically interesting! This is a side effect of the
+massive sample size.
 
 6)
 
@@ -376,7 +399,8 @@ Expression: Linear prediction, predict()
 
 ````
 
-It looks like South is significantly lower levels of lead than the other regions, which show no difference between them.
+It looks like South is significantly lower levels of lead than the other
+regions, which show no difference between them.
 
 7)
 
@@ -443,10 +467,13 @@ Variables that uniquely identify margins: age sex
 
 ![](images/exercise47.svg)
 
-We see significance in the interaction, so we looked at the margins. It looks like men show a slight decline in lead as age increases (again,
-rescaling, -.015/year becomes -1.5 over 100 years - not very interesting) while women show a much more significant increase as age increases (roughly
-1 unit every 20 years). The marginal plot helps us to visualize this. For men, from age 20 to 70, the average lead decreases barely half a point. For
-women, we see nearly a 3 point average increase.
+We see significance in the interaction, so we looked at the margins. It looks
+like men show a slight decline in lead as age increases (again, rescaling,
+-.015/year becomes -1.5 over 100 years - not very interesting) while women show
+a much more significant increase as age increases (roughly 1 unit every 20
+years). The marginal plot helps us to visualize this. For men, from age 20 to
+70, the average lead decreases barely half a point. For women, we see nearly a 3
+point average increase.
 
 
 ## Exercise 5
@@ -527,7 +554,9 @@ Area under ROC curve   =   0.7665
 
 ![](images/exercise5.svg)
 
-We cannot reject the model fit (even once we switch to the proper Hosmer-Lemeshow test, which used 20 instead of 10 because we have 10 predictors). The ROC and AUC look decent but not great.
+We cannot reject the model fit (even once we switch to the proper
+Hosmer-Lemeshow test, which used 20 instead of 10 because we have 10
+predictors). The ROC and AUC look decent but not great.
 
 2)
 
@@ -571,8 +600,9 @@ Expression: Pr(diabetes), predict()
 
 ````
 
-Blacks are more likely to have diabetes than whites or others. Age and weight are positive predictors whereas height is a negative predictor for some
-reason. There is no effect of gender or region.
+Blacks are more likely to have diabetes than whites or others. Age and weight
+are positive predictors whereas height is a negative predictor for some reason.
+There is no effect of gender or region.
 
 ## Exercise 6
 
@@ -639,7 +669,8 @@ LR test vs. logistic model: chibar2(01) = 32.07       Prob >= chibar2 = 0.0000
 
 1)
 
-We can't look at fit statistics, but the ^$^\chi^2^$^ is significant, so we're doing better than chance.
+We can't look at fit statistics, but the $\chi^2$ is significant, so we're doing
+better than chance.
 
 2)
 
@@ -663,13 +694,17 @@ Expression: Marginal predicted mean, predict()
 
 ````
 
-Unfortunately, this data is poorly labeled so we can't talk in specifics about things, but generally
+Unfortunately, this data is poorly labeled so we can't talk in specifics about
+things, but generally
 
 - Race 1, 2 and 3 have increasing odds of a complaint.
 - Gender 1 has significantly higher odds than gender 2.
-- Age and income are negatively related to the odds of a complaint (older, more well paid employees are less likely to have complaints).
-- Neither restaurant level characteristic is significant once server characteristics are accounted for.
+- Age and income are negatively related to the odds of a complaint (older, more
+  well paid employees are less likely to have complaints).
+- Neither restaurant level characteristic is significant once server
+  characteristics are accounted for.
 
 3)
 
-The estimated random variance is non-zero, so yes, the random effects for restaurants are warranted.
+The estimated random variance is non-zero, so yes, the random effects for
+restaurants are warranted.
