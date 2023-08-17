@@ -16,8 +16,9 @@ Let's reload the auto dataset to make sure we're starting on the same page.
 
 ## The `graph` command
 
-Most (though not all, see some [other graphs](#other-graphs) below) graphs in
-Stata are created by the `graph` command. Generally the syntax is
+Most (though not all, see some [other
+graphs](02-visualization.html#other-graphs) below) graphs in Stata are created
+by the `graph` command. Generally the syntax is
 
 ```stata
 graph <type> <variable(s)>, <options>
@@ -79,13 +80,13 @@ example:
 
 ````stata
 . twoway scatter mpg weight, msymbol(s) ///
->                           mcolor(blue) ///
->                           mfcolor(yellow) ///
->                           msize(3) ///
->                           title("Mileage vs Weight") ///
->                           xtitle("Weight (in lbs)") ///
->                           ytitle("Mileage") ///
->                           ylabel(15 "15" 25 "25" 35 "35")
+>                            mcolor(blue) ///
+>                            mfcolor(yellow) ///
+>                            msize(3) ///
+>                            title("Mileage vs Weight") ///
+>                            xtitle("Weight (in lbs)") ///
+>                            ytitle("Mileage") ///
+>                            ylabel(15 "15" 25 "25" 35 "35")
 
 . 
 ````
@@ -258,7 +259,7 @@ closed is that Stata names each plot and each plot can only be open once. The
 default name is "Graph", so with each new plot, the "Graph" plot is overridden.
 If you closed a plot and wanted to re-open it, you can run the following at any
 point *until you run another graph* just like with [estimation
-commands](summarizing-data.html#estimation-commands).
+commands](01-summarizing-data.html#estimation-commands).
 
 ```stata
 graph display Graph

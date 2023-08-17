@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(1978 automobile <span class="kw">data</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="the-graph-command" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="the-graph-command"><span class="header-section-number">2.1</span> The <code>graph</code> command</h2>
-<p>Most (though not all, see some <a href="#other-graphs">other graphs</a> below) graphs in Stata are created by the <code>graph</code> command. Generally the syntax is</p>
+<p>Most (though not all, see some <a href="02-visualization.html#other-graphs">other graphs</a> below) graphs in Stata are created by the <code>graph</code> command. Generally the syntax is</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> &lt;<span class="dv">type</span>&gt; &lt;<span class="kw">variable</span>(<span class="fu">s</span>)&gt;, &lt;options&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The “type” is the subcommand.</p>
 <p>For example, to create a bar chart of <code>price</code> by <code>rep78</code>, we could run</p>
@@ -253,13 +253,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This is <em>not</em> true of commands like <code>graph box</code>.</p>
 <p>The options in the graphing commands are quite extensive and enable tweaking of many different settings. Rather than a full catalog of the options, here’s an example:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>. <span class="kw">twoway</span> <span class="kw">scatter</span> mpg <span class="kw">weight</span>, <span class="bn">msymbol</span>(<span class="fu">s</span>) <span class="co">///</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>&gt;                           mcolor(<span class="bn">blue</span>) <span class="co">///</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>&gt;                           mfcolor(<span class="kw">yellow</span>) <span class="co">///</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>&gt;                           msize(3) <span class="co">///</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>&gt;                           <span class="bn">title</span>(<span class="st">"Mileage vs Weight"</span>) <span class="co">///</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>&gt;                           <span class="bn">xtitle</span>(<span class="st">"Weight (in lbs)"</span>) <span class="co">///</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>&gt;                           <span class="bn">ytitle</span>(<span class="st">"Mileage"</span>) <span class="co">///</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>&gt;                           <span class="kw">ylabel</span>(15 <span class="st">"15"</span> 25 <span class="st">"25"</span> 35 <span class="st">"35"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>&gt;                            mcolor(<span class="bn">blue</span>) <span class="co">///</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>&gt;                            mfcolor(<span class="kw">yellow</span>) <span class="co">///</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>&gt;                            msize(3) <span class="co">///</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>&gt;                            <span class="bn">title</span>(<span class="st">"Mileage vs Weight"</span>) <span class="co">///</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>&gt;                            <span class="bn">xtitle</span>(<span class="st">"Weight (in lbs)"</span>) <span class="co">///</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>&gt;                            <span class="bn">ytitle</span>(<span class="st">"Mileage"</span>) <span class="co">///</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>&gt;                            <span class="kw">ylabel</span>(15 <span class="st">"15"</span> 25 <span class="st">"25"</span> 35 <span class="st">"35"</span>)</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>. </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img src="images/scatter2.svg" class="img-fluid"></p>
@@ -363,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="displaying-multiple-graphs-simultaneously" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="displaying-multiple-graphs-simultaneously"><span class="header-section-number">2.5</span> Displaying multiple graphs simultaneously</h2>
-<p>You may have noticed that opening a new plot closes the old one. What if you wanted to compare the plots? The behind-the-scenes reason that the old plots are closed is that Stata names each plot and each plot can only be open once. The default name is “Graph”, so with each new plot, the “Graph” plot is overridden. If you closed a plot and wanted to re-open it, you can run the following at any point <em>until you run another graph</em> just like with <a href="summarizing-data.html#estimation-commands">estimation commands</a>.</p>
+<p>You may have noticed that opening a new plot closes the old one. What if you wanted to compare the plots? The behind-the-scenes reason that the old plots are closed is that Stata names each plot and each plot can only be open once. The default name is “Graph”, so with each new plot, the “Graph” plot is overridden. If you closed a plot and wanted to re-open it, you can run the following at any point <em>until you run another graph</em> just like with <a href="01-summarizing-data.html#estimation-commands">estimation commands</a>.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">graph</span> <span class="kw">display</span> Graph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When we create a new plot with the default name, we lose the last one.</p>
 <p>If we give a plot a non-default name, it will be saved (so that it can be re-displayed later) and more importantly, will open a new window without closing the last. Running two plots with custom names opens two separate windows. (These are not run in the notes because obviously this won’t demonstrate well, but try them on your own.)</p>
