@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -212,7 +231,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#removing-the-mi-data" id="toc-removing-the-mi-data" class="nav-link" data-scroll-target="#removing-the-mi-data"><span class="header-section-number">7.4</span> Removing the MI data</a></li>
   <li><a href="#survey-and-multiple-imputation" id="toc-survey-and-multiple-imputation" class="nav-link" data-scroll-target="#survey-and-multiple-imputation"><span class="header-section-number">7.5</span> Survey and multiple imputation</a></li>
-  <li><a href="#citations" id="toc-citations" class="nav-link" data-scroll-target="#citations"><span class="header-section-number">7.6</span> Citations</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7.6</span> References</a></li>
   </ul>
 </nav>
     </div>
@@ -302,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>. <span class="fu">mi</span> <span class="kw">describe</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Style: flong</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">last</span> <span class="fu">mi</span> update 17aug2023 07:47:22, 0 seconds ago</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">last</span> <span class="fu">mi</span> update 17aug2023 08:49:00, 0 seconds ago</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Observations:</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   Complete          126</span>
@@ -324,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="imputing-transformations" class="level4" data-number="7.2.1.1">
 <h4 data-number="7.2.1.1" class="anchored" data-anchor-id="imputing-transformations"><span class="header-section-number">7.2.1.1</span> Imputing transformations</h4>
 <p>What happens if you had a transform of a variable? Say you had a variable for salary, and wanted to use a log transformation?</p>
-<p>You can find literature suggesting either transforming first and then imputing, or imputing first and then transforming. Our suggestion, following current statistical literature is to <strong>transform first, impute second</strong>.(<a href="07-multiple-imputation.html#citations">Hippel 2009</a>)</p>
+<p>You can find literature suggesting either transforming first and then imputing, or imputing first and then transforming. Our suggestion, following current statistical literature is to <strong>transform first, impute second</strong>. <span class="citation" data-cites="von2009impute">(<a href="#ref-von2009impute" role="doc-biblioref">Von Hippel 2009</a>)</span></p>
 <p>Stata technically supports the other option via <code>mi register passive</code>, but we don’t recommend it’s usage. Instead, transform your original data, then flag both the variable and its transformations as “imputed”</p>
 </section>
 </section>
@@ -372,8 +391,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Here, <code>regress</code> was used for <code>bmi</code> and <code>age</code>, and <code>logit</code> was used for <code>smokes</code>.</p>
 <section id="choosing-the-number-of-imputations" class="level4" data-number="7.2.2.1">
 <h4 data-number="7.2.2.1" class="anchored" data-anchor-id="choosing-the-number-of-imputations"><span class="header-section-number">7.2.2.1</span> Choosing the number of imputations</h4>
-<p>Classic literature has suggested you need only 5 imputations to obtain valid results. This will address the efficiency of point estimates, but not standard errors. More modern literature increases this number, with a good starting point being 200 imputations. (<a href="07-multiple-imputation.html#citations">Graham 2007</a>, <a href="07-multiple-imputation.html#citations">White et al 2011</a>)</p>
-<p>If your data set is large and the imputation is slow, a recent paper (<a href="07-multiple-imputation.html#citations">Von Hippel 2018</a>) gives a two-stage procedure to estimate the required number of imputations. This two-stage procedure first performs a small number of imputations and carries out the analysis. It then using the results of that analysis to inform a better estimate of the required sample size. You can install the user command <code>how_many_imputations</code> for details and examples</p>
+<p>Classic literature has suggested you need only 5 imputations to obtain valid results. This will address the efficiency of point estimates, but not standard errors. More modern literature increases this number, with a good starting point being 200 imputations. <span class="citation" data-cites="graham2007many white2011multiple">(<a href="#ref-graham2007many" role="doc-biblioref">Graham, Olchowski, and Gilreath 2007</a>; <a href="#ref-white2011multiple" role="doc-biblioref">White, Royston, and Wood 2011</a>)</span></p>
+<p>If your data set is large and the imputation is slow, a recent paper <span class="citation" data-cites="von2009impute">(<a href="#ref-von2009impute" role="doc-biblioref">Von Hippel 2009</a>)</span> gives a two-stage procedure to estimate the required number of imputations. This two-stage procedure first performs a small number of imputations and carries out the analysis. It then using the results of that analysis to inform a better estimate of the required sample size. You can install the user command <code>how_many_imputations</code> for details and examples</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ssc</span> install how_many_imputations</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> how_many_imputations</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
@@ -495,21 +514,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mi</span> <span class="kw">impute</span> ... [<span class="kw">pweight</span> = <span class="kw">weight</span>]</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mi</span> estimate: <span class="kw">svy</span>: <span class="kw">regress</span> ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <del>
-There has been some discussion that imputation should not take into account any complex survey design features (because you want the imputation to reflect the sample, not necessarily the population). See for example <a href="07-multiple-imputation.html#citations">Little and Vartivarian 2003</a>. If you follow this advice, simply exclude the <code>[pweight = ...]</code> part of the <code>mi impute</code> command. In either case, estimation commands still need both the <code>mi estimate: svy:</code> prefixes in that order.
+There has been some discussion that imputation should not take into account any complex survey design features (because you want the imputation to reflect the sample, not necessarily the population). See for example <span class="citation" data-cites="little2003weighting">Little and Vartivarian (<a href="#ref-little2003weighting" role="doc-biblioref">2003</a>)</span>. If you follow this advice, simply exclude the <code>[pweight = ...]</code> part of the <code>mi impute</code> command. In either case, estimation commands still need both the <code>mi estimate: svy:</code> prefixes in that order.
 </del>
-<p>The above paragraph is no longer accurate. See <a href="07-multiple-imputation.html#citations">Reist and Larsen 2012</a>. Survey weights must be used in mulitple imputations.</p>
+<p>The above paragraph is no longer accurate. See <span class="citation" data-cites="reist2012post">Reist and Larsen (<a href="#ref-reist2012post" role="doc-biblioref">2012</a>)</span>. Survey weights must be used in mulitple imputations.</p>
 </section>
-<section id="citations" class="level2" data-number="7.6">
-<h2 data-number="7.6" class="anchored" data-anchor-id="citations"><span class="header-section-number">7.6</span> Citations</h2>
-<ul>
-<li>Little, RJ, and S Vartivarian. 2003. On weighting the rates in non-response weights. Stat Med 22, no. 9: 1589-1599.</li>
-<li>Von Hippel, Paul T. “How to impute interactions, squares, and other transformed variables.” Sociological Methodology 39.1 (2009): 265-291.</li>
-<li>Reist, Benjamin M., and Michael D. Larsen. “Post-Imputation Calibration Under Rubin’s Multiple Imputation Variance Estimator.” Section on Survey Research Methods, Joint Statistical Meeting. 2012.</li>
-<li>von Hippel, Paul T. “How Many Imputations Do You Need? A Two-stage Calculation Using a Quadratic Rule.” Sociological Methods &amp; Research (2018): 0049124117747303.</li>
-<li>White, I. R., P. Royston, and A. M. Wood. 2011. “Multiple Imputation Using Chained Equations: Issues and Guidance for Practice.” Statistics in Medicine 30:377-99.</li>
-</ul>
+<section id="references" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="references"><span class="header-section-number">7.6</span> References</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-graham2007many" class="csl-entry" role="listitem">
+Graham, John W, Allison E Olchowski, and Tamika D Gilreath. 2007. <span>“How Many Imputations Are Really Needed? Some Practical Clarifications of Multiple Imputation Theory.”</span> <em>Prevention Science</em> 8: 206–13.
+</div>
+<div id="ref-little2003weighting" class="csl-entry" role="listitem">
+Little, Roderick J, and Sonya Vartivarian. 2003. <span>“On Weighting the Rates in Non-Response Weights.”</span> <em>Statistics in Medicine</em> 22 (9): 1589–99.
+</div>
+<div id="ref-reist2012post" class="csl-entry" role="listitem">
+Reist, Benjamin M, and Michael D Larsen. 2012. <span>“Post-Imputation Calibration Under Rubin’s Multiple Imputation Variance Estimator.”</span> In <em>Section on Survey Research Methods, Joint Statistical Meeting</em>.
+</div>
+<div id="ref-von2009impute" class="csl-entry" role="listitem">
+Von Hippel, Paul T. 2009. <span>“How to Impute Interactions, Squares, and Other Transformed Variables.”</span> <em>Sociological Methodology</em> 39 (1): 265–91.
+</div>
+<div id="ref-white2011multiple" class="csl-entry" role="listitem">
+White, Ian R, Patrick Royston, and Angela M Wood. 2011. <span>“Multiple Imputation Using Chained Equations: Issues and Guidance for Practice.”</span> <em>Statistics in Medicine</em> 30 (4): 377–99.
+</div>
+</div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

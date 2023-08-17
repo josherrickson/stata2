@@ -133,7 +133,7 @@ We can examine our setup with `mi describe`:
 . mi describe
 
 Style: flong
-       last mi update 17aug2023 07:47:22, 0 seconds ago
+       last mi update 17aug2023 08:49:00, 0 seconds ago
 
 Observations:
    Complete          126
@@ -165,8 +165,8 @@ salary, and wanted to use a log transformation?
 
 You can find literature suggesting either transforming first and then imputing,
 or imputing first and then transforming. Our suggestion, following current
-statistical literature is to **transform first, impute second**.([Hippel
-2009](07-multiple-imputation.html#citations))
+statistical literature is to **transform first, impute second**.
+[@von2009impute]
 
 Stata technically supports the other option via `mi register passive`, but we
 don't recommend it's usage. Instead, transform your original data, then flag
@@ -251,16 +251,14 @@ Here, `regress` was used for `bmi` and `age`, and `logit` was used for `smokes`.
 Classic literature has suggested you need only 5 imputations to obtain valid
 results. This will address the efficiency of point estimates, but not standard
 errors. More modern literature increases this number, with a good starting point
-being 200 imputations. ([Graham 2007](07-multiple-imputation.html#citations),
-[White et al 2011](07-multiple-imputation.html#citations))
+being 200 imputations. [@graham2007many; @white2011multiple]
 
-If your data set is large and the imputation is slow, a recent paper ([Von
-Hippel 2018](07-multiple-imputation.html#citations)) gives a two-stage procedure
-to estimate the required number of imputations. This two-stage procedure first
-performs a small number of imputations and carries out the analysis. It then
-using the results of that analysis to inform a better estimate of the required
-sample size. You can install the user command `how_many_imputations` for details
-and examples
+If your data set is large and the imputation is slow, a recent paper
+[@von2009impute] gives a two-stage procedure to estimate the required number of
+imputations. This two-stage procedure first performs a small number of
+imputations and carries out the analysis. It then using the results of that
+analysis to inform a better estimate of the required sample size. You can
+install the user command `how_many_imputations` for details and examples
 
 ```stata
 ssc install how_many_imputations
@@ -457,27 +455,12 @@ mi estimate: svy: regress ...
 
 <del>There has been some discussion that imputation should not take into account
 any complex survey design features (because you want the imputation to reflect
-the sample, not necessarily the population). See for example [Little and
-Vartivarian 2003](07-multiple-imputation.html#citations). If you follow this
-advice, simply exclude the `[pweight = ...]` part of the `mi impute` command. In
-either case, estimation commands still need both the `mi estimate: svy:`
-prefixes in that order.</del>
+the sample, not necessarily the population). See for example
+@little2003weighting. If you follow this advice, simply exclude the `[pweight =
+...]` part of the `mi impute` command. In either case, estimation commands still
+need both the `mi estimate: svy:` prefixes in that order.</del>
 
-The above paragraph is no longer accurate. See [Reist and Larsen
-2012](07-multiple-imputation.html#citations). Survey weights must be used in
-mulitple imputations.
+The above paragraph is no longer accurate. See @reist2012post. Survey weights
+must be used in mulitple imputations.
 
-## Citations
-
-- Little, RJ, and S Vartivarian. 2003. On weighting the rates in non-response
-  weights. Stat Med 22, no. 9: 1589-1599.
-- Von Hippel, Paul T. "How to impute interactions, squares, and other
-  transformed variables." Sociological Methodology 39.1 (2009): 265-291.
-- Reist, Benjamin M., and Michael D. Larsen. "Post-Imputation Calibration Under
-  Rubin’s Multiple Imputation Variance Estimator." Section on Survey Research
-  Methods, Joint Statistical Meeting. 2012.
-- von Hippel, Paul T. "How Many Imputations Do You Need? A Two-stage Calculation
-  Using a Quadratic Rule." Sociological Methods & Research (2018): 0049124117747303.
-- White, I. R., P. Royston, and A. M. Wood. 2011. “Multiple Imputation Using
-  Chained Equations: Issues and Guidance for Practice.” Statistics in Medicine
-  30:377-99.
+## References

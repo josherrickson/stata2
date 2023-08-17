@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -211,7 +230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test"><span class="header-section-number">3.3.1</span> Fisher’s Exact Test</a></li>
   </ul></li>
   <li><a href="#exercise-3" id="toc-exercise-3" class="nav-link" data-scroll-target="#exercise-3"><span class="header-section-number">3.4</span> Exercise 3</a></li>
-  <li><a href="#citations" id="toc-citations" class="nav-link" data-scroll-target="#citations"><span class="header-section-number">3.5</span> Citations</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">3.5</span> References</a></li>
   </ul>
 </nav>
     </div>
@@ -344,7 +363,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    Ha: <span class="fu">diff</span> &lt; 0                 Ha: <span class="fu">diff</span> != 0                 Ha: <span class="fu">diff</span> &gt; 0</span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a> Pr(T &lt; t) = 0.0017         Pr(|T| &gt; |t|) = 0.0034          Pr(T &gt; t) = 0.9983</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The unequal test is slightly more conservative, but there has been some work (e.g.&nbsp;<a href="03-univariate-analysis.html#citations">Delacre et al 2017</a>, <a href="03-univariate-analysis.html#citations">Ruxton 2006</a>) showing that you should always use the unequal version.</p>
+<p>The unequal test is slightly more conservative, but there has been some work (e.g. <span class="citation" data-cites="delacre2017psychologists">Delacre, Lakens, and Leys (<a href="#ref-delacre2017psychologists" role="doc-biblioref">2017</a>)</span>), <span class="citation" data-cites="ruxton2006unequal">Ruxton (<a href="#ref-ruxton2006unequal" role="doc-biblioref">2006</a>)</span>) showing that you should always use the unequal version.</p>
 <p>The equal variance version (the first one we ran) is known as Student’s<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> t-test, and the unequal variance version (with the <code>unequal</code> option) is known as Welch’s t-test.</p>
 <p>If you want to test whether the variance between the two groups is equal, you can use <code>sdtest</code> in a similar fashion to <code>ttest</code> (<code>sdtest mpg, by(foreign)</code>).</p>
 </section>
@@ -576,14 +595,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Take a look at a crosstab of <code>race</code> and <code>diabetes</code>. Does it look like the percentage of diabetics is the same across race? The <code>col</code> or <code>row</code> option might help here. Test this with a <span class="math inline">\(\chi^2\)</span> test.</li>
 </ol>
 </section>
-<section id="citations" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="citations"><span class="header-section-number">3.5</span> Citations</h2>
-<ul>
-<li>Delacre, Marie, Daniël Lakens, and Christophe Leys. “Why Psychologists Should by Default Use Welch’s t-test Instead of Student’s t-test.” International Review of Social Psychology 30.1 (2017).</li>
-<li>Ruxton, Graeme D. “The unequal variance t-test is an underused alternative to Student’s t-test and the Mann–Whitney U test.” Behavioral Ecology 17.4 (2006): 688-690.</li>
-</ul>
+<section id="references" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="references"><span class="header-section-number">3.5</span> References</h2>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-delacre2017psychologists" class="csl-entry" role="listitem">
+Delacre, Marie, Daniël Lakens, and Christophe Leys. 2017. <span>“Why Psychologists Should by Default Use Welch’s t-Test Instead of Student’s t-Test.”</span> <em>International Review of Social Psychology</em> 30 (1): 92–101.
+</div>
+<div id="ref-ruxton2006unequal" class="csl-entry" role="listitem">
+Ruxton, Graeme D. 2006. <span>“The Unequal Variance t-Test Is an Underused Alternative to Student’s t-Test and the Mann–Whitney u Test.”</span> <em>Behavioral Ecology</em> 17 (4): 688–90.
+</div>
+</div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
