@@ -610,7 +610,7 @@ this workshop.)
 
 Load up the NHANES data.
 
-```
+```stata
 sysuse nhanes2, clear
 ```
 1. We don't care about normality assumptions here. Why?
