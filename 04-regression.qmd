@@ -156,10 +156,10 @@ Next, the top right part has a series of measures.
 
 Finally, we get to the coefficient table. Each row represents a single
 predictor. The `_cons` row is the intercept; it's Coef. of
-   5.1138 represents the average response *when all
-other predictors are 0*. This is usually not interesting; how many cars
-weighing 0 lbs do you know of? So we'll ignore this and consider only the
-other rows. The columns are:
+   5.1138 represents the average response *when all other
+predictors are 0*. This is usually not interesting; how many cars weighing 0 lbs
+do you know of? So we'll ignore this and consider only the other rows. The
+columns are:
 
 - `Coef.`: These are the $\beta$ from the above model. We interpret each as "For
   a 1 increase in the value of the covariate with all other predictors held
