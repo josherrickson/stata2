@@ -10,3 +10,4 @@ rsconnect
 .DS_Store
 stata_markdown/*.svg
 /.quarto/
+docs
